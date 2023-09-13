@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-expense_year",
+      "2": "I-expense_year",
+      "3": "L-expense_year",
+      "4": "U-expense_year",
+      "5": "B-hardware_type",
+      "6": "I-hardware_type",
+      "7": "L-hardware_type",
+      "8": "U-hardware_type",
+      "9": "B-monitor_inches",
+      "10": "I-monitor_inches",
+      "11": "L-monitor_inches",
+      "12": "U-monitor_inches",
+      "13": "B-revenue_year",
+      "14": "I-revenue_year",
+      "15": "L-revenue_year",
+      "16": "U-revenue_year",
+      "17": "B-ticket_type",
+      "18": "I-ticket_type",
+      "19": "L-ticket_type",
+      "20": "U-ticket_type",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-expense_year": 1,
+      "I-expense_year": 2,
+      "L-expense_year": 3,
+      "U-expense_year": 4,
+      "B-hardware_type": 5,
+      "I-hardware_type": 6,
+      "L-hardware_type": 7,
+      "U-hardware_type": 8,
+      "B-monitor_inches": 9,
+      "I-monitor_inches": 10,
+      "L-monitor_inches": 11,
+      "U-monitor_inches": 12,
+      "B-revenue_year": 13,
+      "I-revenue_year": 14,
+      "L-revenue_year": 15,
+      "U-revenue_year": 16,
+      "B-ticket_type": 17,
+      "I-ticket_type": 18,
+      "L-ticket_type": 19,
+      "U-ticket_type": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]

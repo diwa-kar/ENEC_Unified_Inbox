@@ -1,0 +1,260 @@
+version: "3.1"
+
+rules:
+
+# - rule: Say goodbye anytime the user says goodbye
+#   steps:
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: greet rule
+  steps:
+  - intent: greet
+  - action: greet_action
+
+- rule: goodbye rule
+  steps:
+  - intent: goodbye
+  - action: goodbye_action
+
+- rule: testing
+  steps:
+  - intent: action_test
+  - action: action_to_test
+
+- rule: company policies
+  steps:
+  - intent: policies
+  - action: action_company_policy
+
+
+
+# ************************************* Polices rules *********************************************************
+
+- rule: Give Corporate Attire Policies when user asks for it
+  steps:
+  - intent: corporateattirepolicies
+  - action: action_corporateattirepol
+
+- rule: Give Over-time Policies when user asks for it
+  steps:
+  - intent: over-timepolicies
+  - action: action_over-timepol
+
+- rule: Give Probation Policies when user asks for it
+  steps:
+  - intent: probationpolicies
+  - action: action_probationpol
+
+- rule: Give Leave Policies when user asks for it
+  steps:
+  - intent: leavepolicies
+  - action: action_leavepol
+
+- rule: Give Travel Policies when user asks for it
+  steps:
+  - intent: travelpolicies
+  - action: action_travelpol
+
+- rule: Give Reimbursements Policy when user asks for it
+  steps:
+  - intent: ReimbursementsPolicy
+  - action: action_ReimbursementsPolicy
+
+- rule: Give Separation Policy when user asks for it
+  steps:
+  - intent: SeparationPolicy
+  - action: action_SeparationPolicy
+
+- rule: Give Office Resumption Policy when user asks for it
+  steps:
+  - intent: OfficeResumptionPolicy
+  - action: action_OfficeResumptionPolicy
+
+- rule: Give Interview Panel Policy when user asks for it
+  steps:
+  - intent: InterviewPanelPolicy
+  - action: action_InterviewPanelPolicy
+
+- rule: Give WFH Policy when user asks for it
+  steps:
+  - intent: WFHPolicy
+  - action: action_WFHPolicy
+
+- rule: Give Appraisal Policy when user asks for it
+  steps:
+  - intent: AppraisalPolicy
+  - action: action_AppraisalPolicy
+
+- rule: Give Certification Policy when user asks for it
+  steps:
+  - intent: CertificationPolicy
+  - action: action_CertificationPolicy
+
+- rule: Give Deputation Policy when user asks for it
+  steps:
+  - intent: DeputationPolicy
+  - action: action_DeputationPolicy
+
+- rule: Give addl billing hours Policies when user asks for it
+  steps:
+  - intent: addlbillinghourspolicies
+  - action: action_addlbillinghrspol
+
+- rule: Give expense mgmt system policies when user asks for it
+  steps:
+  - intent: expensemgmtsystempolicies
+  - action: action_expensemgmtsystem
+
+- rule: Give FTF Buckets Policy when user asks for it
+  steps:
+  - intent: FTFBucketsPolicy
+  - action: action_ftfbucketspolicy
+
+- rule: Give Internal Complaints Committee Policy when user asks for it
+  steps:
+  - intent: InternalComplaintsCommitteePolicy
+  - action: action_InternalComplaintsCommitteePolicy
+
+- rule: Give Training Policy when user asks for it
+  steps:
+  - intent: TrainingPolicy
+  - action: action_TrainingPolicy
+
+- rule: Give WorkingHoursPolicy when user asks for it
+  steps:
+  - intent: WorkingHoursPolicy
+  - action: action_WorkingHoursPolicy
+
+- rule: Give EmployeeSoftLoan Policies when user asks for it
+  steps:
+  - intent: EmployeeSoftLoanPolicy
+  - action: action_EmployeeSoftLoanPolicy
+
+- rule: Give LaptopDamagePolicy when user asks for it
+  steps:
+  - intent: LaptopDamagePolicy
+  - action: action_LaptopDamagePolicy
+
+- rule: Give OddHourCommutePolicy when user asks for it
+  steps:
+  - intent: OddHourCommutePolicy
+  - action: action_OddHourCommutePolicy
+
+- rule: Give PerformanceAppraisalPolicy when user asks for it
+  steps:
+  - intent: PerformanceAppraisalPolicy
+  - action: action_PerformanceAppraisalPolicy
+
+- rule: Give RewardsandRecognitionPolicy when user asks for it
+  steps:
+  - intent: RewardsandRecognitionPolicy
+  - action: action_RewardsandRecognitionPolicy
+
+- rule: Give RemoteworkingPolicy when user asks for it
+  steps:
+  - intent: RemoteworkingPolicy
+  - action: action_RemoteworkingPolicy
+
+- rule: Give TimesheetPolicy when user asks for it
+  steps:
+  - intent: TimesheetPolicy
+  - action: action_TimesheetPolicy
+# ************************************* Polices rules *********************************************************
+
+
+# ******************************************** ENEC ticket raising ********************************************************************************************
+- rule: ENEC ticket raise intent 
+  steps:
+  - intent: ENEC_ticket_raise_intent
+  - action: ENEC_ticket_raise_action
+
+
+- rule: ENEC ticket raise intent for monitor 
+  steps:
+  - intent: ENEC_ticket_raise_monitor_intent
+  - action: ENEC_ticket_raise_monitor_action
+
+# ******************************************** ENEC ticket raising ***************************************************************
+
+
+# *********************************************revenue and expense by the year******************************************
+
+- rule: getting the revenue for particular year
+  steps:
+  - intent: revenue_by_year
+  - action: revenue_by_year_action
+
+- rule: getting the expense for particular year
+  steps:
+  - intent: expense_by_year
+  - action: expense_by_year_action
+
+
+# *********************************************revenue and expense by the year******************************************
+
+
+
+# *********************************************expense by category******************************************
+- rule: marketing expense by year rule
+  steps:
+  - intent: Marketing_expense_intent
+  - action: Marketing_expense_action
+
+- rule: marketing expense by year rule
+  steps:
+  - intent: Operational_expense_intent
+  - action: Operational_expense_action
+
+- rule: research expense by year rule
+  steps:
+  - intent: Research_expense_intent
+  - action: Research_expense_action
+
+- rule: capital expense by year rule
+  steps:
+  - intent: Capital_expense_intent
+  - action: Capital_expense_action
+
+- rule: Taxe expense by year rule
+  steps:
+  - intent: Taxes_expense_intent
+  - action: Taxes_expense_action
+
+
+# *********************************************expense by category******************************************
+
+
+# ************************************* revenue by category *******************************************
+
+- rule: contracts revenue by year 
+  steps:
+  - intent: Contracts_revenue_intent
+  - action: Contracts_revenue_action
+
+- rule: Subscription revenue by year 
+  steps:
+  - intent: Subscriptions_revenue_intent
+  - action: Subscriptions_revenue_action
+
+- rule: commisions revenue by year 
+  steps:
+  - intent: Commisions_revenue_intent
+  - action: Commisions_revenue_action
+
+- rule: Sales of products revenue by year 
+  steps:
+  - intent: Sales_of_Products_intent
+  - action: Sales_of_Products_action
+
+- rule: Consulting revenue by year 
+  steps:
+  - intent: Consulting_revenue_intent
+  - action: Consulting_revenue_action
+
+# ************************************* revenue by category *******************************************

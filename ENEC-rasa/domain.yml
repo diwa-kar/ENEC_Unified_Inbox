@@ -1,0 +1,324 @@
+version: "3.1"
+
+intents:
+
+  - greet
+  - goodbye
+  - action_test
+  - policies
+
+  - corporateattirepolicies
+  - over-timepolicies
+  - probationpolicies
+  - leavepolicies
+  - travelpolicies
+  - addlbillinghourspolicies
+  - expensemgmtsystempolicies
+  - FTFBucketsPolicy
+  - InternalComplaintsCommitteePolicy
+  - ReimbursementsPolicy
+  - SeparationPolicy
+  - OfficeResumptionPolicy
+  - InterviewPanelPolicy
+  - WFHPolicy
+  - AppraisalPolicy
+  - CertificationPolicy
+  - DeputationPolicy
+  - TrainingPolicy
+  - WorkingHoursPolicy
+  - EmployeeSoftLoanPolicy
+  - LaptopDamagePolicy
+  - OddHourCommutePolicy
+  - PerformanceAppraisalPolicy
+  - RewardsandRecognitionPolicy
+  - RemoteworkingPolicy
+  - TimesheetPolicy
+
+  - ENEC_ticket_raise_intent
+  - ENEC_ticket_raise_monitor_intent
+
+  - revenue_by_year
+  - expense_by_year
+
+
+  - Contracts_revenue_intent
+  - Subscriptions_revenue_intent
+  - Commisions_revenue_intent
+  - Sales_of_Products_intent
+  - Consulting_revenue_intent
+
+
+  - Marketing_expense_intent
+  - Operational_expense_intent
+  - Research_expense_intent
+  - Capital_expense_intent
+  - Taxes_expense_intent
+
+actions:
+
+  - action_to_test
+  - greet_action
+  - goodbye_action
+  - action_company_policy
+
+  - action_corporateattirepol
+  - action_over-timepol
+  - action_probationpol
+  - action_leavepol
+  - action_travelpol
+  - action_addlbillinghrspol
+  - action_expensemgmtsystem
+  - action_ftfbucketspolicy
+  - action_InternalComplaintsCommitteePolicy
+  - action_ReimbursementsPolicy
+  - action_SeparationPolicy
+  - action_OfficeResumptionPolicy
+  - action_InterviewPanelPolicy
+  - action_WFHPolicy
+  - action_AppraisalPolicy
+  - action_CertificationPolicy
+  - action_DeputationPolicy
+  - action_TrainingPolicy
+  - action_WorkingHoursPolicy
+  - action_EmployeeSoftLoanPolicy
+  - action_LaptopDamagePolicy
+  - action_OddHourCommutePolicy
+  - action_PerformanceAppraisalPolicy
+  - action_RewardsandRecognitionPolicy
+  - action_RemoteworkingPolicy
+  - action_TimesheetPolicy
+
+  - ENEC_ticket_raise_action
+  - ENEC_ticket_raise_monitor_action
+
+
+  - revenue_by_year_action
+  - expense_by_year_action
+
+
+  - Contracts_revenue_action
+  - Subscriptions_revenue_action
+  - Commisions_revenue_action
+  - Sales_of_Products_action
+  - Consulting_revenue_action
+
+
+  - Marketing_expense_action
+  - Operational_expense_action
+  - Research_expense_action
+  - Capital_expense_action
+  - Taxes_expense_action
+
+
+
+
+entities:
+
+  - ticket_type:
+      type: text
+  - hardware_type:
+      type: text
+  - monitor_inches:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+  # **************************************** revenue for the year entity ************************************************
+
+  - revenue_year:
+      type: regex
+      pattern: "[0-9]{8}"
+  - expense_year:
+      type: regex
+      pattern: "[0-9]{8}"
+
+
+  # **************************************** revenue for the year entity ************************************************
+
+
+  # **************************************** revenue and expense category entities **************************************
+
+  - contracts_revenue:
+      type: text
+      regex: '[A-Za-z]+'
+  - subscription_revenue:
+      type: text
+      regex: '[A-Za-z]+'
+  - commision_revenue:
+      type: text
+      regex: '[A-Za-z]+'
+  - sales_revenue:
+      type: text
+      regex: '[A-Za-z]+'
+  - consulting_revenue:
+      type: text
+      regex: '[A-Za-z]+'
+
+
+
+  - marketing_expense:
+      type: text
+      regex: '[A-Za-z]+'
+  - operation_expense:
+      type: text
+      regex: '[A-Za-z]+'
+  - research_expense:
+      type: text
+      regex: '[A-Za-z]+'
+  - capital_expense:
+      type: text
+      regex: '[A-Za-z]+'
+  - tax_expense:
+      type: text
+      regex: '[A-Za-z]+'
+
+
+
+  # **************************************** revenue and expense category entities **************************************
+
+
+
+
+
+slots:
+
+  # ****************************************** Slots for raising ticket form ***************************************
+  ticket_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: ticket_type
+  
+  hardware_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: hardware_type
+
+  monitor_inches:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: monitor_inches
+
+# ****************************************** Slots for raising ticket form ***************************************
+
+# ****************************************** Slots for revenue and expense by year ***************************************
+  revenue_year:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: revenue_year
+
+  expense_year:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: expense_year
+
+# ****************************************** Slots for revenue and expense by year ***************************************
+
+
+# ****************************************** Slots for revenue subcategory  ***************************************
+
+  contracts_revenue:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: contracts_revenue
+
+  subscription_revenue:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: subscription_revenue
+
+  sales_revenue:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: sales_revenue
+  
+  commision_revenue:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: commision_revenue
+  
+  consulting_revenue:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: consulting_revenue
+
+# ****************************************** Slots for revenue subcategory  ***************************************
+
+# ****************************************** Slots for expense subcategory  ***************************************
+
+  marketing_expense:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: marketing_expense
+  operation_expense:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: operation_expense
+  research_expense:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: research_expense
+  capital_expense:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: capital_expense
+  tax_expense:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: tax_expense
+
+#  ******************************************* slots for expense subcatefory ********************************************************
+
+
+responses:
+
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
