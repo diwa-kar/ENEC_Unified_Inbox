@@ -66,6 +66,14 @@ intents:
   - Leave_balance_intent
 
 
+  - Leave_Request_SF
+  - Accept_Leave_Request_SF_intent
+
+  - Reject_Leave_Request_SF_intent
+
+  - Leave_Request_SF_Details_intent
+
+
 actions:
 
   - action_to_test
@@ -129,6 +137,14 @@ actions:
   - Expense_linechart_action
 
   - Leave_balance_action 
+
+
+  - Leave_Request_SF_action
+  - Accept_Leave_Request_SF_action
+
+  - Reject_Leave_Request_SF_action
+
+  - Leave_Request_SF_Details_action
 
 
 
@@ -195,6 +211,15 @@ entities:
 
 
   # **************************************** revenue and expense category entities **************************************
+
+  # ******************************************* entity for SF request ***************************************************
+
+  - WfRequestId:
+      type: text
+
+
+  # ******************************************* entity for SF request ***************************************************
+
 
 
 
@@ -317,6 +342,19 @@ slots:
       entity: tax_expense
 
 #  ******************************************* slots for expense subcatefory ********************************************************
+
+
+  # ****************************************** slot accepting pending leave from SF *****************************************************
+
+  WfRequestId:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: WfRequestId
+
+
+  # ****************************************** slot accepting pending leave from SF *****************************************************
 
 
 responses:

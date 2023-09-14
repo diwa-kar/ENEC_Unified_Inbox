@@ -308,3 +308,44 @@ rules:
   - action: Leave_balance_action
 
 # ************************************* Leave balance *******************************************
+
+
+
+
+# ****************************************** fetching pending leave request form SF ******************************************
+
+- rule: Fetch leave request from SF
+  steps:
+  - intent: Leave_Request_SF
+  - action: Leave_Request_SF_action
+
+# ****************************************** fetching pending leave request form SF ******************************************
+
+# ****************************************** accepting pending leave from SF *****************************************************
+
+- rule: Accept leave request from sf
+  steps:
+  - intent: Accept_Leave_Request_SF_intent
+  - action: Accept_Leave_Request_SF_action
+
+# ****************************************** accepting pending leave from SF *****************************************************
+
+# ****************************************** reject leave from SF ****************************************************
+
+- rule: Reject leave request from sf
+  steps:
+  - intent: Reject_Leave_Request_SF_intent
+  - action: Reject_Leave_Request_SF_action
+
+
+# ****************************************** reject leave from SF ****************************************************
+
+# ****************************************** fetching pending leave request Details ******************************************
+
+- rule: fetching leave details from SF
+  steps:
+  - intent: Leave_Request_SF_Details_intent
+  - action: Leave_Request_SF_Details_action
+
+
+# ****************************************** fetching pending leave request Details ******************************************
