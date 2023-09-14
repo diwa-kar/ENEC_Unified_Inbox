@@ -54,6 +54,18 @@ intents:
   - Capital_expense_intent
   - Taxes_expense_intent
 
+
+  - revenuesplit_by_year_intent
+  - expensesplit_by_year_intent
+
+
+  - Revenue_linechart_intent
+  - Expense_linechart_intent
+
+
+  - Leave_balance_intent
+
+
 actions:
 
   - action_to_test
@@ -108,6 +120,15 @@ actions:
   - Research_expense_action
   - Capital_expense_action
   - Taxes_expense_action
+
+
+  - revenuesplit_by_year_action
+  - expensesplit_by_year_action
+
+  - Revenue_linechart_action
+  - Expense_linechart_action
+
+  - Leave_balance_action 
 
 
 

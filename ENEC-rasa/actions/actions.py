@@ -1467,3 +1467,198 @@ class ConsultingRevenueByYear(Action):
         return []
     
 # ************************************** revenue category *******************************************************
+
+
+
+
+# ************************************** revenue and expense splitup *******************************************************
+
+class RevenueSplitByYear(Action):
+    def name(self) -> Text:
+        return "revenuesplit_by_year_action"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        revenue_year = tracker.get_slot("revenue_year")
+
+        db = client["FinancialDetails"]
+
+        collection = db["Revenue"]
+        # expense_list = collection.find_one({"2018":50000 })
+        # print(expense_list)t
+        a = collection.find()
+        revenue_split = {}
+        for i in a:
+            revenue_split[i["Categories"]] = i[f"{revenue_year}"]
+        print(revenue_split)
+
+        send = {
+            "msg": f"Revenue split for the year {revenue_year}",
+            "pie": revenue_split,
+        }
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+class ExpenseSplitByYear(Action):
+    def name(self) -> Text:
+        return "expensesplit_by_year_action"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        expense_year = tracker.get_slot("expense_year")
+
+        db = client["FinancialDetails"]
+
+        collection = db["Expenses"]
+        # expense_list = collection.find_one({"2018":50000 })
+        # print(expense_list)t
+        a = collection.find()
+        exp_split = {}
+        for i in a:
+            exp_split[i["Categories"]] = i[f"{expense_year}"]
+        print(exp_split)
+
+        send = {"msg": f"Expense split for the Year {expense_year}", "pie": exp_split}
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+# ************************************** revenue and expense splitup *******************************************************
+
+
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+class RevenueOverTheYears(Action):
+
+    def name(self) -> Text:
+        return "Revenue_linechart_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        db = client["FinancialDetails"]
+        
+        collection = db["Revenue"]
+        # a = collection.find()
+
+
+        start_year=2018
+        end_year=2022
+        year_list=[str(year) for year in range(start_year, end_year + 1)]
+        total_revenue={}
+        for i in range(0,len(year_list)):
+            year=year_list[i]
+            revenue=0
+            a = collection.find()
+            for j in a:
+                revenue+=j[year]
+        
+            total_revenue[year]=revenue
+        print(total_revenue)
+
+        # print(f"Im inside revenue over the years action  \n {total_revenue}")
+
+        send = { "line":{
+                                "title": "Revenue Over the Years",
+                                "name": "Revenue",
+        "xlabel": "Year",
+        "data": total_revenue,
+        } }
+        
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+# **************************************Expense over the years line chart  *****************************************************
+
+class ExpenseOverTheYears(Action):
+
+    def name(self) -> Text:
+        return "Expense_linechart_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        db = client["FinancialDetails"]
+        
+
+        collection = db["Expenses"]
+        
+        start_year=2018
+        end_year=2022
+
+        year_list=[str(year) for year in range(start_year, end_year + 1)]
+
+        total_expense={}
+
+        for i in range(0,len(year_list)):
+            year=year_list[i]
+            expense=0
+            a = collection.find()
+            for j in a:
+                expense+=j[year]
+        
+            total_expense[year]=expense
+        print(total_expense)
+
+    
+        
+        send = { "line":{
+                                "title": "Expenses over the years",
+                                "name": "Expense",
+        "xlabel": "Year",
+        "data": total_expense,
+        } }
+
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+# **************************************Expense over the years line chart  *****************************************************
+
+
+# ************************************** Leave balance  ********************************************************************
+class LeaveBalance(Action):
+    def name(self) -> Text:
+        return "Leave_balance_action"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        
+        db = client["QPMC_RasaChatbot"]
+
+        collection = db["Leave"]
+        a = collection.find()
+        leave_balance = {}
+        for i in a:
+            leave_balance[i["Leave Type"]] = i["NoofDays"]
+        print(leave_balance)
+        send = {"msg": "The available leaves are", "donut": leave_balance}
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+# ************************************** Leave balance  ********************************************************************

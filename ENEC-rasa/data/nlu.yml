@@ -5217,3 +5217,683 @@ nlu:
     - [taxes](tax_expense) YR [2019](expense_year) 
 
 # *********************************************expense by category******************************************
+
+
+# **************************************Revenue split by year ******************************************************
+
+- intent: revenuesplit_by_year_intent
+  examples: |
+    - give me the revenue split up for the year [2019](revenue_year)
+    - revenue split up [2019](revenue_year)
+    - give me the revenue split up for the year [2019](revenue_year)
+    - revenue split up for the year [2019](revenue_year)
+    - revenue split up of the year [2019](revenue_year)
+    - what is the revenue split up for the year [2019](revenue_year)
+    - revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) revenue split up
+    - give me the revenue split up for the yr [2019](revenue_year)
+    - revenue split up for the yr [2019](revenue_year)
+    - revenue split up of the yr [2019](revenue_year)
+    - what is the revenue split up for the yr [2019](revenue_year)
+    - revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) revenue split up
+    - give me the revenue split up for the Year [2019](revenue_year)
+    - revenue split up for the Year [2019](revenue_year)
+    - revenue split up of the Year [2019](revenue_year)
+    - what is the revenue split up for the Year [2019](revenue_year)
+    - revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) revenue split up
+    - give me the revenue split up for the YR [2019](revenue_year)
+    - revenue split up for the YR [2019](revenue_year)
+    - revenue split up of the YR [2019](revenue_year)
+    - what is the revenue split up for the YR [2019](revenue_year)
+    - revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) revenue split up
+    - give me the Revenue split up for the year [2019](revenue_year)
+    - Revenue split up for the year [2019](revenue_year)
+    - Revenue split up of the year [2019](revenue_year)
+    - what is the Revenue split up for the year [2019](revenue_year)
+    - Revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) Revenue split up
+    - give me the Revenue split up for the yr [2019](revenue_year)
+    - Revenue split up for the yr [2019](revenue_year)
+    - Revenue split up of the yr [2019](revenue_year)
+    - what is the Revenue split up for the yr [2019](revenue_year)
+    - Revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) Revenue split up
+    - give me the Revenue split up for the Year [2019](revenue_year)
+    - Revenue split up for the Year [2019](revenue_year)
+    - Revenue split up of the Year [2019](revenue_year)
+    - what is the Revenue split up for the Year [2019](revenue_year)
+    - Revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) Revenue split up
+    - give me the Revenue split up for the YR [2019](revenue_year)
+    - Revenue split up for the YR [2019](revenue_year)
+    - Revenue split up of the YR [2019](revenue_year)
+    - what is the Revenue split up for the YR [2019](revenue_year)
+    - Revenue split up of [2019](revenue_year)
+    - [2019](revenue_year) Revenue split up
+    - give me the rev split for the year [2019](revenue_year)
+    - rev split for the year [2019](revenue_year)
+    - rev split of the year [2019](revenue_year)
+    - what is the rev split for the year [2019](revenue_year)
+    - rev split of [2019](revenue_year)
+    - [2019](revenue_year) rev split
+    - give me the rev split for the yr [2019](revenue_year)
+    - rev split for the yr [2019](revenue_year)
+    - rev split of the yr [2019](revenue_year)
+    - what is the rev split for the yr [2019](revenue_year)
+    - rev split of [2019](revenue_year)
+    - [2019](revenue_year) rev split
+    - give me the rev split for the Year [2019](revenue_year)
+    - rev split for the Year [2019](revenue_year)
+    - rev split of the Year [2019](revenue_year)
+    - what is the rev split for the Year [2019](revenue_year)
+    - rev split of [2019](revenue_year)
+    - [2019](revenue_year) rev split
+    - give me the rev split for the YR [2019](revenue_year)
+    - rev split for the YR [2019](revenue_year)
+    - rev split of the YR [2019](revenue_year)
+    - what is the rev split for the YR [2019](revenue_year)
+    - rev split of [2019](revenue_year)
+    - [2019](revenue_year) rev split
+    - give me the revnu splt up for the year [2019](revenue_year)
+    - revnu splt up for the year [2019](revenue_year)
+    - revnu splt up of the year [2019](revenue_year)
+    - what is the revnu splt up for the year [2019](revenue_year)
+    - revnu splt up of [2019](revenue_year)
+    - [2019](revenue_year) revnu splt up
+    - give me the revnu splt up for the yr [2019](revenue_year)
+    - revnu splt up for the yr [2019](revenue_year)
+    - revnu splt up of the yr [2019](revenue_year)
+    - what is the revnu splt up for the yr [2019](revenue_year)
+    - revnu splt up of [2019](revenue_year)
+    - [2019](revenue_year) revnu splt up
+    - give me the revnu splt up for the Year [2019](revenue_year)
+    - revnu splt up for the Year [2019](revenue_year)
+    - revnu splt up of the Year [2019](revenue_year)
+    - what is the revnu splt up for the Year [2019](revenue_year)
+    - revnu splt up of [2019](revenue_year)
+    - [2019](revenue_year) revnu splt up
+    - give me the revnu splt up for the YR [2019](revenue_year)
+    - revnu splt up for the YR [2019](revenue_year)
+    - revnu splt up of the YR [2019](revenue_year)
+    - what is the revnu splt up for the YR [2019](revenue_year)
+    - revnu splt up of [2019](revenue_year)
+    - [2019](revenue_year) revnu splt up
+    - give me the rvnu split for the year [2019](revenue_year)
+    - rvnu split for the year [2019](revenue_year)
+    - rvnu split of the year [2019](revenue_year)
+    - what is the rvnu split for the year [2019](revenue_year)
+    - rvnu split of [2019](revenue_year)
+    - [2019](revenue_year) rvnu split
+    - give me the rvnu split for the yr [2019](revenue_year)
+    - rvnu split for the yr [2019](revenue_year)
+    - rvnu split of the yr [2019](revenue_year)
+    - what is the rvnu split for the yr [2019](revenue_year)
+    - rvnu split of [2019](revenue_year)
+    - [2019](revenue_year) rvnu split
+    - give me the rvnu split for the Year [2019](revenue_year)
+    - rvnu split for the Year [2019](revenue_year)
+    - rvnu split of the Year [2019](revenue_year)
+    - what is the rvnu split for the Year [2019](revenue_year)
+    - rvnu split of [2019](revenue_year)
+    - [2019](revenue_year) rvnu split
+    - give me the rvnu split for the YR [2019](revenue_year)
+    - rvnu split for the YR [2019](revenue_year)
+    - rvnu split of the YR [2019](revenue_year)
+    - what is the rvnu split for the YR [2019](revenue_year)
+    - rvnu split of [2019](revenue_year)
+    - [2019](revenue_year) rvnu split
+    - give me the revneu split up for the year [2019](revenue_year)
+    - revneu split up for the year [2019](revenue_year)
+    - revneu split up of the year [2019](revenue_year)
+    - what is the revneu split up for the year [2019](revenue_year)
+    - revneu split up of [2019](revenue_year)
+    - [2019](revenue_year) revneu split up
+    - give me the revneu split up for the yr [2019](revenue_year)
+    - revneu split up for the yr [2019](revenue_year)
+    - revneu split up of the yr [2019](revenue_year)
+    - what is the revneu split up for the yr [2019](revenue_year)
+    - revneu split up of [2019](revenue_year)
+    - [2019](revenue_year) revneu split up
+    - give me the revneu split up for the Year [2019](revenue_year)
+    - revneu split up for the Year [2019](revenue_year)
+    - revneu split up of the Year [2019](revenue_year)
+    - what is the revneu split up for the Year [2019](revenue_year)
+    - revneu split up of [2019](revenue_year)
+    - [2019](revenue_year) revneu split up
+    - give me the revneu split up for the YR [2019](revenue_year)
+    - revneu split up for the YR [2019](revenue_year)
+    - revneu split up of the YR [2019](revenue_year)
+    - what is the revneu split up for the YR [2019](revenue_year)
+    - revneu split up of [2019](revenue_year)
+    - [2019](revenue_year) revneu split up
+
+# **************************************Revenue split by year *****************************************************
+
+
+# **************************************Expense split by year *****************************************************
+
+- intent: expensesplit_by_year_intent
+  examples: |
+    - give me the expense split up for the year [2019](expense_year)
+    - expense split up [2019](expense_year)
+    - give me the expense split up for the year [2019](expense_year)
+    - expense split up for the year [2019](expense_year)
+    - expense split up of the year [2019](expense_year)
+    - what is the expense split up for the year [2019](expense_year)
+    - expense split up of [2019](expense_year)
+    - [2019](expense_year) expense split up
+    - give me the expense split up for the yr [2019](expense_year)
+    - expense split up for the yr [2019](expense_year)
+    - expense split up of the yr [2019](expense_year)
+    - what is the expense split up for the yr [2019](expense_year)
+    - expense split up of [2019](expense_year)
+    - [2019](expense_year) expense split up
+    - give me the expense split up for the Year [2019](expense_year)
+    - expense split up for the Year [2019](expense_year)
+    - expense split up of the Year [2019](expense_year)
+    - what is the expense split up for the Year [2019](expense_year)
+    - expense split up of [2019](expense_year)
+    - [2019](expense_year) expense split up
+    - give me the expense split up for the YR [2019](expense_year)
+    - expense split up for the YR [2019](expense_year)
+    - expense split up of the YR [2019](expense_year)
+    - what is the expense split up for the YR [2019](expense_year)
+    - expense split up of [2019](expense_year)
+    - [2019](expense_year) expense split up
+    - give me the exp split for the year [2019](expense_year)
+    - exp split for the year [2019](expense_year)
+    - exp split of the year [2019](expense_year)
+    - what is the exp split for the year [2019](expense_year)
+    - exp split of [2019](expense_year)
+    - [2019](expense_year) exp split
+    - give me the exp split for the yr [2019](expense_year)
+    - exp split for the yr [2019](expense_year)
+    - exp split of the yr [2019](expense_year)
+    - what is the exp split for the yr [2019](expense_year)
+    - exp split of [2019](expense_year)
+    - [2019](expense_year) exp split
+    - give me the exp split for the Year [2019](expense_year)
+    - exp split for the Year [2019](expense_year)
+    - exp split of the Year [2019](expense_year)
+    - what is the exp split for the Year [2019](expense_year)
+    - exp split of [2019](expense_year)
+    - [2019](expense_year) exp split
+    - give me the exp split for the YR [2019](expense_year)
+    - exp split for the YR [2019](expense_year)
+    - exp split of the YR [2019](expense_year)
+    - what is the exp split for the YR [2019](expense_year)
+    - exp split of [2019](expense_year)
+    - [2019](expense_year) exp split
+    - give me the expnse splt up for the year [2019](expense_year)
+    - expnse splt up for the year [2019](expense_year)
+    - expnse splt up of the year [2019](expense_year)
+    - what is the expnse splt up for the year [2019](expense_year)
+    - expnse splt up of [2019](expense_year)
+    - [2019](expense_year) expnse splt up
+    - give me the expnse splt up for the yr [2019](expense_year)
+    - expnse splt up for the yr [2019](expense_year)
+    - expnse splt up of the yr [2019](expense_year)
+    - what is the expnse splt up for the yr [2019](expense_year)
+    - expnse splt up of [2019](expense_year)
+    - [2019](expense_year) expnse splt up
+    - give me the expnse splt up for the Year [2019](expense_year)
+    - expnse splt up for the Year [2019](expense_year)
+    - expnse splt up of the Year [2019](expense_year)
+    - what is the expnse splt up for the Year [2019](expense_year)
+    - expnse splt up of [2019](expense_year)
+    - [2019](expense_year) expnse splt up
+    - give me the expnse splt up for the YR [2019](expense_year)
+    - expnse splt up for the YR [2019](expense_year)
+    - expnse splt up of the YR [2019](expense_year)
+    - what is the expnse splt up for the YR [2019](expense_year)
+    - expnse splt up of [2019](expense_year)
+    - [2019](expense_year) expnse splt up
+    - give me the expnce splt for the year [2019](expense_year)
+    - expnce splt for the year [2019](expense_year)
+    - expnce splt of the year [2019](expense_year)
+    - what is the expnce splt for the year [2019](expense_year)
+    - expnce splt of [2019](expense_year)
+    - [2019](expense_year) expnce splt
+    - give me the expnce splt for the yr [2019](expense_year)
+    - expnce splt for the yr [2019](expense_year)
+    - expnce splt of the yr [2019](expense_year)
+    - what is the expnce splt for the yr [2019](expense_year)
+    - expnce splt of [2019](expense_year)
+    - [2019](expense_year) expnce splt
+    - give me the expnce splt for the Year [2019](expense_year)
+    - expnce splt for the Year [2019](expense_year)
+    - expnce splt of the Year [2019](expense_year)
+    - what is the expnce splt for the Year [2019](expense_year)
+    - expnce splt of [2019](expense_year)
+    - [2019](expense_year) expnce splt
+    - give me the expnce splt for the YR [2019](expense_year)
+    - expnce splt for the YR [2019](expense_year)
+    - expnce splt of the YR [2019](expense_year)
+    - what is the expnce splt for the YR [2019](expense_year)
+    - expnce splt of [2019](expense_year)
+    - [2019](expense_year) expnce splt
+    - give me the Expense split up for the year [2019](expense_year)
+    - Expense split up for the year [2019](expense_year)
+    - Expense split up of the year [2019](expense_year)
+    - what is the Expense split up for the year [2019](expense_year)
+    - Expense split up of [2019](expense_year)
+    - [2019](expense_year) Expense split up
+    - give me the Expense split up for the yr [2019](expense_year)
+    - Expense split up for the yr [2019](expense_year)
+    - Expense split up of the yr [2019](expense_year)
+    - what is the Expense split up for the yr [2019](expense_year)
+    - Expense split up of [2019](expense_year)
+    - [2019](expense_year) Expense split up
+    - give me the Expense split up for the Year [2019](expense_year)
+    - Expense split up for the Year [2019](expense_year)
+    - Expense split up of the Year [2019](expense_year)
+    - what is the Expense split up for the Year [2019](expense_year)
+    - Expense split up of [2019](expense_year)
+    - [2019](expense_year) Expense split up
+    - give me the Expense split up for the YR [2019](expense_year)
+    - Expense split up for the YR [2019](expense_year)
+    - Expense split up of the YR [2019](expense_year)
+    - what is the Expense split up for the YR [2019](expense_year)
+    - Expense split up of [2019](expense_year)
+    - [2019](expense_year) Expense split up
+    - give me the Expence Split up for the year [2019](expense_year)
+    - Expence Split up for the year [2019](expense_year)
+    - Expence Split up of the year [2019](expense_year)
+    - what is the Expence Split up for the year [2019](expense_year)
+    - Expence Split up of [2019](expense_year)
+    - [2019](expense_year) Expence Split up
+    - give me the Expence Split up for the yr [2019](expense_year)
+    - Expence Split up for the yr [2019](expense_year)
+    - Expence Split up of the yr [2019](expense_year)
+    - what is the Expence Split up for the yr [2019](expense_year)
+    - Expence Split up of [2019](expense_year)
+    - [2019](expense_year) Expence Split up
+    - give me the Expence Split up for the Year [2019](expense_year)
+    - Expence Split up for the Year [2019](expense_year)
+    - Expence Split up of the Year [2019](expense_year)
+    - what is the Expence Split up for the Year [2019](expense_year)
+    - Expence Split up of [2019](expense_year)
+    - [2019](expense_year) Expence Split up
+    - give me the Expence Split up for the YR [2019](expense_year)
+    - Expence Split up for the YR [2019](expense_year)
+    - Expence Split up of the YR [2019](expense_year)
+    - what is the Expence Split up for the YR [2019](expense_year)
+    - Expence Split up of [2019](expense_year)
+    - [2019](expense_year) Expence Split up
+    - give me the Expn split for the year [2019](expense_year)
+    - Expn split for the year [2019](expense_year)
+    - Expn split of the year [2019](expense_year)
+    - what is the Expn split for the year [2019](expense_year)
+    - Expn split of [2019](expense_year)
+    - [2019](expense_year) Expn split
+    - give me the Expn split for the yr [2019](expense_year)
+    - Expn split for the yr [2019](expense_year)
+    - Expn split of the yr [2019](expense_year)
+    - what is the Expn split for the yr [2019](expense_year)
+    - Expn split of [2019](expense_year)
+    - [2019](expense_year) Expn split
+    - give me the Expn split for the Year [2019](expense_year)
+    - Expn split for the Year [2019](expense_year)
+    - Expn split of the Year [2019](expense_year)
+    - what is the Expn split for the Year [2019](expense_year)
+    - Expn split of [2019](expense_year)
+    - [2019](expense_year) Expn split
+    - give me the Expn split for the YR [2019](expense_year)
+    - Expn split for the YR [2019](expense_year)
+    - Expn split of the YR [2019](expense_year)
+    - what is the Expn split for the YR [2019](expense_year)
+    - Expn split of [2019](expense_year)
+    - [2019](expense_year) Expn split
+
+
+# **************************************Expense split by year *****************************************************
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+- intent: Revenue_linechart_intent
+  examples: |
+    - What is my overall revenue
+    - What is my overall revenue growth?
+    - what is revenue over the years
+    - my revenue so far
+    - overall revenue
+    - show me the overall revenue
+    - can please fetch me the overall revenue
+    - What is the overall revenue
+    - What is the overall revenue growth?
+    - show me overall revenue
+    - show me overall revenue growth
+    - overall comparision of revenue
+    - could you compare the overall revenue
+    - show me the overall revenue statistics
+    - show me overall rev
+    - show me overall rev growth
+    - overall comparision of rev
+    - could you compare the overall rev
+    - show me the overall rev statistics
+    - show me overall rvnue
+    - show me overall rvnue growth
+    - overall comparision of rvnue
+    - could you compare the overall rvnue
+    - show me the overall rvnue statistics
+    - show me overall revnue
+    - show me overall revnue growth
+    - overall comparision of revnue
+    - could you compare the overall revnue
+    - show me the overall revnue statistics
+    - show me overall revenu
+    - show me overall revenu growth
+    - overall comparision of revenu
+    - could you compare the overall revenu
+    - show me the overall revenu statistics
+    - show me overal revenue
+    - show me overal revenue growth
+    - overal comparision of revenue
+    - could you compare the overal revenue
+    - show me the overal revenue statistics
+    - show me overal rev
+    - show me overal rev growth
+    - overal comparision of rev
+    - could you compare the overal rev
+    - show me the overal rev statistics
+    - show me overal rvnue
+    - show me overal rvnue growth
+    - overal comparision of rvnue
+    - could you compare the overal rvnue
+    - show me the overal rvnue statistics
+    - show me overal revnue
+    - show me overal revnue growth
+    - overal comparision of revnue
+    - could you compare the overal revnue
+    - show me the overal revnue statistics
+    - show me overal revenu
+    - show me overal revenu growth
+    - overal comparision of revenu
+    - could you compare the overal revenu
+    - show me the overal revenu statistics
+    - show me year wise revenue
+    - show me year wise revenue growth
+    - year wise comparision of revenue
+    - could you compare the year wise revenue
+    - show me the year wise revenue statistics
+    - show me year wise rev
+    - show me year wise rev growth
+    - year wise comparision of rev
+    - could you compare the year wise rev
+    - show me the year wise rev statistics
+    - show me year wise rvnue
+    - show me year wise rvnue growth
+    - year wise comparision of rvnue
+    - could you compare the year wise rvnue
+    - show me the year wise rvnue statistics
+    - show me year wise revnue
+    - show me year wise revnue growth
+    - year wise comparision of revnue
+    - could you compare the year wise revnue
+    - show me the year wise revnue statistics
+    - show me year wise revenu
+    - show me year wise revenu growth
+    - year wise comparision of revenu
+    - could you compare the year wise revenu
+    - show me the year wise revenu statistics
+    - show me yearly revenue
+    - show me yearly revenue growth
+    - yearly comparision of revenue
+    - could you compare the yearly revenue
+    - show me the yearly revenue statistics
+    - show me yearly rev
+    - show me yearly rev growth
+    - yearly comparision of rev
+    - could you compare the yearly rev
+    - show me the yearly rev statistics
+    - show me yearly rvnue
+    - show me yearly rvnue growth
+    - yearly comparision of rvnue
+    - could you compare the yearly rvnue
+    - show me the yearly rvnue statistics
+    - show me yearly revnue
+    - show me yearly revnue growth
+    - yearly comparision of revnue
+    - could you compare the yearly revnue
+    - show me the yearly revnue statistics
+    - show me yearly revenu
+    - show me yearly revenu growth
+    - yearly comparision of revenu
+    - could you compare the yearly revenu
+    - show me the yearly revenu statistics
+    - show me annual revenue
+    - show me annual revenue growth
+    - annual comparision of revenue
+    - could you compare the annual revenue
+    - show me the annual revenue statistics
+    - show me annual rev
+    - show me annual rev growth
+    - annual comparision of rev
+    - could you compare the annual rev
+    - show me the annual rev statistics
+    - show me annual rvnue
+    - show me annual rvnue growth
+    - annual comparision of rvnue
+    - could you compare the annual rvnue
+    - show me the annual rvnue statistics
+    - show me annual revnue
+    - show me annual revnue growth
+    - annual comparision of revnue
+    - could you compare the annual revnue
+    - show me the annual revnue statistics
+    - show me annual revenu
+    - show me annual revenu growth
+    - annual comparision of revenu
+    - could you compare the annual revenu
+    - show me the annual revenu statistics
+    
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+
+# **************************************Expense over the years line chart  *****************************************************
+- intent: Expense_linechart_intent
+  examples: |
+    - What is my overall expenses
+    - What is my overall expense growth?
+    - what is expenses over the years
+    - my expense so far
+    - overall expenses
+    - show me the overall expense
+    - can please fetch me the overall expense
+    - What is the overall expense
+    - What is the overall expense growth?
+    - show me overall expense
+    - show me overall expense spent
+    - overall comparision of expense
+    - could you compare the overall expense
+    - show me overall expnse
+    - show me overall expnse spent
+    - overall comparision of expnse
+    - could you compare the overall expnse
+    - show me overall expnce
+    - show me overall expnce spent
+    - overall comparision of expnce
+    - could you compare the overall expnce
+    - show me overall expn
+    - show me overall expn spent
+    - overall comparision of expn
+    - could you compare the overall expn
+    - show me overal expense
+    - show me overal expense spent
+    - overal comparision of expense
+    - could you compare the overal expense
+    - show me overal expnse
+    - show me overal expnse spent
+    - overal comparision of expnse
+    - could you compare the overal expnse
+    - show me overal expnce
+    - show me overal expnce spent
+    - overal comparision of expnce
+    - could you compare the overal expnce
+    - show me overal expn
+    - show me overal expn spent
+    - overal comparision of expn
+    - could you compare the overal expn
+    - show me year wise expense
+    - show me year wise expense spent
+    - year wise comparision of expense
+    - could you compare the year wise expense
+    - show me year wise expnse
+    - show me year wise expnse spent
+    - year wise comparision of expnse
+    - could you compare the year wise expnse
+    - show me year wise expnce
+    - show me year wise expnce spent
+    - year wise comparision of expnce
+    - could you compare the year wise expnce
+    - show me year wise expn
+    - show me year wise expn spent
+    - year wise comparision of expn
+    - could you compare the year wise expn
+    - show me yearly expense
+    - show me yearly expense spent
+    - yearly comparision of expense
+    - could you compare the yearly expense
+    - show me yearly expnse
+    - show me yearly expnse spent
+    - yearly comparision of expnse
+    - could you compare the yearly expnse
+    - show me yearly expnce
+    - show me yearly expnce spent
+    - yearly comparision of expnce
+    - could you compare the yearly expnce
+    - show me yearly expn
+    - show me yearly expn spent
+    - yearly comparision of expn
+    - could you compare the yearly expn
+    - show me annual expense
+    - show me annual expense spent
+    - annual comparision of expense
+    - could you compare the annual expense
+    - show me annual expnse
+    - show me annual expnse spent
+    - annual comparision of expnse
+    - could you compare the annual expnse
+    - show me annual expnce
+    - show me annual expnce spent
+    - annual comparision of expnce
+    - could you compare the annual expnce
+    - show me annual expn
+    - show me annual expn spent
+    - annual comparision of expn
+    - could you compare the annual expn
+    - show me overall expense
+    - show me overall expense spent
+    - overall comparision of expense
+    - could you compare the overall expense
+    - show me overall expnse
+    - show me overall expnse spent
+    - overall comparision of expnse
+    - could you compare the overall expnse
+    - show me overall expnce
+    - show me overall expnce spent
+    - overall comparision of expnce
+    - could you compare the overall expnce
+    - show me overall expn
+    - show me overall expn spent
+    - overall comparision of expn
+    - could you compare the overall expn
+    - show me overal expense
+    - show me overal expense spent
+    - overal comparision of expense
+    - could you compare the overal expense
+    - show me overal expnse
+    - show me overal expnse spent
+    - overal comparision of expnse
+    - could you compare the overal expnse
+    - show me overal expnce
+    - show me overal expnce spent
+    - overal comparision of expnce
+    - could you compare the overal expnce
+    - show me overal expn
+    - show me overal expn spent
+    - overal comparision of expn
+    - could you compare the overal expn
+    - show me year wise expense
+    - show me year wise expense spent
+    - year wise comparision of expense
+    - could you compare the year wise expense
+    - show me year wise expnse
+    - show me year wise expnse spent
+    - year wise comparision of expnse
+    - could you compare the year wise expnse
+    - show me year wise expnce
+    - show me year wise expnce spent
+    - year wise comparision of expnce
+    - could you compare the year wise expnce
+    - show me year wise expn
+    - show me year wise expn spent
+    - year wise comparision of expn
+    - could you compare the year wise expn
+    - show me yearly expense
+    - show me yearly expense spent
+    - yearly comparision of expense
+    - could you compare the yearly expense
+    - show me yearly expnse
+    - show me yearly expnse spent
+    - yearly comparision of expnse
+    - could you compare the yearly expnse
+    - show me yearly expnce
+    - show me yearly expnce spent
+    - yearly comparision of expnce
+    - could you compare the yearly expnce
+    - show me yearly expn
+    - show me yearly expn spent
+    - yearly comparision of expn
+    - could you compare the yearly expn
+    - show me annual expense
+    - show me annual expense spent
+    - annual comparision of expense
+    - could you compare the annual expense
+    - show me annual expnse
+    - show me annual expnse spent
+    - annual comparision of expnse
+    - could you compare the annual expnse
+    - show me annual expnce
+    - show me annual expnce spent
+    - annual comparision of expnce
+    - could you compare the annual expnce
+    - show me annual expn
+    - show me annual expn spent
+    - annual comparision of expn
+    - could you compare the annual expn
+    
+    
+#************************************** Expense over the years line chart  *****************************************************
+
+
+# **************************************Leaves *****************************************************
+
+- intent: Leave_balance_intent
+  examples : |
+    - Display my current leave balance
+    - I would like to know how much leave I have left
+    - show me my remaining leave days?
+    - Leave balance
+    - Remaining leave days
+    - show me the number of days off I have left 
+    - display my unused leave balance
+    - Would you be able to tell me the remaining days of my leave
+    - Can you let me know my leave balance
+    - What's my remaining leave?
+    - How many days off do I have left?
+    - Can you check my vacation days balance?
+    - What's my current leave status?
+    - Could you tell me how much leave I have left?
+    - I need to know my remaining leave
+    - What's my available leave?
+    - Can you give me an update on my vacation days balance?
+    - unused leave days
+    - Tell me my leave balance
+    - May i know my leave balance
+
+# **************************************Leaves *****************************************************

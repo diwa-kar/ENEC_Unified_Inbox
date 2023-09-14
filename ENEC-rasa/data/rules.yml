@@ -258,3 +258,53 @@ rules:
   - action: Consulting_revenue_action
 
 # ************************************* revenue by category *******************************************
+
+
+
+
+# ************************************* revenue and expense split up *******************************************
+
+- rule: revenue split by year 
+  steps:
+  - intent: revenuesplit_by_year_intent
+  - action: revenuesplit_by_year_action
+
+- rule: expense split by year 
+  steps:
+  - intent: expensesplit_by_year_intent
+  - action: expensesplit_by_year_action
+
+# ************************************* revenue and expense split up *******************************************
+
+
+
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+- rule: revenue over the years (Linechart)
+  steps:
+  - intent: Revenue_linechart_intent
+  - action: Revenue_linechart_action
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+
+# **************************************Expense over the years line chart  *****************************************************
+
+- rule: Expense over the years (Linechart)
+  steps:
+  - intent: Expense_linechart_intent
+  - action: Expense_linechart_action
+
+# **************************************Expense over the years line chart  *****************************************************
+
+
+
+# ************************************* Leave balance *******************************************
+
+- rule: leave balance
+  steps:
+  - intent: Leave_balance_intent
+  - action: Leave_balance_action
+
+# ************************************* Leave balance *******************************************
