@@ -74,6 +74,9 @@ intents:
   - Leave_Request_SF_Details_intent
 
 
+  - Pending_pr_intent
+
+
 actions:
 
   - action_to_test
@@ -145,6 +148,8 @@ actions:
   - Reject_Leave_Request_SF_action
 
   - Leave_Request_SF_Details_action
+
+  - Pending_pr_action
 
 
 

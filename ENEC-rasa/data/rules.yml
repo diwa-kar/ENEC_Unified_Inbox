@@ -349,3 +349,15 @@ rules:
 
 
 # ****************************************** fetching pending leave request Details ******************************************
+
+
+# ******************************************* fetching pending pr *************************************************************
+
+
+- rule: fetching pending pr from qpmc system
+  steps:
+  - intent: Pending_pr_intent
+  - action: Pending_pr_action
+
+
+# ******************************************* fetching pending pr *************************************************************
