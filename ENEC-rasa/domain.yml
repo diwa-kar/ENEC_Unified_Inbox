@@ -75,7 +75,10 @@ intents:
 
 
   - Pending_pr_intent
-  - Pending_po_action
+  - Pending_po_intent
+
+
+
 
 
 actions:
