@@ -1824,3 +1824,36 @@ class Pending_pr(Action):
         return []
 
 # ****************************************** pending pr from local system *******************************************
+
+
+# ****************************************** pending po from local system *******************************************
+
+
+class Pending_pr(Action):
+
+    def name(self) -> Text:
+        return "Pending_po_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # global Pending_PR_Flag 
+        # Pending_PR_Flag = 1
+
+        # pendingpr = pending_prlist_qpmc()
+        # print(pendingpr)
+
+        # send = {"requests": pendingpr,
+        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+                
+        #         }
+
+        # my_json = json.dumps(send)
+        # dispatcher.utter_message(text=my_json)
+
+        dispatcher.utter_message(text= "pending po is working well")
+
+        return []
+
+# ****************************************** pending po from local system *******************************************

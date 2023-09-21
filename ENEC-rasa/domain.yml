@@ -75,6 +75,7 @@ intents:
 
 
   - Pending_pr_intent
+  - Pending_po_action
 
 
 actions:
@@ -150,6 +151,7 @@ actions:
   - Leave_Request_SF_Details_action
 
   - Pending_pr_action
+  - Pending_po_action
 
 
 

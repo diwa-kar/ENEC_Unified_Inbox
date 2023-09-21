@@ -354,10 +354,22 @@ rules:
 # ******************************************* fetching pending pr *************************************************************
 
 
-- rule: fetching pending pr from qpmc system
+- rule: fetching pending pr from local system
   steps:
   - intent: Pending_pr_intent
   - action: Pending_pr_action
+
+
+# ******************************************* fetching pending pr *************************************************************
+
+
+# ******************************************* fetching pending pr *************************************************************
+
+
+- rule: fetching pending po from local system
+  steps:
+  - intent: Pending_po_intent
+  - action: Pending_po_action
 
 
 # ******************************************* fetching pending pr *************************************************************
