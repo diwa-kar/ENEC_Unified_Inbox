@@ -386,3 +386,15 @@ rules:
 
 
 # ***************************************** fetching pr items list ************************************************************
+
+
+# ********************************************* fetching pr item details *****************************************************
+
+- rule: Give list of PR items details from digiverz demo system
+  steps:
+  - intent: ENEC_pending_pr_items_description_intent
+  - action: ENEC_pending_pr_items_description_action
+
+
+# ********************************************* fetching pr item details *****************************************************
+

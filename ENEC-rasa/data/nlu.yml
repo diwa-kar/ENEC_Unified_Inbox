@@ -6480,6 +6480,49 @@ nlu:
 # ***************************************** pending pr item list ********************************************************************
 
 
+
+
+# ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+- intent: ENEC_pending_pr_items_description_intent
+  examples: |
+    - PR item [1098](pr_itemnumber)
+    - pr item [220](pr_itemnumber)
+    - PR item no [1098](pr_itemnumber)
+    - pr item no [220](pr_itemnumber)
+    - PR item description for [220](pr_itemnumber)
+    - pr item description for [220](pr_itemnumber)
+    - give me PR item desc for [220](pr_itemnumber)
+    - give me pr item desc for [220](pr_itemnumber)
+    - give me Purchase Requisition item desc for item [220](pr_itemnumber)
+    - give me purchase requisition item desc ror item [220](pr_itemnumber)
+    - Purchase Requisition items desc for [220](pr_itemnumber)
+    - purchase requisition items desc for [220](pr_itemnumber)
+
+
+# ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # # ***************************************** pending po item list ********************************************************************
 
 
