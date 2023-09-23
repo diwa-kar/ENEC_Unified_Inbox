@@ -6535,24 +6535,24 @@ nlu:
 
 
 
-# # ******************************************** pending po item details from digiverz demo system *********************************************
+# ******************************************** pending po item details from digiverz demo system *********************************************
 
-# - intent: ENEC_pending_po_items_description_intent
-#   examples: |
-#     - PO item [1098](po_itemnumber)
-#     - po item [220](po_itemnumber)
-#     - PO item no [1098](po_itemnumber)
-#     - po item no [220](po_itemnumber)
-#     - Po item description for [220](po_itemnumber)
-#     - po item description for [220](po_itemnumber)
-#     - give me PO item desc for [220](po_itemnumber)
-#     - give me po item desc for [220](po_itemnumber)
-#     - give me Purchase Order item desc for item [220](po_itemnumber)
-#     - give me purchase order item desc for item [220](po_itemnumber)
-#     - Purchase Order items desc for [220](po_itemnumber)
-#     - purchase order items desc for [220](po_itemnumber)
+- intent: ENEC_pending_po_items_description_intent
+  examples: |
+    - PO item [1098](po_itemnumber)
+    - po item [220](po_itemnumber)
+    - PO item no [1098](po_itemnumber)
+    - po item no [220](po_itemnumber)
+    - Po item description for [220](po_itemnumber)
+    - po item description for [220](po_itemnumber)
+    - give me PO item desc for [220](po_itemnumber)
+    - give me po item desc for [220](po_itemnumber)
+    - give me Purchase Order item desc for item [220](po_itemnumber)
+    - give me purchase order item desc for item [220](po_itemnumber)
+    - Purchase Order items desc for [220](po_itemnumber)
+    - purchase order items desc for [220](po_itemnumber)
 
-# # ******************************************** pending po item details from digiverz demo system *********************************************
+# ******************************************** pending po item details from digiverz demo system *********************************************
 
 
 

@@ -167,7 +167,7 @@ actions:
 
 
   - ENEC_pending_po_item_list_action
-  - ENEC_pending_po_items_description_action
+  - ENEC_pending_po_items_description_action  
 
 
 

@@ -160,6 +160,70 @@ def pending_pr_item_description_ENEC(prno,pritemno):
 
 
 
+# ************************************************* pr item list from Digiverz demo system *****************************************************************
+
+
+def pending_polist_ENEC(pono):
+
+    
+    url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrder(\'{pono}\')/to_PurchaseOrderItem"
+
+    username = 'Girish'
+    password = 'Kaar@12345'
+    # Create a session and set the authorization header
+    session = requests.Session()
+    session.auth = (username, password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+    itemlist=[]
+    i=0
+    flag = 0
+    while True:
+        try:
+            itemlist.append(f"PO Item {flatjs[f'feed_entry_{i}_content_m:properties_d:PurchaseOrderItem']}") 
+            i+=1
+            flag = 1
+        except:
+            if flag:
+                break
+            else:
+                itemlist.append(f"PO Item {flatjs[f'feed_entry_content_m:properties_d:PurchaseOrderItem']}")
+                break
+    print(itemlist)
+
+    return itemlist
+
+
+# ************************************************* pr item list from Digiverz demo system *****************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
