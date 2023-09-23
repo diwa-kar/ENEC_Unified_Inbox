@@ -398,3 +398,12 @@ rules:
 
 # ********************************************* fetching pr item details *****************************************************
 
+
+# ********************************************** fetching pending po item list **********************************************
+
+- rule: Give list of PO items details from digiverz demo system
+  steps:
+  - intent: ENEC_pending_po_item_list
+  - action: ENEC_pending_po_item_list_action
+
+# ********************************************** fetching pending po item list **********************************************

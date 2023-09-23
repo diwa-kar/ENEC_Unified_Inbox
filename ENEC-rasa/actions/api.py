@@ -70,7 +70,7 @@ def pending_po_list():
 
 
 
-# ************************************************* pr list from Digiverz demo system *****************************************************************
+# ************************************************* pr item list from Digiverz demo system *****************************************************************
 
 
 def pending_prlist_ENEC(prno):
@@ -111,8 +111,52 @@ def pending_prlist_ENEC(prno):
     return itemlist
 
 
-# ************************************************* pr list from Digiverz demo system *****************************************************************
+# ************************************************* pr item list from Digiverz demo system *****************************************************************
 
+
+# *********************************************** pr item details from digiverz demo system ***************************************************
+
+def pending_pr_item_description_ENEC(prno,pritemno):
+
+    url = f'http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/C_PURREQUISITION_FS_SRV/I_Purchaserequisitionitem(PurchaseRequisition=\'{prno}\',PurchaseRequisitionItem=\'{pritemno}\')'
+
+    username = 'Girish'
+    password = 'Kaar@12345'
+    # Create a session and set the authorization header
+    session = requests.Session()
+    session.auth = (username, password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+    desc = {}
+    desc['Purchase_Requisition_Number'] = flatjs['entry_content_m:properties_d:PurchaseRequisition']
+    desc['Purchase_Requisition_Item_Number'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionItem']
+    desc['Purchase_Requisition_Release_Status'] = flatjs['entry_content_m:properties_d:PurReqnReleaseStatus']
+    desc['Purchase_Requisition_Item_Text'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionItemText']
+    desc['Purchase_Requisition_Material_Group'] = flatjs['entry_content_m:properties_d:MaterialGroup']
+    desc['Requested_Quantity'] = flatjs['entry_content_m:properties_d:RequestedQuantity']
+    desc['Base_Unit'] = flatjs['entry_content_m:properties_d:BaseUnit']
+    desc['Purchase_Requisition_Price'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionPrice']
+    desc['Plant'] = flatjs['entry_content_m:properties_d:Plant']
+    desc['Company_Code'] = flatjs['entry_content_m:properties_d:CompanyCode']
+    desc['Processing_Status'] = flatjs['entry_content_m:properties_d:ProcessingStatus']
+    desc['Delivery_Date'] = flatjs['entry_content_m:properties_d:DeliveryDate']
+    desc['Creation_Date'] = flatjs['entry_content_m:properties_d:CreationDate']
+    # item_list_description["PR item "+ i] = desc
+    
+    print(desc)
+
+
+    return desc
+
+
+# *********************************************** pr item details from digiverz demo system ***************************************************
 
 
 

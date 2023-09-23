@@ -80,6 +80,9 @@ intents:
   - ENEC_pending_pr_item_list
   - ENEC_pending_pr_items_description_intent
 
+  - ENEC_pending_po_item_list
+  - ENEC_pending_po_items_description_intent
+
 
 
 
@@ -163,6 +166,10 @@ actions:
   - ENEC_pending_pr_items_description_action
 
 
+  - ENEC_pending_po_item_list_action
+  - ENEC_pending_po_items_description_action
+
+
 
 
 entities:
@@ -180,6 +187,21 @@ entities:
 
 
 # *************************************************** pr no and pr item no ****************************************************
+
+
+
+# *************************************************** po no and po item no ****************************************************
+
+  - po_number:
+      type: regex
+      pattern: "[0-9]{8}"
+      
+  - po_itemnumber:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+
+# *************************************************** po no and po item no ****************************************************
 
 
   - ticket_type:
@@ -294,7 +316,25 @@ slots:
 # *************************************************** pr no and pr item no ****************************************************
 
 
+# *************************************************** po no and po item no ****************************************************
 
+  ponumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: po_number  
+  
+  poitemnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: po_itemnumber
+
+
+
+# *************************************************** po no and po item no ****************************************************
 
 
 
