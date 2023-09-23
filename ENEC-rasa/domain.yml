@@ -77,6 +77,8 @@ intents:
   - Pending_pr_intent
   - Pending_po_intent
 
+  - ENEC_pending_pr_item_list
+
 
 
 
@@ -156,10 +158,27 @@ actions:
   - Pending_pr_action
   - Pending_po_action
 
+  - ENEC_pending_pr_item_list_action
+
 
 
 
 entities:
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+  - pr_number:
+      type: regex
+      pattern: "[0-9]{8}"
+      
+  - pr_itemnumber:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
 
   - ticket_type:
       type: text
@@ -235,7 +254,57 @@ entities:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 slots:
+
+# *************************************************** pr no and pr item no ****************************************************
+
+  prnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pr_number  
+  
+  pritemnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pr_itemnumber
+
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   # ****************************************** Slots for raising ticket form ***************************************
   ticket_type:

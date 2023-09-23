@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import pending_prlist_qpmc,pending_pr_item_list_qpmc,pending_pr_item_description,qpmc_pending_pr_approval,qpmc_pending_pr_reject,Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details
+from actions.api import Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list
 
 
 from rasa_sdk import Action, Tracker
@@ -1808,18 +1808,18 @@ class Pending_pr(Action):
         # global Pending_PR_Flag 
         # Pending_PR_Flag = 1
 
-        # pendingpr = pending_prlist_qpmc()
-        # print(pendingpr)
+        pendingpr = pending_pr_list()
+        print(pendingpr)
 
-        # send = {"requests": pendingpr,
-        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+        send = {"requests": pendingpr,
+                "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
                 
-        #         }
+                }
 
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
 
-        dispatcher.utter_message(text= "pending pr is working")
+        # dispatcher.utter_message(text= "pending pr is working")
 
         return []
 
@@ -1829,7 +1829,7 @@ class Pending_pr(Action):
 # ****************************************** pending po from local system *******************************************
 
 
-class Pending_pr(Action):
+class Pending_po(Action):
 
     def name(self) -> Text:
         return "Pending_po_action"
@@ -1841,19 +1841,74 @@ class Pending_pr(Action):
         # global Pending_PR_Flag 
         # Pending_PR_Flag = 1
 
-        # pendingpr = pending_prlist_qpmc()
-        # print(pendingpr)
+        pendingpo = pending_po_list()
+        print(pendingpo)
 
-        # send = {"requests": pendingpr,
-        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+        send = {"requests": pendingpo,
+                "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
                 
-        #         }
+                }
 
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
 
-        dispatcher.utter_message(text= "pending po is working well")
+        # dispatcher.utter_message(text= "pending po is working well")
 
         return []
 
 # ****************************************** pending po from local system *******************************************
+
+
+
+# ***************************************** fetching pr item list from digiverz demo ****************************************
+
+class PrItemsListQPMC(Action):
+
+    def name(self) -> Text:
+        return "qpmc_pending_pr_items_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # global Pending_PR_Flag 
+        # Pending_PR_Flag = 1
+        
+        # global prno
+
+        prnotext = tracker.latest_message["text"]
+        prno = prnotext.split()[-1]
+
+        # prno = tracker.get_slot("prnumber")
+
+        print(prno)
+
+        # itemlist = pending_pr_item_list_qpmc(prno)
+
+
+
+
+        # send = {
+        #     "requests": itemlist,
+        #     "msg": "The PR items lists are given below. Choose Any one to see the Item description",
+        # }
+
+        
+        # my_json = json.dumps(send)
+
+
+        # dispatcher.utter_message(text=my_json)
+
+       
+
+
+
+        dispatcher.utter_message(text=f"pr items is working {prno}")
+
+        return []
+
+
+
+
+# ***************************************** fetching pr item list from digiverz demo ****************************************
+
