@@ -248,15 +248,31 @@ def pending_po_item_description_ENEC(pono,poitemno):
 
     return desc
 
-
-
-
-
-
-
-
-
 # *********************************************** pending po item details from digiverz demo system **************************************************
+
+# ********************************************* pending po approval on digiverz demo system **************************************************
+
+def PoApprovalENEC(pono):
+
+    comment = "Approved by Girish"
+    
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_acceptreject?sap-client=100 '
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+
+    result = client.service.ZmmPoApprRejFm('A',f'{comment}',f'{pono}','Girish')
+
+    # addiing comment with result
+
+    result["Comment"] = comment
+
+    print(result)
+
+    return result
+
+
+# ********************************************* pending po approval on digiverz demo system **************************************************
 
 
 

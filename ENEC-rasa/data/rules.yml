@@ -427,3 +427,13 @@ rules:
   - action: ENEC_PO_appooval_action
 
 # *********************************************** approve po from digiverz demo system *********************
+
+
+# *********************************************** approve pr from digiverz demo system *********************
+
+- rule: approve pr from digiverz demo system
+  steps:
+  - intent: ENEC_PR_approval_intent
+  - action: ENEC_PR_approval_action
+
+# *********************************************** approve pr from digiverz demo system *********************

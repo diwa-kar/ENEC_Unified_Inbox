@@ -6505,6 +6505,53 @@ nlu:
 
 
 
+
+# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+
+
+- intent: ENEC_PR_approval_intent
+  examples: |
+  
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+
+
+# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+
+
+
+
+
 # ****************************************** pending po item list from digiverz demo system **************************************************
 
 - intent: ENEC_pending_po_item_list
@@ -6592,13 +6639,6 @@ nlu:
     - Appoove PO [4500001787](po_number)
     - Appoove PO [4500001787](po_number)
     - Appoove PO [4500001787](po_number)
-
-
-
-
-
-
-
 
 # ********************************************* approve pending po items in digiverz demo system ***************************************************
 
