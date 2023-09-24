@@ -205,6 +205,58 @@ def pending_polist_ENEC(pono):
 
 
 
+# *********************************************** pending po item details from digiverz demo system **************************************************
+
+def pending_po_item_description_ENEC(pono,poitemno):
+
+    url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrderItem(PurchaseOrder=\'{pono}\',PurchaseOrderItem=\'{poitemno}\')/to_PurchaseOrder"
+
+
+    username = 'Girish'
+    password = 'Kaar@12345'
+    # Create a session and set the authorization header
+    session = requests.Session()
+    session.auth = (username, password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+    
+    desc = {}
+    desc['Purchase_Order_Number'] = flatjs['entry_content_m:properties_d:PurchaseOrder']
+    desc['CompanyCode'] = flatjs['entry_content_m:properties_d:CompanyCode']
+    desc['CreatedByUser'] = flatjs['entry_content_m:properties_d:CreatedByUser']
+    desc['PurchasingProcessingStatus'] = flatjs['entry_content_m:properties_d:PurchasingProcessingStatus']
+    desc['CreationDate'] = flatjs['entry_content_m:properties_d:CreationDate']
+    desc['Supplier'] = flatjs['entry_content_m:properties_d:Supplier']
+    desc['PurchaseOrderSubtype'] = flatjs['entry_content_m:properties_d:PurchaseOrderSubtype']
+    desc['PaymentTerms'] = flatjs['entry_content_m:properties_d:PaymentTerms']
+    desc['PurchasingGroup'] = flatjs['entry_content_m:properties_d:PurchasingGroup']
+    desc['AddressCityName'] = flatjs['entry_content_m:properties_d:AddressCityName']
+    desc['AddressPostalCode'] = flatjs['entry_content_m:properties_d:AddressPostalCode']
+    desc['AddressStreetName'] = flatjs['entry_content_m:properties_d:AddressStreetName']
+    desc['AddressCountry'] = flatjs['entry_content_m:properties_d:AddressCountry']
+    desc['AddressRegion'] = flatjs['entry_content_m:properties_d:AddressRegion']
+    
+    print(desc)
+
+
+    return desc
+
+
+
+
+
+
+
+
+
+# *********************************************** pending po item details from digiverz demo system **************************************************
 
 
 

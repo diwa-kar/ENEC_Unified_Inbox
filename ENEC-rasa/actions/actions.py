@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC
+from actions.api import Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC
 
 
 from rasa_sdk import Action, Tracker
@@ -2090,7 +2090,7 @@ class PoItemsListENEC(Action):
 class PrItemDescriptonENEC(Action):
 
     def name(self) -> Text:
-        return "ENEC_pending_pr_items_description_action"
+        return "ENEC_pending_po_items_description_action"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -2109,8 +2109,8 @@ class PrItemDescriptonENEC(Action):
 
 
 
-        print(f"{pono} {poitemno}")
-        dispatcher.utter_message(text=f"pr item description is working! {pono} {poitemno}")
+        # print(f"{pono} {poitemno}")
+        # dispatcher.utter_message(text=f"pr item description is working! {pono} {poitemno}")
         
 
 
@@ -2118,7 +2118,7 @@ class PrItemDescriptonENEC(Action):
 
 
 
-        # pritemdesc = pending_pr_item_description_ENEC(prno,pritemno)s
+        details = pending_po_item_description_ENEC(pono,poitemno)
 
 
         # for i in pritemdesc.keys():
@@ -2208,17 +2208,55 @@ class PrItemDescriptonENEC(Action):
         #     }
         
 
-        # send = {
-        #     "msg": "Here is the Details of Purchase Requisition... ",
-        #     "details": {
-        #         "data":details,"flag":Pending_PR_Flag,"type":"PR"
-        #         }
-        # }
+        send = {
+            "msg": "Here is the Details of Purchase Order... ",
+            "details": {
+                "data":details,"flag":Pending_PO_Flag,"type":"PO"
+                }
+        }
         
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
 
         return []
     
 
 # ****************************************** fetching po item details from digiverz demo system ************************************
+
+# *********************************************** approve po from digiverz demo system *********************
+class PoAppprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_PO_appooval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        ponotext = tracker.latest_message["text"]
+        pono = ponotext.split()[-1]
+
+        # prno = tracker.get_slot("prnumber")
+
+        print(pono)
+
+        dispatcher.utter_message(text = f"{pono} approval action is working fine")
+
+        # itemlist = pending_polist_ENEC(pono)
+
+        # send = {
+        #     "requests": itemlist,
+        #     "msg": "The PO items lists are given below. Choose Any one to see the Item description",
+        # }
+        
+        # my_json = json.dumps(send)
+
+        # dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+
+
+# *********************************************** approve po from digiverz demo system *********************
