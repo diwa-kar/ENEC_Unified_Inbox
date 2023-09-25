@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC
 
 
 from rasa_sdk import Action, Tracker
@@ -2250,7 +2250,7 @@ class PoAppprovalENEC(Action):
         print(user_comment)
 
         if Status_code == "ERROR":
-            dispatcher.utter_message(text=f"PR {pono} is already approved/rejected")
+            dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
 
 
         elif Status_code == "APPROVED":
@@ -2284,32 +2284,32 @@ class PrAppprovalENEC(Action):
         prno = prnotext.split()[-1]
 
 
-        print(prno)
+        # print(prno)
 
-        dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
+        # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
 
 
-        # result = PoApprovalENEC(pono)
+        result = PrApprovalENEC(prno)
 
-        # Status_code = result["ExStatus"]
+        Status_code = result["ExStatus"]
         
-        # user_comment = result["Comment"]
+        user_comment = result["Comment"]
 
-        # print(Status_code)
-        # print(user_comment)
+        print(Status_code)
+        print(user_comment)
 
-        # if Status_code == "ERROR":
-        #     dispatcher.utter_message(text=f"PR {pono} is already approved/rejected")
+        if Status_code == "ERROR":
+            dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
 
 
-        # elif Status_code == "APPROVED":
+        elif Status_code == "APPROVED":
 
-        #     db = client["ENEC_RasaChatbot"]
-        #     collection = db["Approved_PO"]
-        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
-        #     result = collection.insert_one(document)
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Approved_PR"]
+            document = {"Purchase Requistion Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}"}
+            result = collection.insert_one(document)
 
-        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+            dispatcher.utter_message(text=f"PR {prno} Approved Successfully")
 
         return []
 
