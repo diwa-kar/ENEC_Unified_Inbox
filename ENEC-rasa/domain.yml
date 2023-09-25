@@ -89,6 +89,22 @@ intents:
 
 
 
+
+
+
+
+
+
+
+
+
+  - ENEC_ticket_raise_intent
+  - ENEC_ticket_raise_monitor_intent
+
+
+
+
+
 actions:
 
   - action_to_test
@@ -176,6 +192,18 @@ actions:
 
 
 
+
+
+
+
+
+
+  - ENEC_ticket_raise_action
+  - ENEC_ticket_raise_monitor_action
+
+
+
+
 entities:
 
 
@@ -227,6 +255,22 @@ entities:
 
 
   # **************************************** revenue for the year entity ************************************************
+
+
+
+
+  #******************************************** ticket raise entities ***************************************************
+
+  - ticket_type:
+      type: text
+  - hardware_type:
+      type: text
+  - monitor_inches:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+  #******************************************** ticket raise entities ***************************************************
+
 
 
   # **************************************** revenue and expense category entities **************************************
@@ -339,8 +383,6 @@ slots:
 
 
 # *************************************************** po no and po item no ****************************************************
-
-
 
 
 
@@ -480,6 +522,10 @@ slots:
 
 
   # ****************************************** slot accepting pending leave from SF *****************************************************
+
+
+
+
 
 
 responses:

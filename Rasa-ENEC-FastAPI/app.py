@@ -130,7 +130,7 @@ class pending_po_rejection(BaseModel):
 class IT_ticket_creation(BaseModel):
     tickettype : str
     Hardwaretype : str
-    monitorsize : int
+    monitorsize : str | None
 
 
 
@@ -141,7 +141,6 @@ async def index():
 @app.get('/welcome')
 async def welcome():
     return {'message':'Welcome, Mate!'}
-
 
 
 @app.post("/register")

@@ -6654,74 +6654,1251 @@ nlu:
 
 
 
+# ****************************************** ticket raise for monitor **************************************************
 
 
+- intent: ENEC_ticket_raise_monitor_intent
+  examples: |
+    - raise [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inc
+    - raise [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inc
+    - raise [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inc
+    - raise [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inc
+    - raise [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inc
+    - raise [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hardware](ticket_type) [moni](hardware_type) [16](monitor_inches) inches
+    - raise [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hardware](ticket_type) [moni](hardware_type) [16](monitor_inches) inch
+    - raise [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hardware](ticket_type) [moni](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inc
+    - raise [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hware](ticket_type) [moni](hardware_type) [16](monitor_inches) inches
+    - raise [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hware](ticket_type) [moni](hardware_type) [16](monitor_inches) inch
+    - raise [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hware](ticket_type) [moni](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [mntor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [mntor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [mntor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [mntr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [mntr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [mntr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [moniter](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [moniter](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [moniter](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [monitor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [monitor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [monitor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [monitr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [monitr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [monitr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdwre](ticket_type) [moni](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdwre](ticket_type) [moni](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdwre](ticket_type) [moni](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [mntor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [mntor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [mntor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [mntr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [mntr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [mntr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [moniter](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [moniter](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [moniter](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [monitor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [monitor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [monitor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [monitr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [monitr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [monitr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdwr](ticket_type) [moni](hardware_type) [16](monitor_inches) inches
+    - raise [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdwr](ticket_type) [moni](hardware_type) [16](monitor_inches) inch
+    - raise [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdwr](ticket_type) [moni](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [mntor](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [mntor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [mntr](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [mntr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [moniter](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [moniter](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [monitor](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [monitor](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [monitr](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [monitr](hardware_type) [16](monitor_inches) inc
+    - raise [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i want to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - i would like to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inches
+    - [hrdware](ticket_type) [moni](hardware_type) [16](monitor_inches) inches
+    - raise [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i want to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - i would like to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inch
+    - [hrdware](ticket_type) [moni](hardware_type) [16](monitor_inches) inch
+    - raise [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i want to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - i would like to raise a [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) ticket for [moni](hardware_type) of [16](monitor_inches) inc
+    - [hrdware](ticket_type) [moni](hardware_type) [16](monitor_inches) inc
+
+# ****************************************** ticket raise for monitor **************************************************
+
+# ****************************************** ticket raise other than monitor **************************************************
 
 
+- intent: ENEC_ticket_raise_intent
+  examples: |
+    - raise [hardware](ticket_type) ticket for [keybaord](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [keybaord](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [keybaord](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hardware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hardware](ticket_type) [keybaord](hardware_type)
+    - raise [hardware](ticket_type) ticket for [keybrd](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [keybrd](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [keybrd](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hardware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hardware](ticket_type) [keybrd](hardware_type)
+    - raise [hardware](ticket_type) ticket for [keyboard](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [keyboard](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [keyboard](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hardware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hardware](ticket_type) [keyboard](hardware_type)
+    - raise [hardware](ticket_type) ticket for [kybrd](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [kybrd](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [kybrd](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hardware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hardware](ticket_type) [kybrd](hardware_type)
+    - raise [hardware](ticket_type) ticket for [keybord](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [keybord](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [keybord](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [keybord](hardware_type)
+    - [hardware](ticket_type) ticket for [keybord](hardware_type)
+    - [hardware](ticket_type) [keybord](hardware_type)
+    - raise [hardware](ticket_type) ticket for [kbrd](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [kbrd](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [kbrd](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hardware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hardware](ticket_type) [kbrd](hardware_type)
+    - raise [hware](ticket_type) ticket for [keybaord](hardware_type)
+    - raise a [hware](ticket_type) ticket for [keybaord](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [keybaord](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hware](ticket_type) [keybaord](hardware_type)
+    - raise [hware](ticket_type) ticket for [keybrd](hardware_type)
+    - raise a [hware](ticket_type) ticket for [keybrd](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [keybrd](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hware](ticket_type) [keybrd](hardware_type)
+    - raise [hware](ticket_type) ticket for [keyboard](hardware_type)
+    - raise a [hware](ticket_type) ticket for [keyboard](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [keyboard](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hware](ticket_type) [keyboard](hardware_type)
+    - raise [hware](ticket_type) ticket for [kybrd](hardware_type)
+    - raise a [hware](ticket_type) ticket for [kybrd](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [kybrd](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hware](ticket_type) [kybrd](hardware_type)
+    - raise [hware](ticket_type) ticket for [keybord](hardware_type)
+    - raise a [hware](ticket_type) ticket for [keybord](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [keybord](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [keybord](hardware_type)
+    - [hware](ticket_type) ticket for [keybord](hardware_type)
+    - [hware](ticket_type) [keybord](hardware_type)
+    - raise [hware](ticket_type) ticket for [kbrd](hardware_type)
+    - raise a [hware](ticket_type) ticket for [kbrd](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [kbrd](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hware](ticket_type) [kbrd](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [keybaord](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [keybaord](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [keybaord](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdwre](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdwre](ticket_type) [keybaord](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [keybrd](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [keybrd](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [keybrd](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdwre](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdwre](ticket_type) [keybrd](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [keyboard](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [keyboard](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [keyboard](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdwre](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdwre](ticket_type) [keyboard](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [kybrd](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [kybrd](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [kybrd](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdwre](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdwre](ticket_type) [kybrd](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [keybord](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [keybord](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [keybord](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdwre](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdwre](ticket_type) [keybord](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [kbrd](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [kbrd](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [kbrd](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdwre](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdwre](ticket_type) [kbrd](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [keybaord](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [keybaord](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [keybaord](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdwr](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdwr](ticket_type) [keybaord](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [keybrd](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [keybrd](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [keybrd](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdwr](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdwr](ticket_type) [keybrd](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [keyboard](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [keyboard](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [keyboard](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdwr](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdwr](ticket_type) [keyboard](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [kybrd](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [kybrd](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [kybrd](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdwr](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdwr](ticket_type) [kybrd](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [keybord](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [keybord](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [keybord](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdwr](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdwr](ticket_type) [keybord](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [kbrd](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [kbrd](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [kbrd](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdwr](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdwr](ticket_type) [kbrd](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [keybaord](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [keybaord](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [keybaord](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdware](ticket_type) ticket for [keybaord](hardware_type)
+    - [hrdware](ticket_type) [keybaord](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [keybrd](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [keybrd](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [keybrd](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdware](ticket_type) ticket for [keybrd](hardware_type)
+    - [hrdware](ticket_type) [keybrd](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [keyboard](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [keyboard](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [keyboard](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdware](ticket_type) ticket for [keyboard](hardware_type)
+    - [hrdware](ticket_type) [keyboard](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [kybrd](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [kybrd](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [kybrd](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdware](ticket_type) ticket for [kybrd](hardware_type)
+    - [hrdware](ticket_type) [kybrd](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [keybord](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [keybord](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [keybord](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdware](ticket_type) ticket for [keybord](hardware_type)
+    - [hrdware](ticket_type) [keybord](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [kbrd](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [kbrd](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [kbrd](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdware](ticket_type) ticket for [kbrd](hardware_type)
+    - [hrdware](ticket_type) [kbrd](hardware_type)
+    - raise [hardware](ticket_type) ticket for [mse](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [mse](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [mse](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [mse](hardware_type)
+    - [hardware](ticket_type) ticket for [mse](hardware_type)
+    - [hardware](ticket_type) [mse](hardware_type)
+    - raise [hardware](ticket_type) ticket for [mouse](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [mouse](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [mouse](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [mouse](hardware_type)
+    - [hardware](ticket_type) ticket for [mouse](hardware_type)
+    - [hardware](ticket_type) [mouse](hardware_type)
+    - raise [hardware](ticket_type) ticket for [muose](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [muose](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [muose](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [muose](hardware_type)
+    - [hardware](ticket_type) ticket for [muose](hardware_type)
+    - [hardware](ticket_type) [muose](hardware_type)
+    - raise [hardware](ticket_type) ticket for [muse](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [muse](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [muse](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [muse](hardware_type)
+    - [hardware](ticket_type) ticket for [muse](hardware_type)
+    - [hardware](ticket_type) [muse](hardware_type)
+    - raise [hardware](ticket_type) ticket for [mose](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [mose](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [mose](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [mose](hardware_type)
+    - [hardware](ticket_type) ticket for [mose](hardware_type)
+    - [hardware](ticket_type) [mose](hardware_type)
+    - raise [hware](ticket_type) ticket for [mse](hardware_type)
+    - raise a [hware](ticket_type) ticket for [mse](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [mse](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [mse](hardware_type)
+    - [hware](ticket_type) ticket for [mse](hardware_type)
+    - [hware](ticket_type) [mse](hardware_type)
+    - raise [hware](ticket_type) ticket for [mouse](hardware_type)
+    - raise a [hware](ticket_type) ticket for [mouse](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [mouse](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [mouse](hardware_type)
+    - [hware](ticket_type) ticket for [mouse](hardware_type)
+    - [hware](ticket_type) [mouse](hardware_type)
+    - raise [hware](ticket_type) ticket for [muose](hardware_type)
+    - raise a [hware](ticket_type) ticket for [muose](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [muose](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [muose](hardware_type)
+    - [hware](ticket_type) ticket for [muose](hardware_type)
+    - [hware](ticket_type) [muose](hardware_type)
+    - raise [hware](ticket_type) ticket for [muse](hardware_type)
+    - raise a [hware](ticket_type) ticket for [muse](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [muse](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [muse](hardware_type)
+    - [hware](ticket_type) ticket for [muse](hardware_type)
+    - [hware](ticket_type) [muse](hardware_type)
+    - raise [hware](ticket_type) ticket for [mose](hardware_type)
+    - raise a [hware](ticket_type) ticket for [mose](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [mose](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [mose](hardware_type)
+    - [hware](ticket_type) ticket for [mose](hardware_type)
+    - [hware](ticket_type) [mose](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [mse](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [mse](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [mse](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mse](hardware_type)
+    - [hrdwre](ticket_type) ticket for [mse](hardware_type)
+    - [hrdwre](ticket_type) [mse](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [mouse](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [mouse](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [mouse](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdwre](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdwre](ticket_type) [mouse](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [muose](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [muose](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [muose](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [muose](hardware_type)
+    - [hrdwre](ticket_type) ticket for [muose](hardware_type)
+    - [hrdwre](ticket_type) [muose](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [muse](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [muse](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [muse](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [muse](hardware_type)
+    - [hrdwre](ticket_type) ticket for [muse](hardware_type)
+    - [hrdwre](ticket_type) [muse](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [mose](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [mose](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [mose](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [mose](hardware_type)
+    - [hrdwre](ticket_type) ticket for [mose](hardware_type)
+    - [hrdwre](ticket_type) [mose](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [mse](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [mse](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [mse](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mse](hardware_type)
+    - [hrdwr](ticket_type) ticket for [mse](hardware_type)
+    - [hrdwr](ticket_type) [mse](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [mouse](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [mouse](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [mouse](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdwr](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdwr](ticket_type) [mouse](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [muose](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [muose](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [muose](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [muose](hardware_type)
+    - [hrdwr](ticket_type) ticket for [muose](hardware_type)
+    - [hrdwr](ticket_type) [muose](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [muse](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [muse](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [muse](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [muse](hardware_type)
+    - [hrdwr](ticket_type) ticket for [muse](hardware_type)
+    - [hrdwr](ticket_type) [muse](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [mose](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [mose](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [mose](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [mose](hardware_type)
+    - [hrdwr](ticket_type) ticket for [mose](hardware_type)
+    - [hrdwr](ticket_type) [mose](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [mse](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [mse](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [mse](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [mse](hardware_type)
+    - [hrdware](ticket_type) ticket for [mse](hardware_type)
+    - [hrdware](ticket_type) [mse](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [mouse](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [mouse](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [mouse](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdware](ticket_type) ticket for [mouse](hardware_type)
+    - [hrdware](ticket_type) [mouse](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [muose](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [muose](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [muose](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [muose](hardware_type)
+    - [hrdware](ticket_type) ticket for [muose](hardware_type)
+    - [hrdware](ticket_type) [muose](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [muse](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [muse](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [muse](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [muse](hardware_type)
+    - [hrdware](ticket_type) ticket for [muse](hardware_type)
+    - [hrdware](ticket_type) [muse](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [mose](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [mose](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [mose](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [mose](hardware_type)
+    - [hrdware](ticket_type) ticket for [mose](hardware_type)
+    - [hrdware](ticket_type) [mose](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scaner](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scaner](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scaner](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scaner](hardware_type)
+    - [hardware](ticket_type) ticket for [scaner](hardware_type)
+    - [hardware](ticket_type) [scaner](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scanner](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scanner](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scanner](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scanner](hardware_type)
+    - [hardware](ticket_type) ticket for [scanner](hardware_type)
+    - [hardware](ticket_type) [scanner](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scan](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scan](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scan](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scan](hardware_type)
+    - [hardware](ticket_type) ticket for [scan](hardware_type)
+    - [hardware](ticket_type) [scan](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scanr](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scanr](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scanr](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scanr](hardware_type)
+    - [hardware](ticket_type) ticket for [scanr](hardware_type)
+    - [hardware](ticket_type) [scanr](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scanar](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scanar](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scanar](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scanar](hardware_type)
+    - [hardware](ticket_type) ticket for [scanar](hardware_type)
+    - [hardware](ticket_type) [scanar](hardware_type)
+    - raise [hardware](ticket_type) ticket for [scnr](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [scnr](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [scnr](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [scnr](hardware_type)
+    - [hardware](ticket_type) ticket for [scnr](hardware_type)
+    - [hardware](ticket_type) [scnr](hardware_type)
+    - raise [hware](ticket_type) ticket for [scaner](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scaner](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scaner](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scaner](hardware_type)
+    - [hware](ticket_type) ticket for [scaner](hardware_type)
+    - [hware](ticket_type) [scaner](hardware_type)
+    - raise [hware](ticket_type) ticket for [scanner](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scanner](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scanner](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scanner](hardware_type)
+    - [hware](ticket_type) ticket for [scanner](hardware_type)
+    - [hware](ticket_type) [scanner](hardware_type)
+    - raise [hware](ticket_type) ticket for [scan](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scan](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scan](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scan](hardware_type)
+    - [hware](ticket_type) ticket for [scan](hardware_type)
+    - [hware](ticket_type) [scan](hardware_type)
+    - raise [hware](ticket_type) ticket for [scanr](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scanr](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scanr](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scanr](hardware_type)
+    - [hware](ticket_type) ticket for [scanr](hardware_type)
+    - [hware](ticket_type) [scanr](hardware_type)
+    - raise [hware](ticket_type) ticket for [scanar](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scanar](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scanar](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scanar](hardware_type)
+    - [hware](ticket_type) ticket for [scanar](hardware_type)
+    - [hware](ticket_type) [scanar](hardware_type)
+    - raise [hware](ticket_type) ticket for [scnr](hardware_type)
+    - raise a [hware](ticket_type) ticket for [scnr](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [scnr](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [scnr](hardware_type)
+    - [hware](ticket_type) ticket for [scnr](hardware_type)
+    - [hware](ticket_type) [scnr](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scaner](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scaner](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scaner](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdwre](ticket_type) [scaner](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scanner](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scanner](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scanner](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdwre](ticket_type) [scanner](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scan](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scan](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scan](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scan](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scan](hardware_type)
+    - [hrdwre](ticket_type) [scan](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scanr](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scanr](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scanr](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdwre](ticket_type) [scanr](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scanar](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scanar](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scanar](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdwre](ticket_type) [scanar](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [scnr](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [scnr](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [scnr](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdwre](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdwre](ticket_type) [scnr](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scaner](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scaner](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scaner](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdwr](ticket_type) [scaner](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scanner](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scanner](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scanner](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdwr](ticket_type) [scanner](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scan](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scan](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scan](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scan](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scan](hardware_type)
+    - [hrdwr](ticket_type) [scan](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scanr](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scanr](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scanr](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdwr](ticket_type) [scanr](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scanar](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scanar](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scanar](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdwr](ticket_type) [scanar](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [scnr](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [scnr](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [scnr](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdwr](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdwr](ticket_type) [scnr](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scaner](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scaner](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scaner](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdware](ticket_type) ticket for [scaner](hardware_type)
+    - [hrdware](ticket_type) [scaner](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scanner](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scanner](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scanner](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdware](ticket_type) ticket for [scanner](hardware_type)
+    - [hrdware](ticket_type) [scanner](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scan](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scan](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scan](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scan](hardware_type)
+    - [hrdware](ticket_type) ticket for [scan](hardware_type)
+    - [hrdware](ticket_type) [scan](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scanr](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scanr](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scanr](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdware](ticket_type) ticket for [scanr](hardware_type)
+    - [hrdware](ticket_type) [scanr](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scanar](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scanar](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scanar](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdware](ticket_type) ticket for [scanar](hardware_type)
+    - [hrdware](ticket_type) [scanar](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [scnr](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [scnr](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [scnr](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdware](ticket_type) ticket for [scnr](hardware_type)
+    - [hrdware](ticket_type) [scnr](hardware_type)
+    - raise [hardware](ticket_type) ticket for [prntr](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [prntr](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [prntr](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [prntr](hardware_type)
+    - [hardware](ticket_type) ticket for [prntr](hardware_type)
+    - [hardware](ticket_type) [prntr](hardware_type)
+    - raise [hardware](ticket_type) ticket for [print](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [print](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [print](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [print](hardware_type)
+    - [hardware](ticket_type) ticket for [print](hardware_type)
+    - [hardware](ticket_type) [print](hardware_type)
+    - raise [hardware](ticket_type) ticket for [prentor](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [prentor](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [prentor](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [prentor](hardware_type)
+    - [hardware](ticket_type) ticket for [prentor](hardware_type)
+    - [hardware](ticket_type) [prentor](hardware_type)
+    - raise [hardware](ticket_type) ticket for [printer](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [printer](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [printer](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [printer](hardware_type)
+    - [hardware](ticket_type) ticket for [printer](hardware_type)
+    - [hardware](ticket_type) [printer](hardware_type)
+    - raise [hardware](ticket_type) ticket for [printor](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [printor](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [printor](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [printor](hardware_type)
+    - [hardware](ticket_type) ticket for [printor](hardware_type)
+    - [hardware](ticket_type) [printor](hardware_type)
+    - raise [hardware](ticket_type) ticket for [pntr](hardware_type)
+    - raise a [hardware](ticket_type) ticket for [pntr](hardware_type)
+    - i want to raise a [hardware](ticket_type) ticket for [pntr](hardware_type)
+    - i would like to raise a [hardware](ticket_type) ticket for [pntr](hardware_type)
+    - [hardware](ticket_type) ticket for [pntr](hardware_type)
+    - [hardware](ticket_type) [pntr](hardware_type)
+    - raise [hware](ticket_type) ticket for [prntr](hardware_type)
+    - raise a [hware](ticket_type) ticket for [prntr](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [prntr](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [prntr](hardware_type)
+    - [hware](ticket_type) ticket for [prntr](hardware_type)
+    - [hware](ticket_type) [prntr](hardware_type)
+    - raise [hware](ticket_type) ticket for [print](hardware_type)
+    - raise a [hware](ticket_type) ticket for [print](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [print](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [print](hardware_type)
+    - [hware](ticket_type) ticket for [print](hardware_type)
+    - [hware](ticket_type) [print](hardware_type)
+    - raise [hware](ticket_type) ticket for [prentor](hardware_type)
+    - raise a [hware](ticket_type) ticket for [prentor](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [prentor](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [prentor](hardware_type)
+    - [hware](ticket_type) ticket for [prentor](hardware_type)
+    - [hware](ticket_type) [prentor](hardware_type)
+    - raise [hware](ticket_type) ticket for [printer](hardware_type)
+    - raise a [hware](ticket_type) ticket for [printer](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [printer](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [printer](hardware_type)
+    - [hware](ticket_type) ticket for [printer](hardware_type)
+    - [hware](ticket_type) [printer](hardware_type)
+    - raise [hware](ticket_type) ticket for [printor](hardware_type)
+    - raise a [hware](ticket_type) ticket for [printor](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [printor](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [printor](hardware_type)
+    - [hware](ticket_type) ticket for [printor](hardware_type)
+    - [hware](ticket_type) [printor](hardware_type)
+    - raise [hware](ticket_type) ticket for [pntr](hardware_type)
+    - raise a [hware](ticket_type) ticket for [pntr](hardware_type)
+    - i want to raise a [hware](ticket_type) ticket for [pntr](hardware_type)
+    - i would like to raise a [hware](ticket_type) ticket for [pntr](hardware_type)
+    - [hware](ticket_type) ticket for [pntr](hardware_type)
+    - [hware](ticket_type) [pntr](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [prntr](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [prntr](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [prntr](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdwre](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdwre](ticket_type) [prntr](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [print](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [print](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [print](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [print](hardware_type)
+    - [hrdwre](ticket_type) ticket for [print](hardware_type)
+    - [hrdwre](ticket_type) [print](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [prentor](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [prentor](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [prentor](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdwre](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdwre](ticket_type) [prentor](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [printer](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [printer](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [printer](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [printer](hardware_type)
+    - [hrdwre](ticket_type) ticket for [printer](hardware_type)
+    - [hrdwre](ticket_type) [printer](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [printor](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [printor](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [printor](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [printor](hardware_type)
+    - [hrdwre](ticket_type) ticket for [printor](hardware_type)
+    - [hrdwre](ticket_type) [printor](hardware_type)
+    - raise [hrdwre](ticket_type) ticket for [pntr](hardware_type)
+    - raise a [hrdwre](ticket_type) ticket for [pntr](hardware_type)
+    - i want to raise a [hrdwre](ticket_type) ticket for [pntr](hardware_type)
+    - i would like to raise a [hrdwre](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdwre](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdwre](ticket_type) [pntr](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [prntr](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [prntr](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [prntr](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdwr](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdwr](ticket_type) [prntr](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [print](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [print](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [print](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [print](hardware_type)
+    - [hrdwr](ticket_type) ticket for [print](hardware_type)
+    - [hrdwr](ticket_type) [print](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [prentor](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [prentor](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [prentor](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdwr](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdwr](ticket_type) [prentor](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [printer](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [printer](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [printer](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [printer](hardware_type)
+    - [hrdwr](ticket_type) ticket for [printer](hardware_type)
+    - [hrdwr](ticket_type) [printer](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [printor](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [printor](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [printor](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [printor](hardware_type)
+    - [hrdwr](ticket_type) ticket for [printor](hardware_type)
+    - [hrdwr](ticket_type) [printor](hardware_type)
+    - raise [hrdwr](ticket_type) ticket for [pntr](hardware_type)
+    - raise a [hrdwr](ticket_type) ticket for [pntr](hardware_type)
+    - i want to raise a [hrdwr](ticket_type) ticket for [pntr](hardware_type)
+    - i would like to raise a [hrdwr](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdwr](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdwr](ticket_type) [pntr](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [prntr](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [prntr](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [prntr](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdware](ticket_type) ticket for [prntr](hardware_type)
+    - [hrdware](ticket_type) [prntr](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [print](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [print](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [print](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [print](hardware_type)
+    - [hrdware](ticket_type) ticket for [print](hardware_type)
+    - [hrdware](ticket_type) [print](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [prentor](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [prentor](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [prentor](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdware](ticket_type) ticket for [prentor](hardware_type)
+    - [hrdware](ticket_type) [prentor](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [printer](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [printer](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [printer](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [printer](hardware_type)
+    - [hrdware](ticket_type) ticket for [printer](hardware_type)
+    - [hrdware](ticket_type) [printer](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [printor](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [printor](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [printor](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [printor](hardware_type)
+    - [hrdware](ticket_type) ticket for [printor](hardware_type)
+    - [hrdware](ticket_type) [printor](hardware_type)
+    - raise [hrdware](ticket_type) ticket for [pntr](hardware_type)
+    - raise a [hrdware](ticket_type) ticket for [pntr](hardware_type)
+    - i want to raise a [hrdware](ticket_type) ticket for [pntr](hardware_type)
+    - i would like to raise a [hrdware](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdware](ticket_type) ticket for [pntr](hardware_type)
+    - [hrdware](ticket_type) [pntr](hardware_type)
 
-# # ***************************************** pending po item list ********************************************************************
+
+# ****************************************** ticket raise other than monitor **************************************************
 
 
-# - intent: pending_po_item_list
-#   examples: |
-#     - PO [1000909002](po_number)
-#     - po [1000909002](po_number)
-#     - give me PO [1000909002](po_number)
-#     - give me po [1000909002](po_number)
-#     - give me Purchase Order for [1000909002](po_number)
-#     - give me purchase order for [1000909002](po_number)
-#     - Purchase Order [1000909002](po_number)
-#     - purchase order [1000909002](po_number)
-#     - give me PO items for [1000909002](po_number)
-#     - give me po items for [1000909002](po_number)
-#     - give me Purchase Order items for [1000909002](po_number)
-#     - give me purchase order items for [1000909002](po_number)
-#     - Purchase Order items for [1000909002](po_number)
-#     - purchase order items for [1000909002](po_number)
-#     - list of PO items for PO no[1000909002](po_number)
-#     - list of po items for po no[1000909002](po_number)
-#     - list me Purchase Order items for [1000909002](po_number) 
-#     - list me purchase order items for [1000909002](po_number)
-
-# # ***************************************** pending po item list ********************************************************************
-
-# # ***************************************** pending pr item description ********************************************************************
-
-# - intent: pending_pr_item_description
-#   examples: |
-#     - PR item [1098](pr_itemnumber)
-#     - pr item [220](pr_itemnumber)
-#     - PR item no [1098](pr_itemnumber)
-#     - pr item no [220](pr_itemnumber)
-#     - PR item description for [220](pr_itemnumber)
-#     - pr item description for [220](pr_itemnumber)
-#     - give me PR item desc for [220](pr_itemnumber)
-#     - give me pr item desc for [220](pr_itemnumber)
-#     - give me Purchase Requisition item desc for item [220](pr_itemnumber)
-#     - give me purchase requisition item desc ror item [220](pr_itemnumber)
-#     - Purchase Requisition items desc for [220](pr_itemnumber)
-#     - purchase requisition items desc for [220](pr_itemnumber)
-
-# # ***************************************** pending pr item description ********************************************************************
-
-
-# # ***************************************** pending po item description ********************************************************************
-
-
-# - intent: pending_po_item_description
-#   examples: |
-#     - PO item [1098](po_itemnumber)
-#     - po item [1098](po_itemnumber)
-#     - PO item no [1098](po_itemnumber)
-#     - po item no [1098](po_itemnumber)
-#     - PO item description for [1098](po_itemnumber)
-#     - po item description for [1098](po_itemnumber)
-#     - give me PO item desc for [1098](po_itemnumber)
-#     - give me po item desc for [1098](po_itemnumber)
-#     - give me Purchase Order item desc for item [1098](po_itemnumber)
-#     - give me purchase order item desc ror item [1098](po_itemnumber)
-#     - Purchase Order items desc for [1098](po_itemnumber)
-#     - purchase order items desc for [1098](po_itemnumber)
-
-
-# # ***************************************** pending po item description ********************************************************************
