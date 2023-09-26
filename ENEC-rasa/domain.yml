@@ -34,9 +34,6 @@ intents:
   - RemoteworkingPolicy
   - TimesheetPolicy
 
-  - ENEC_ticket_raise_intent
-  - ENEC_ticket_raise_monitor_intent
-
   - revenue_by_year
   - expense_by_year
 
@@ -84,15 +81,6 @@ intents:
   - ENEC_pending_po_item_list
   - ENEC_pending_po_items_description_intent
   - ENEC_PO_appooval_intent
-
-
-
-
-
-
-
-
-
 
 
 
@@ -196,10 +184,6 @@ actions:
 
 
 
-
-
-  - ENEC_ticket_raise_action
-  - ENEC_ticket_raise_monitor_action
 
 
 

@@ -441,19 +441,6 @@ rules:
 
 
 
-# ******************************************** ENEC ticket raising ********************************************************************************************
-- rule: ENEC ticket raise intent 
-  steps:
-  - intent: ENEC_ticket_raise_intent
-  - action: ENEC_ticket_raise_action
-
-
-- rule: ENEC ticket raise intent for monitor 
-  steps:
-  - intent: ENEC_ticket_raise_monitor_intent
-  - action: ENEC_ticket_raise_monitor_action
-
-# ******************************************** ENEC ticket raising ********************************************************************************************
 
 
 

@@ -544,6 +544,22 @@ def IT_ticket_creation(data : IT_ticket_creation):
 
     return res
 
+@app.get('/IT_ticket_list')
+async def IT_ticket_list():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["ITTickets"]
+    a=collection.find()
+
+    it_tickets = []
+
+    for i in a:
+        print(i)
+        it_tickets.append(i['Ticket ID'])
+
+        
+    return it_tickets
+
 
 
 
