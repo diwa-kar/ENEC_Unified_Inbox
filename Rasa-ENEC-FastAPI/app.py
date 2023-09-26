@@ -103,12 +103,12 @@ class ENEC_pending_pr_item_info(BaseModel):
 class pending_pr_approval(BaseModel):
     username : str
     prno: str
-    comment : str
+    comment : str | None
 
 class pending_pr_rejection(BaseModel):
     username : str
     prno: str
-    comment : str
+    comment : str | None
 
 class pending_po_list(BaseModel):
     username: str
@@ -126,12 +126,12 @@ class pending_po_item_info(BaseModel):
 class pending_po_approval(BaseModel):
     username: str
     pono : str
-    comment: str
+    comment: str | None
 
 class pending_po_rejection(BaseModel):
     username: str
     pono : str
-    comment: str
+    comment: str | None
 
 
 class IT_ticket_creation(BaseModel):
