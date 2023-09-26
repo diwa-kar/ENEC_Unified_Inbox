@@ -12,7 +12,9 @@ const MiddleNavbar = (props) => {
     let uri = "";
     let uri1 = "";
     let uri2 = "";
+    let uri3 = "";
     let pending_prlist = [];
+    let pending_polist = [];
     let pending_leave = [];
     let approved_prlist = [];
     let approved_leave = [];
@@ -20,29 +22,43 @@ const MiddleNavbar = (props) => {
     let rejected_leave = [];
     let it_tickets = [];
     if (props.activeTab === "Pending") {
-      uri = "qpmc_pending_pr";
+      uri = "pending_pr_list";
       uri1 = "qpmc_leave_reuqest_sf";
       // uri2 = "qpmc_it_tickets"
-      uri2 = "qpmc_it_tickets_list";
+      uri2 = "IT_ticket_list";
+      uri3 = "pending_po_list";
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: "ABAPER1",
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
         const data = await response.json();
-        console.log(data);
+        console.log("pending_pr_list", data, data.pending_pr);
         let type = "pending pr";
-        if (data && data.pending_pr) {
-          pending_prlist = data.pending_pr.map((data, index) => ({
-            type: type,
-            value: data,
-            description: "PR Request",
-          }));
+        if (data) {
+          pending_prlist = data.map((data, index) => {
+            return {
+              type: type,
+              value: data,
+              description: "PR Request",
+            };
+          });
+
+          console.log(pending_prlist);
         }
+
         const response1 = await fetch(`http://localhost:8000/${uri1}`, {
           mode: "cors",
+          method: "GET",
         });
         const data1 = await response1.json();
-        console.log(data1);
+        console.log("qpmc_leav_request_sf", data1);
         let type1 = "pending leave";
         if (data1) {
           pending_leave = data1.map((data, index) => {
@@ -58,30 +74,69 @@ const MiddleNavbar = (props) => {
             }
             return {
               type: type1,
-              value: "PL "+some,
+              value: "PL " + some,
               description: description,
             };
           });
         }
+
         const response2 = await fetch(`http://localhost:8000/${uri2}`, {
           mode: "cors",
+          method: "GET",
         });
         const data2 = await response2.json();
-        console.log(data);
+        console.log("IT_ticket_list", data);
         let type2 = "it ticket";
         if (data2) {
           it_tickets = data2.map((item, index) => ({
             type: type2,
-            value: item.ticket_id,
-            description: item.hardware_type,
+            value: item,
+            description: "Ticket",
           }));
+        }
+
+        const response3 = await fetch(`http://localhost:8000/${uri3}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: "Girish",
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data3 = await response3.json();
+        console.log("pending_po_list", data3);
+        let type3 = "pending po";
+        if (data3) {
+          pending_polist = data3.map((data, index) => {
+            return {
+              type: type3,
+              value: data,
+              description: "PO Request",
+            };
+          });
+
+          console.log(pending_polist);
         }
         // console.log(it_tickets);
         // console.log(it_tickets.concat(pending_prlist.concat(pending_leave)))
-        props.setCards(it_tickets.concat(pending_prlist.concat(pending_leave)));
-        setOriginalList(
-          it_tickets.concat(pending_prlist.concat(pending_leave))
-        );
+        props.setCards([
+          ...it_tickets,
+          ...pending_prlist,
+          ...pending_leave,
+          ...pending_polist,
+        ]);
+        setOriginalList([
+          ...it_tickets,
+          ...pending_prlist,
+          ...pending_leave,
+          ...pending_polist,
+        ]);
+        // props.setCards(it_tickets.concat(pending_prlist.concat(pending_leave)));
+        // setOriginalList(
+        //   it_tickets.concat(pending_prlist.concat(pending_leave))
+        // );
         showTab.setShowtab(true);
       } catch (e) {
         console.log(e);
@@ -265,7 +320,7 @@ const MiddleNavbar = (props) => {
           </span>
           <input
             className="search-input"
-            style={{outline:"none"}}
+            style={{ outline: "none" }}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search here..."

@@ -64,7 +64,7 @@ const Notificationdisplay = ({
     // selectedItem.type &&
     // selectedItem.type == "Pending Request"
     if (selectedItem.type==="pending pr"|| selectedItem.type === "approved pr" || selectedItem.type === "rejected pr" ){
-      uri = "qmpc_pending_pr_item_info"
+      uri = "pending_pr_item_info"
       try {
         axios
           .get(

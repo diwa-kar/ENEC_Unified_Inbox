@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import Ticket from "./Ticket.png";
 import Leave from "./Leave.png";
 import PR from "./PR.png";
+import PO from "./online-shop.png";
 
 const NotificationItem = (props) => {
   useEffect(() => {
     console.log(props.cardItems);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleItemClick = (index, card) => {
@@ -90,6 +91,10 @@ const NotificationItem = (props) => {
                   card.type === "approved pr" ||
                   card.type === "rejected pr"
                     ? PR
+                    : card.type === "pending po" ||
+                      card.type === "approved po" ||
+                      card.type === "rejected po"
+                    ? PO
                     : card.type === "pending leave" ||
                       card.type === "approved leave" ||
                       card.type === "rejected leave"
@@ -117,9 +122,7 @@ const NotificationItem = (props) => {
                 }}
               >
                 {card.type === "pending leave" ? (
-                  <span style={{ fontWeight: "bold" }}>
-                    {card.value}
-                  </span>
+                  <span style={{ fontWeight: "bold" }}>{card.value}</span>
                 ) : (
                   <span style={{ fontWeight: "bold" }}>{card.value}</span>
                 )}
