@@ -103,12 +103,12 @@ class ENEC_pending_pr_item_info(BaseModel):
 class pending_pr_approval(BaseModel):
     username : str
     prno: str
-    comment : str
+    comment : str | None
 
 class pending_pr_rejection(BaseModel):
     username : str
     prno: str
-    comment : str
+    comment : str | None
 
 class pending_po_list(BaseModel):
     username: str
@@ -126,18 +126,21 @@ class pending_po_item_info(BaseModel):
 class pending_po_approval(BaseModel):
     username: str
     pono : str
-    comment: str
+    comment: str | None
 
 class pending_po_rejection(BaseModel):
     username: str
     pono : str
-    comment: str
+    comment: str | None
 
 
 class IT_ticket_creation(BaseModel):
     tickettype : str
     Hardwaretype : str
     monitorsize : str | None
+
+# class It_tickets_details(BaseModel):
+    
 
 
 
@@ -732,6 +735,27 @@ async def IT_ticket_list():
 
 
     return it_tickets
+
+
+@app.get('/It_tickets_details')
+async def It_tickets_details():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["ITTickets"]
+    a=collection.find()
+
+    it_ticket_detail = []
+
+    for i in a:
+        ticket={}
+        ticket["Ticket id"]=i['Ticket ID']
+        ticket["Ticket type"]=i['Ticket type']
+        ticket["Hardware type"]=i['Hardware type']
+        if(i['Hardware type']=="monitor" or i['Hardware type']=="Monitor" ):
+            ticket["Monitor Size"]=i['Monitor Size']
+        it_ticket_detail.append(ticket)
+        
+    return it_ticket_detail
 
 
 
