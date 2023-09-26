@@ -545,3 +545,14 @@ label {
   height: auto;
   width: fit-content;
 }
+
+/* Login */
+
+.login-container {
+  height: 100vh !important;
+  overflow-y: scroll;
+  font-family: "Poppins", sans-serif !important;
+}
+.text-family {
+  font-family: "Poppins", sans-serif !important;
+}

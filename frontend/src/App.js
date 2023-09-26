@@ -1,29 +1,54 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import MainPage from "./LandingPage/MainPage";
 import ITform from "./Forms/ITform";
 import Notificationdisplay from "./NotificationSidebar/Notificationdisplay";
 import LandingPageHome from "./LandingPage/LandingPageHome";
 import ChatBot from "./ChatBot/ChatBot";
+import Login from "./Login/Login";
+import { useEffect } from "react";
 
 function App() {
+  let location = useLocation();
+  console.log(location);
+
+  const navigate = useNavigate();
+
+  // Retrieve email and password from sessionStorage (dummy data)
+  const email = sessionStorage.getItem("email");
+  const password = sessionStorage.getItem("password");
+
+  // Check if email and password are available in sessionStorage
+  const isAuthenticated = email && password;
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <div className="App-container">
-      <Router>
-        <Routes>
-          {/* <Route path='/pending' element={<Notificationdisplay/>}/> */}
-          <Route path="/" element={<LandingPageHome />} />
-          <Route path="/it-form" element={<ITform />} />
-          {/* <Route path="/main-page" element={<MainPage />}> */}
-          <Route path="/main-page" element={<MainPage />}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<LandingPageHome />} />
+        <Route path="/it-form" element={<ITform />} />
+        {isAuthenticated ? (
+          <>
+            <Route path="/main-page" element={<MainPage />} />
             <Route
               path="/main-page/notification"
               element={<Notificationdisplay />}
             />
-          </Route>
-        </Routes>
-      </Router>
-      <ChatBot />
+          </>
+        ) : null}
+      </Routes>
+      {isAuthenticated && <ChatBot />}
     </div>
   );
 }
