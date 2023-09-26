@@ -12,18 +12,25 @@ import {
 import React, { useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [snackbarOpen, setsnackbarOpen] = useState(false);
+  const [snackbarValue, setsnackbarValue] = useState({
+    duration: 5000,
+    type: "error",
+    infomation: "Invalid credentials!!",
+  });
 
   // Function to store data in sessionStorage with an expiration time
   const setSessionStorageWithExpiry = (key, value, expiryInMinutes) => {
     const now = new Date();
     const item = {
       value: value,
-      expiry: now.getTime() + expiryInMinutes * 60 * 1000, // Expiry time in milliseconds
+      expiry: now.getTime() + expiryInMinutes * 60 * 60 * 1000, // Expiry time in milliseconds
     };
     sessionStorage.setItem(key, JSON.stringify(item));
   };
@@ -43,14 +50,46 @@ const Login = () => {
     return item.value;
   };
 
-  const onSave = () => {
-    console.log(email, password);
-    setSessionStorageWithExpiry("email", email, 15); // Store email with a 15-minute expiration
-    setSessionStorageWithExpiry("password", password, 15); // Store password with a 15-minute expiration
-    const storedEmail = getSessionStorageItem("email");
-    const storedPassword = getSessionStorageItem("password");
-    if (storedEmail && storedPassword) {
-      navigate("/main-page");
+  const onSave = async () => {
+    try {
+      console.log(email, password);
+      const response = await fetch(`http://localhost:8000/login`, {
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify({
+          username: email,
+          password: password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      if (data.message === "Login successful") {
+        setSessionStorageWithExpiry("email", data?.user?.username, 1); // Store email with a 15-minute expiration
+        setSessionStorageWithExpiry("password", data?.user?.password, 1); // Store password with a 15-minute expiration
+        const storedEmail = getSessionStorageItem("email");
+        const storedPassword = getSessionStorageItem("password");
+        if (storedEmail && storedPassword) {
+          navigate("/main-page");
+        }
+        setsnackbarValue({
+          ...snackbarValue,
+          type: "success",
+          infomation: "LoggedIn Successfully !! ",
+        });
+        setsnackbarOpen(true);
+      } else {
+        setsnackbarValue({
+          ...snackbarValue,
+          type: "error",
+          infomation: "Invalid Credentials!! ",
+        });
+        setsnackbarOpen(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -140,15 +179,15 @@ const Login = () => {
               htmlFor="email"
               sx={{ m: 0, py: 1, color: "#000" }}
             >
-              Email
+              Username
             </FormLabel>
             <TextField
               variant="outlined"
-              id="email"
+              id="username"
               fullWidth
-              name="email"
-              type="email"
-              placeholder="Enter Email"
+              name="username"
+              type="text"
+              placeholder="Enter Username"
               sx={{ width: "100%" }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -227,6 +266,11 @@ const Login = () => {
           </Button>
         </Grid>
       </Grid>
+      <CustomSnackbar
+        open={snackbarOpen}
+        setOpen={setsnackbarOpen}
+        snackbarValue={snackbarValue}
+      />
     </div>
   );
 };

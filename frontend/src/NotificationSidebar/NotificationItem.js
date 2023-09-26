@@ -19,6 +19,13 @@ const NotificationItem = (props) => {
       props.updateIt(props.cardItems[index]);
       props.setCurrentContent(0);
     } else if (
+      card.type === "pending po" ||
+      card.type === "approved po" ||
+      card.type === "rejected po"
+    ) {
+      props.updateIt(props.cardItems[index]);
+      props.setCurrentContent(0);
+    } else if (
       card.type === "pending leave" ||
       card.type === "approved leave" ||
       card.type === "rejected leave"

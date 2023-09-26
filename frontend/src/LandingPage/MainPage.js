@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./Profile.png";
 import ProfileDown from "./profile-down.png";
+import { Avatar } from "@mui/material";
 
 export const ValueContext = createContext(null);
 
@@ -38,7 +39,7 @@ function MainPage(props) {
     //   value: "PR 1000005496",
     // },
   ]);
-  const [currentContent,setCurrentContent] = useState(0);
+  const [currentContent, setCurrentContent] = useState(0);
   useEffect(() => {
     setCards([]);
     setDisplayShow(false);
@@ -61,9 +62,43 @@ function MainPage(props) {
         <div className="navbar-main">
           <div className="navbar-rcmc">
             <div>
-              <img alt="" src={Profile}/>
-              <span>Ahmed</span>
-              <img alt="" src={ProfileDown}/>
+              {/* <div
+                style={{
+                  height: "50px",
+                  width: "70px",
+                  borderRadius: "50%",
+                  background: "linear-gradient(to right, #3e5151, #decba4)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span
+                  style={{
+                    color: "#fff",
+                    fontSize: "20px",
+                  }}
+                >
+                  {JSON.parse(
+                    sessionStorage?.getItem("email")
+                  ).value?.substring(0, 2)}
+                </span>
+              </div> */}
+              <Avatar
+                sx={{
+                  background: "linear-gradient(to right, #3e5151, #decba4)",
+                  fontSize: "18px",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {JSON.parse(sessionStorage?.getItem("email")).value?.substring(
+                  0,
+                  1
+                )}
+              </Avatar>
+              <span>{JSON.parse(sessionStorage?.getItem("email")).value}</span>
+              <img alt="" src={ProfileDown} />
             </div>
           </div>
           <div className="main-content">
@@ -73,7 +108,7 @@ function MainPage(props) {
               activeTab={activeTab}
               setCards={setCards}
               cards={cards}
-              setCurrentContent= {setCurrentContent}
+              setCurrentContent={setCurrentContent}
             />
             <Notificationdisplay
               selectedItem={selectedItem}
@@ -94,4 +129,3 @@ function MainPage(props) {
 }
 
 export default MainPage;
-

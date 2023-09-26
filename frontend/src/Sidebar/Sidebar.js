@@ -1,10 +1,10 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import Logo from "./RCMC-Logo.png";
-import GWCLogo from "./gwc-logo.png"
+import GWCLogo from "./gwc-logo.png";
 import InboxLogo from "./Email.png";
 import ApproveLogo from "./Ok.png";
 import RejectLogo from "./Cancel.png";
-import Logout from './Logout.png';
+import Logout from "./Logout.png";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -12,28 +12,27 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ValueContext } from "../LandingPage/MainPage";
-import { Snackbar,Alert } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 
 const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
-  const [open,setOpen] = useState(false);
-  const showTab= useContext(ValueContext)
+  const [open, setOpen] = useState(false);
+  const showTab = useContext(ValueContext);
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
-      <div className="sidebar-logo">
-        {/* <img src={Logo} alt="Logo" /> */}
-      </div>
+      <div className="sidebar-logo">{/* <img src={Logo} alt="Logo" /> */}</div>
       <div className="sidebar-content">
         {/* <div
           className="sidebar-items"
@@ -46,7 +45,9 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
           <span>HOME</span>
         </div> */}
         <div
-          className={`sidebar-items ${tab === "Pending" ? "sidebar-items-active": ""}`}
+          className={`sidebar-items ${
+            tab === "Pending" ? "sidebar-items-active" : ""
+          }`}
           onClick={() => setTab("Pending")}
         >
           <img src={InboxLogo} alt="Inbox"></img>
@@ -54,18 +55,30 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
           <span>Inbox</span>
         </div>
         <div
-          className={`sidebar-items ${tab === "Approved" ? "sidebar-items-active": ""}`}
-          onClick={showTab.showTab === true ? () => setTab("Approved") : () => setOpen(true)}
+          className={`sidebar-items ${
+            tab === "Approved" ? "sidebar-items-active" : ""
+          }`}
+          onClick={
+            showTab.showTab === true
+              ? () => setTab("Approved")
+              : () => setOpen(true)
+          }
         >
-          <img src={ApproveLogo} alt="Approve"/>
+          <img src={ApproveLogo} alt="Approve" />
           {/* <i class="fa-solid fa-check-to-slot"></i> */}
           <span>Approved</span>
         </div>
         <div
-          className={`sidebar-items ${tab === "Rejected" ? "sidebar-items-active": ""}`}
-          onClick={showTab.showTab === true ? () => setTab("Rejected") : () => setOpen(true)}
+          className={`sidebar-items ${
+            tab === "Rejected" ? "sidebar-items-active" : ""
+          }`}
+          onClick={
+            showTab.showTab === true
+              ? () => setTab("Rejected")
+              : () => setOpen(true)
+          }
         >
-          <img src={RejectLogo} alt="Reject"/>
+          <img src={RejectLogo} alt="Reject" />
           {/* <i class="fa-solid fa-rectangle-xmark"></i> */}
           {/* <svg
             fill={tab == "Rejected" ? "#820000" : "#000"}
@@ -198,14 +211,26 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
           <span>Rejected</span>
         </div>
       </div>
-      <div className="sidebar-logout">
-            <img src={Logout} alt="Logout"/>
-            <span>Logout</span>
+      <div
+        className="sidebar-logout"
+        onClick={() => {
+          sessionStorage.clear();
+          navigate("/login");
+        }}
+      >
+        <img src={Logout} alt="Logout" />
+        <span>Logout</span>
       </div>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} variant="filled" severity="warning" elevation={6} sx={{ width: '100%' }}>
-              Loading, Just a moment
-          </Alert>
+        <Alert
+          onClose={handleClose}
+          variant="filled"
+          severity="warning"
+          elevation={6}
+          sx={{ width: "100%" }}
+        >
+          Loading, Just a moment
+        </Alert>
       </Snackbar>
     </div>
   );
