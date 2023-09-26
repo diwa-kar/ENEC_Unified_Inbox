@@ -130,7 +130,7 @@ class pending_po_rejection(BaseModel):
 class IT_ticket_creation(BaseModel):
     tickettype : str
     Hardwaretype : str
-    monitorsize : int
+    monitorsize : str | None
 
 
 
@@ -141,7 +141,6 @@ async def index():
 @app.get('/welcome')
 async def welcome():
     return {'message':'Welcome, Mate!'}
-
 
 
 @app.post("/register")
@@ -544,6 +543,22 @@ def IT_ticket_creation(data : IT_ticket_creation):
         res= f"Ticket Request ({ticket_number}) has not been created successfully"
 
     return res
+
+@app.get('/IT_ticket_list')
+async def IT_ticket_list():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["ITTickets"]
+    a=collection.find()
+
+    it_tickets = []
+
+    for i in a:
+        print(i)
+        it_tickets.append(i['Ticket ID'])
+
+        
+    return it_tickets
 
 
 
