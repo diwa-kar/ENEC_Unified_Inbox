@@ -139,6 +139,9 @@ class IT_ticket_creation(BaseModel):
     Hardwaretype : str
     monitorsize : str | None
 
+# class It_tickets_details(BaseModel):
+    
+
 
 
 @app.get('/')
@@ -732,6 +735,27 @@ async def IT_ticket_list():
 
 
     return it_tickets
+
+
+@app.get('/It_tickets_details')
+async def It_tickets_details():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["ITTickets"]
+    a=collection.find()
+
+    it_ticket_detail = []
+
+    for i in a:
+        ticket={}
+        ticket["Ticket id"]=i['Ticket ID']
+        ticket["Ticket type"]=i['Ticket type']
+        ticket["Hardware type"]=i['Hardware type']
+        if(i['Hardware type']=="monitor" or i['Hardware type']=="Monitor" ):
+            ticket["Monitor Size"]=i['Monitor Size']
+        it_ticket_detail.append(ticket)
+        
+    return it_ticket_detail
 
 
 
