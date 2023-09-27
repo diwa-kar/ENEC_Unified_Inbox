@@ -17,8 +17,10 @@ const MiddleNavbar = (props) => {
     let pending_polist = [];
     let pending_leave = [];
     let approved_prlist = [];
+    let approved_polist = [];
     let approved_leave = [];
     let rejected_prlist = [];
+    let rejected_polist = [];
     let rejected_leave = [];
     let it_tickets = [];
     if (props.activeTab === "Pending") {
@@ -142,9 +144,10 @@ const MiddleNavbar = (props) => {
         console.log(e);
       }
     } else if (props.activeTab === "Approved") {
-      uri = "qpmc_approved_pr_list_mongo";
+      uri = "ENEC_approved_pr_list_mongo";
       // uri1 = "qpmc_approved_leave_list_mongo";
-      uri1 = "qpmc_leave_req_accepted_list";
+      uri1 = "qpmc_approved_leave_list_mongo";
+      uri2 = "ENEC_approved_po_list_mongo";
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           mode: "cors",
@@ -159,6 +162,20 @@ const MiddleNavbar = (props) => {
             description: "PR Request",
           }));
         }
+
+        const response2 = await fetch(`http://localhost:8000/${uri2}`, {
+          mode: "cors",
+        });
+        const data2 = await response2.json();
+        console.log(data2);
+        let type2 = "approved po";
+        if (data2) {
+          approved_polist = data2.map((item, index) => ({
+            type: type2,
+            value: item,
+            description: "PO Request",
+          }));
+        }
         const response1 = await fetch(`http://localhost:8000/${uri1}`, {
           mode: "cors",
         });
@@ -166,24 +183,35 @@ const MiddleNavbar = (props) => {
         console.log(data1);
         let type1 = "approved leave";
         if (data1) {
-          approved_leave = data1.map((item, index) => ({
+          approved_leave = data1.approved_leave_dets.map((item, index) => ({
             type: type1,
             value: item["Leave_id"],
             description: item["Leave_Type"],
           }));
         }
-        console.log(approved_prlist.concat(approved_leave));
-        props.setCards(approved_leave.concat(approved_prlist));
-        setOriginalList(approved_leave.concat(approved_prlist));
+        // console.log(approved_prlist.concat(approved_leave));
+        // props.setCards(approved_leave.concat(approved_prlist));
+        // setOriginalList(approved_leave.concat(approved_prlist));
+        props.setCards([
+          ...approved_prlist,
+          ...approved_polist,
+          ...approved_leave,
+        ]);
+        setOriginalList([
+          ...approved_prlist,
+          ...approved_polist,
+          ...approved_leave,
+        ]);
       } catch (e) {
         console.log(e);
       }
     }
 
     if (props.activeTab === "Rejected") {
-      uri = "qpmc_rejected_pr_list_mongo";
+      uri = "ENEC_rejected_pr_list_mongo";
       // uri1 = "qpmc_rejected_leave_list_mongo"
-      uri1 = "qpmc_leave_req_rejected_list";
+      uri1 = "qpmc_rejected_leave_list_mongo";
+      uri2 = "ENEC_rejected_po_list_mongo";
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           mode: "cors",
@@ -211,9 +239,32 @@ const MiddleNavbar = (props) => {
             description: item.Leave_Type,
           }));
         }
-        console.log(approved_prlist.concat(approved_leave));
-        props.setCards(rejected_leave.concat(rejected_prlist));
-        setOriginalList(rejected_leave.concat(rejected_prlist));
+        const response2 = await fetch(`http://localhost:8000/${uri2}`, {
+          mode: "cors",
+        });
+        const data2 = await response2.json();
+        console.log(data2);
+        let type2 = "rejected po";
+        if (data2) {
+          rejected_polist = data2.map((item, index) => ({
+            type: type2,
+            value: item,
+            description: "PO Request",
+          }));
+        }
+        props.setCards([
+          ...rejected_prlist,
+          ...rejected_polist,
+          ...rejected_leave,
+        ]);
+        setOriginalList([
+          ...rejected_prlist,
+          ...rejected_polist,
+          ...rejected_leave,
+        ]);
+        // console.log(approved_prlist.concat(approved_leave));
+        // props.setCards(rejected_leave.concat(rejected_prlist));
+        // setOriginalList(rejected_leave.concat(rejected_prlist));
       } catch (e) {
         console.log(e);
       }
