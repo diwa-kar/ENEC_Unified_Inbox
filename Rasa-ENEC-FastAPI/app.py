@@ -758,6 +758,45 @@ async def It_tickets_details():
     return it_ticket_detail
 
 
+# ********************************************* Approved tab endpoints *************************************************************
+
+@app.get('/ENEC_approved_pr_list_mongo')
+async def ENEC_approved_pr_list_mongo():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_PR"]
+    a=collection.find()
+
+    approved_pr_list = []
+
+    for i in a:
+
+        approved_pr_list.append(i['Purchase Requisition Number'])
+   
+    return approved_pr_list
+
+
+@app.get('/ENEC_approved_po_list_mongo')
+async def ENEC_approved_po_list_mongo():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_PO"]
+    a=collection.find()
+
+    approved_po_list = []
+
+    for i in a:
+
+        approved_po_list.append(i['Purchase Order Number'])
+   
+    return approved_po_list
+
+
+
+# ********************************************* Approved tab endpoints *************************************************************
+
+
+
 
 
 
