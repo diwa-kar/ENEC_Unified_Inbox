@@ -350,12 +350,12 @@ const Notificationdisplay = ({
       detailData.length = 0;
       try {
         const response = await fetch(
-          "http://localhost:8000/pending_pr_approval",
+          "http://localhost:8000/pending_po_approval",
           {
             method: "POST",
             body: JSON.stringify({
               username: username,
-              prno: value.split(" ")[1],
+              pono: value.split(" ")[1],
               comment: comment,
             }),
             headers: {
@@ -481,10 +481,68 @@ const Notificationdisplay = ({
     }
   };
 
-  function rejectRequest(username, value, comment) {
-    console.log("Console from Reject", username, value, comment);
-    if (value?.split(" ")[1] === "PR") {
-    } else {
+  const rejectRequest = async (username, value, comment) => {
+    if (value?.split(" ")[0] === "PR") {
+      detailData.length = 0;
+      try {
+        const response = await fetch(
+          "http://localhost:8000/pending_pr_rejection",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              username: username,
+              prno: value.split(" ")[1],
+              comment: comment,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        setCards(cards.filter((card) => card.value !== selectedItem.value));
+        setDisplayShow(false);
+        setDetailData([]);
+        setsnackbarValue({
+          ...snackbarValue,
+          type: "success",
+          infomation: data,
+        });
+        setsnackbarOpen(true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    detailData.length = 0;
+    try {
+      const response = await fetch(
+        "http://localhost:8000/pending_po_rejection",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+            pono: value.split(" ")[1],
+            comment: comment,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setCards(cards.filter((card) => card.value !== selectedItem.value));
+      setDisplayShow(false);
+      setDetailData([]);
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "success",
+        infomation: data,
+      });
+      setsnackbarOpen(true);
+    } catch (e) {
+      console.log(e);
     }
     // setLoader(true);
     // if (selectedItem.type === "pending pr") {
@@ -535,7 +593,7 @@ const Notificationdisplay = ({
     //   console.log(e);
     // }
     // }
-  }
+  };
 
   return (
     <div
