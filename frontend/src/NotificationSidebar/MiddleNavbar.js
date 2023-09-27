@@ -233,7 +233,7 @@ const MiddleNavbar = (props) => {
         console.log(data1);
         let type1 = "rejected leave";
         if (data1) {
-          rejected_leave = data1.map((item, index) => ({
+          rejected_leave = data1.rejected_leave_list.map((item, index) => ({
             type: type1,
             value: item.Leave_id,
             description: item.Leave_Type,
