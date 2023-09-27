@@ -804,10 +804,10 @@ async def qpmc_approved_leave_list_mongo():
     for i in a:
         approved_leave_list.append(i['Leave Id'])
         detail={}
-        detail["Leave Id"]=i['Leave Id']
+        detail["Leave_Id"]=i['Leave Id']
         detail["Employee Name"]=i['Employee Name']
         detail["Leave Duration"]=i['Leave Duration']
-        detail["Leave Type"]=i['Leave Type']
+        detail["Leave_Type"]=i['Leave Type']
         approved_leave_dets.append(detail)
         
     return {"approved_leave_list":approved_leave_list,"approved_leave_dets":approved_leave_dets}
@@ -860,10 +860,10 @@ async def qpmc_rejected_leave_list_mongo():
     for i in a:
         rejected_leave_list.append(i['Leave Id'])
         detail={}
-        detail["Leave Id"]=i['Leave Id']
+        detail["Leave_Id"]=i['Leave Id']
         detail["Employee Name"]=i['Employee Name']
         detail["Leave Duration"]=i['Leave Duration']
-        detail["Leave Type"]=i['Leave Type']
+        detail["Leave_Type"]=i['Leave Type']
         rejected_leave_dets.append(detail)
     return {"rejected_leave_list":rejected_leave_list,"rejected_leave_dets":rejected_leave_dets}
 
