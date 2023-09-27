@@ -791,13 +791,84 @@ async def ENEC_approved_po_list_mongo():
    
     return approved_po_list
 
+@app.get('/qpmc_approved_leave_list_mongo')
+async def qpmc_approved_leave_list_mongo():
+
+    db = client["QPMC_RasaChatbot"]
+    collection = db["Approved_Leave"]
+    a=collection.find()
+
+    approved_leave_list = []
+    approved_leave_dets= []
+
+    for i in a:
+        approved_leave_list.append(i['Leave Id'])
+        detail={}
+        detail["Leave Id"]=i['Leave Id']
+        detail["Employee Name"]=i['Employee Name']
+        detail["Leave Duration"]=i['Leave Duration']
+        detail["Leave Type"]=i['Leave Type']
+        approved_leave_dets.append(detail)
+        
+    return {"approved_leave_list":approved_leave_list,"approved_leave_dets":approved_leave_dets}
 
 
 # ********************************************* Approved tab endpoints *************************************************************
 
+# ********************************************* rejected tab endpoints ********************************************************************
+
+@app.get('/ENEC_rejected_pr_list_mongo')
+async def ENEC_rejected_pr_list_mongo():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_PR"]
+    a=collection.find()
+
+    rejected_pr_list=[]
+
+    for i in a:
+        rejected_pr_list.append(i['Purchase Requisition Number'])
+
+    return rejected_pr_list
+
+@app.get('/ENEC_rejected_po_list_mongo')
+async def qpmc_rejected_po_list_mongo():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_PO"]
+    a=collection.find()
+
+    rejected_po_list=[]
+
+    for i in a:
+        rejected_po_list.append(i['Purchase Order Number'])
+
+    return rejected_po_list
 
 
 
+@app.get('/qpmc_rejected_leave_list_mongo')
+async def qpmc_rejected_leave_list_mongo():
+
+    db = client["QPMC_RasaChatbot"]
+    collection = db["Rejected_Leave"]
+    a=collection.find()
+
+    rejected_leave_list=[]
+    rejected_leave_dets= []
+
+    for i in a:
+        rejected_leave_list.append(i['Leave Id'])
+        detail={}
+        detail["Leave Id"]=i['Leave Id']
+        detail["Employee Name"]=i['Employee Name']
+        detail["Leave Duration"]=i['Leave Duration']
+        detail["Leave Type"]=i['Leave Type']
+        rejected_leave_dets.append(detail)
+    return {"rejected_leave_list":rejected_leave_list,"rejected_leave_dets":rejected_leave_dets}
+
+
+# ********************************************* rejected tab endpoints ********************************************************************
 
 
 
@@ -973,46 +1044,9 @@ async def qpmc_reject_leave_request_sf(WfRequestId:str,name:str,type:str,duratio
     return res
 
 
-@app.get('/qpmc_approved_leave_list_mongo')
-async def qpmc_approved_leave_list_mongo():
-
-    db = client["QPMC_RasaChatbot"]
-    collection = db["Approved_Leave"]
-    a=collection.find()
-
-    approved_leave_list = []
-    approved_leave_dets= []
-
-    for i in a:
-        approved_leave_list.append(i['Leave Id'])
-        detail={}
-        detail["Leave Id"]=i['Leave Id']
-        detail["Employee Name"]=i['Employee Name']
-        detail["Leave Duration"]=i['Leave Duration']
-        detail["Leave Type"]=i['Leave Type']
-        approved_leave_dets.append(detail)
-    return {"approved_leave_list":approved_leave_list,"approved_leave_dets":approved_leave_dets}
 
 
-@app.get('/qpmc_rejected_leave_list_mongo')
-async def qpmc_rejected_leave_list_mongo():
 
-    db = client["QPMC_RasaChatbot"]
-    collection = db["Rejected_Leave"]
-    a=collection.find()
-
-    rejected_leave_list=[]
-    rejected_leave_dets= []
-
-    for i in a:
-        rejected_leave_list.append(i['Leave Id'])
-        detail={}
-        detail["Leave Id"]=i['Leave Id']
-        detail["Employee Name"]=i['Employee Name']
-        detail["Leave Duration"]=i['Leave Duration']
-        detail["Leave Type"]=i['Leave Type']
-        rejected_leave_dets.append(detail)
-    return {"rejected_leave_list":rejected_leave_list,"rejected_leave_dets":rejected_leave_dets}
 
 
 # @app.get('/qpmc_it_tickets')
