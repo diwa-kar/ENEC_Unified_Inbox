@@ -17,6 +17,8 @@ import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar"
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [createEmail, setCreateEmail] = useState("");
+  const [createPassword, setCreatePassword] = useState("");
   const navigate = useNavigate();
   const [snackbarOpen, setsnackbarOpen] = useState(false);
   const [snackbarValue, setsnackbarValue] = useState({
@@ -25,17 +27,17 @@ const Login = () => {
     infomation: "Invalid credentials!!",
   });
 
-  // Function to store data in sessionStorage with an expiration time
+  const [toggle, setToggle] = useState(false);
+
   const setSessionStorageWithExpiry = (key, value, expiryInMinutes) => {
     const now = new Date();
     const item = {
       value: value,
-      expiry: now.getTime() + expiryInMinutes * 60 * 60 * 1000, // Expiry time in milliseconds
+      expiry: now.getTime() + expiryInMinutes * 60 * 60 * 1000,
     };
     sessionStorage.setItem(key, JSON.stringify(item));
   };
 
-  // Function to retrieve data from sessionStorage
   const getSessionStorageItem = (key) => {
     const itemStr = sessionStorage.getItem(key);
     if (!itemStr) {
@@ -52,44 +54,99 @@ const Login = () => {
 
   const onSave = async () => {
     try {
-      console.log(email, password);
-      const response = await fetch(`http://localhost:8000/login`, {
-        mode: "cors",
-        method: "POST",
-        body: JSON.stringify({
-          username: email,
-          password: password,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      const data = await response.json();
-      console.log(data);
-      if (data.message === "Login successful") {
-        setSessionStorageWithExpiry("email", data?.user?.username, 1); // Store email with a 15-minute expiration
-        setSessionStorageWithExpiry("password", data?.user?.password, 1); // Store password with a 15-minute expiration
-        const storedEmail = getSessionStorageItem("email");
-        const storedPassword = getSessionStorageItem("password");
-        if (storedEmail && storedPassword) {
-          navigate("/main-page");
-        }
-        setsnackbarValue({
-          ...snackbarValue,
-          type: "success",
-          infomation: "LoggedIn Successfully !! ",
+      if (email !== "" && password !== "") {
+        const response = await fetch(`http://localhost:8000/login`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: email,
+            password: password,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
-        setsnackbarOpen(true);
+        const data = await response.json();
+        if (data.message === "Login successful") {
+          setSessionStorageWithExpiry("email", data?.user?.username, 1);
+          setSessionStorageWithExpiry("password", data?.user?.password, 1);
+          const storedEmail = getSessionStorageItem("email");
+          const storedPassword = getSessionStorageItem("password");
+          await setsnackbarValue({
+            ...snackbarValue,
+            type: "success",
+            infomation: "LoggedIn Successfully !! ",
+          });
+          await setsnackbarOpen(true);
+          if (storedEmail && storedPassword) {
+            navigate("/main-page");
+          }
+        } else {
+          setsnackbarValue({
+            ...snackbarValue,
+            type: "error",
+            infomation: "Invalid Credentials!! ",
+          });
+          setsnackbarOpen(true);
+        }
       } else {
         setsnackbarValue({
           ...snackbarValue,
           type: "error",
-          infomation: "Invalid Credentials!! ",
+          infomation: "Missing out required values!!",
         });
         setsnackbarOpen(true);
       }
     } catch (error) {
-      console.log(error);
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "error",
+        infomation: error,
+      });
+      setsnackbarOpen(true);
+    }
+  };
+
+  const onCreate = async () => {
+    try {
+      if (createEmail !== "" && createPassword !== "") {
+        const response = await fetch(`http://localhost:8000/register`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: createEmail,
+            password: createPassword,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data?.message) {
+          setsnackbarValue({
+            ...snackbarValue,
+            type: "success",
+            infomation: data?.message,
+          });
+          setsnackbarOpen(true);
+        }
+        setToggle(false);
+      } else {
+        setsnackbarValue({
+          ...snackbarValue,
+          type: "error",
+          infomation: "Missing out required values!!",
+        });
+        setsnackbarOpen(true);
+      }
+    } catch (error) {
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "error",
+        infomation: error,
+      });
+      setsnackbarOpen(true);
     }
   };
 
@@ -140,130 +197,246 @@ const Login = () => {
           justifyContent="center"
           flexDirection={"column"}
         >
-          <Box
-            sx={{
-              my: 0.5,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-            }}
-          >
-            <Image
-              src="https://media.licdn.com/dms/image/C4D0BAQF5--sx9bcpVA/company-logo_200_200/0/1652781524472?e=2147483647&v=beta&t=LETyKk97tPZ8egJ1PfV3pxl0I7UBF900-qWk7hDbFeU"
-              fluid
-              height={"80px"}
-              width={"80px"}
-            />
-          </Box>
-          <Box display={"flex"} flexDirection={"column"}>
-            <Typography variant="h5" fontWeight={600} className="text-family">
-              Log In
-            </Typography>
-            <Typography
-              variant="body2"
-              fontWeight={500}
-              mt={1}
-              className="text-family"
-              color="grey"
-            >
-              Enter your email and password to login our account
-            </Typography>
-          </Box>
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            sx={{ width: { xs: "90%", md: "50%" }, mt: 2 }}
-          >
-            <FormLabel
-              className="heading6"
-              htmlFor="email"
-              sx={{ m: 0, py: 1, color: "#000" }}
-            >
-              Username
-            </FormLabel>
-            <TextField
-              variant="outlined"
-              id="username"
-              fullWidth
-              name="username"
-              type="text"
-              placeholder="Enter Username"
-              sx={{ width: "100%" }}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <FormLabel
-              className="heading6"
-              htmlFor="email"
-              sx={{ m: 0, py: 1, color: "#000" }}
-            >
-              Password
-            </FormLabel>
-            <TextField
-              variant="outlined"
-              id="password"
-              fullWidth
-              name="password"
-              type="password"
-              placeholder="Enter Password"
-              sx={{ width: "100%" }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                sm: "flex",
-                lg: "flex",
-              },
-              alignItems: "center",
-              width: { xs: "90%", md: "50%" },
-              my: 2,
-            }}
-          >
-            <FormGroup sx={{ mr: "auto" }}>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="Remember this Device"
-                className="text-family"
+          {!toggle ? (
+            <>
+              <Box
                 sx={{
-                  mb: 1,
+                  my: 0.5,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "start",
                 }}
-              />
-            </FormGroup>
+              >
+                <Image
+                  src="https://media.licdn.com/dms/image/C4D0BAQF5--sx9bcpVA/company-logo_200_200/0/1652781524472?e=2147483647&v=beta&t=LETyKk97tPZ8egJ1PfV3pxl0I7UBF900-qWk7hDbFeU"
+                  fluid
+                  height={"80px"}
+                  width={"80px"}
+                />
+              </Box>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  className="text-family"
+                >
+                  Log In
+                </Typography>
+                <Typography
+                  variant="body2"
+                  fontWeight={500}
+                  mt={1}
+                  className="text-family"
+                  color="grey"
+                >
+                  Enter your email and password to login our account
+                </Typography>
+              </Box>
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                sx={{ width: { xs: "90%", md: "50%" }, mt: 2 }}
+              >
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Username
+                </FormLabel>
+                <TextField
+                  variant="outlined"
+                  id="username"
+                  fullWidth
+                  name="username"
+                  type="text"
+                  placeholder="Enter Username"
+                  sx={{ width: "100%" }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Password
+                </FormLabel>
+                <TextField
+                  variant="outlined"
+                  id="password"
+                  fullWidth
+                  name="password"
+                  type="password"
+                  placeholder="Enter Password"
+                  sx={{ width: "100%" }}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Box>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                sx={{
+                  width: { xs: "90%", md: "50%" },
+                  my: 2,
+                }}
+              >
+                <Typography
+                  color="primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setToggle(true)}
+                  fontWeight="500"
+                  className="text-family"
+                  variant="body2"
+                >
+                  Register a User?
+                </Typography>
 
-            <Typography
-              fontWeight="500"
-              className="text-family"
-              sx={{
-                display: "block",
-                textDecoration: "none",
-                mb: "14px",
-                color: "primary.main",
-                cursor: "pointer",
-              }}
-              variant="body2"
-            >
-              Forgot Password ?
-            </Typography>
-          </Box>
-          <Button
-            variant="contained"
-            size="large"
-            className="text-family"
-            onClick={onSave}
-            sx={{
-              width: "fit-content",
-              color: "#FFF",
-              bgcolor: "#a89566",
-              "&:hover": { bgcolor: "#a89566" },
-            }}
-          >
-            Sign In
-          </Button>
+                <Typography
+                  fontWeight="500"
+                  className="text-family"
+                  sx={{
+                    display: "block",
+                    textDecoration: "none",
+                    // mb: "14px",
+                    color: "primary.main",
+                    cursor: "pointer",
+                  }}
+                  variant="body2"
+                >
+                  Forgot Password ?
+                </Typography>
+              </Box>
+              <Button
+                variant="contained"
+                size="large"
+                className="text-family"
+                onClick={onSave}
+                sx={{
+                  width: "fit-content",
+                  color: "#FFF",
+                  bgcolor: "#a89566",
+                  "&:hover": { bgcolor: "#a89566" },
+                }}
+              >
+                Sign In
+              </Button>
+            </>
+          ) : (
+            <>
+              <Box
+                sx={{
+                  my: 0.5,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "start",
+                }}
+              >
+                <Image
+                  src="https://media.licdn.com/dms/image/C4D0BAQF5--sx9bcpVA/company-logo_200_200/0/1652781524472?e=2147483647&v=beta&t=LETyKk97tPZ8egJ1PfV3pxl0I7UBF900-qWk7hDbFeU"
+                  fluid
+                  height={"80px"}
+                  width={"80px"}
+                />
+              </Box>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  className="text-family"
+                >
+                  Sign Up
+                </Typography>
+                <Typography
+                  variant="body2"
+                  fontWeight={500}
+                  mt={1}
+                  className="text-family"
+                  color="grey"
+                >
+                  Create your email and password to Sign up our account
+                </Typography>
+              </Box>
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                sx={{ width: { xs: "90%", md: "50%" }, mt: 2 }}
+              >
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Username
+                </FormLabel>
+                <TextField
+                  variant="outlined"
+                  id="username"
+                  fullWidth
+                  name="username"
+                  type="text"
+                  placeholder="Enter Username"
+                  sx={{ width: "100%" }}
+                  value={createEmail}
+                  onChange={(e) => setCreateEmail(e.target.value)}
+                />
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Password
+                </FormLabel>
+                <TextField
+                  variant="outlined"
+                  id="password"
+                  fullWidth
+                  name="password"
+                  type="password"
+                  placeholder="Enter Password"
+                  sx={{ width: "100%" }}
+                  value={createPassword}
+                  onChange={(e) => setCreatePassword(e.target.value)}
+                />
+              </Box>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                sx={{
+                  width: { xs: "90%", md: "50%" },
+                  my: 2,
+                }}
+              >
+                <Typography
+                  color="primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setToggle(false)}
+                  fontWeight="500"
+                  className="text-family"
+                  variant="body2"
+                >
+                  Existing User?
+                </Typography>
+              </Box>
+              <Button
+                variant="contained"
+                size="large"
+                className="text-family"
+                onClick={onCreate}
+                sx={{
+                  width: "fit-content",
+                  color: "#FFF",
+                  bgcolor: "#a89566",
+                  "&:hover": { bgcolor: "#a89566" },
+                }}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Grid>
       </Grid>
       <CustomSnackbar
@@ -276,5 +449,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// https://media.licdn.com/dms/image/C4D0BAQF5--sx9bcpVA/company-logo_200_200/0/1652781524472?e=2147483647&v=beta&t=LETyKk97tPZ8egJ1PfV3pxl0I7UBF900-qWk7hDbFeU

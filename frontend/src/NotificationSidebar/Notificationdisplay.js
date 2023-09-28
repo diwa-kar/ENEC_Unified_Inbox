@@ -89,63 +89,122 @@ const Notificationdisplay = ({
       selectedItem.type === "approved pr" ||
       selectedItem.type === "rejected pr"
     ) {
-      uri = "pending_pr_item_info";
-      try {
-        const response = await fetch(`http://localhost:8000/${uri}`, {
-          method: "POST",
-          body: JSON.stringify({
-            prno: selectedItem.value.split(" ")[1],
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
-        const data = await response.json();
-        console.log("PR Response Data", data);
-        // .then((response) => {
-        //   const data = response.data;
-        //   console.log("PR Response Data", data);
-        const tempData = [];
-        // eslint-disable-next-line array-callback-return
-        Object.keys(data).map((key, index) => {
-          tempData.push(data[key]);
-        });
-        console.log(tempData);
-        setLoader(false);
-        setDetailData(tempData);
-        // })
-        // .catch((error) => console.log(`Error in Axios ${error}`));
-      } catch (e) {
-        console.log(e);
+      if (tab === "Approved") {
+        uri = "approved_pr_item_info";
+        try {
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              prno: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PR Response Data", data);
+          // .then((response) => {
+          //   const data = response.data;
+          //   console.log("PR Response Data", data);
+          const tempData = [];
+          // eslint-disable-next-line array-callback-return
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
+          // })
+          // .catch((error) => console.log(`Error in Axios ${error}`));
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        uri = "pending_pr_item_info";
+        try {
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              prno: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PR Response Data", data);
+          // .then((response) => {
+          //   const data = response.data;
+          //   console.log("PR Response Data", data);
+          const tempData = [];
+          // eslint-disable-next-line array-callback-return
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
+          // })
+          // .catch((error) => console.log(`Error in Axios ${error}`));
+        } catch (e) {
+          console.log(e);
+        }
       }
     } else if (
       selectedItem.type === "pending po" ||
       selectedItem.type === "approved po" ||
       selectedItem.type === "rejected po"
     ) {
-      try {
-        uri = "pending_po_item_info";
-        const response = await fetch(`http://localhost:8000/${uri}`, {
-          method: "POST",
-          body: JSON.stringify({
-            pono: selectedItem.value.split(" ")[1],
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
-        const data = await response.json();
-        console.log("PO Response Data", data);
-        const tempData = [];
-        Object.keys(data).map((key, index) => {
-          tempData.push(data[key]);
-        });
-        console.log(tempData);
-        setLoader(false);
-        setDetailData(tempData);
-      } catch (e) {
-        console.log(e);
+      if(tab === "Approved"){
+        try {
+          uri = "approved_po_item_info";
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              pono: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PO Response Data", data);
+          const tempData = [];
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
+        } catch (e) {
+          console.log(e);
+        }
+      }else{
+        try {
+          uri = "pending_po_item_info";
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              pono: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PO Response Data", data);
+          const tempData = [];
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
+        } catch (e) {
+          console.log(e);
+        }
       }
+      
     } else if (selectedItem.type === "pending leave") {
       setDisplayShow(true);
       setLeaveDetail([]);
