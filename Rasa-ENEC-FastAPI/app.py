@@ -479,9 +479,10 @@ def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
         desc['Processing_Status'] = flatjs['entry_content_m:properties_d:ProcessingStatus']
         desc['Delivery_Date'] = flatjs['entry_content_m:properties_d:DeliveryDate']
         desc['Creation_Date'] = flatjs['entry_content_m:properties_d:CreationDate']
+        desc["Comment"] = pr_comment
         item_list_description["PR item "+ i] = desc
 
-        item_list_description["Comment"] = pr_comment
+        # item_list_description["Comment"] = pr_comment
 
     print(item_list_description)
 
@@ -826,10 +827,11 @@ def approved_po_item_info(data : approved_po_item_info):
         desc['AddressStreetName'] = flatjs['entry_content_m:properties_d:AddressStreetName']
         desc['AddressCountry'] = flatjs['entry_content_m:properties_d:AddressCountry']
         desc['AddressRegion'] = flatjs['entry_content_m:properties_d:AddressRegion']
+        desc["Comment"] = po_comment
 
         item_list_description["PO item "+ i] = desc
 
-        item_list_description["Comment"] = po_comment
+        # item_list_description["Comment"] = po_comment
 
         print(item_list_description)
 
