@@ -100,6 +100,9 @@ class pending_pr_item_description(BaseModel):
 class ENEC_pending_pr_item_info(BaseModel):
     prno : str
 
+class ENEC_approved_pr_item_info(BaseModel):
+    prno : str
+
 class pending_pr_approval(BaseModel):
     username : str
     prno: str
@@ -121,6 +124,9 @@ class pending_po_item_description(BaseModel):
     poitemno : str
 
 class pending_po_item_info(BaseModel):
+    pono: str
+
+class approved_po_item_info(BaseModel):
     pono: str
 
 class pending_po_approval(BaseModel):
@@ -383,6 +389,106 @@ def ENEC_pending_pr_item_info(data : ENEC_pending_pr_item_info):
 
     return item_list_description
 
+@app.post('/approved_pr_item_info')
+def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_PR"]
+    a=collection.find()
+
+    pr_comment = ""
+
+    for i in a:
+        
+        if i['Purchase Requisition Number'].split()[-1] == data.prno:
+            pr_comment = i['Comment']
+
+    print("the pr and comment",data.prno,pr_comment)
+    
+
+
+    url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEREQ_PROCESS_SRV/A_PurchaseRequisitionHeader(\'{data.prno}\')/to_PurchaseReqnItem"
+
+    # Create a session and set the authorization header
+    session = requests.Session()
+    session.auth = (sap_username, sap_password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+    itemlist=[]
+    i=0
+    flag = 0
+    while True:
+        try:
+            itemlist.append(f"PR Item {flatjs[f'feed_entry_{i}_content_m:properties_d:PurchaseRequisitionItem']}") 
+            i+=1
+            flag = 1
+        except:
+            if flag:
+                break
+            else:
+                itemlist.append(f"PR Item {flatjs[f'feed_entry_content_m:properties_d:PurchaseRequisitionItem']}")
+                break
+    print(itemlist)
+
+    # list for looping the items no of the pr
+    items_list=[]
+
+    for i in itemlist:
+        a = i.split()[-1]
+        items_list.append(a)
+
+    print(items_list)
+
+    # dict for  storing item description
+    item_list_description = {}
+
+    for i in items_list:
+        
+        url = f'http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/C_PURREQUISITION_FS_SRV/I_Purchaserequisitionitem(PurchaseRequisition=\'{data.prno}\',PurchaseRequisitionItem=\'{i}\')'
+
+        # Create a session and set the authorization header
+        session = requests.Session()
+        session.auth = (sap_username, sap_password)
+        # Send a GET request to the SAP system
+        response = session.get(url)
+        # Print the response status code and content
+        obj = response.content
+        objstr = str(obj, 'UTF-8')
+        obj2 = xmltodict.parse(objstr)
+        js = json.dumps(obj2)
+        js_obj = json.loads(js)
+        flatjs = flatten(js_obj)
+        desc = {}
+        desc['Purchase_Requisition_Number'] = flatjs['entry_content_m:properties_d:PurchaseRequisition']
+        desc['Purchase_Requisition_Item_Number'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionItem']
+        desc['Purchase_Requisition_Release_Status'] = flatjs['entry_content_m:properties_d:PurReqnReleaseStatus']
+        desc['Purchase_Requisition_Item_Text'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionItemText']
+        desc['Purchase_Requisition_Material_Group'] = flatjs['entry_content_m:properties_d:MaterialGroup']
+        desc['Requested_Quantity'] = flatjs['entry_content_m:properties_d:RequestedQuantity']
+        desc['Base_Unit'] = flatjs['entry_content_m:properties_d:BaseUnit']
+        desc['Purchase_Requisition_Price'] = flatjs['entry_content_m:properties_d:PurchaseRequisitionPrice']
+        desc['Plant'] = flatjs['entry_content_m:properties_d:Plant']
+        desc['Company_Code'] = flatjs['entry_content_m:properties_d:CompanyCode']
+        desc['Processing_Status'] = flatjs['entry_content_m:properties_d:ProcessingStatus']
+        desc['Delivery_Date'] = flatjs['entry_content_m:properties_d:DeliveryDate']
+        desc['Creation_Date'] = flatjs['entry_content_m:properties_d:CreationDate']
+        desc["Comment"] = pr_comment
+        item_list_description["PR item "+ i] = desc
+
+        # item_list_description["Comment"] = pr_comment
+
+    print(item_list_description)
+
+
+    return item_list_description
+
 
 @app.post('/pending_pr_approval')
 def pending_pr_approval(data : pending_pr_approval):
@@ -585,11 +691,11 @@ def pending_po_item_list(data: pending_po_item_list):
 
     return itemlist
 
+
 @app.post('/pending_po_item_description')
 def pending_po_item_description(data : pending_po_item_description):
 
     url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrderItem(PurchaseOrder=\'{data.pono}\',PurchaseOrderItem=\'{data.poitemno}\')/to_PurchaseOrder"
-
 
     # Create a session and set the authorization header
     session = requests.Session()
@@ -622,6 +728,117 @@ def pending_po_item_description(data : pending_po_item_description):
 
 
     return desc
+
+
+@app.post('/approved_po_item_info')
+def approved_po_item_info(data : approved_po_item_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_PO"]
+    a=collection.find()
+
+    
+
+    po_comment = ""
+
+    for i in a:
+    
+        
+        if i['Purchase Order Number'].split()[-1] == data.pono:
+            po_comment = i['Comment']
+           
+
+    print("the po and comment",data.pono,po_comment)
+
+
+    url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrder(\'{data.pono}\')/to_PurchaseOrderItem"
+
+
+    # Create a session and set the authorization header
+    session = requests.Session()
+    session.auth = (sap_username, sap_password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+    itemlist=[]
+    i=0
+    flag = 0
+    while True:
+        try:
+            itemlist.append(f"PO Item {flatjs[f'feed_entry_{i}_content_m:properties_d:PurchaseOrderItem']}") 
+            i+=1
+            flag = 1
+        except:
+            if flag:
+                break
+            else:
+                itemlist.append(f"PO Item {flatjs[f'feed_entry_content_m:properties_d:PurchaseOrderItem']}")
+                break
+    print(itemlist)
+
+    items_list = []
+
+
+    for i in itemlist:
+        a = i.split()[-1]
+        items_list.append(a)
+        
+    print(items_list)
+
+    # dict for  storing item description
+    item_list_description = {}
+
+    for i in items_list:
+        
+        url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrderItem(PurchaseOrder=\'{data.pono}\',PurchaseOrderItem=\'{i}\')/to_PurchaseOrder"
+
+
+        # Create a session and set the authorization header
+        session = requests.Session()
+        session.auth = (sap_username, sap_password)
+        # Send a GET request to the SAP system
+        response = session.get(url)
+        # Print the response status code and content
+        obj = response.content
+        objstr = str(obj, 'UTF-8')
+        obj2 = xmltodict.parse(objstr)
+        js = json.dumps(obj2)
+        js_obj = json.loads(js)
+        flatjs = flatten(js_obj)
+        
+        desc = {}
+        desc['Purchase_Order_Number'] = flatjs['entry_content_m:properties_d:PurchaseOrder']
+        desc['CompanyCode'] = flatjs['entry_content_m:properties_d:CompanyCode']
+        desc['CreatedByUser'] = flatjs['entry_content_m:properties_d:CreatedByUser']
+        desc['PurchasingProcessingStatus'] = flatjs['entry_content_m:properties_d:PurchasingProcessingStatus']
+        desc['CreationDate'] = flatjs['entry_content_m:properties_d:CreationDate']
+        desc['Supplier'] = flatjs['entry_content_m:properties_d:Supplier']
+        desc['PurchaseOrderSubtype'] = flatjs['entry_content_m:properties_d:PurchaseOrderSubtype']
+        desc['PaymentTerms'] = flatjs['entry_content_m:properties_d:PaymentTerms']
+        desc['PurchasingGroup'] = flatjs['entry_content_m:properties_d:PurchasingGroup']
+        desc['AddressCityName'] = flatjs['entry_content_m:properties_d:AddressCityName']
+        desc['AddressPostalCode'] = flatjs['entry_content_m:properties_d:AddressPostalCode']
+        desc['AddressStreetName'] = flatjs['entry_content_m:properties_d:AddressStreetName']
+        desc['AddressCountry'] = flatjs['entry_content_m:properties_d:AddressCountry']
+        desc['AddressRegion'] = flatjs['entry_content_m:properties_d:AddressRegion']
+        desc["Comment"] = po_comment
+
+        item_list_description["PO item "+ i] = desc
+
+        # item_list_description["Comment"] = po_comment
+
+        print(item_list_description)
+
+    return item_list_description
+
+
+
 
 @app.post('/pending_po_approval')
 def pending_po_approval(data : pending_po_approval):
