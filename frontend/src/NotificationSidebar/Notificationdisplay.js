@@ -213,7 +213,7 @@ const Notificationdisplay = ({
       setDisplayShow(true);
       setLeaveDetail([]);
       setLoader(true);
-      uri = "qpmc_leave_req_accepted_list";
+      uri = "qpmc_approved_leave_list_mongo";
       console.log(selectedItem);
       try {
         axios
@@ -222,7 +222,7 @@ const Notificationdisplay = ({
             console.log(response);
             const data = response.data;
             console.log(data.approved_leave_dets);
-            data.map((data) => {
+            data.approved_leave_dets.map((data) => {
               for (const [key, value] of Object.entries(data)) {
                 if (key === "Leave_id" && value === selectedItem.value) {
                   console.log(key, value);
@@ -256,13 +256,13 @@ const Notificationdisplay = ({
             console.log(data.rejected_leave_dets);
             data.rejected_leave_dets.map((data) => {
               for (const [key, value] of Object.entries(data)) {
-                if (key === "Leave Id" && value === selectedItem.value) {
+                if (key === "Leave_id" && value === selectedItem.value) {
                   console.log(key, value);
                   leavedets.push(data);
                   console.log(leavedets);
                   setLeavename(data["Employee Name"]);
                   setLeaveduration(data["Leave Duration"]);
-                  setLeavetype(data["Leave Type"]);
+                  setLeavetype(data["Leave_Type"]);
                 }
               }
               return null;

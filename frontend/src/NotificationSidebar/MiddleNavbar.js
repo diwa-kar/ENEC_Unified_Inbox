@@ -233,12 +233,13 @@ const MiddleNavbar = (props) => {
         console.log(data1);
         let type1 = "rejected leave";
         if (data1) {
-          rejected_leave = data1.rejected_leave_list.map((item, index) => ({
+          rejected_leave = data1.rejected_leave_dets.map((item, index) => ({
             type: type1,
             value: item.Leave_id,
             description: item.Leave_Type,
           }));
         }
+        console.log(rejected_leave);
         const response2 = await fetch(`http://localhost:8000/${uri2}`, {
           mode: "cors",
         });
