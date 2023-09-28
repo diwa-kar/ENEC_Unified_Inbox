@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import EmptyIcon from "./inbox-default.png";
 import "./NotificationDisplay.css";
 import axios from "axios";
-import { toast } from "react-toastify";
 import PuffLoader from "react-spinners/PuffLoader";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-// import Button from '@mui/material/Button';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Divider, TextareaAutosize } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -45,23 +42,7 @@ const Notificationdisplay = ({
   });
   const [opensnack, setOpensnack] = useState(false);
   const [opensnackr, setOpensnackr] = useState(false);
-  const [detailData, setDetailData] = useState([
-    // {
-    //   "Purchase Requisition Number": "1000005421",
-    //   "Purchase Requisition Item Number": "10",
-    //   "Purchase Requisition Release Status": "05",
-    //   Purchase_Requisition_Item_Text: "TEST KIROA 005",
-    //   Purchase_Requisition_Material_Group: "20001",
-    //   Requested_Quantity: "2.000",
-    //   Base_Unit: "PC",
-    //   Purchase_Requisition_Price: "2543.84",
-    //   Plant: "2000",
-    //   Company_Code: "2000",
-    //   Processing_Status: "N",
-    //   Delivery_Date: "2022-07-01T00:00:00",
-    //   Creation_Date: "2022-06-30T00:00:00",
-    // },
-  ]);
+  const [detailData, setDetailData] = useState([]);
   const [leaveDetail, setLeaveDetail] = useState([]);
   const [ticketdetail, setTicketdetail] = useState([]);
   const [leavetype, setLeavetype] = useState("");
@@ -82,8 +63,7 @@ const Notificationdisplay = ({
     let leavedets = [];
     let ticketdets = [];
     console.log(selectedItem);
-    // selectedItem.type &&
-    // selectedItem.type == "Pending Request"
+
     if (
       selectedItem.type === "pending pr" ||
       selectedItem.type === "approved pr" ||
@@ -103,19 +83,39 @@ const Notificationdisplay = ({
           });
           const data = await response.json();
           console.log("PR Response Data", data);
-          // .then((response) => {
-          //   const data = response.data;
-          //   console.log("PR Response Data", data);
+
           const tempData = [];
-          // eslint-disable-next-line array-callback-return
           Object.keys(data).map((key, index) => {
             tempData.push(data[key]);
           });
           console.log(tempData);
           setLoader(false);
           setDetailData(tempData);
-          // })
-          // .catch((error) => console.log(`Error in Axios ${error}`));
+        } catch (e) {
+          console.log(e);
+        }
+      } else if (tab === "Rejected") {
+        uri = "rejected_pr_item_info";
+        try {
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              prno: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PR Response Data", data);
+
+          const tempData = [];
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
         } catch (e) {
           console.log(e);
         }
@@ -133,19 +133,14 @@ const Notificationdisplay = ({
           });
           const data = await response.json();
           console.log("PR Response Data", data);
-          // .then((response) => {
-          //   const data = response.data;
-          //   console.log("PR Response Data", data);
+
           const tempData = [];
-          // eslint-disable-next-line array-callback-return
           Object.keys(data).map((key, index) => {
             tempData.push(data[key]);
           });
           console.log(tempData);
           setLoader(false);
           setDetailData(tempData);
-          // })
-          // .catch((error) => console.log(`Error in Axios ${error}`));
         } catch (e) {
           console.log(e);
         }
@@ -155,7 +150,7 @@ const Notificationdisplay = ({
       selectedItem.type === "approved po" ||
       selectedItem.type === "rejected po"
     ) {
-      if(tab === "Approved"){
+      if (tab === "Approved") {
         try {
           uri = "approved_po_item_info";
           const response = await fetch(`http://localhost:8000/${uri}`, {
@@ -179,7 +174,31 @@ const Notificationdisplay = ({
         } catch (e) {
           console.log(e);
         }
-      }else{
+      } else if (tab === "Rejected") {
+        try {
+          uri = "rejected_po_item_info";
+          const response = await fetch(`http://localhost:8000/${uri}`, {
+            method: "POST",
+            body: JSON.stringify({
+              pono: selectedItem.value.split(" ")[1],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          const data = await response.json();
+          console.log("PO Response Data", data);
+          const tempData = [];
+          Object.keys(data).map((key, index) => {
+            tempData.push(data[key]);
+          });
+          console.log(tempData);
+          setLoader(false);
+          setDetailData(tempData);
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
         try {
           uri = "pending_po_item_info";
           const response = await fetch(`http://localhost:8000/${uri}`, {
@@ -204,7 +223,6 @@ const Notificationdisplay = ({
           console.log(e);
         }
       }
-      
     } else if (selectedItem.type === "pending leave") {
       setDisplayShow(true);
       setLeaveDetail([]);
@@ -337,7 +355,6 @@ const Notificationdisplay = ({
   };
   useEffect(() => {
     getDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem]);
 
   useEffect(() => {
@@ -345,7 +362,6 @@ const Notificationdisplay = ({
     setDisplayShow(false);
     setLeaveDetail([]);
     setTicketdetail([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   // Dialog Handler
@@ -384,24 +400,6 @@ const Notificationdisplay = ({
           infomation: data,
         });
         setsnackbarOpen(true);
-        // setOpensnack(true);
-        // axios
-        //   .get(
-        //     `http://localhost:8000/qpmc_pending_pr_approval?prno=${
-        //       selectedItem.value.split(" ")[1]
-        //     }`
-        //   )
-        //   .then((response) => {
-        //     const data = response.data;
-        //     console.log(data);
-        //     if (data.result.ExStatus === "ERROR") toast.error(data.text);
-        //     if (data.result.ExStatus === "APPROVED") toast.success(data.text);
-        //     setCards(cards.filter((card) => card.value !== selectedItem.value));
-        //     setDisplayShow(false);
-        //     setDetailData([]);
-        //     setOpensnack(true);
-        //   })
-        //   .catch((error) => console.log(`Error in Axios ${error}`));
       } catch (e) {
         console.log(e);
       }
@@ -437,55 +435,6 @@ const Notificationdisplay = ({
         console.log(e);
       }
     }
-    // setLoader(true);
-    // if (selectedItem.type === "pending pr") {
-    // detailData.length = 0;
-    // try {
-    //   axios
-    //     .get(
-    //       `http://localhost:8000/qpmc_pending_pr_approval?prno=${
-    //         selectedItem.value.split(" ")[1]
-    //       }`
-    //     )
-    //     .then((response) => {
-    //       const data = response.data;
-    //       console.log(data);
-    //       if (data.result.ExStatus === "ERROR") toast.error(data.text);
-    //       if (data.result.ExStatus === "APPROVED") toast.success(data.text);
-    //       setCards(cards.filter((card) => card.value !== selectedItem.value));
-    //       setDisplayShow(false);
-    //       setDetailData([]);
-    //       setOpensnack(true);
-    //     })
-    //     .catch((error) => console.log(`Error in Axios ${error}`));
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // } else if (selectedItem.type === "pending leave") {
-    // leaveDetail.length = 0;
-    // try {
-    //   axios
-    //     .get(
-    //       `http://localhost:8000/qpmc_accept_leave_reuqest_sf?WfRequestId=${selectedItem.value}L&name=${leavename}&type=${leavetype}&duration=${leaveduration}`
-    //     )
-    //     .then((response) => {
-    //       const data = response.data;
-    //       console.log(data);
-    //       // if (data.result.ExStatus == "ERROR") toast.error(data.text);
-    //       // if (data.result.ExStatus == "APPROVED") toast.success(data.text);
-    //       console.log(
-    //         cards.filter((card) => card.value !== selectedItem.value)
-    //       );
-    //       setCards(cards.filter((card) => card.value !== selectedItem.value));
-    //       setDisplayShow(false);
-    //       setDetailData([]);
-    //       setOpensnack(true);
-    //     })
-    //     .catch((error) => console.log(`Error in Axios ${error}`));
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // }
   };
 
   const approvePendingLeave = () => {
@@ -603,55 +552,6 @@ const Notificationdisplay = ({
     } catch (e) {
       console.log(e);
     }
-    // setLoader(true);
-    // if (selectedItem.type === "pending pr") {
-    //   detailData.length = 0;
-    //   try {
-    //     axios
-    //       .get(
-    //         `http://localhost:8000/qpmc_pending_pr_reject?prno=${
-    //           selectedItem.value.split(" ")[1]
-    //         }`
-    //       )
-    //       .then((response) => {
-    //         const data = response.data;
-    //         console.log(data);
-    //         if (data.result.ExStatus === "ERROR") toast.error(data.text);
-    //         if (data.result.ExStatus === "REJECTED") toast.warning(data.text);
-    //         setCards(cards.filter((card) => card.value !== selectedItem.value));
-    //         setDisplayShow(false);
-    //         setDetailData([]);
-    //         setOpensnackr(true);
-    //       })
-    //       .catch((error) => console.log(`Error in Axios ${error}`));
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // } else if (selectedItem.type === "pending leave") {
-    // leaveDetail.length = 0;
-    // try {
-    //   axios
-    //     .get(
-    //       `http://localhost:8000/qmpc_reject_leave_request_sf?WfRequestId=${selectedItem.value}L&name=${leavename}&type=${leavetype}&duration=${leaveduration}`
-    //     )
-    //     .then((response) => {
-    //       const data = response.data;
-    //       console.log(data);
-    //       // if (data.result.ExStatus == "ERROR") toast.error(data.text);
-    //       // if (data.result.ExStatus == "APPROVED") toast.success(data.text);
-    //       setCards(cards.filter((card) => card.value !== selectedItem.value));
-    //       console.log(
-    //         cards.filter((card) => card.value !== selectedItem.value)
-    //       );
-    //       setDisplayShow(false);
-    //       setDetailData([]);
-    //       setOpensnackr(true);
-    //     })
-    //     .catch((error) => console.log(`Error in Axios ${error}`));
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // }
   };
 
   return (
@@ -672,11 +572,6 @@ const Notificationdisplay = ({
         <></>
       )}
 
-      {/* {(detailData.length > 0) && tab == "Pending" ? (
-        <></>
-      ) : (
-        <></>
-      )} */}
       {detailData.length > 0 &&
       (selectedItem.type === "pending pr" ||
         selectedItem.type === "approved pr" ||
@@ -693,19 +588,11 @@ const Notificationdisplay = ({
                 }`}
                 key={index}
                 onClick={() => setCurrentContent(index)}
-                style={
-                  {
-                    // background: tab=='Pending' ? "#fffdf6": tab=='Approved'?"#EFFFEE":"#FFEEEE",
-                    // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-                    // marginBottom: detailData.length == index + 1 ? "20px" : "0px",
-                  }
-                }
               >
                 {Object.keys(data).map((key, keyIndex) => (
                   <div>
                     <span
                       style={{
-                        // color: "#820000",
                         wordWrap: "break-word",
                       }}
                     >
@@ -918,74 +805,16 @@ const Notificationdisplay = ({
           Request is Rejected
         </Alert>
       </Snackbar>
-      {/* {(leaveDetail.length > 0) && tab == "Pending" ? (
-        <div className="Notificataion-display-buttons-leave">
-          <Button
-            variant={"contained"}
-            size="medium"
-            sx={{
-              backgroundColor: "#1b5e20",
-              fontWeight: "bold",
-            }}
-            style={{
-              margin: "5px 0px",
-              textTransform: "capitalize",
-              letterSpacing: "1px",
-              fontSize: "11px",
-              fontWeight: "550",
-              width: "12%",
-              fontWeight: "700",
-              marginRight: "20px",
-            }}
-            color="success"
-            onClick={() => approveRequest()}
-          >
-            Approve
-          </Button>
-          <Button
-            variant={"contained"}
-            size="medium"
-            sx={{
-              backgroundColor: "#c62828",
-            }}
-            style={{
-              margin: "5px 0px",
-              textTransform: "capitalize",
-              letterSpacing: "1px",
-              fontSize: "11px",
-              fontWeight: "550",
-              width: "12%",
-              fontWeight: "700",
-            }}
-            color="error"
-            onClick={() => rejectRequest()}
-          >
-            Reject
-          </Button>
-        </div>
-      ) : (
-        <></>
-      )} */}
+
       {ticketdetail.length > 0 && selectedItem.type === "it ticket" ? (
         <div className="Notificataion-display-content">
           {ticketdetail.map((data, index) => {
             return (
-              <div
-                className="Notificataion-display-detail-leave"
-                key={index}
-                style={
-                  {
-                    // background: tab=='Pending' ? "#E9E9DF": tab=='Approved'?"#f3fffc":"#fff7f7",
-                    // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-                    // marginBottom: detailData.length == index + 1 ? "20px" : "0px",
-                  }
-                }
-              >
+              <div className="Notificataion-display-detail-leave" key={index}>
                 {Object.keys(data).map((key, keyIndex) => (
                   <div>
                     <span
                       style={{
-                        // color: "#5A5A21",
                         wordWrap: "break-word",
                       }}
                     >

@@ -22,8 +22,12 @@ import Chart from "react-apexcharts";
 // view the pr in detailed manner
 
 const ChatBot = () => {
+  const [form, setForm] = useState({
+    username: JSON.parse(sessionStorage.getItem("email")).value,
+  });
+
   const [chat, setChat] = useState([
- /*    {
+    /*    {
       sender: "bot",
       sender_id: "Name",
       msg: "Hi I am a ChatBot. How may I help you?!",
@@ -158,7 +162,11 @@ const ChatBot = () => {
       //   "Access-Control-Allow-Headers": "*",
       // },
       // credentials: "same-origin",
-      body: JSON.stringify({ sender: name, message: msg }),
+      body: JSON.stringify({
+        sender: name,
+        message: msg,
+        metadata: form,
+      }),
     })
       .then((response) => response.json())
       .then((response) => {
@@ -185,14 +193,13 @@ const ChatBot = () => {
 
             if (recipient_msg["details"]) {
               if (recipient_msg["details"]["flag"]) {
-                console.log(recipient_msg)
+                console.log(recipient_msg);
                 response_temp["details"] = {
                   showButtons: recipient_msg["details"]["flag"] ? true : false,
                   data: recipient_msg["details"]["data"],
-                  type: recipient_msg["details"]['type']
+                  type: recipient_msg["details"]["type"],
                 };
-              }
-              else
+              } else
                 response_temp["details"] = {
                   data: recipient_msg["details"]["data"],
                 };
@@ -692,7 +699,7 @@ const ChatBot = () => {
             ref={chatScreenContent}
             style={{
               background: "white",
-              overflowX: "hidden"
+              overflowX: "hidden",
             }}
           >
             {chat.map((chatContent, index) => {
@@ -703,7 +710,7 @@ const ChatBot = () => {
                     justifyContent:
                       chatContent.sender === "bot" ? "flex-start" : "flex-end",
                     marginTop: chatContent.sender === "bot" ? "1%" : "",
-                    marginLeft: chatContent.sender === "bot" ? "1%" : ""
+                    marginLeft: chatContent.sender === "bot" ? "1%" : "",
                   }}
                   className="chartscreen-content-text"
                 >
@@ -719,15 +726,23 @@ const ChatBot = () => {
                     className={`chatscreen-content-chat`}
                     style={{
                       alignItems:
-                        chatContent.sender === "bot" ? "flex-start" : "flex-end",
+                        chatContent.sender === "bot"
+                          ? "flex-start"
+                          : "flex-end",
                     }}
                   >
                     {chatContent.msg ? (
                       <span
-                        className={`chatscreen-content-msg ${chatContent.sender === "bot" ? "arrow-left" : "arrow-right"}`}
+                        className={`chatscreen-content-msg ${
+                          chatContent.sender === "bot"
+                            ? "arrow-left"
+                            : "arrow-right"
+                        }`}
                         style={{
-                          marginLeft: chatContent.sender === "bot" ? "1rem" : "",
-                          marginRight: chatContent.sender === "bot" ? "" : "1rem",
+                          marginLeft:
+                            chatContent.sender === "bot" ? "1rem" : "",
+                          marginRight:
+                            chatContent.sender === "bot" ? "" : "1rem",
                           background:
                             chatContent.sender === "bot"
                               ? "#F0F0F0"
@@ -738,7 +753,7 @@ const ChatBot = () => {
                             chatContent.sender === "bot" ? "12px" : "",
                           paddingRight:
                             chatContent.sender === "bot" ? "" : "12px",
-                            color: chatContent.sender === "bot" ? "#000" : ""
+                          color: chatContent.sender === "bot" ? "#000" : "",
                         }}
                       >
                         {chatContent.msg}
@@ -757,7 +772,8 @@ const ChatBot = () => {
                               color: darkMode ? "white" : "",
                               gridColumn:
                                 chatContent.links.length < 6 ? "span 2" : "",
-                            }} rel="noreferrer"
+                            }}
+                            rel="noreferrer"
                           >
                             {link.tag}
                             <img
@@ -831,13 +847,13 @@ const ChatBot = () => {
                             onClick={(e) => {
                               chatContent.chat_id === viewMoreState.id
                                 ? setViewMoreState({
-                                  ...viewMoreState,
-                                  count: viewMoreState.count + 10,
-                                })
+                                    ...viewMoreState,
+                                    count: viewMoreState.count + 10,
+                                  })
                                 : setViewMoreState({
-                                  id: chatContent.chat_id,
-                                  count: 20,
-                                });
+                                    id: chatContent.chat_id,
+                                    count: 20,
+                                  });
                             }}
                           >
                             View More
@@ -850,8 +866,8 @@ const ChatBot = () => {
                       <></>
                     )}
                     {chatContent.details &&
-                      chatContent.details.data &&
-                      Object.keys(chatContent.details.data).length > 0 ? (
+                    chatContent.details.data &&
+                    Object.keys(chatContent.details.data).length > 0 ? (
                       <div
                         className="chatscreen-content-details"
                         style={{
@@ -1025,10 +1041,10 @@ const ChatBot = () => {
                   {/* -------------------- */}
                   {chatContent.sender === "user" ? (
                     <></>
+                  ) : (
                     // <span className="chatscreen-content-icon">
                     //   <img alt="" src={darkMode ? UserIconDark : UserIcon} />
                     // </span>
-                  ) : (
                     <></>
                   )}
                 </div>
@@ -1099,10 +1115,7 @@ const ChatBot = () => {
               </span>
             )}
           </div>
-          <div
-            className="chatscreen-footer"
-            style={{}}
-          >
+          <div className="chatscreen-footer" style={{}}>
             <form onSubmit={handleSubmit}>
               <div className="chatscreen-footer-input">
                 <input
