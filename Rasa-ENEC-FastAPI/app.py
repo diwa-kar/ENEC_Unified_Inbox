@@ -100,6 +100,12 @@ class pending_pr_item_description(BaseModel):
 class ENEC_pending_pr_item_info(BaseModel):
     prno : str
 
+class ENEC_approved_pr_list_mongo(BaseModel):
+    username : str
+
+class ENEC_rejected_pr_list_mongo(BaseModel):
+    username : str
+
 class ENEC_approved_pr_item_info(BaseModel):
     prno : str
 
@@ -128,6 +134,12 @@ class pending_po_item_description(BaseModel):
 
 class pending_po_item_info(BaseModel):
     pono: str
+
+class ENEC_approved_po_list_mongo(BaseModel):
+    username : str
+
+class ENEC_rejected_po_list_mongo(BaseModel):
+    username : str
 
 class approved_po_item_info(BaseModel):
     pono: str
@@ -619,7 +631,7 @@ def pending_pr_approval(data : pending_pr_approval):
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_PR"]
-        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Approved","Comment":f"{data.comment}"}
+        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
         res = collection.insert_one(document)
 
         text =f"PR {data.prno} is Approved successfully" 
@@ -646,12 +658,11 @@ def pending_pr_rejection(data : pending_pr_rejection):
 
         text =f"PR {data.prno} is already approved/rejected" 
 
-
     elif Status_code == "REJECTED":
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PR"]
-        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Approved","Comment":f"{data.comment}"}
+        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}"}
         res = collection.insert_one(document)
 
         text =f"PR {data.prno} is Rejected successfully" 
@@ -1079,7 +1090,7 @@ def pending_po_approval(data : pending_po_approval):
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_PO"]
-        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Approved","Comment":f"{data.comment}"}
+        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
         res = collection.insert_one(document)
 
         text =f"PO {data.pono} is Approved successfully" 
@@ -1113,7 +1124,7 @@ def pending_po_rejection(data : pending_po_rejection):
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PO"]
-        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Approved","Comment":f"{data.comment}"}
+        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Rejected","Comment":f"{data.comment}"}
         res = collection.insert_one(document)
 
         text =f"PO {data.pono} is Rejected successfully" 
@@ -1190,8 +1201,8 @@ async def It_tickets_details():
 
 # ********************************************* Approved tab endpoints *************************************************************
 
-@app.get('/ENEC_approved_pr_list_mongo')
-async def ENEC_approved_pr_list_mongo():
+@app.post('/ENEC_approved_pr_list_mongo')
+async def ENEC_approved_pr_list_mongo(data : ENEC_approved_pr_list_mongo):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PR"]
@@ -1200,14 +1211,16 @@ async def ENEC_approved_pr_list_mongo():
     approved_pr_list = []
 
     for i in a:
+        if data.username == i["username"]:
+            approved_pr_list.append(i['Purchase Requisition Number'])
 
-        approved_pr_list.append(i['Purchase Requisition Number'])
-   
+    print(approved_pr_list)
+
     return approved_pr_list
 
 
-@app.get('/ENEC_approved_po_list_mongo')
-async def ENEC_approved_po_list_mongo():
+@app.post('/ENEC_approved_po_list_mongo')
+async def ENEC_approved_po_list_mongo(data : ENEC_approved_po_list_mongo):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PO"]
@@ -1216,9 +1229,11 @@ async def ENEC_approved_po_list_mongo():
     approved_po_list = []
 
     for i in a:
+        if data.username == i["username"]:
+            approved_po_list.append(i['Purchase Order Number'])
 
-        approved_po_list.append(i['Purchase Order Number'])
-   
+    print(approved_po_list)
+
     return approved_po_list
 
 @app.get('/qpmc_approved_leave_list_mongo')
@@ -1247,34 +1262,36 @@ async def qpmc_approved_leave_list_mongo():
 
 # ********************************************* rejected tab endpoints ********************************************************************
 
-@app.get('/ENEC_rejected_pr_list_mongo')
-async def ENEC_rejected_pr_list_mongo():
+
+@app.post('/ENEC_rejected_pr_list_mongo')
+async def ENEC_rejected_pr_list_mongo(data : ENEC_rejected_pr_list_mongo):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Rejected_PR"]
     a=collection.find()
 
-    rejected_pr_list=[]
+    approved_pr_list = []
 
     for i in a:
-        rejected_pr_list.append(i['Purchase Requisition Number'])
+        if data.username == i["username"]:
+            approved_pr_list.append(i['Purchase Requisition Number'])
 
-    return rejected_pr_list
+    return approved_pr_list
 
-@app.get('/ENEC_rejected_po_list_mongo')
-async def qpmc_rejected_po_list_mongo():
+@app.post('/ENEC_rejected_po_list_mongo')
+async def ENEC_rejected_po_list_mongo(data : ENEC_rejected_po_list_mongo):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Rejected_PO"]
     a=collection.find()
 
-    rejected_po_list=[]
+    approved_po_list = []
 
     for i in a:
-        rejected_po_list.append(i['Purchase Order Number'])
+        if data.username == i["username"]:
+            approved_po_list.append(i['Purchase Order Number'])
 
-    return rejected_po_list
-
+    return approved_po_list
 
 
 @app.get('/qpmc_rejected_leave_list_mongo')

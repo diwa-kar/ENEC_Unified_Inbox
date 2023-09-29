@@ -24,15 +24,17 @@ password = 'Kaar@12345'
 
 # *********************************************** pending pr from digiverz local system *********************************************
 
-def pending_pr_list():
+def pending_pr_list(user_name:str):
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
 
     transport = HttpAuthenticated(username=username, password=password)
     client = Client(url,transport=transport)
-    result = client.service.ZfmPrPending('ABAPER1') 
+    result = client.service.ZfmPrPending(user_name) 
     listofobj = result[0]
     pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
+
+    print(username,"inside function")
 
     print(pendingpr)
 
