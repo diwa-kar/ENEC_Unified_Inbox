@@ -759,7 +759,6 @@ class ActionRemoteworkingPolicy(Action):
 # ******************************************** ENEC ticket raising ********************************************************************************************
 class ENECTicketRaiseMonitor(Action):
 
-    
 
     def name(self) -> Text:
         return "ENEC_ticket_raise_monitor_action"
@@ -1805,15 +1804,18 @@ class Pending_pr(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # global Pending_PR_Flag 
-        # Pending_PR_Flag = 1
+                
+        metadata = tracker.latest_message.get("metadata")
 
-        pendingpr = pending_pr_list()
+        user_name = metadata['username']
+
+        print(metadata['username'],"in action")
+
+        pendingpr = pending_pr_list(user_name)
         print(pendingpr)
 
         send = {"requests": pendingpr,
                 "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-                
                 }
 
         my_json = json.dumps(send)
