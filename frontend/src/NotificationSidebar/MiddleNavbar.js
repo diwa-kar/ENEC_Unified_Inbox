@@ -177,6 +177,13 @@ const MiddleNavbar = (props) => {
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
         const data = await response.json();
         console.log("Approved PR List", data);
@@ -198,6 +205,13 @@ const MiddleNavbar = (props) => {
       try {
         const response2 = await fetch(`http://localhost:8000/${uri2}`, {
           mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
         const data2 = await response2.json();
         console.log("Approved PO List", data2);
@@ -255,6 +269,13 @@ const MiddleNavbar = (props) => {
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
         const data = await response.json();
         console.log("Rejected PR List", data);
@@ -299,6 +320,13 @@ const MiddleNavbar = (props) => {
       try {
         const response2 = await fetch(`http://localhost:8000/${uri2}`, {
           mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
         const data2 = await response2.json();
         console.log("Rejected PO", data2);
