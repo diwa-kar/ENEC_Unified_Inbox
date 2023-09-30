@@ -88,7 +88,7 @@ intents:
   - ENEC_ticket_raise_monitor_intent
 
 
-  - Pending_invoice_intent
+  # - Pending_invoice_intent
 
 
 
@@ -182,7 +182,7 @@ actions:
   - ENEC_PO_appooval_action
 
 
-  - Pending_invoice_action
+  # - Pending_invoice_action
 
 
 

@@ -108,11 +108,9 @@ class ENEC_rejected_pr_list_mongo(BaseModel):
 
 class ENEC_approved_pr_item_info(BaseModel):
     prno : str
-    username : str
 
 class ENEC_rejected_pr_item_info(BaseModel):
     prno : str
-    username : str
 
 class pending_pr_approval(BaseModel):
     username : str
@@ -140,17 +138,14 @@ class pending_po_item_info(BaseModel):
 class ENEC_approved_po_list_mongo(BaseModel):
     username : str
 
-
 class ENEC_rejected_po_list_mongo(BaseModel):
     username : str
 
-class ENEC_approved_po_item_info(BaseModel):
+class approved_po_item_info(BaseModel):
     pono: str
-    username : str
 
-class ENEC_rejected_po_item_info(BaseModel):
+class rejected_po_item_info(BaseModel):
     pono: str
-    username : str
 
 class pending_po_approval(BaseModel):
     username: str
@@ -423,8 +418,7 @@ def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
-
+        if i['Purchase Requisition Number'].split()[-1] == data.prno:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -524,7 +518,7 @@ def rejected_pr_item_info(data : ENEC_rejected_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -852,7 +846,7 @@ def pending_po_item_description(data : pending_po_item_description):
 
 
 @app.post('/approved_po_item_info')
-def approved_po_item_info(data : ENEC_approved_po_item_info):
+def approved_po_item_info(data : approved_po_item_info):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PO"]
@@ -865,7 +859,7 @@ def approved_po_item_info(data : ENEC_approved_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
+        if i['Purchase Order Number'].split()[-1] == data.pono:
             po_comment = i['Comment']
            
 
@@ -959,7 +953,7 @@ def approved_po_item_info(data : ENEC_approved_po_item_info):
     return item_list_description
 
 @app.post('/rejected_po_item_info')
-def rejected_po_item_info(data : ENEC_rejected_po_item_info):
+def rejected_po_item_info(data : rejected_po_item_info):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Rejected_PO"]
@@ -970,7 +964,7 @@ def rejected_po_item_info(data : ENEC_rejected_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
+        if i['Purchase Order Number'].split()[-1] == data.pono:
             po_comment = i['Comment']
            
 
