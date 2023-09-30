@@ -76,6 +76,7 @@ const Notificationdisplay = ({
             method: "POST",
             body: JSON.stringify({
               prno: selectedItem.value.split(" ")[1],
+              username: JSON.parse(sessionStorage.getItem("email")).value,
             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -101,6 +102,7 @@ const Notificationdisplay = ({
             method: "POST",
             body: JSON.stringify({
               prno: selectedItem.value.split(" ")[1],
+              username: JSON.parse(sessionStorage.getItem("email")).value,
             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -157,6 +159,7 @@ const Notificationdisplay = ({
             method: "POST",
             body: JSON.stringify({
               pono: selectedItem.value.split(" ")[1],
+              username: JSON.parse(sessionStorage.getItem("email")).value,
             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -181,6 +184,7 @@ const Notificationdisplay = ({
             method: "POST",
             body: JSON.stringify({
               pono: selectedItem.value.split(" ")[1],
+              username: JSON.parse(sessionStorage.getItem("email")).value,
             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
