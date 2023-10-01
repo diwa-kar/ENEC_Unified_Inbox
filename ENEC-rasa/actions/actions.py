@@ -1638,3 +1638,159 @@ class ExpenseOverTheYears(Action):
 
         return []
 # **************************************Expense over the years line chart  *****************************************************
+
+
+
+
+# ************************************** Leave balance  ********************************************************************
+class LeaveBalance(Action):
+    def name(self) -> Text:
+        return "Leave_balance_action"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        
+        db = client["FinancialDetails"]
+
+        collection = db["Leave"]
+        a = collection.find()
+        leave_balance = {}
+        for i in a:
+            leave_balance[i["Leave Type"]] = i["NoofDays"]
+        print(leave_balance)
+        send = {"msg": "The available leaves are", "donut": leave_balance}
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+# ************************************** Leave balance  ********************************************************************
+
+
+
+
+
+
+# ****************************************** fetching pending leave request form SF ******************************************
+
+class LeaveRequestSF(Action):
+
+    def name(self) -> Text:
+        return "Leave_Request_SF_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        leave_req_list = Leave_Request_SF()
+
+        # dispatcher.utter_message(text=f"{leave_req_list}")
+
+        send = {
+            "requests": leave_req_list,
+            "msg": "The Pending Leave request ID are shown below. Choose Any one to see the leave details",
+        }
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+# ****************************************** fetching pending leave request form SF ******************************************
+
+
+# ****************************************** fetching pending leave request Details ******************************************
+
+class LeaveRequestSFDetails(Action):
+
+    def name(self) -> Text:
+        return "Leave_Request_SF_Details_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        
+
+        WfRequestId = tracker.get_slot("WfRequestId")
+
+        print(f"im inside leave detailsl action function {WfRequestId}")
+
+        print("/n /n")
+
+        leave_req_details = Leave_Request_SF_Details(WfRequestId)
+
+        print(leave_req_details)
+
+        flag_variable = True
+
+        # print(leave_req_details)
+
+        # dispatcher.utter_message(text=f"{leave_req_details}")
+
+        type_flag = "PL"
+        send = {
+            "msg": "Here is the Details for the Leave request... ",
+            "details": {
+                "data":leave_req_details,"flag":flag_variable,
+                "type": type_flag
+                }
+            
+        }
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+
+
+        return []
+
+# ****************************************** fetching pending leave request Details ******************************************
+
+
+# ****************************************** accepting pending leave from SF *****************************************************
+class LeaveRequestSFAccept(Action):
+
+    def name(self) -> Text:
+        return "Accept_Leave_Request_SF_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        WfRequestId = tracker.get_slot("WfRequestId")
+
+        res = Accept_leave_req_SF(WfRequestId)
+
+        dispatcher.utter_message(text=f"{res}")
+
+        return []
+
+
+# ****************************************** accepting pending leave from SF *****************************************************
+
+# ****************************************** reject leave from SF ****************************************************
+
+class LeaveRequestSFReject(Action):
+
+    def name(self) -> Text:
+        return "Reject_Leave_Request_SF_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        WfRequestId = tracker.get_slot("WfRequestId")
+
+        res = Reject_leave_req_SF(WfRequestId)
+
+
+        dispatcher.utter_message(text=f"{res}")
+
+        return []
+
+
+# ****************************************** reject leave from SF ****************************************************
