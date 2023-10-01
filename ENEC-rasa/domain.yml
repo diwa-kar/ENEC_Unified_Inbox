@@ -1,10 +1,10 @@
 version: "3.1"
 
 intents:
-
   - greet
   - goodbye
   - action_test
+
   - policies
 
   - corporateattirepolicies
@@ -34,58 +34,14 @@ intents:
   - RemoteworkingPolicy
   - TimesheetPolicy
 
-  - revenue_by_year
-  - expense_by_year
-
-
-  - Contracts_revenue_intent
-  - Subscriptions_revenue_intent
-  - Commisions_revenue_intent
-  - Sales_of_Products_intent
-  - Consulting_revenue_intent
-
-
-  - Marketing_expense_intent
-  - Operational_expense_intent
-  - Research_expense_intent
-  - Capital_expense_intent
-  - Taxes_expense_intent
-
-
-  - revenuesplit_by_year_intent
-  - expensesplit_by_year_intent
-
-
-  - Revenue_linechart_intent
-  - Expense_linechart_intent
-
-
-  - Leave_balance_intent
-
-
-  - Leave_Request_SF
-  - Accept_Leave_Request_SF_intent
-
-  - Reject_Leave_Request_SF_intent
-
-  - Leave_Request_SF_Details_intent
-
-
-  # - Pending_pr_intent
-  # - Pending_po_intent
-
-  # - ENEC_pending_pr_item_list
-  # - ENEC_pending_pr_items_description_intent
-  # - ENEC_PR_approval_intent
-
-  # - ENEC_pending_po_item_list
-  # - ENEC_pending_po_items_description_intent
-  # - ENEC_PO_appooval_intent
-
-
-
   - ENEC_ticket_raise_intent
   - ENEC_ticket_raise_monitor_intent
+
+
+
+
+
+
 
 
 
@@ -96,8 +52,9 @@ actions:
   - action_to_test
   - greet_action
   - goodbye_action
-  - action_company_policy
 
+  - action_company_policy
+  
   - action_corporateattirepol
   - action_over-timepol
   - action_probationpol
@@ -125,56 +82,14 @@ actions:
   - action_RemoteworkingPolicy
   - action_TimesheetPolicy
 
-  - revenue_by_year_action
-  - expense_by_year_action
-
-
-  - Contracts_revenue_action
-  - Subscriptions_revenue_action
-  - Commisions_revenue_action
-  - Sales_of_Products_action
-  - Consulting_revenue_action
-
-
-  - Marketing_expense_action
-  - Operational_expense_action
-  - Research_expense_action
-  - Capital_expense_action
-  - Taxes_expense_action
-
-
-  - revenuesplit_by_year_action
-  - expensesplit_by_year_action
-
-  - Revenue_linechart_action
-  - Expense_linechart_action
-
-  - Leave_balance_action 
-
-
-  - Leave_Request_SF_action
-  - Accept_Leave_Request_SF_action
-
-  - Reject_Leave_Request_SF_action
-
-  - Leave_Request_SF_Details_action
-
-  - Pending_pr_action
-  - Pending_po_action
-
-  # - ENEC_pending_pr_item_list_action
-  # - ENEC_pending_pr_items_description_action
-  # - ENEC_PR_approval_action
-
-
-  # - ENEC_pending_po_item_list_action
-  # - ENEC_pending_po_items_description_action  
-  # - ENEC_PO_appooval_action
-
-
-  
   - ENEC_ticket_raise_action
   - ENEC_ticket_raise_monitor_action
+
+
+
+
+
+
 
 
 
@@ -183,34 +98,7 @@ actions:
 entities:
 
 
-# *************************************************** pr no and pr item no ****************************************************
-
-  - pr_number:
-      type: regex
-      pattern: "[0-9]{8}"
-      
-  - pr_itemnumber:
-      type: regex
-      pattern: "^[0-9]{3,6}$"
-
-
-# *************************************************** pr no and pr item no ****************************************************
-
-
-
-# *************************************************** po no and po item no ****************************************************
-
-  - po_number:
-      type: regex
-      pattern: "[0-9]{8}"
-      
-  - po_itemnumber:
-      type: regex
-      pattern: "^[0-9]{3,6}$"
-
-
-# *************************************************** po no and po item no ****************************************************
-
+######################################################### Ticket raise #######################################################
 
   - ticket_type:
       type: text
@@ -220,88 +108,7 @@ entities:
       type: regex
       pattern: "^[0-9]{3,6}$"
 
-  # **************************************** revenue for the year entity ************************************************
-
-  - revenue_year:
-      type: regex
-      pattern: "[0-9]{8}"
-  - expense_year:
-      type: regex
-      pattern: "[0-9]{8}"
-
-
-  # **************************************** revenue for the year entity ************************************************
-
-
-
-
-  #******************************************** ticket raise entities ***************************************************
-
-  - ticket_type:
-      type: text
-  - hardware_type:
-      type: text
-  - monitor_inches:
-      type: regex
-      pattern: "^[0-9]{3,6}$"
-
-  #******************************************** ticket raise entities ***************************************************
-
-
-
-  # **************************************** revenue and expense category entities **************************************
-
-  - contracts_revenue:
-      type: text
-      regex: '[A-Za-z]+'
-  - subscription_revenue:
-      type: text
-      regex: '[A-Za-z]+'
-  - commision_revenue:
-      type: text
-      regex: '[A-Za-z]+'
-  - sales_revenue:
-      type: text
-      regex: '[A-Za-z]+'
-  - consulting_revenue:
-      type: text
-      regex: '[A-Za-z]+'
-
-
-
-  - marketing_expense:
-      type: text
-      regex: '[A-Za-z]+'
-  - operation_expense:
-      type: text
-      regex: '[A-Za-z]+'
-  - research_expense:
-      type: text
-      regex: '[A-Za-z]+'
-  - capital_expense:
-      type: text
-      regex: '[A-Za-z]+'
-  - tax_expense:
-      type: text
-      regex: '[A-Za-z]+'
-
-
-
-  # **************************************** revenue and expense category entities **************************************
-
-  # ******************************************* entity for SF request ***************************************************
-
-  - WfRequestId:
-      type: text
-
-
-  # ******************************************* entity for SF request ***************************************************
-
-
-
-
-
-
+######################################################### Ticket raise #######################################################
 
 
 
@@ -319,58 +126,7 @@ entities:
 
 slots:
 
-# *************************************************** pr no and pr item no ****************************************************
-
-  prnumber:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pr_number  
-  
-  pritemnumber:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pr_itemnumber
-
-
-
-# *************************************************** pr no and pr item no ****************************************************
-
-
-# *************************************************** po no and po item no ****************************************************
-
-  ponumber:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: po_number  
-  
-  poitemnumber:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: po_itemnumber
-
-
-
-# *************************************************** po no and po item no ****************************************************
-
-
-
-
-
-
-
-
-
-
-
-  # ****************************************** Slots for raising ticket form ***************************************
+# ****************************************** Slots for raising ticket form ***************************************
   ticket_type:
     type: text
     influence_conversation: true
@@ -394,116 +150,23 @@ slots:
 
 # ****************************************** Slots for raising ticket form ***************************************
 
-# ****************************************** Slots for revenue and expense by year ***************************************
-  revenue_year:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: revenue_year
-
-  expense_year:
-    type: float
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: expense_year
-
-# ****************************************** Slots for revenue and expense by year ***************************************
 
 
-# ****************************************** Slots for revenue subcategory  ***************************************
-
-  contracts_revenue:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: contracts_revenue
-
-  subscription_revenue:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: subscription_revenue
-
-  sales_revenue:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: sales_revenue
-  
-  commision_revenue:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: commision_revenue
-  
-  consulting_revenue:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: consulting_revenue
-
-# ****************************************** Slots for revenue subcategory  ***************************************
-
-# ****************************************** Slots for expense subcategory  ***************************************
-
-  marketing_expense:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: marketing_expense
-  operation_expense:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: operation_expense
-  research_expense:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: research_expense
-  capital_expense:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: capital_expense
-  tax_expense:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: tax_expense
-
-#  ******************************************* slots for expense subcatefory ********************************************************
 
 
-  # ****************************************** slot accepting pending leave from SF *****************************************************
-
-  WfRequestId:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: WfRequestId
 
 
-  # ****************************************** slot accepting pending leave from SF *****************************************************
+
+
+
+
+
+
 
 
 
 
 responses:
-
   utter_greet:
   - text: "Hey! How are you?"
 
