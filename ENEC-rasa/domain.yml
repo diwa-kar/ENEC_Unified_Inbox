@@ -78,9 +78,9 @@ intents:
   - ENEC_pending_pr_items_description_intent
   - ENEC_PR_approval_intent
 
-  - ENEC_pending_po_item_list
-  - ENEC_pending_po_items_description_intent
-  - ENEC_PO_appooval_intent
+  # - ENEC_pending_po_item_list
+  # - ENEC_pending_po_items_description_intent
+  # - ENEC_PO_appooval_intent
 
 
 
@@ -125,10 +125,6 @@ actions:
   - action_RemoteworkingPolicy
   - action_TimesheetPolicy
 
-  - ENEC_ticket_raise_action
-  - ENEC_ticket_raise_monitor_action
-
-
   - revenue_by_year_action
   - expense_by_year_action
 
@@ -171,9 +167,14 @@ actions:
   - ENEC_PR_approval_action
 
 
-  - ENEC_pending_po_item_list_action
-  - ENEC_pending_po_items_description_action  
-  - ENEC_PO_appooval_action
+  # - ENEC_pending_po_item_list_action
+  # - ENEC_pending_po_items_description_action  
+  # - ENEC_PO_appooval_action
+
+
+  
+  - ENEC_ticket_raise_action
+  - ENEC_ticket_raise_monitor_action
 
 
 

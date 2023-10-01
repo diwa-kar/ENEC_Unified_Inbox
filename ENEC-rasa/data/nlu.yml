@@ -6559,95 +6559,95 @@ nlu:
 
 
 
-# ****************************************** pending po item list from digiverz demo system **************************************************
+# # ****************************************** pending po item list from digiverz demo system **************************************************
 
-- intent: ENEC_pending_po_item_list
-  examples: |
-    - PO [4500001787](po_number)
-    - po [4500001787](po_number)
-    - give me PO [4500001787](po_number)
-    - give me po [4500001787](po_number)
-    - give me Purchase Order for [4500001787](po_number)
-    - give me purchase order for [4500001787](po_number)
-    - Purchase Order [4500001787](po_number)
-    - purchase order [4500001787](po_number)
-    - give me PO items for [4500001787](po_number)
-    - give me po items for [4500001787](po_number)
-    - give me Purchase Order items for [4500001787](po_number)
-    - give me purchase order items for [4500001787](po_number)
-    - Purchase Order items for [4500001787](po_number)
-    - purchase order items for [4500001787](po_number)
-    - list of PO items for Po no[4500001787](po_number)
-    - list of po items for po no[4500001787](po_number)
-    - list me Purchase Order items for [4500001787](po_number) 
-    - list me purchase order items for [4500001787](po_number)
-
-
-# ****************************************** pending po item list from digiverz demo system **************************************************
+# - intent: ENEC_pending_po_item_list
+#   examples: |
+#     - PO [4500001787](po_number)
+#     - po [4500001787](po_number)
+#     - give me PO [4500001787](po_number)
+#     - give me po [4500001787](po_number)
+#     - give me Purchase Order for [4500001787](po_number)
+#     - give me purchase order for [4500001787](po_number)
+#     - Purchase Order [4500001787](po_number)
+#     - purchase order [4500001787](po_number)
+#     - give me PO items for [4500001787](po_number)
+#     - give me po items for [4500001787](po_number)
+#     - give me Purchase Order items for [4500001787](po_number)
+#     - give me purchase order items for [4500001787](po_number)
+#     - Purchase Order items for [4500001787](po_number)
+#     - purchase order items for [4500001787](po_number)
+#     - list of PO items for Po no[4500001787](po_number)
+#     - list of po items for po no[4500001787](po_number)
+#     - list me Purchase Order items for [4500001787](po_number) 
+#     - list me purchase order items for [4500001787](po_number)
 
 
+# # ****************************************** pending po item list from digiverz demo system **************************************************
 
 
 
-# ******************************************** pending po item details from digiverz demo system *********************************************
-
-- intent: ENEC_pending_po_items_description_intent
-  examples: |
-    - PO item [1098](po_itemnumber)
-    - po item [220](po_itemnumber)
-    - PO item no [1098](po_itemnumber)
-    - po item no [220](po_itemnumber)
-    - Po item description for [220](po_itemnumber)
-    - po item description for [220](po_itemnumber)
-    - give me PO item desc for [220](po_itemnumber)
-    - give me po item desc for [220](po_itemnumber)
-    - give me Purchase Order item desc for item [220](po_itemnumber)
-    - give me purchase order item desc for item [220](po_itemnumber)
-    - Purchase Order items desc for [220](po_itemnumber)
-    - purchase order items desc for [220](po_itemnumber)
-
-# ******************************************** pending po item details from digiverz demo system *********************************************
 
 
-# ********************************************* approve pending po items in digiverz demo system ***************************************************
+# # ******************************************** pending po item details from digiverz demo system *********************************************
 
-- intent: ENEC_PO_appooval_intent
-  examples: |
+# - intent: ENEC_pending_po_items_description_intent
+#   examples: |
+#     - PO item [1098](po_itemnumber)
+#     - po item [220](po_itemnumber)
+#     - PO item no [1098](po_itemnumber)
+#     - po item no [220](po_itemnumber)
+#     - Po item description for [220](po_itemnumber)
+#     - po item description for [220](po_itemnumber)
+#     - give me PO item desc for [220](po_itemnumber)
+#     - give me po item desc for [220](po_itemnumber)
+#     - give me Purchase Order item desc for item [220](po_itemnumber)
+#     - give me purchase order item desc for item [220](po_itemnumber)
+#     - Purchase Order items desc for [220](po_itemnumber)
+#     - purchase order items desc for [220](po_itemnumber)
+
+# # ******************************************** pending po item details from digiverz demo system *********************************************
+
+
+# # ********************************************* approve pending po items in digiverz demo system ***************************************************
+
+# - intent: ENEC_PO_appooval_intent
+#   examples: |
   
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - Appoove po [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
-    - Appoove PO [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - Appoove po [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
+#     - Appoove PO [4500001787](po_number)
 
-# ********************************************* approve pending po items in digiverz demo system ***************************************************
+# # ********************************************* approve pending po items in digiverz demo system ***************************************************
 
 
 
