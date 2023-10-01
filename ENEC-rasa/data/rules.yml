@@ -312,6 +312,16 @@ rules:
 
 
 
+
+
+
+
+
+
+
+
+
+
 # ****************************************** fetching pending leave request form SF ******************************************
 
 - rule: Fetch leave request from SF
@@ -351,28 +361,42 @@ rules:
 # ****************************************** fetching pending leave request Details ******************************************
 
 
-# ******************************************* fetching pending pr *************************************************************
 
 
-- rule: fetching pending pr from local system
-  steps:
-  - intent: Pending_pr_intent
-  - action: Pending_pr_action
 
 
-# ******************************************* fetching pending pr *************************************************************
 
 
-# ******************************************* fetching pending pr *************************************************************
 
 
-- rule: fetching pending po from local system
-  steps:
-  - intent: Pending_po_intent
-  - action: Pending_po_action
 
 
-# ******************************************* fetching pending pr *************************************************************
+
+
+
+
+# # ******************************************* fetching pending pr *************************************************************
+
+
+# - rule: fetching pending pr from local system
+#   steps:
+#   - intent: Pending_pr_intent
+#   - action: Pending_pr_action
+
+
+# # ******************************************* fetching pending pr *************************************************************
+
+
+# # ******************************************* fetching pending pr *************************************************************
+
+
+# - rule: fetching pending po from local system
+#   steps:
+#   - intent: Pending_po_intent
+#   - action: Pending_po_action
+
+
+# # ******************************************* fetching pending pr *************************************************************
 
 
 # ******************************************* fetching pending invoice *********************************************************
@@ -386,26 +410,26 @@ rules:
 
 
 
-# ***************************************** fetching pr items list ************************************************************
+# # ***************************************** fetching pr items list ************************************************************
 
-- rule: Give list of PR items list from digiverz demo system
-  steps:
-  - intent: ENEC_pending_pr_item_list
-  - action: ENEC_pending_pr_item_list_action
-
-
-# ***************************************** fetching pr items list ************************************************************
+# - rule: Give list of PR items list from digiverz demo system
+#   steps:
+#   - intent: ENEC_pending_pr_item_list
+#   - action: ENEC_pending_pr_item_list_action
 
 
-# ********************************************* fetching pr item details *****************************************************
-
-- rule: Give list of PR items details from digiverz demo system
-  steps:
-  - intent: ENEC_pending_pr_items_description_intent
-  - action: ENEC_pending_pr_items_description_action
+# # ***************************************** fetching pr items list ************************************************************
 
 
-# ********************************************* fetching pr item details *****************************************************
+# # ********************************************* fetching pr item details *****************************************************
+
+# - rule: Give list of PR items details from digiverz demo system
+#   steps:
+#   - intent: ENEC_pending_pr_items_description_intent
+#   - action: ENEC_pending_pr_items_description_action
+
+
+# # ********************************************* fetching pr item details *****************************************************
 
 
 # # ********************************************** fetching pending po item list **********************************************

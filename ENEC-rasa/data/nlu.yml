@@ -6251,141 +6251,141 @@ nlu:
 
 
 
-#******************************************* Pending pr local system ***********************************************************************
+# #******************************************* Pending pr local system ***********************************************************************
 
-- intent: Pending_pr_intent
-  examples: |
+# - intent: Pending_pr_intent
+#   examples: |
 
-    - PR
-    - pr
-    - give me Pr
-    - give me pr
-    - give me Purchase Requisition 
-    - give me purchase Requisition
-    - Purchase requisition
-    - purchase requisition
-    - list of Pr
-    - list of pr
-    - list me Purchase requisition
-    - list me purchase requisition
-    - Can you please provide me with my purchase requisition?
-    - May I have access to my purchase requisition records?
-    - Is there a way for me to view my purchase requisition?
-    - How do I access my purchase requisition?
-    - Show me pending pr
-    - Show me my pending pr
-    - Display the pending
-    - pending pr
-    - show me the pr to approve
-    - show me pending purchase requisition
-    - can you show me the pending pr
-    - what are all the pending pr 
-    - what are pr are pending
-    - get me the pending pr
-    - can you get me the pending pr 
-    - Show me pending purchase requisition
-    - Show me my pending purchase requisition
-    - Display the pending
-    - pending purchase requisition
-    - show me the purchase requisition to appurchase requisitionove
-    - show me pending purchase requisition
-    - can you show me the pending purchase requisition
-    - what are all the pending purchase requisition 
-    - what are purchase requisition are pending
-    - get me the pending purchase requisition
-    - can you get me the pending purchase requisition 
-    - Show me pending Purchase Requisition
-    - Show me my pending Purchase Requisition
-    - Display the pending
-    - pending Purchase Requisition
-    - show me the Purchase Requisition to apPurchase Requisitionove
-    - show me pending Purchase Requisition
-    - can you show me the pending Purchase Requisition
-    - what are all the pending Purchase Requisition 
-    - what are Purchase Requisition are pending
-    - get me the pending Purchase Requisition
-    - can you get me the pending Purchase Requisition 
-    - Show me pending PR
-    - Show me my pending PR
-    - Display the pending
-    - pending PR
-    - show me the PR to approve
-    - show me pending PR
-    - can you show me the pending PR
-    - what are all the pending PR 
-    - what are PR are pending
-    - get me the pending PR
-    - can you get me the pending PR 
+#     - PR
+#     - pr
+#     - give me Pr
+#     - give me pr
+#     - give me Purchase Requisition 
+#     - give me purchase Requisition
+#     - Purchase requisition
+#     - purchase requisition
+#     - list of Pr
+#     - list of pr
+#     - list me Purchase requisition
+#     - list me purchase requisition
+#     - Can you please provide me with my purchase requisition?
+#     - May I have access to my purchase requisition records?
+#     - Is there a way for me to view my purchase requisition?
+#     - How do I access my purchase requisition?
+#     - Show me pending pr
+#     - Show me my pending pr
+#     - Display the pending
+#     - pending pr
+#     - show me the pr to approve
+#     - show me pending purchase requisition
+#     - can you show me the pending pr
+#     - what are all the pending pr 
+#     - what are pr are pending
+#     - get me the pending pr
+#     - can you get me the pending pr 
+#     - Show me pending purchase requisition
+#     - Show me my pending purchase requisition
+#     - Display the pending
+#     - pending purchase requisition
+#     - show me the purchase requisition to appurchase requisitionove
+#     - show me pending purchase requisition
+#     - can you show me the pending purchase requisition
+#     - what are all the pending purchase requisition 
+#     - what are purchase requisition are pending
+#     - get me the pending purchase requisition
+#     - can you get me the pending purchase requisition 
+#     - Show me pending Purchase Requisition
+#     - Show me my pending Purchase Requisition
+#     - Display the pending
+#     - pending Purchase Requisition
+#     - show me the Purchase Requisition to apPurchase Requisitionove
+#     - show me pending Purchase Requisition
+#     - can you show me the pending Purchase Requisition
+#     - what are all the pending Purchase Requisition 
+#     - what are Purchase Requisition are pending
+#     - get me the pending Purchase Requisition
+#     - can you get me the pending Purchase Requisition 
+#     - Show me pending PR
+#     - Show me my pending PR
+#     - Display the pending
+#     - pending PR
+#     - show me the PR to approve
+#     - show me pending PR
+#     - can you show me the pending PR
+#     - what are all the pending PR 
+#     - what are PR are pending
+#     - get me the pending PR
+#     - can you get me the pending PR 
 
-# ******************************************* Pending pr local system ***********************************************************************
+# # ******************************************* Pending pr local system ***********************************************************************
 
 
-# ********************************************* pending PO request *******************************************************************
+# # ********************************************* pending PO request *******************************************************************
 
-- intent: Pending_po_intent
-  examples: |
-    - PO
-    - po
-    - give me PO
-    - give me po
-    - give me Purchase Order 
-    - give me purchase order
-    - Purchase Order
-    - purchase order
-    - list of PO
-    - list of po
-    - list me Purchase Order
-    - list me purchase order
-    - Can you please provide me with my purchase order?
-    - May I have access to my purchase order records?
-    - Is there a way for me to view my purchase order?
-    - How do I access my purchase order?
-    - Show me pending po
-    - Show me my pending po
-    - Display the pending
-    - pending po
-    - show me the po to appoove
-    - show me pending purchase order
-    - can you show me the pending po
-    - what are all the pending po 
-    - what are po are pending
-    - get me the pending po
-    - can you get me the pending po 
-    - Show me pending purchase order
-    - Show me my pending purchase order
-    - Display the pending PO
-    - pending purchase order
-    - show me the purchase order 
-    - show me pending purchase order
-    - can you show me the pending purchase order
-    - what are all the pending purchase order 
-    - what are purchase order are pending
-    - get me the pending purchase order
-    - can you get me the pending purchase order 
-    - Show me pending Purchase Order
-    - Show me my pending Purchase Order
-    - Display the pending
-    - pending Purchase Order
-    - show me the Purchase Order 
-    - show me pending Purchase Order
-    - can you show me the pending Purchase Order
-    - what are all the pending Purchase Order 
-    - what are Purchase Order are pending
-    - get me the pending Purchase Order
-    - can you get me the pending Purchase Order 
-    - Show me pending PO
-    - Show me my pending PO
-    - Display the pending
-    - pending PO
-    - show me the PO to appoove
-    - show me pending PO
-    - can you show me the pending PO
-    - what are all the pending PO 
-    - what are PO are pending
-    - get me the pending PO
-    - can you get me the pending PO 
+# - intent: Pending_po_intent
+#   examples: |
+#     - PO
+#     - po
+#     - give me PO
+#     - give me po
+#     - give me Purchase Order 
+#     - give me purchase order
+#     - Purchase Order
+#     - purchase order
+#     - list of PO
+#     - list of po
+#     - list me Purchase Order
+#     - list me purchase order
+#     - Can you please provide me with my purchase order?
+#     - May I have access to my purchase order records?
+#     - Is there a way for me to view my purchase order?
+#     - How do I access my purchase order?
+#     - Show me pending po
+#     - Show me my pending po
+#     - Display the pending
+#     - pending po
+#     - show me the po to appoove
+#     - show me pending purchase order
+#     - can you show me the pending po
+#     - what are all the pending po 
+#     - what are po are pending
+#     - get me the pending po
+#     - can you get me the pending po 
+#     - Show me pending purchase order
+#     - Show me my pending purchase order
+#     - Display the pending PO
+#     - pending purchase order
+#     - show me the purchase order 
+#     - show me pending purchase order
+#     - can you show me the pending purchase order
+#     - what are all the pending purchase order 
+#     - what are purchase order are pending
+#     - get me the pending purchase order
+#     - can you get me the pending purchase order 
+#     - Show me pending Purchase Order
+#     - Show me my pending Purchase Order
+#     - Display the pending
+#     - pending Purchase Order
+#     - show me the Purchase Order 
+#     - show me pending Purchase Order
+#     - can you show me the pending Purchase Order
+#     - what are all the pending Purchase Order 
+#     - what are Purchase Order are pending
+#     - get me the pending Purchase Order
+#     - can you get me the pending Purchase Order 
+#     - Show me pending PO
+#     - Show me my pending PO
+#     - Display the pending
+#     - pending PO
+#     - show me the PO to appoove
+#     - show me pending PO
+#     - can you show me the pending PO
+#     - what are all the pending PO 
+#     - what are PO are pending
+#     - get me the pending PO
+#     - can you get me the pending PO 
 
-# ********************************************* pending PO request *******************************************************************
+# # ********************************************* pending PO request *******************************************************************
 
 # # ********************************************* pending invoice ************************************************************************
 
@@ -6459,56 +6459,56 @@ nlu:
 
 
 
-# ***************************************** pending pr item list ********************************************************************
+# # ***************************************** pending pr item list ********************************************************************
 
-- intent: ENEC_pending_pr_item_list
-  examples: |
-    - PR [10009092](pr_number)
-    - pr [10009092](pr_number)
-    - give me PR [10009092](pr_number)
-    - give me pr [10009092](pr_number)
-    - give me Purchase Requisition for [10009092](pr_number)
-    - give me purchase requisition for [10009092](pr_number)
-    - Purchase Requisition [10009092](pr_number)
-    - purchase requisition [10009092](pr_number)
-    - give me PR items for [10009092](pr_number)
-    - give me pr items for [10009092](pr_number)
-    - give me Purchase Requisition items for [10009092](pr_number)
-    - give me purchase requisition items for [10009092](pr_number)
-    - Purchase Requisition items for [10009092](pr_number)
-    - purchase requisition items for [10009092](pr_number)
-    - list of PR items for PR no[10009092](pr_number)
-    - list of pr items for pr no[10009092](pr_number)
-    - list me Purchase Requisition items for [10009092](pr_number) 
-    - list me purchase requisition items for [10009092](pr_number)
-
-
-
-# ***************************************** pending pr item list ********************************************************************
+# - intent: ENEC_pending_pr_item_list
+#   examples: |
+#     - PR [10009092](pr_number)
+#     - pr [10009092](pr_number)
+#     - give me PR [10009092](pr_number)
+#     - give me pr [10009092](pr_number)
+#     - give me Purchase Requisition for [10009092](pr_number)
+#     - give me purchase requisition for [10009092](pr_number)
+#     - Purchase Requisition [10009092](pr_number)
+#     - purchase requisition [10009092](pr_number)
+#     - give me PR items for [10009092](pr_number)
+#     - give me pr items for [10009092](pr_number)
+#     - give me Purchase Requisition items for [10009092](pr_number)
+#     - give me purchase requisition items for [10009092](pr_number)
+#     - Purchase Requisition items for [10009092](pr_number)
+#     - purchase requisition items for [10009092](pr_number)
+#     - list of PR items for PR no[10009092](pr_number)
+#     - list of pr items for pr no[10009092](pr_number)
+#     - list me Purchase Requisition items for [10009092](pr_number) 
+#     - list me purchase requisition items for [10009092](pr_number)
 
 
 
-
-# ********************************************* pending pr item details from digiverz demo system ********************************************
-
-
-- intent: ENEC_pending_pr_items_description_intent
-  examples: |
-    - PR item [1098](pr_itemnumber)
-    - pr item [220](pr_itemnumber)
-    - PR item no [1098](pr_itemnumber)
-    - pr item no [220](pr_itemnumber)
-    - PR item description for [220](pr_itemnumber)
-    - pr item description for [220](pr_itemnumber)
-    - give me PR item desc for [220](pr_itemnumber)
-    - give me pr item desc for [220](pr_itemnumber)
-    - give me Purchase Requisition item desc for item [220](pr_itemnumber)
-    - give me purchase requisition item desc ror item [220](pr_itemnumber)
-    - Purchase Requisition items desc for [220](pr_itemnumber)
-    - purchase requisition items desc for [220](pr_itemnumber)
+# # ***************************************** pending pr item list ********************************************************************
 
 
-# ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+# # ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+# - intent: ENEC_pending_pr_items_description_intent
+#   examples: |
+#     - PR item [1098](pr_itemnumber)
+#     - pr item [220](pr_itemnumber)
+#     - PR item no [1098](pr_itemnumber)
+#     - pr item no [220](pr_itemnumber)
+#     - PR item description for [220](pr_itemnumber)
+#     - pr item description for [220](pr_itemnumber)
+#     - give me PR item desc for [220](pr_itemnumber)
+#     - give me pr item desc for [220](pr_itemnumber)
+#     - give me Purchase Requisition item desc for item [220](pr_itemnumber)
+#     - give me purchase requisition item desc ror item [220](pr_itemnumber)
+#     - Purchase Requisition items desc for [220](pr_itemnumber)
+#     - purchase requisition items desc for [220](pr_itemnumber)
+
+
+# # ********************************************* pending pr item details from digiverz demo system ********************************************
 
 
 
