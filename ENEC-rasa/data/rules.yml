@@ -178,3 +178,121 @@ rules:
   - action: ENEC_ticket_raise_monitor_action
 
 # ******************************************** ENEC ticket raising ***************************************************************
+
+
+# *********************************************revenue and expense by the year******************************************
+
+- rule: getting the revenue for particular year
+  steps:
+  - intent: revenue_by_year
+  - action: revenue_by_year_action
+
+- rule: getting the expense for particular year
+  steps:
+  - intent: expense_by_year
+  - action: expense_by_year_action
+
+
+# *********************************************revenue and expense by the year******************************************
+
+
+
+# *********************************************expense by category******************************************
+- rule: marketing expense by year rule
+  steps:
+  - intent: Marketing_expense_intent
+  - action: Marketing_expense_action
+
+- rule: marketing expense by year rule
+  steps:
+  - intent: Operational_expense_intent
+  - action: Operational_expense_action
+
+- rule: research expense by year rule
+  steps:
+  - intent: Research_expense_intent
+  - action: Research_expense_action
+
+- rule: capital expense by year rule
+  steps:
+  - intent: Capital_expense_intent
+  - action: Capital_expense_action
+
+- rule: Taxe expense by year rule
+  steps:
+  - intent: Taxes_expense_intent
+  - action: Taxes_expense_action
+
+
+# *********************************************expense by category******************************************
+
+
+# ************************************* revenue by category *******************************************
+
+- rule: contracts revenue by year 
+  steps:
+  - intent: Contracts_revenue_intent
+  - action: Contracts_revenue_action
+
+- rule: Subscription revenue by year 
+  steps:
+  - intent: Subscriptions_revenue_intent
+  - action: Subscriptions_revenue_action
+
+- rule: commisions revenue by year 
+  steps:
+  - intent: Commisions_revenue_intent
+  - action: Commisions_revenue_action
+
+- rule: Sales of products revenue by year 
+  steps:
+  - intent: Sales_of_Products_intent
+  - action: Sales_of_Products_action
+
+- rule: Consulting revenue by year 
+  steps:
+  - intent: Consulting_revenue_intent
+  - action: Consulting_revenue_action
+
+# ************************************* revenue by category *******************************************
+
+
+
+
+# ************************************* revenue and expense split up *******************************************
+
+- rule: revenue split by year 
+  steps:
+  - intent: revenuesplit_by_year_intent
+  - action: revenuesplit_by_year_action
+
+- rule: expense split by year 
+  steps:
+  - intent: expensesplit_by_year_intent
+  - action: expensesplit_by_year_action
+
+# ************************************* revenue and expense split up *******************************************
+
+
+
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+- rule: revenue over the years (Linechart)
+  steps:
+  - intent: Revenue_linechart_intent
+  - action: Revenue_linechart_action
+
+# **************************************Revenue over the years line chart  *****************************************************
+
+
+# **************************************Expense over the years line chart  *****************************************************
+
+- rule: Expense over the years (Linechart)
+  steps:
+  - intent: Expense_linechart_intent
+  - action: Expense_linechart_action
+
+# **************************************Expense over the years line chart  *****************************************************
+
+
