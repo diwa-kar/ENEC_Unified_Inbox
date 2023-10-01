@@ -6513,47 +6513,47 @@ nlu:
 
 
 
-# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+# # ********************************************* approve pending pr items in digiverz demo system ***************************************************
 
 
-- intent: ENEC_PR_approval_intent
-  examples: |
+# - intent: ENEC_PR_approval_intent
+#   examples: |
   
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - Approve pr [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
-    - Approve PR [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - Approve pr [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
+#     - Approve PR [4500001787](pr_number)
 
 
-# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+# # ********************************************* approve pending pr items in digiverz demo system ***************************************************
 
 
 

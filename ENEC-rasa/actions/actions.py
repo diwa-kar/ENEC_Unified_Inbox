@@ -2310,50 +2310,48 @@ class PrItemDescriptonENEC(Action):
 
 # *********************************************** approve pr from digiverz demo system ***********************************
 
-class PrAppprovalENEC(Action):
+# class PrAppprovalENEC(Action):
 
-    def name(self) -> Text:
-        return "ENEC_PR_approval_action"
+#     def name(self) -> Text:
+#         return "ENEC_PR_approval_action"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
 
-        prnotext = tracker.latest_message["text"]
-        prno = prnotext.split()[-1]
+#         prnotext = tracker.latest_message["text"]
+#         prno = prnotext.split()[-1]
 
 
-        # print(prno)
+#         # print(prno)
 
-        # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
+#         # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
 
 
-        result = PrApprovalENEC(prno)
+#         result = PrApprovalENEC(prno)
 
-        Status_code = result["ExStatus"]
+#         Status_code = result["ExStatus"]
         
-        user_comment = result["Comment"]
+#         user_comment = result["Comment"]
 
-        print(Status_code)
-        print(user_comment)
+#         print(Status_code)
+#         print(user_comment)
 
-        if Status_code == "ERROR":
-            dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
-
-
-        elif Status_code == "APPROVED":
-
-            db = client["ENEC_RasaChatbot"]
-            collection = db["Approved_PR"]
-            document = {"Purchase Requistion Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}"}
-            result = collection.insert_one(document)
-
-            dispatcher.utter_message(text=f"PR {prno} was Approved Successfully")
-
-        return []
+#         if Status_code == "ERROR":
+#             dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
 
 
+#         elif Status_code == "APPROVED":
+
+#             db = client["ENEC_RasaChatbot"]
+#             collection = db["Approved_PR"]
+#             document = {"Purchase Requistion Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}"}
+#             result = collection.insert_one(document)
+
+#             dispatcher.utter_message(text=f"PR {prno} was Approved Successfully")
+
+#         return []
 
 
 # *********************************************** approve pr from digiverz demo system ***********************************
