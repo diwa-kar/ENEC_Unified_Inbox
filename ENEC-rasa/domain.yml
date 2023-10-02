@@ -73,6 +73,10 @@ intents:
   - Accept_Leave_Request_SF_intent
   - Reject_Leave_Request_SF_intent
 
+
+  - Pending_pr_intent
+  - Pending_po_intent
+
   
 
 
@@ -145,6 +149,7 @@ actions:
   - Revenue_linechart_action
   - Expense_linechart_action
 
+
   - Leave_balance_action
 
 
@@ -155,6 +160,10 @@ actions:
 
   - Accept_Leave_Request_SF_action
   - Reject_Leave_Request_SF_action
+
+
+  - Pending_pr_action
+  - Pending_po_action
 
   
 

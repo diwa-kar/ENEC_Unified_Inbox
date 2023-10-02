@@ -87,8 +87,6 @@ class UserLogin(BaseModel):
 
 class Pending_pr_list(BaseModel):
     username: str
-    # password: str
-
 
 class Pending_pr_item_list(BaseModel):
     prno : str
@@ -156,6 +154,9 @@ class pending_po_rejection(BaseModel):
     username: str
     pono : str
     comment: str | None
+
+class Pending_invoice_list(BaseModel):
+    username: str
 
 
 class IT_ticket_creation(BaseModel):
@@ -1489,6 +1490,23 @@ async def qpmc_reject_leave_request_sf(WfRequestId:str,name:str,type:str,duratio
 
 
     return res
+
+
+
+@app.post("/Pending_invoice_list")
+def Pending_invoice_list(data:Pending_invoice_list):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZFM_INV_PENDING(data.username) 
+    listofobj = result[0]
+    pendinginvoice_list = ['IN '+str(i.INVOICE) for i in listofobj]
+
+    return pendinginvoice_list
+
+
 
 
 
