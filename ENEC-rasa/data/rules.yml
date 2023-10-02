@@ -434,6 +434,19 @@ rules:
 
 
 
+# ******************************************* fetching pending invoice *********************************************************
+
+- rule: fetching pending invoice from digiverz local system
+  steps:
+  - intent: Pending_invoice_intent
+  - action: Pending_invoice_action
+
+# ******************************************* fetching pending invoice *********************************************************
+
+
+
+
+
 
 
 

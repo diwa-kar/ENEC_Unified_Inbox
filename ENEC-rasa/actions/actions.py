@@ -2243,3 +2243,38 @@ class PoAppprovalENEC(Action):
 
 
 # *********************************************** approve po from digiverz demo system ********************************
+
+
+
+
+class Pending_invoice(Action):
+
+    def name(self) -> Text:
+        return "Pending_invoice_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+                
+        # metadata = tracker.latest_message.get("metadata")
+
+        # user_name = metadata['username']
+
+        # print(metadata['username'],"in action")
+
+        # pendingpr = pending_pr_list(user_name)
+        # print(pendingpr)
+
+        # send = {"requests": pendingpr,
+        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+        #         }
+
+        # my_json = json.dumps(send)
+        # dispatcher.utter_message(text=my_json)
+
+        dispatcher.utter_message(text= "pending invoice is working")
+
+        return []
+
+# ****************************************** invoice from local system *******************************************
