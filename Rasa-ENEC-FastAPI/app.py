@@ -158,6 +158,9 @@ class pending_po_rejection(BaseModel):
 class Pending_invoice_list(BaseModel):
     username: str
 
+class Pending_invoice_item_info(BaseModel):
+    inv_no: str
+
 
 class IT_ticket_creation(BaseModel):
     tickettype : str
@@ -1506,6 +1509,35 @@ def Pending_invoice_list(data:Pending_invoice_list):
 
     return pendinginvoice_list
 
+
+
+@app.post("/Pending_invoice_item_info")
+def Pending_invoice_item_info(data:Pending_invoice_item_info):
+    
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_detail_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZBAPI_MM_INV_GET_DETAIL(data.inv_no) 
+    data = result[2]
+
+    invoice_info = {}
+
+    invoice_info["Invocie_no"] = data["INV_DOC_NO"]
+    invoice_info["Fiscal_Year"] = data["FISC_YEAR"]
+    invoice_info["Document_Type"] = data["DOC_TYPE"]
+    invoice_info["Document_Date"] = data["DOC_DATE"]
+    invoice_info["Posting_Date"] = data["PSTNG_DATE"]
+    invoice_info["user_name"] = data["USERNAME"]
+    invoice_info["Reference_Document_No"] = data["REF_DOC_NO"]
+    invoice_info["Company_Code"] = data["COMP_CODE"]
+    invoice_info["Currency"] = data["CURRENCY"]
+    invoice_info["Gross_amount"] = data["GROSS_AMNT"]
+
+
+
+    return invoice_info
 
 
 
