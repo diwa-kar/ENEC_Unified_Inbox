@@ -70,7 +70,11 @@ class GoodbyeAction(Action):
         dispatcher.utter_message(text="bye!")
 
         return []
-    
+
+
+
+
+
 # ************************************ Policy action    *********************************************************
 class ActionCompanyPolicy(Action):
     def name(self) -> Text:
@@ -188,7 +192,6 @@ class ActionCompanyPolicy(Action):
         return []
 
 # ************************************ Policy action    ********************************************************
-
 
 # ************************************ individual Policy action  ********************************************************
 
@@ -756,9 +759,12 @@ class ActionRemoteworkingPolicy(Action):
 
 # ************************************ individual Policy action  ********************************************************
 
-# ******************************************** ENEC ticket raising ********************************************************************************************
-class ENECTicketRaiseMonitor(Action):
 
+
+
+# ******************************************** ENEC ticket raising ********************************************************************************************
+
+class ENECTicketRaiseMonitor(Action):
 
     def name(self) -> Text:
         return "ENEC_ticket_raise_monitor_action"
@@ -892,14 +898,10 @@ class ENECTicketRaise(Action):
 
         dispatcher.utter_message(text=f"Your ticket has been raised with Ticket ID: {ticket_number} \nTicket type:{ticket_type} \nHardware type:{hardware_type} \n")
 
-        
 
         return []
 
-
-
 # ******************************************** ENEC ticket raising ********************************************************************************************
-
 
 
 # *************************************** revenue and expense by the year ************************************
@@ -1638,6 +1640,8 @@ class ExpenseOverTheYears(Action):
 # **************************************Expense over the years line chart  *****************************************************
 
 
+
+
 # ************************************** Leave balance  ********************************************************************
 class LeaveBalance(Action):
     def name(self) -> Text:
@@ -1667,6 +1671,10 @@ class LeaveBalance(Action):
 # ************************************** Leave balance  ********************************************************************
 
 
+
+
+
+
 # ****************************************** fetching pending leave request form SF ******************************************
 
 class LeaveRequestSF(Action):
@@ -1690,7 +1698,6 @@ class LeaveRequestSF(Action):
         dispatcher.utter_message(text=my_json)
 
         return []
-
 
 
 # ****************************************** fetching pending leave request form SF ******************************************
@@ -1741,8 +1748,6 @@ class LeaveRequestSFDetails(Action):
 
         return []
 
-
-
 # ****************************************** fetching pending leave request Details ******************************************
 
 
@@ -1789,575 +1794,3 @@ class LeaveRequestSFReject(Action):
 
 
 # ****************************************** reject leave from SF ****************************************************
-
-
-
-# ****************************************** pending pr from local system *******************************************
-
-
-class Pending_pr(Action):
-
-    def name(self) -> Text:
-        return "Pending_pr_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-                
-        metadata = tracker.latest_message.get("metadata")
-
-        user_name = metadata['username']
-
-        print(metadata['username'],"in action")
-
-        pendingpr = pending_pr_list(user_name)
-        print(pendingpr)
-
-        send = {"requests": pendingpr,
-                "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-                }
-
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
-
-        # dispatcher.utter_message(text= "pending pr is working")
-
-        return []
-
-# ****************************************** pending pr from local system *******************************************
-
-
-# ****************************************** pending po from local system *******************************************
-
-
-class Pending_po(Action):
-
-    def name(self) -> Text:
-        return "Pending_po_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # global Pending_PR_Flag 
-        # Pending_PR_Flag = 1
-
-        pendingpo = pending_po_list()
-        print(pendingpo)
-
-        send = {"requests": pendingpo,
-                "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
-                
-                }
-
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
-
-        # dispatcher.utter_message(text= "pending po is working well")
-
-        return []
-
-# ****************************************** pending po from local system *******************************************
-
-# ****************************************** pending invoice from local system *******************************************
-
-
-class Pending_invoice(Action):
-
-    def name(self) -> Text:
-        return "Pending_invoice_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-                
-        # metadata = tracker.latest_message.get("metadata")
-
-        # user_name = metadata['username']
-
-        # print(metadata['username'],"in action")
-
-        # pendingpr = pending_pr_list(user_name)
-        # print(pendingpr)
-
-        # send = {"requests": pendingpr,
-        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-        #         }
-
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
-
-        dispatcher.utter_message(text= "pending invoice is working")
-
-        return []
-
-# ****************************************** invoice from local system *******************************************
-
-
-
-
-
-
-# ***************************************** fetching pr item list from digiverz demo ****************************************
-
-class PrItemsListENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_pending_pr_item_list_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        global Pending_PR_Flag 
-        Pending_PR_Flag = 1
-        
-        global prno
-
-        prnotext = tracker.latest_message["text"]
-        prno = prnotext.split()[-1]
-
-        # prno = tracker.get_slot("prnumber")
-
-        print(prno)
-
-        itemlist = pending_prlist_ENEC(prno)
-
-        send = {
-            "requests": itemlist,
-            "msg": "The PR items lists are given below. Choose Any one to see the Item description",
-        }
-        
-        my_json = json.dumps(send)
-
-        dispatcher.utter_message(text=my_json)
-
-        return []
-
-
-# ***************************************** fetching pr item list from digiverz demo ****************************************
-
-
-# ****************************************** fetching pr item details from digiverz demo ****************************************
-
-class PrItemDescriptonENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_pending_pr_items_description_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        global Pending_PR_Flag 
-        Pending_PR_Flag = 1
-        
-        global pritemno, prno
-        pritemnotext = tracker.latest_message["text"]
-        pritemno = pritemnotext.split()[-1]
-
-
-
-
-        
-        # prno = tracker.get_slot("prnumber")
-        # pritemno = tracker.get_slot("pritemnumber")    
-
-        # print(f"{prno} {pritemno}")
-        # dispatcher.utter_message(text=f"pr item description is working! {prno} {pritemno}")
-        
-
-
-        pritemdesc = pending_pr_item_description_ENEC(prno,pritemno)
-
-
-        for i in pritemdesc.keys():
-            if i == "Purchase_Requisition_Number":
-                PRnumber = pritemdesc[i]
-            elif i == "Purchase_Requisition_Item_Number":
-                PRItemNumber = pritemdesc[i]
-            elif i == "Purchase_Requisition_Release_Status":
-                PRItemStatus = pritemdesc[i]
-            elif i == "Purchase_Requisition_Item_Text":
-                PRItemText = pritemdesc[i]
-            elif i == "Purchase_Requisition_Material_Group":
-                PRMaterialGroup = pritemdesc[i]
-            elif i == "Requested_Quantity":
-                PRQuantity = pritemdesc[i]
-            elif i == "Base_Unit":
-                PRBaseUnit = pritemdesc[i]
-            elif i == "Purchase_Requisition_Price":
-                PRPrice = pritemdesc[i]
-            elif i == "Plant":
-                PRPlant = pritemdesc[i]
-            elif i == "Company_Code":
-                PRCompanyCode = pritemdesc[i]
-            elif i == "Processing_Status":
-                PRProcessingStatus = pritemdesc[i]
-            elif i == "Delivery_Date":
-                PRDeliveryDate = pritemdesc[i]
-            elif i == "Creation_Date":
-                PRCreationDate = pritemdesc[i]
-        
-        if PRItemStatus == "01":
-            status = "Saved, not yet released"
-        elif PRItemStatus == "02":
-            status = "Released"
-        elif PRItemStatus == "03":
-            status = "Partially ordered"
-        elif PRItemStatus == "04":
-            status = "Completely ordered"
-        elif PRItemStatus == "05":
-            status = "Deleted"
-        elif PRItemStatus == "06":
-            status = "Manually set to Closed"
-        elif PRItemStatus == "07":
-            status = "Technically completed"
-        elif PRItemStatus == "08":
-            status = "Manually set to Locked"
-        elif PRItemStatus == "09":
-            status = "Sent"
-        elif PRItemStatus == "10":
-            status = "Partially invoiced"
-        elif PRItemStatus == "11":
-            status = "Completely invoiced"
-        elif PRItemStatus == "12":
-            status = "Manually set to Archived"
-        if PRProcessingStatus == "N":
-            Pstatus = "Not edited"
-        elif PRProcessingStatus == "B":
-            Pstatus = "PO created"
-        elif PRProcessingStatus == "A":
-            Pstatus = "RFQ created"
-        elif PRProcessingStatus == "K":
-            Pstatus = "Contract created"
-        elif PRProcessingStatus == "L":
-            Pstatus = "Scheduling aggrement created"
-        elif PRProcessingStatus == "S":
-            Pstatus = "Service entry sheet created"
-        elif PRProcessingStatus == "D":
-            Pstatus = "Deployment STR"
-        elif PRProcessingStatus == "E":
-            Pstatus = "RFQ sent to external system for sourcing"
-
-
-        details = {
-                "Purchase Requisition Number": PRnumber,
-                "Purchase Requisition Item Number": PRItemNumber,
-                "Purchase_Requisition_Release_Status": f"{ PRItemStatus} - {status}",
-                "Purchase Requisition Item Text": PRItemText,
-                "Purchase_Requisition_Material_Group": PRMaterialGroup,
-                "Requested_Quantity": PRQuantity,
-                "Base_Unit": PRBaseUnit,
-                "Purchase_Requisition_Price": PRPrice,
-                "Plant": PRPlant,
-                "Company_Code": PRCompanyCode,
-                "Processing_Status": f"{PRProcessingStatus} - {Pstatus}",
-                "Creation_Date": PRCreationDate,
-                "Delivery_Date": PRDeliveryDate,
-            }
-        
-
-        send = {
-            "msg": "Here is the Details of Purchase Requisition... ",
-            "details": {
-                "data":details,"flag":Pending_PR_Flag,"type":"PR"
-                }
-        }
-        
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
-
-        return []
-    
-
-# ****************************************** fetching pr item details from digiverz demo ****************************************
-
-
-
-
-# ***************************************** fetching po item list from digiverz demo ****************************************
-
-class PoItemsListENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_pending_po_item_list_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        global Pending_PO_Flag 
-        Pending_PO_Flag = 1
-        
-        global pono
-
-        ponotext = tracker.latest_message["text"]
-        pono = ponotext.split()[-1]
-
-        # prno = tracker.get_slot("prnumber")
-
-        print(pono)
-
-        # dispatcher.utter_message(text = f"{pono} is working fine")
-
-        itemlist = pending_polist_ENEC(pono)
-
-        send = {
-            "requests": itemlist,
-            "msg": "The PO items lists are given below. Choose Any one to see the Item description",
-        }
-        
-        my_json = json.dumps(send)
-
-        dispatcher.utter_message(text=my_json)
-
-        return []
-
-
-# ***************************************** fetching po item list from digiverz demo ****************************************
-
-
-# ****************************************** fetching po item details from digiverz demo system ************************************
-
-
-class PrItemDescriptonENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_pending_po_items_description_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # global Pending_PO_Flag 
-        # Pending_PO_Flag = 1
-        
-        global poitemno, pono
-
-        pritemnotext = tracker.latest_message["text"]
-
-        poitemno = pritemnotext.split()[-1]
-
-
-
-
-
-        # print(f"{pono} {poitemno}")
-        # dispatcher.utter_message(text=f"pr item description is working! {pono} {poitemno}")
-        
-
-
-
-
-
-
-        details = pending_po_item_description_ENEC(pono,poitemno)
-
-
-        # for i in pritemdesc.keys():
-        #     if i == "Purchase_Requisition_Number":
-        #         PRnumber = pritemdesc[i]
-        #     elif i == "Purchase_Requisition_Item_Number":
-        #         PRItemNumber = pritemdesc[i]
-        #     elif i == "Purchase_Requisition_Release_Status":
-        #         PRItemStatus = pritemdesc[i]
-        #     elif i == "Purchase_Requisition_Item_Text":
-        #         PRItemText = pritemdesc[i]
-        #     elif i == "Purchase_Requisition_Material_Group":
-        #         PRMaterialGroup = pritemdesc[i]
-        #     elif i == "Requested_Quantity":
-        #         PRQuantity = pritemdesc[i]
-        #     elif i == "Base_Unit":
-        #         PRBaseUnit = pritemdesc[i]
-        #     elif i == "Purchase_Requisition_Price":
-        #         PRPrice = pritemdesc[i]
-        #     elif i == "Plant":
-        #         PRPlant = pritemdesc[i]
-        #     elif i == "Company_Code":
-        #         PRCompanyCode = pritemdesc[i]
-        #     elif i == "Processing_Status":
-        #         PRProcessingStatus = pritemdesc[i]
-        #     elif i == "Delivery_Date":
-        #         PRDeliveryDate = pritemdesc[i]
-        #     elif i == "Creation_Date":
-        #         PRCreationDate = pritemdesc[i]
-        
-        # if PRItemStatus == "01":
-        #     status = "Saved, not yet released"
-        # elif PRItemStatus == "02":
-        #     status = "Released"
-        # elif PRItemStatus == "03":
-        #     status = "Partially ordered"
-        # elif PRItemStatus == "04":
-        #     status = "Completely ordered"
-        # elif PRItemStatus == "05":
-        #     status = "Deleted"
-        # elif PRItemStatus == "06":
-        #     status = "Manually set to Closed"
-        # elif PRItemStatus == "07":
-        #     status = "Technically completed"
-        # elif PRItemStatus == "08":
-        #     status = "Manually set to Locked"
-        # elif PRItemStatus == "09":
-        #     status = "Sent"
-        # elif PRItemStatus == "10":
-        #     status = "Partially invoiced"
-        # elif PRItemStatus == "11":
-        #     status = "Completely invoiced"
-        # elif PRItemStatus == "12":
-        #     status = "Manually set to Archived"
-        # if PRProcessingStatus == "N":
-        #     Pstatus = "Not edited"
-        # elif PRProcessingStatus == "B":
-        #     Pstatus = "PO created"
-        # elif PRProcessingStatus == "A":
-        #     Pstatus = "RFQ created"
-        # elif PRProcessingStatus == "K":
-        #     Pstatus = "Contract created"
-        # elif PRProcessingStatus == "L":
-        #     Pstatus = "Scheduling aggrement created"
-        # elif PRProcessingStatus == "S":
-        #     Pstatus = "Service entry sheet created"
-        # elif PRProcessingStatus == "D":
-        #     Pstatus = "Deployment STR"
-        # elif PRProcessingStatus == "E":
-        #     Pstatus = "RFQ sent to external system for sourcing"
-
-
-        # details = {
-        #         "Purchase Requisition Number": PRnumber,
-        #         "Purchase Requisition Item Number": PRItemNumber,
-        #         "Purchase_Requisition_Release_Status": f"{ PRItemStatus} - {status}",
-        #         "Purchase Requisition Item Text": PRItemText,
-        #         "Purchase_Requisition_Material_Group": PRMaterialGroup,
-        #         "Requested_Quantity": PRQuantity,
-        #         "Base_Unit": PRBaseUnit,
-        #         "Purchase_Requisition_Price": PRPrice,
-        #         "Plant": PRPlant,
-        #         "Company_Code": PRCompanyCode,
-        #         "Processing_Status": f"{PRProcessingStatus} - {Pstatus}",
-        #         "Creation_Date": PRCreationDate,
-        #         "Delivery_Date": PRDeliveryDate,
-        #     }
-        
-
-        send = {
-            "msg": "Here is the Details of Purchase Order... ",
-            "details": {
-                "data":details,"flag":Pending_PO_Flag,"type":"PO"
-                }
-        }
-        
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
-
-        return []
-    
-
-# ****************************************** fetching po item details from digiverz demo system ************************************
-
-# *********************************************** approve po from digiverz demo system *********************
-class PoAppprovalENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_PO_appooval_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-
-        ponotext = tracker.latest_message["text"]
-        pono = ponotext.split()[-1]
-
-        # prno = tracker.get_slot("prnumber")
-
-        print(pono)
-
-        # dispatcher.utter_message(text = f"{pono} approval action is working fine")
-
-
-        result = PoApprovalENEC(pono)
-
-        Status_code = result["ExStatus"]
-        
-        user_comment = result["Comment"]
-
-        print(Status_code)
-        print(user_comment)
-
-        if Status_code == "ERROR":
-            dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
-
-
-        elif Status_code == "APPROVED":
-
-            db = client["ENEC_RasaChatbot"]
-            collection = db["Approved_PO"]
-            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
-            result = collection.insert_one(document)
-
-            dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
-
-        return []
-
-
-# *********************************************** approve po from digiverz demo system ********************************
-
-
-# *********************************************** approve pr from digiverz demo system ***********************************
-
-class PrAppprovalENEC(Action):
-
-    def name(self) -> Text:
-        return "ENEC_PR_approval_action"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-
-        prnotext = tracker.latest_message["text"]
-        prno = prnotext.split()[-1]
-
-
-        # print(prno)
-
-        # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
-
-
-        result = PrApprovalENEC(prno)
-
-        Status_code = result["ExStatus"]
-        
-        user_comment = result["Comment"]
-
-        print(Status_code)
-        print(user_comment)
-
-        if Status_code == "ERROR":
-            dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
-
-
-        elif Status_code == "APPROVED":
-
-            db = client["ENEC_RasaChatbot"]
-            collection = db["Approved_PR"]
-            document = {"Purchase Requistion Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}"}
-            result = collection.insert_one(document)
-
-            dispatcher.utter_message(text=f"PR {prno} Approved Successfully")
-
-        return []
-
-
-
-
-# *********************************************** approve pr from digiverz demo system ***********************************
-
-
-
-

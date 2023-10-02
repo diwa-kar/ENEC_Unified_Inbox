@@ -2,16 +2,6 @@ version: "3.1"
 
 rules:
 
-# - rule: Say goodbye anytime the user says goodbye
-#   steps:
-#   - intent: goodbye
-#   - action: utter_goodbye
-
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
-
 - rule: greet rule
   steps:
   - intent: greet
@@ -27,10 +17,14 @@ rules:
   - intent: action_test
   - action: action_to_test
 
+###################################################### company policies ############################################################
+
 - rule: company policies
   steps:
   - intent: policies
   - action: action_company_policy
+
+###################################################### company policies ############################################################
 
 
 
@@ -165,7 +159,10 @@ rules:
   steps:
   - intent: TimesheetPolicy
   - action: action_TimesheetPolicy
+
+
 # ************************************* Polices rules *********************************************************
+
 
 
 # ******************************************** ENEC ticket raising ********************************************************************************************
@@ -300,6 +297,15 @@ rules:
 
 
 
+
+
+
+
+
+
+
+
+
 # ************************************* Leave balance *******************************************
 
 - rule: leave balance
@@ -308,6 +314,14 @@ rules:
   - action: Leave_balance_action
 
 # ************************************* Leave balance *******************************************
+
+
+
+
+
+
+
+
 
 
 
@@ -349,109 +363,3 @@ rules:
 
 
 # ****************************************** fetching pending leave request Details ******************************************
-
-
-# ******************************************* fetching pending pr *************************************************************
-
-
-- rule: fetching pending pr from local system
-  steps:
-  - intent: Pending_pr_intent
-  - action: Pending_pr_action
-
-
-# ******************************************* fetching pending pr *************************************************************
-
-
-# ******************************************* fetching pending pr *************************************************************
-
-
-- rule: fetching pending po from local system
-  steps:
-  - intent: Pending_po_intent
-  - action: Pending_po_action
-
-
-# ******************************************* fetching pending pr *************************************************************
-
-
-# ******************************************* fetching pending invoice *********************************************************
-
-- rule: fetching pending invoice from digiverz local system
-  steps:
-  - intent: Pending_invoice_intent
-  - action: Pending_invoice_action
-
-# ******************************************* fetching pending invoice *********************************************************
-
-
-
-# ***************************************** fetching pr items list ************************************************************
-
-- rule: Give list of PR items list from digiverz demo system
-  steps:
-  - intent: ENEC_pending_pr_item_list
-  - action: ENEC_pending_pr_item_list_action
-
-
-# ***************************************** fetching pr items list ************************************************************
-
-
-# ********************************************* fetching pr item details *****************************************************
-
-- rule: Give list of PR items details from digiverz demo system
-  steps:
-  - intent: ENEC_pending_pr_items_description_intent
-  - action: ENEC_pending_pr_items_description_action
-
-
-# ********************************************* fetching pr item details *****************************************************
-
-
-# ********************************************** fetching pending po item list **********************************************
-
-- rule: Give list of PO items list from digiverz demo system
-  steps:
-  - intent: ENEC_pending_po_item_list
-  - action: ENEC_pending_po_item_list_action
-
-# ********************************************** fetching pending po item list **********************************************
-
-
-# ************************************************ fetching pending po item details ********************************************
-
-- rule: Give list of PO items details from digiverz demo system
-  steps:
-  - intent: ENEC_pending_po_items_description_intent
-  - action: ENEC_pending_po_items_description_action
-
-
-# ************************************************ fetching pending po item details ********************************************
-
-# *********************************************** approve po from digiverz demo system *********************
-
-- rule: approve po from digiverz demo system
-  steps:
-  - intent: ENEC_PO_appooval_intent
-  - action: ENEC_PO_appooval_action
-
-# *********************************************** approve po from digiverz demo system *********************
-
-
-# *********************************************** approve pr from digiverz demo system *********************
-
-- rule: approve pr from digiverz demo system
-  steps:
-  - intent: ENEC_PR_approval_intent
-  - action: ENEC_PR_approval_action
-
-# *********************************************** approve pr from digiverz demo system *********************
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 recipe: default.v1
-assistant_id: 20230913-152635-wide-ampere
+assistant_id: 20231001-120129-latent-bow
 language: en
 pipeline: null
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.

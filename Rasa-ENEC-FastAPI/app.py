@@ -87,8 +87,6 @@ class UserLogin(BaseModel):
 
 class Pending_pr_list(BaseModel):
     username: str
-    # password: str
-
 
 class Pending_pr_item_list(BaseModel):
     prno : str
@@ -108,11 +106,9 @@ class ENEC_rejected_pr_list_mongo(BaseModel):
 
 class ENEC_approved_pr_item_info(BaseModel):
     prno : str
-    username : str
 
 class ENEC_rejected_pr_item_info(BaseModel):
     prno : str
-    username : str
 
 class pending_pr_approval(BaseModel):
     username : str
@@ -140,17 +136,14 @@ class pending_po_item_info(BaseModel):
 class ENEC_approved_po_list_mongo(BaseModel):
     username : str
 
-
 class ENEC_rejected_po_list_mongo(BaseModel):
     username : str
 
-class ENEC_approved_po_item_info(BaseModel):
+class approved_po_item_info(BaseModel):
     pono: str
-    username : str
 
-class ENEC_rejected_po_item_info(BaseModel):
+class rejected_po_item_info(BaseModel):
     pono: str
-    username : str
 
 class pending_po_approval(BaseModel):
     username: str
@@ -161,6 +154,9 @@ class pending_po_rejection(BaseModel):
     username: str
     pono : str
     comment: str | None
+
+class Pending_invoice_list(BaseModel):
+    username: str
 
 
 class IT_ticket_creation(BaseModel):
@@ -423,8 +419,7 @@ def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
-
+        if i['Purchase Requisition Number'].split()[-1] == data.prno:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -524,7 +519,7 @@ def rejected_pr_item_info(data : ENEC_rejected_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -852,7 +847,7 @@ def pending_po_item_description(data : pending_po_item_description):
 
 
 @app.post('/approved_po_item_info')
-def approved_po_item_info(data : ENEC_approved_po_item_info):
+def approved_po_item_info(data : approved_po_item_info):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PO"]
@@ -865,7 +860,7 @@ def approved_po_item_info(data : ENEC_approved_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
+        if i['Purchase Order Number'].split()[-1] == data.pono:
             po_comment = i['Comment']
            
 
@@ -959,7 +954,7 @@ def approved_po_item_info(data : ENEC_approved_po_item_info):
     return item_list_description
 
 @app.post('/rejected_po_item_info')
-def rejected_po_item_info(data : ENEC_rejected_po_item_info):
+def rejected_po_item_info(data : rejected_po_item_info):
 
     db = client["ENEC_RasaChatbot"]
     collection = db["Rejected_PO"]
@@ -970,7 +965,7 @@ def rejected_po_item_info(data : ENEC_rejected_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
+        if i['Purchase Order Number'].split()[-1] == data.pono:
             po_comment = i['Comment']
            
 
@@ -1498,21 +1493,18 @@ async def qpmc_reject_leave_request_sf(WfRequestId:str,name:str,type:str,duratio
 
 
 
+@app.post("/Pending_invoice_list")
+def Pending_invoice_list(data:Pending_invoice_list):
 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
 
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZFM_INV_PENDING(data.username) 
+    listofobj = result[0]
+    pendinginvoice_list = ['IN '+str(i.INVOICE) for i in listofobj]
 
-
-
-
-
-
-
-
-
-
-
-
-
+    return pendinginvoice_list
 
 
 
