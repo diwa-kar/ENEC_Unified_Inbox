@@ -3,6 +3,7 @@ import Ticket from "./Ticket.png";
 import Leave from "./Leave.png";
 import PR from "./PR.png";
 import PO from "./online-shop.png";
+import Invoice from "./invoice.png";
 
 const NotificationItem = (props) => {
   useEffect(() => {
@@ -33,6 +34,9 @@ const NotificationItem = (props) => {
       // console.log(card);
       props.updateIt(card);
     } else if (card.type === "it ticket") {
+      // console.log(card);
+      props.updateIt(card);
+    } else if (card.type === "pending invoice") {
       // console.log(card);
       props.updateIt(card);
     }
@@ -89,6 +93,8 @@ const NotificationItem = (props) => {
                   ? "notification-leave"
                   : card.type === "it ticket"
                   ? "notification-it"
+                  : card.type === "it ticket"
+                  ? "notification-invoice"
                   : ""
               }`}
             >
@@ -108,6 +114,8 @@ const NotificationItem = (props) => {
                     ? Leave
                     : card.type === "it ticket"
                     ? Ticket
+                    : card.type === "pending invoice"
+                    ? Invoice
                     : ""
                 }
                 alt="Ticket"

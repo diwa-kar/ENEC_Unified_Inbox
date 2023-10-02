@@ -18,6 +18,7 @@ const MiddleNavbar = (props) => {
     let uri1 = "";
     let uri2 = "";
     let uri3 = "";
+    let uri4 = "";
     let pending_prlist = [];
     let pending_polist = [];
     let pending_leave = [];
@@ -28,11 +29,13 @@ const MiddleNavbar = (props) => {
     let rejected_polist = [];
     let rejected_leave = [];
     let it_tickets = [];
+    let pending_invoice_list = [];
     if (props.activeTab === "Pending") {
       uri = "pending_pr_list";
       uri1 = "qpmc_leave_reuqest_sf";
       uri2 = "IT_ticket_list";
       uri3 = "pending_po_list";
+      uri4 = "Pending_invoice_list";
 
       /* --------------------------(Pending PR List)----------------------------------------- */
       try {
@@ -154,17 +157,48 @@ const MiddleNavbar = (props) => {
 
       /* --------------------------(Pending PO List)----------------------------------------- */
 
+      /* --------------------------(Pending Invoice List)----------------------------------------- */
+      try {
+        const response4 = await fetch(`http://localhost:8000/${uri4}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data4 = await response4.json();
+        console.log("pending_invoice_list", data4);
+        let type4 = "pending invoice";
+
+        pending_invoice_list =
+          data4 &&
+          data4?.map((data, index) => {
+            return {
+              type: type4,
+              value: data,
+              description: "Invoice Request",
+            };
+          });
+      } catch (error) {
+        console.log(error.message);
+      }
+      /* --------------------------(Pending Invoice List)----------------------------------------- */
       props.setCards([
         ...it_tickets,
         ...pending_prlist,
         ...pending_leave,
         ...pending_polist,
+        ...pending_invoice_list,
       ]);
       setOriginalList([
         ...it_tickets,
         ...pending_prlist,
         ...pending_leave,
         ...pending_polist,
+        ...pending_invoice_list,
       ]);
 
       showTab.setShowtab(true);
