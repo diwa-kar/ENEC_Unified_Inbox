@@ -77,6 +77,11 @@ intents:
   - Pending_pr_intent
   - Pending_po_intent
 
+
+  - ENEC_pending_pr_item_list
+  - ENEC_pending_pr_items_description_intent
+  - ENEC_PR_approval_intent
+
   
 
 
@@ -165,6 +170,13 @@ actions:
   - Pending_pr_action
   - Pending_po_action
 
+
+
+  - ENEC_pending_pr_item_list_action
+  - ENEC_pending_pr_items_description_action
+  - ENEC_PR_approval_action
+
+
   
 
 
@@ -178,6 +190,7 @@ actions:
 
 
 entities:
+
 
 
 ######################################################### Ticket raise #######################################################
@@ -261,6 +274,43 @@ entities:
 
 
 
+
+
+
+
+
+
+
+
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+  - pr_number:
+      type: regex
+      pattern: "[0-9]{8}"
+      
+  - pr_itemnumber:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+
+
+# *************************************************** po no and po item no ****************************************************
+
+  - po_number:
+      type: regex
+      pattern: "[0-9]{8}"
+      
+  - po_itemnumber:
+      type: regex
+      pattern: "^[0-9]{3,6}$"
+
+
+# *************************************************** po no and po item no ****************************************************
 
 
 
@@ -406,6 +456,55 @@ slots:
 
 
 
+
+
+
+
+
+
+
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+  prnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pr_number  
+  
+  pritemnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pr_itemnumber
+
+
+
+# *************************************************** pr no and pr item no ****************************************************
+
+
+# *************************************************** po no and po item no ****************************************************
+
+  ponumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: po_number  
+  
+  poitemnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: po_itemnumber
+
+
+
+# *************************************************** po no and po item no ****************************************************
 
 
 

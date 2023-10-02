@@ -6322,6 +6322,115 @@ nlu:
 
 # ******************************************* Pending pr local system ***********************************************************************
 
+# ***************************************** pending pr item list ********************************************************************
+
+- intent: ENEC_pending_pr_item_list
+  examples: |
+    - PR [10009092](pr_number)
+    - pr [10009092](pr_number)
+    - give me PR [10009092](pr_number)
+    - give me pr [10009092](pr_number)
+    - give me Purchase Requisition for [10009092](pr_number)
+    - give me purchase requisition for [10009092](pr_number)
+    - Purchase Requisition [10009092](pr_number)
+    - purchase requisition [10009092](pr_number)
+    - give me PR items for [10009092](pr_number)
+    - give me pr items for [10009092](pr_number)
+    - give me Purchase Requisition items for [10009092](pr_number)
+    - give me purchase requisition items for [10009092](pr_number)
+    - Purchase Requisition items for [10009092](pr_number)
+    - purchase requisition items for [10009092](pr_number)
+    - list of PR items for PR no[10009092](pr_number)
+    - list of pr items for pr no[10009092](pr_number)
+    - list me Purchase Requisition items for [10009092](pr_number) 
+    - list me purchase requisition items for [10009092](pr_number)
+
+
+
+# ***************************************** pending pr item list ********************************************************************
+
+
+
+
+# ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+- intent: ENEC_pending_pr_items_description_intent
+  examples: |
+    - PR item [1098](pr_itemnumber)
+    - pr item [220](pr_itemnumber)
+    - PR item no [1098](pr_itemnumber)
+    - pr item no [220](pr_itemnumber)
+    - PR item description for [220](pr_itemnumber)
+    - pr item description for [220](pr_itemnumber)
+    - give me PR item desc for [220](pr_itemnumber)
+    - give me pr item desc for [220](pr_itemnumber)
+    - give me Purchase Requisition item desc for item [220](pr_itemnumber)
+    - give me purchase requisition item desc ror item [220](pr_itemnumber)
+    - Purchase Requisition items desc for [220](pr_itemnumber)
+    - purchase requisition items desc for [220](pr_itemnumber)
+
+
+# ********************************************* pending pr item details from digiverz demo system ********************************************
+
+
+
+
+# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+
+
+- intent: ENEC_PR_approval_intent
+  examples: |
+  
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - Approve pr [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+    - Approve PR [4500001787](pr_number)
+
+
+# ********************************************* approve pending pr items in digiverz demo system ***************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ********************************************* pending PO request *******************************************************************
 
