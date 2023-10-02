@@ -106,9 +106,11 @@ class ENEC_rejected_pr_list_mongo(BaseModel):
 
 class ENEC_approved_pr_item_info(BaseModel):
     prno : str
+    username : str
 
 class ENEC_rejected_pr_item_info(BaseModel):
     prno : str
+    username : str
 
 class pending_pr_approval(BaseModel):
     username : str
@@ -141,9 +143,11 @@ class ENEC_rejected_po_list_mongo(BaseModel):
 
 class approved_po_item_info(BaseModel):
     pono: str
+    username: str
 
 class rejected_po_item_info(BaseModel):
     pono: str
+    username: str
 
 class pending_po_approval(BaseModel):
     username: str
@@ -180,7 +184,8 @@ class ENEC_approved_invoice_list_mongo(BaseModel):
 class ENEC_rejected_invoice_list_mongo(BaseModel):
     username : str
 
-
+class ENEC_approved_invoice_item_info(BaseModel):
+    inv_no : str
 
 
 
@@ -446,7 +451,7 @@ def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -546,7 +551,7 @@ def rejected_pr_item_info(data : ENEC_rejected_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -879,15 +884,13 @@ def approved_po_item_info(data : approved_po_item_info):
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PO"]
     a=collection.find()
-
     
-
     po_comment = ""
 
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono:
+        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
             po_comment = i['Comment']
            
 
@@ -992,7 +995,7 @@ def rejected_po_item_info(data : rejected_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono:
+        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
             po_comment = i['Comment']
            
 
@@ -1668,6 +1671,28 @@ async def ENEC_rejected_invoice_list_mongo(data : ENEC_rejected_invoice_list_mon
     print(rejected_invoice_list)
 
     return rejected_invoice_list
+
+@app.post('/ENEC_approved_invoice_item_info')
+def ENEC_approved_invoice_item_info(data:ENEC_approved_invoice_item_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_INVOICE"]
+    a=collection.find()
+
+
+    invoice_comment = ""
+
+    for i in a:
+    
+        
+        if i['Invoice number'].split()[-1] == data.inv_no:
+            invoice_comment = i['Comment']
+           
+
+    print("the invno and comment",data.inv_no,invoice_comment)
+
+
+    return "approved invoice info"
 
 
 
