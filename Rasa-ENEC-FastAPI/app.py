@@ -168,6 +168,16 @@ class pending_invoice_approval(BaseModel):
     comment : str | None
 
 
+class pending_invoice_rejection(BaseModel):
+    username : str
+    inv_no: str
+    comment : str | None
+
+
+
+
+
+
 
 class IT_ticket_creation(BaseModel):
     tickettype : str
@@ -1581,6 +1591,43 @@ def pending_invoice_approval(data:pending_invoice_approval):
 
     return text
 
+@app.post('/pending_invoice_rejection')
+def pending_invoice_rejection(data : pending_invoice_rejection):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_apprej_web?sap-client=100'
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+
+
+    result = sap_client.service.ZFM_INV_APPROVAL('R',f'{data.comment}',f'{data.inv_no}',f'{data.username}')
+
+    result["Comment"] = data.comment
+
+    print(result)
+
+
+    Status_code = result["EX_STATUS"]
+
+    if Status_code == "FAILURE":
+
+        text =f"IN {data.inv_no} is already approved/rejected" 
+
+
+    elif Status_code == "SUCCESS":
+
+        db = client["ENEC_RasaChatbot"]
+        collection = db["Rejected_INVOICE"]
+        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}"}
+        
+        res = collection.insert_one(document)
+
+        text =f"IN {data.inv_no} is Rejected successfully" 
+        
+
+    return text
+
+
+    
 
 
 
