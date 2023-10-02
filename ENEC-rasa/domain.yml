@@ -90,7 +90,7 @@ intents:
   - ENEC_PO_appooval_intent
 
   
-  - Pending_invoice_action
+  - Pending_invoice_intent
 
 
 
@@ -197,11 +197,6 @@ actions:
 
 
   
-
-
-
-
-
 
 
 
