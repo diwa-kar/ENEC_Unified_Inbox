@@ -58,6 +58,7 @@
   padding: 2px 10px;
   /* border-radius: 15px; */
   border: 0.5px solid #dfdfdf;
+  border-radius: 10px;
 }
 
 .collapsable {
@@ -76,7 +77,7 @@
 
 .Notificataion-display-detail span {
   font-size: 13px;
-  letter-spacing: 0.5px;
+  /* letter-spacing: 0.5px; */
 }
 
 .Notificataion-display-detail span:first-child {

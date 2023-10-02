@@ -598,9 +598,10 @@ const Notificationdisplay = ({
                     <span
                       style={{
                         wordWrap: "break-word",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
-                      {key}
+                      {key?.replace(/_/g, " ")}
                     </span>
                     <span
                       style={{
@@ -612,7 +613,7 @@ const Notificationdisplay = ({
                     </span>
                     <span
                       style={{
-                        color: "black",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
                       {data[key] ? data[key] : "-"}
@@ -706,9 +707,10 @@ const Notificationdisplay = ({
                       style={{
                         // color: "#002D62",
                         wordWrap: "break-word",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
-                      {key}
+                      {key?.replace(/_/g, " ")}
                     </span>
                     <span
                       style={{
@@ -720,7 +722,7 @@ const Notificationdisplay = ({
                     </span>
                     <span
                       style={{
-                        color: "black",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
                       {data[key] ? data[key] : "-"}
@@ -820,9 +822,10 @@ const Notificationdisplay = ({
                     <span
                       style={{
                         wordWrap: "break-word",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
-                      {key}
+                      {key?.replace(/_/g, " ")}
                     </span>
                     <span
                       style={{
@@ -834,10 +837,10 @@ const Notificationdisplay = ({
                     </span>
                     <span
                       style={{
-                        color: "black",
+                        color: key === "Comment" ? "#a89566" : "black",
                       }}
                     >
-                      {data[key]}
+                      {data[key] ? data[key] : "-"}
                     </span>
                   </div>
                 ))}
