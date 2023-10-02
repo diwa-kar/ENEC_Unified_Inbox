@@ -186,6 +186,11 @@ class ENEC_rejected_invoice_list_mongo(BaseModel):
 
 class ENEC_approved_invoice_item_info(BaseModel):
     inv_no : str
+    username : str
+
+class ENEC_rejected_invoice_item_info(BaseModel):
+    inv_no : str
+    username : str
 
 
 
@@ -1683,16 +1688,85 @@ def ENEC_approved_invoice_item_info(data:ENEC_approved_invoice_item_info):
     invoice_comment = ""
 
     for i in a:
-    
-        
-        if i['Invoice number'].split()[-1] == data.inv_no:
+        if i['Invoice number'].split()[-1] == data.inv_no and i['username'] == data.username:
             invoice_comment = i['Comment']
            
 
     print("the invno and comment",data.inv_no,invoice_comment)
 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_detail_web?sap-client=100'
 
-    return "approved invoice info"
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZBAPI_MM_INV_GET_DETAIL(data.inv_no) 
+    data = result[2]
+
+
+    invoice_info = {}
+
+    invoice_info["Invocie_no"] = data["INV_DOC_NO"]
+    invoice_info["Fiscal_Year"] = data["FISC_YEAR"]
+    invoice_info["Document_Type"] = data["DOC_TYPE"]
+    invoice_info["Document_Date"] = data["DOC_DATE"]
+    invoice_info["Posting_Date"] = data["PSTNG_DATE"]
+    invoice_info["user_name"] = data["USERNAME"]
+    invoice_info["Reference_Document_No"] = data["REF_DOC_NO"]
+    invoice_info["Company_Code"] = data["COMP_CODE"]
+    invoice_info["Currency"] = data["CURRENCY"]
+    invoice_info["Gross_amount"] = data["GROSS_AMNT"]
+
+
+    # adding invoice to the dict
+    invoice_info["Comment"] = invoice_comment
+
+
+    return invoice_info
+
+
+@app.post('/ENEC_rejected_invoice_item_info')
+def ENEC_rejected_invoice_item_info(data:ENEC_rejected_invoice_item_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_INVOICE"]
+    a=collection.find()
+
+
+    invoice_comment = ""
+
+    for i in a:
+        if i['Invoice number'].split()[-1] == data.inv_no and i['username'] == data.username:
+            invoice_comment = i['Comment']
+           
+
+    print("the invno and comment",data.inv_no,invoice_comment)
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_detail_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZBAPI_MM_INV_GET_DETAIL(data.inv_no) 
+    data = result[2]
+
+
+    invoice_info = {}
+
+    invoice_info["Invocie_no"] = data["INV_DOC_NO"]
+    invoice_info["Fiscal_Year"] = data["FISC_YEAR"]
+    invoice_info["Document_Type"] = data["DOC_TYPE"]
+    invoice_info["Document_Date"] = data["DOC_DATE"]
+    invoice_info["Posting_Date"] = data["PSTNG_DATE"]
+    invoice_info["user_name"] = data["USERNAME"]
+    invoice_info["Reference_Document_No"] = data["REF_DOC_NO"]
+    invoice_info["Company_Code"] = data["COMP_CODE"]
+    invoice_info["Currency"] = data["CURRENCY"]
+    invoice_info["Gross_amount"] = data["GROSS_AMNT"]
+
+
+    # adding invoice to the dict
+    invoice_info["Comment"] = invoice_comment
+
+
+    return invoice_info
 
 
 
