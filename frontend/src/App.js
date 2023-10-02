@@ -36,10 +36,11 @@ function App() {
     <div className="App-container">
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<LandingPageHome />} />
-        <Route path="/it-form" element={<ITform />} />
+
         {isAuthenticated ? (
           <>
+            <Route path="/" element={<LandingPageHome />} />
+            <Route path="/it-form" element={<ITform />} />
             <Route path="/main-page" element={<MainPage />} />
             <Route
               path="/main-page/notification"

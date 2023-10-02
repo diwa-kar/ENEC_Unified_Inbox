@@ -45,6 +45,7 @@ const Notificationdisplay = ({
   const [detailData, setDetailData] = useState([]);
   const [leaveDetail, setLeaveDetail] = useState([]);
   const [ticketdetail, setTicketdetail] = useState([]);
+  const [invoicedetail, setInvoicedetail] = useState([]);
   const [leavetype, setLeavetype] = useState("");
   const [leaveduration, setLeaveduration] = useState("");
   const [leavename, setLeavename] = useState("");
@@ -287,6 +288,33 @@ const Notificationdisplay = ({
             setLoader(false);
           })
           .catch((error) => console.log(`Error in Axios ${error}`));
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (selectedItem.type === "pending invoice") {
+      setDisplayShow(true);
+      setLeaveDetail([]);
+      setLoader(true);
+      uri = "Pending_invoice_item_info";
+      console.log(selectedItem);
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            inv_no: selectedItem.value.split(" ")[1],
+            // username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+        console.log("data", data);
+
+        console.log("on If", data);
+
+        setInvoicedetail([{ ...data }]);
+        setLoader(false);
       } catch (e) {
         console.log(e);
       }
@@ -567,7 +595,8 @@ const Notificationdisplay = ({
     >
       {detailData.length > 0 ||
       leaveDetail.length > 0 ||
-      ticketdetail.length > 0 ? (
+      ticketdetail.length > 0 ||
+      invoicedetail.length ? (
         <div className="Notificataion-display-title">
           {/* <span>{tab} Notification</span> */}
           <span>{selectedItem.value}</span>
@@ -848,6 +877,94 @@ const Notificationdisplay = ({
             );
           })}
           {selectedItem.type === "it ticket" && (
+            <div className="Notificataion-display-buttons-leave">
+              <Button
+                variant={"contained"}
+                size="medium"
+                sx={{
+                  backgroundColor: "#17C964",
+                  fontWeight: "bold",
+                }}
+                style={{
+                  display: "inline-flex",
+                  gap: "var(--8, 0.5rem)",
+                  margin: "5px 0px",
+                  textTransform: "capitalize",
+                  letterSpacing: "1px",
+                  fontSize: "11px",
+                  fontWeight: "550",
+                  marginRight: "20px",
+                  padding: "0.625rem var(--16, 1rem)",
+                }}
+                color="success"
+                // onClick={() => approveRequest()}
+              >
+                Approve
+              </Button>
+              <Button
+                variant={"contained"}
+                size="medium"
+                sx={{
+                  backgroundColor: "#F31260",
+                }}
+                style={{
+                  display: "inline-flex",
+                  gap: "var(--8, 0.5rem)",
+                  margin: "5px 0px",
+                  textTransform: "capitalize",
+                  letterSpacing: "1px",
+                  fontSize: "11px",
+                  fontWeight: "550",
+                  marginRight: "20px",
+                  padding: "0.625rem var(--16, 1rem)",
+                }}
+                color="error"
+                // onClick={() => rejectRequest()}
+              >
+                Reject
+              </Button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
+      {invoicedetail.length > 0 && selectedItem.type === "pending invoice" ? (
+        <div className="Notificataion-display-content">
+          {invoicedetail.map((data, index) => {
+            return (
+              <div className="Notificataion-display-detail-leave" key={index}>
+                {Object.keys(data).map((key, keyIndex) => (
+                  <div>
+                    <span
+                      style={{
+                        wordWrap: "break-word",
+                        color: key === "Comment" ? "#a89566" : "black",
+                      }}
+                    >
+                      {key?.replace(/_/g, " ")}
+                    </span>
+                    <span
+                      style={{
+                        margin: "0px 4px",
+                        color: "darkblue",
+                      }}
+                    >
+                      :
+                    </span>
+                    <span
+                      style={{
+                        color: key === "Comment" ? "#a89566" : "black",
+                      }}
+                    >
+                      {data[key] ? data[key] : "-"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+          {selectedItem.type === "pending invoice" && (
             <div className="Notificataion-display-buttons-leave">
               <Button
                 variant={"contained"}
