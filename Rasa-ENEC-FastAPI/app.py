@@ -106,9 +106,11 @@ class ENEC_rejected_pr_list_mongo(BaseModel):
 
 class ENEC_approved_pr_item_info(BaseModel):
     prno : str
+    username : str
 
 class ENEC_rejected_pr_item_info(BaseModel):
     prno : str
+    username : str
 
 class pending_pr_approval(BaseModel):
     username : str
@@ -141,9 +143,11 @@ class ENEC_rejected_po_list_mongo(BaseModel):
 
 class approved_po_item_info(BaseModel):
     pono: str
+    username: str
 
 class rejected_po_item_info(BaseModel):
     pono: str
+    username: str
 
 class pending_po_approval(BaseModel):
     username: str
@@ -160,6 +164,31 @@ class Pending_invoice_list(BaseModel):
 
 class Pending_invoice_item_info(BaseModel):
     inv_no: str
+
+
+class pending_invoice_approval(BaseModel):
+    username : str
+    inv_no: str
+    comment : str | None
+
+
+class pending_invoice_rejection(BaseModel):
+    username : str
+    inv_no: str
+    comment : str | None
+
+
+class ENEC_approved_invoice_list_mongo(BaseModel):
+    username : str
+
+class ENEC_rejected_invoice_list_mongo(BaseModel):
+    username : str
+
+class ENEC_approved_invoice_item_info(BaseModel):
+    inv_no : str
+
+
+
 
 
 class IT_ticket_creation(BaseModel):
@@ -422,7 +451,7 @@ def ENEC_approved_pr_item_info(data : ENEC_approved_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -522,7 +551,7 @@ def rejected_pr_item_info(data : ENEC_rejected_pr_item_info):
 
     for i in a:
         
-        if i['Purchase Requisition Number'].split()[-1] == data.prno:
+        if i['Purchase Requisition Number'].split()[-1] == data.prno and i['username'] == data.username:
             pr_comment = i['Comment']
 
     print("the pr and comment",data.prno,pr_comment)
@@ -855,15 +884,13 @@ def approved_po_item_info(data : approved_po_item_info):
     db = client["ENEC_RasaChatbot"]
     collection = db["Approved_PO"]
     a=collection.find()
-
     
-
     po_comment = ""
 
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono:
+        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
             po_comment = i['Comment']
            
 
@@ -968,7 +995,7 @@ def rejected_po_item_info(data : rejected_po_item_info):
     for i in a:
     
         
-        if i['Purchase Order Number'].split()[-1] == data.pono:
+        if i['Purchase Order Number'].split()[-1] == data.pono and i['username'] == data.username:
             po_comment = i['Comment']
            
 
@@ -1536,14 +1563,136 @@ def Pending_invoice_item_info(data:Pending_invoice_item_info):
     invoice_info["Gross_amount"] = data["GROSS_AMNT"]
 
 
-
     return invoice_info
 
 
 
+@app.post('/pending_invoice_approval')
+def pending_invoice_approval(data:pending_invoice_approval):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_apprej_web?sap-client=100'
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
 
 
+    result = sap_client.service.ZFM_INV_APPROVAL('A',f'{data.comment}',f'{data.inv_no}',f'{data.username}')
 
+    result["Comment"] = data.comment
+
+    print(result)
+
+
+    Status_code = result["EX_STATUS"]
+
+    if Status_code == "FAILURE":
+
+        text =f"IN {data.inv_no} is already approved/rejected" 
+
+
+    elif Status_code == "SUCCESS":
+
+        db = client["ENEC_RasaChatbot"]
+        collection = db["Approved_INVOICE"]
+        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
+        
+        res = collection.insert_one(document)
+
+        text =f"IN {data.inv_no} is Approved successfully" 
+
+    return text
+
+@app.post('/pending_invoice_rejection')
+def pending_invoice_rejection(data : pending_invoice_rejection):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_apprej_web?sap-client=100'
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+
+
+    result = sap_client.service.ZFM_INV_APPROVAL('R',f'{data.comment}',f'{data.inv_no}',f'{data.username}')
+
+    result["Comment"] = data.comment
+
+    print(result)
+
+
+    Status_code = result["EX_STATUS"]
+
+    if Status_code == "FAILURE":
+
+        text =f"IN {data.inv_no} is already approved/rejected" 
+
+
+    elif Status_code == "SUCCESS":
+
+        db = client["ENEC_RasaChatbot"]
+        collection = db["Rejected_INVOICE"]
+        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}"}
+        
+        res = collection.insert_one(document)
+
+        text =f"IN {data.inv_no} is Rejected successfully" 
+
+
+    return text
+
+
+    
+@app.post('/ENEC_approved_invoice_list_mongo')
+async def ENEC_approved_invoice_list_mongo(data : ENEC_approved_invoice_list_mongo):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_INVOICE"]
+    a=collection.find()
+
+    approved_invoice_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            approved_invoice_list.append(i['Invoice number'])
+
+    print(approved_invoice_list)
+
+    return approved_invoice_list
+
+@app.post('/ENEC_rejected_invoice_list_mongo')
+async def ENEC_rejected_invoice_list_mongo(data : ENEC_rejected_invoice_list_mongo):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_INVOICE"]
+    a=collection.find()
+
+    rejected_invoice_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            rejected_invoice_list.append(i['Invoice number'])
+
+    print(rejected_invoice_list)
+
+    return rejected_invoice_list
+
+@app.post('/ENEC_approved_invoice_item_info')
+def ENEC_approved_invoice_item_info(data:ENEC_approved_invoice_item_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_INVOICE"]
+    a=collection.find()
+
+
+    invoice_comment = ""
+
+    for i in a:
+    
+        
+        if i['Invoice number'].split()[-1] == data.inv_no:
+            invoice_comment = i['Comment']
+           
+
+    print("the invno and comment",data.inv_no,invoice_comment)
+
+
+    return "approved invoice info"
 
 
 

@@ -390,3 +390,42 @@ rules:
 
 
 # ******************************************* fetching pending po *************************************************************
+
+
+
+
+
+
+# ***************************************** fetching pr items list ************************************************************
+
+- rule: Give list of PR items list from digiverz demo system
+  steps:
+  - intent: ENEC_pending_pr_item_list
+  - action: ENEC_pending_pr_item_list_action
+
+
+# ***************************************** fetching pr items list ************************************************************
+
+
+# ********************************************* fetching pr item details *****************************************************
+
+- rule: Give list of PR items details from digiverz demo system
+  steps:
+  - intent: ENEC_pending_pr_items_description_intent
+  - action: ENEC_pending_pr_items_description_action
+
+
+# ********************************************* fetching pr item details *****************************************************
+
+
+# *********************************************** approve pr from digiverz demo system *********************
+
+- rule: approve pr from digiverz demo system
+  steps:
+  - intent: ENEC_PR_approval_intent
+  - action: ENEC_PR_approval_action
+
+# *********************************************** approve pr from digiverz demo system *********************
+
+
+
