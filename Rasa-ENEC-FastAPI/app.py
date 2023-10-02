@@ -174,6 +174,13 @@ class pending_invoice_rejection(BaseModel):
     comment : str | None
 
 
+class ENEC_approved_invoice_list_mongo(BaseModel):
+    username : str
+
+class ENEC_rejected_invoice_list_mongo(BaseModel):
+    username : str
+
+
 
 
 
@@ -1622,13 +1629,45 @@ def pending_invoice_rejection(data : pending_invoice_rejection):
         res = collection.insert_one(document)
 
         text =f"IN {data.inv_no} is Rejected successfully" 
-        
+
 
     return text
 
 
     
+@app.post('/ENEC_approved_invoice_list_mongo')
+async def ENEC_approved_invoice_list_mongo(data : ENEC_approved_invoice_list_mongo):
 
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_INVOICE"]
+    a=collection.find()
+
+    approved_invoice_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            approved_invoice_list.append(i['Invoice number'])
+
+    print(approved_invoice_list)
+
+    return approved_invoice_list
+
+@app.post('/ENEC_rejected_invoice_list_mongo')
+async def ENEC_rejected_invoice_list_mongo(data : ENEC_rejected_invoice_list_mongo):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_INVOICE"]
+    a=collection.find()
+
+    rejected_invoice_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            rejected_invoice_list.append(i['Invoice number'])
+
+    print(rejected_invoice_list)
+
+    return rejected_invoice_list
 
 
 
