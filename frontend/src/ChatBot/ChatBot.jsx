@@ -846,7 +846,7 @@ const ChatBot = () => {
                                   color: "#820000",
                                 }}
                               >
-                                {key}
+                                {key?.replace(/_/g, " ")}
                               </span>
                               <span
                                 style={{
@@ -910,6 +910,8 @@ const ChatBot = () => {
                                       ? chatContent.details.data[
                                           "Purchase_Order_Number"
                                         ]
+                                      : chatContent.details.type === "IN"
+                                      ? chatContent.details.data["Invocie_no"]
                                       : "",
                                 })
                               }
@@ -959,6 +961,8 @@ const ChatBot = () => {
                                       ? chatContent.details.data[
                                           "Purchase_Order_Number"
                                         ]
+                                      : chatContent.details.type === "IN"
+                                      ? chatContent.details.data["Invocie_no"]
                                       : "",
                                 });
                               }}
@@ -1201,6 +1205,11 @@ const ChatBot = () => {
                 ? `Approving ${openDialog.type} ${openDialog.value}?`
                 : openDialog.type === "PL" && openDialog.buttonType === "reject"
                 ? `Rejecting ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "IN" &&
+                  openDialog.buttonType === "approve"
+                ? `Approving ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "IN" && openDialog.buttonType === "reject"
+                ? `Rejecting ${openDialog.type} ${openDialog.value}?`
                 : ""
             } `}
           </DialogTitle>
@@ -1242,6 +1251,8 @@ const ChatBot = () => {
                     handleButtonRequest(`Approve PL ${openDialog.value}`);
                   else if (openDialog.type === "PO")
                     handleButtonRequest(`Approve PO ${openDialog.value}`);
+                  else if (openDialog.type === "IN")
+                    handleButtonRequest(`Approve IN ${openDialog.value}`);
                 } else {
                   if (openDialog.type === "PR")
                     handleButtonRequest(`Reject PR ${openDialog.value}`);
@@ -1249,6 +1260,8 @@ const ChatBot = () => {
                     handleButtonRequest(`Reject PL ${openDialog.value}`);
                   else if (openDialog.type === "PL")
                     handleButtonRequest(`Reject PO ${openDialog.value}`);
+                  else if (openDialog.type === "IN")
+                    handleButtonRequest(`Reject IN ${openDialog.value}`);
                 }
               }}
             >

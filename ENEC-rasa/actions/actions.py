@@ -2325,6 +2325,7 @@ class INVOICEDescriptonENEC(Action):
         }
         
         my_json = json.dumps(send)
+        print(send,my_json)
         dispatcher.utter_message(text=my_json)
 
         return []
