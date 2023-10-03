@@ -153,7 +153,9 @@ const ChatBot = () => {
                 };
               } else
                 response_temp["details"] = {
+                  // showButtons: recipient_msg["details"]["flag"] ? true : false,
                   data: recipient_msg["details"]["data"],
+                  // type: recipient_msg["details"]["type"],
                 };
             }
             if (recipient_msg["donut"])
