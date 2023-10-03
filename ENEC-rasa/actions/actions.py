@@ -2024,12 +2024,17 @@ class PrAppprovalENEC(Action):
         prno = prnotext.split()[-1]
 
 
+                        
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+
+
         # print(prno)
 
         # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
 
 
-        result = PrApprovalENEC(prno)
+        result = PrApprovalENEC(prno,comment)
 
         Status_code = result["ExStatus"]
         
@@ -2221,14 +2226,17 @@ class PoAppprovalENEC(Action):
         ponotext = tracker.latest_message["text"]
         pono = ponotext.split()[-1]
 
-        # prno = tracker.get_slot("prnumber")
-
-        print(pono)
+        # print(pono)
 
         # dispatcher.utter_message(text = f"{pono} approval action is working fine")
 
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
 
-        result = PoApprovalENEC(pono)
+
+
+
+        result = PoApprovalENEC(pono,comment)
 
         Status_code = result["ExStatus"]
         
@@ -2269,7 +2277,7 @@ class Pending_invoice(Action):
 
         user_name = metadata['username']
 
-        print(metadata['username'],"in action")
+        # print(metadata['username'],"in action")
 
         # user_name = "GIRISH"
 
