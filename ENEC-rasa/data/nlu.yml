@@ -6693,10 +6693,40 @@ nlu:
 
 
 
-
-
-
-
-
 # ******************************************** pending invoice info ***************************************************************************
 
+
+# ******************************************** approve invoice ********************************************************************************
+
+
+- intent: ENEC_INVOICE_approval_intent
+  examples: |
+    - Approve IN [5105601935](in_number)
+    - Approve in [5105601945](in_number)
+    - approve IN [5105601955](in_number)
+    - approve in [5105601937](in_number)
+    - Approve Invoice for [5105601912](in_number)
+    - approve invoice for [5105601934](in_number)
+    - approve Invoice [5105601998](in_number)
+    - Approve invoice [5105601956](in_number)
+    - Approve invoice number [5105601367](in_number)
+    - approve invoice Number [5105601123](in_number)
+    - Approve invoice No. [5105601723](in_number)
+    - approve invoice no. [5105601098](in_number)
+    - approve invoice number [510560157](in_number)
+    - Approve invoice no. [510560253](in_number)
+    - show the invoice [5105601785](in_number)
+    - approve the invoice [5105601992](in_number)
+    - can you approve the invoice [5105601467](in_number)
+    - Can you Approve the invoice [5105601654](in_number)
+    - Please approve invoice number [5105601712](in_number)
+    - approve invoice Num [5105601862](in_number)
+    - Approve invoice num [5105601563](in_number)
+    - Approve the invoice num [5105601012](in_number)
+    - approve invoice num [5105601375](in_number)
+    - approve Invoice num [5105601887](in_number)
+    - Approve Invoice Num [5105601062](in_number)
+    - approve Invoice no. [5105601789](in_number)
+
+
+# ******************************************* approve invoice ********************************************************************************

@@ -61,8 +61,6 @@ def pending_po_list(user_name:str):
     return pendingpo
 
 
-
-
 # *********************************************** pending po from digiverz local system ****************************************************
 
 
@@ -773,4 +771,36 @@ def pending_invoice_list(user_name:str):
 
 
 
-# **************************************** pending invoice list from local digiverz ************************************8
+# **************************************** pending invoice list from local digiverz ************************************
+
+
+
+# ****************************************** pending invoice info from local digiverz **********************************
+
+def Invoice_info(inv_no:str):
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_detail_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+    result = client.service.ZBAPI_MM_INV_GET_DETAIL(inv_no) 
+    data = result[2]
+
+    # print(data)
+
+    invoice_info = {}
+
+    invoice_info["Invocie_no"] = data["INV_DOC_NO"]
+    invoice_info["Fiscal_Year"] = data["FISC_YEAR"]
+    invoice_info["Document_Type"] = data["DOC_TYPE"]
+    invoice_info["Document_Date"] = data["DOC_DATE"]
+    invoice_info["Posting_Date"] = data["PSTNG_DATE"]
+    invoice_info["user_name"] = data["USERNAME"]
+    invoice_info["Reference_Document_No"] = data["REF_DOC_NO"]
+    invoice_info["Company_Code"] = data["COMP_CODE"]
+    invoice_info["Currency"] = data["CURRENCY"]
+    invoice_info["Gross_amount"] = data["GROSS_AMNT"]
+
+    return invoice_info
+
+
+# ****************************************** pending invoice info from local digiverz **********************************

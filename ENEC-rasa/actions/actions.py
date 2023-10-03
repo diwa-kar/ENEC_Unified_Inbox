@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info
 
 
 from rasa_sdk import Action, Tracker
@@ -2266,13 +2266,13 @@ class Pending_invoice(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
                 
-        metadata = tracker.latest_message.get("metadata")
+        # metadata = tracker.latest_message.get("metadata")
 
-        user_name = metadata['username']
+        # user_name = metadata['username']
 
         # print(metadata['username'],"in action")
 
-        # user_name = "GIRISH"
+        user_name = "GIRISH"
 
         pendinginvoice = pending_invoice_list(user_name)
         print(pendinginvoice)
@@ -2310,23 +2310,22 @@ class INVOICEDescriptonENEC(Action):
         invoice_no = invoicetext.split()[-1]
 
 
-        print(invoice_no)
-        dispatcher.utter_message(text=f"invoice details is working! {invoice_no}")
+        # print(invoice_no)
+        # dispatcher.utter_message(text=f"invoice details is working! {invoice_no}")
+    
+
+        details = Invoice_info(invoice_no)
         
 
-
-        # details = pending_po_item_description_ENEC(pono,poitemno)
+        send = {
+            "msg": "Here is the Details of Invoice... ",
+            "details": {
+                "data":details,"type":"IN"
+                }
+        }
         
-
-        # send = {
-        #     "msg": "Here is the Details of Purchase Order... ",
-        #     "details": {
-        #         "data":details,"flag":Pending_PO_Flag,"type":"PO"
-        #         }
-        # }
-        
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
 
         return []
 
@@ -2334,10 +2333,57 @@ class INVOICEDescriptonENEC(Action):
 
 
 
-
-
-
-
-
-
 # ****************************************** invoice details from digi local system ******************************************
+
+
+
+# ******************************************** invoice approval ************************************************************
+
+
+class InvoiceAppprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_INVOICE_approval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        invoicetext = tracker.latest_message["text"]
+        invoice_no = invoicetext.split()[-1]
+
+        print(invoice_no)
+
+        dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+
+
+        # result = PoApprovalENEC(pono)
+
+        # Status_code = result["ExStatus"]
+        
+        # user_comment = result["Comment"]
+
+        # print(Status_code)
+        # print(user_comment)
+
+        # if Status_code == "ERROR":
+        #     dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+
+
+        # elif Status_code == "APPROVED":
+
+        #     db = client["ENEC_RasaChatbot"]
+        #     collection = db["Approved_PO"]
+        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
+        #     result = collection.insert_one(document)
+
+        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+
+        # return []
+
+
+
+
+
+# ******************************************** invoice approval ************************************************************

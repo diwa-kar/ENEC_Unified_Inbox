@@ -92,6 +92,7 @@ intents:
   
   - Pending_invoice_intent
   - ENEC_pending_invoice_info
+  - ENEC_INVOICE_approval_intent
 
 
 
@@ -196,6 +197,7 @@ actions:
 
   - Pending_invoice_action
   - ENEC_pending_invoice_info_action
+  - ENEC_INVOICE_approval_action
 
 
   
@@ -545,7 +547,7 @@ slots:
     - type: from_entity
       entity: in_number  
   
-  
+
 # ************************************************** invoice no ***************************************************************
 
 

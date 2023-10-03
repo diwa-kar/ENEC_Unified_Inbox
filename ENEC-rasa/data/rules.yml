@@ -455,6 +455,16 @@ rules:
 # ********************************************* fetching invoice details *******************************************************
 
 
+# ******************************************** invoice approval ***************************************************************
+
+
+- rule: fetching pending invoice approval from digiverz local system
+  steps:
+  - intent: ENEC_INVOICE_approval_intent
+  - action: ENEC_INVOICE_approval_action
+
+
+# ******************************************** invoice approval ***************************************************************
 
 
 
