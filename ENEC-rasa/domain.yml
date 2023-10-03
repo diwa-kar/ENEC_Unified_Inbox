@@ -82,8 +82,15 @@ intents:
   - ENEC_pending_pr_items_description_intent
   - ENEC_PR_approval_intent
 
-  
 
+
+  
+  - ENEC_pending_po_item_list
+  - ENEC_pending_po_items_description_intent
+  - ENEC_PO_appooval_intent
+
+  
+  - Pending_invoice_intent
 
 
 
@@ -177,12 +184,19 @@ actions:
   - ENEC_PR_approval_action
 
 
+
   
+  - ENEC_pending_po_item_list_action
+  - ENEC_pending_po_items_description_action  
+  - ENEC_PO_appooval_action
 
 
 
 
+  - Pending_invoice_action
 
+
+  
 
 
 

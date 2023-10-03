@@ -2107,3 +2107,174 @@ class Pending_po(Action):
         return []
 
 # ****************************************** pending po from local system *******************************************
+
+
+# ***************************************** fetching po item list from digiverz demo ****************************************
+
+class PoItemsListENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_po_item_list_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        global Pending_PO_Flag 
+        Pending_PO_Flag = 1
+        
+        global pono
+
+        ponotext = tracker.latest_message["text"]
+        pono = ponotext.split()[-1]
+
+        # prno = tracker.get_slot("prnumber")
+
+        print(pono)
+
+        # dispatcher.utter_message(text = f"{pono} is working fine")
+
+        itemlist = pending_polist_ENEC(pono)
+
+        send = {
+            "requests": itemlist,
+            "msg": "The PO items lists are given below. Choose Any one to see the Item description",
+        }
+        
+        my_json = json.dumps(send)
+
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+# ***************************************** fetching po item list from digiverz demo ****************************************
+
+
+# ****************************************** fetching po item details from digiverz demo system ************************************
+
+
+class PoItemDescriptonENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_po_items_description_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # global Pending_PO_Flag 
+        # Pending_PO_Flag = 1
+        
+        global poitemno, pono
+
+        pritemnotext = tracker.latest_message["text"]
+
+        poitemno = pritemnotext.split()[-1]
+
+
+        # print(f"{pono} {poitemno}")
+        # dispatcher.utter_message(text=f"pr item description is working! {pono} {poitemno}")
+        
+
+
+        details = pending_po_item_description_ENEC(pono,poitemno)
+        
+
+        send = {
+            "msg": "Here is the Details of Purchase Order... ",
+            "details": {
+                "data":details,"flag":Pending_PO_Flag,"type":"PO"
+                }
+        }
+        
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+    
+
+# ****************************************** fetching po item details from digiverz demo system ************************************
+
+# *********************************************** approve po from digiverz demo system *********************
+class PoAppprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_PO_appooval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        ponotext = tracker.latest_message["text"]
+        pono = ponotext.split()[-1]
+
+        # prno = tracker.get_slot("prnumber")
+
+        print(pono)
+
+        # dispatcher.utter_message(text = f"{pono} approval action is working fine")
+
+
+        result = PoApprovalENEC(pono)
+
+        Status_code = result["ExStatus"]
+        
+        user_comment = result["Comment"]
+
+        print(Status_code)
+        print(user_comment)
+
+        if Status_code == "ERROR":
+            dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+
+
+        elif Status_code == "APPROVED":
+
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Approved_PO"]
+            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
+            result = collection.insert_one(document)
+
+            dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+
+        return []
+
+
+# *********************************************** approve po from digiverz demo system ********************************
+
+
+
+
+class Pending_invoice(Action):
+
+    def name(self) -> Text:
+        return "Pending_invoice_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+                
+        # metadata = tracker.latest_message.get("metadata")
+
+        # user_name = metadata['username']
+
+        # print(metadata['username'],"in action")
+
+        # pendingpr = pending_pr_list(user_name)
+        # print(pendingpr)
+
+        # send = {"requests": pendingpr,
+        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+        #         }
+
+        # my_json = json.dumps(send)
+        # dispatcher.utter_message(text=my_json)
+
+        dispatcher.utter_message(text= "pending invoice is working")
+
+        return []
+
+# ****************************************** invoice from local system *******************************************

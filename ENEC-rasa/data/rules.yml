@@ -429,3 +429,58 @@ rules:
 
 
 
+
+
+
+
+
+# ******************************************* fetching pending invoice *********************************************************
+
+- rule: fetching pending invoice from digiverz local system
+  steps:
+  - intent: Pending_invoice_intent
+  - action: Pending_invoice_action
+
+# ******************************************* fetching pending invoice *********************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ********************************************** fetching pending po item list **********************************************
+
+- rule: Give list of PO items list from digiverz demo system
+  steps:
+  - intent: ENEC_pending_po_item_list
+  - action: ENEC_pending_po_item_list_action
+
+# ********************************************** fetching pending po item list **********************************************
+
+
+# ************************************************ fetching pending po item details ********************************************
+
+- rule: Give list of PO items details from digiverz demo system
+  steps:
+  - intent: ENEC_pending_po_items_description_intent
+  - action: ENEC_pending_po_items_description_action
+
+
+# ************************************************ fetching pending po item details ********************************************
+
+# *********************************************** approve po from digiverz demo system *********************
+
+- rule: approve po from digiverz demo system
+  steps:
+  - intent: ENEC_PO_appooval_intent
+  - action: ENEC_PO_appooval_action
+
+# *********************************************** approve po from digiverz demo system *********************

@@ -6418,6 +6418,96 @@ nlu:
 
 # ********************************************* approve pending pr items in digiverz demo system ***************************************************
 
+# # ****************************************** pending po item list from digiverz demo system **************************************************
+
+- intent: ENEC_pending_po_item_list
+  examples: |
+    - PO [4500001787](po_number)
+    - po [4500001787](po_number)
+    - give me PO [4500001787](po_number)
+    - give me po [4500001787](po_number)
+    - give me Purchase Order for [4500001787](po_number)
+    - give me purchase order for [4500001787](po_number)
+    - Purchase Order [4500001787](po_number)
+    - purchase order [4500001787](po_number)
+    - give me PO items for [4500001787](po_number)
+    - give me po items for [4500001787](po_number)
+    - give me Purchase Order items for [4500001787](po_number)
+    - give me purchase order items for [4500001787](po_number)
+    - Purchase Order items for [4500001787](po_number)
+    - purchase order items for [4500001787](po_number)
+    - list of PO items for Po no[4500001787](po_number)
+    - list of po items for po no[4500001787](po_number)
+    - list me Purchase Order items for [4500001787](po_number) 
+    - list me purchase order items for [4500001787](po_number)
+
+
+# ****************************************** pending po item list from digiverz demo system **************************************************
+
+
+
+
+
+# ******************************************** pending po item details from digiverz demo system *********************************************
+
+- intent: ENEC_pending_po_items_description_intent
+  examples: |
+    - PO item [1098](po_itemnumber)
+    - po item [220](po_itemnumber)
+    - PO item no [1098](po_itemnumber)
+    - po item no [220](po_itemnumber)
+    - Po item description for [220](po_itemnumber)
+    - po item description for [220](po_itemnumber)
+    - give me PO item desc for [220](po_itemnumber)
+    - give me po item desc for [220](po_itemnumber)
+    - give me Purchase Order item desc for item [220](po_itemnumber)
+    - give me purchase order item desc for item [220](po_itemnumber)
+    - Purchase Order items desc for [220](po_itemnumber)
+    - purchase order items desc for [220](po_itemnumber)
+
+# ******************************************** pending po item details from digiverz demo system *********************************************
+
+
+# ********************************************* approve pending po items in digiverz demo system ***************************************************
+
+- intent: ENEC_PO_appooval_intent
+  examples: |
+  
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - Approve po [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+    - Approve PO [4500001787](po_number)
+# ********************************************* approve pending po items in digiverz demo system ***************************************************
+
+
 
 
 
@@ -6498,3 +6588,74 @@ nlu:
     - can you get me the pending PO 
 
 # ********************************************* pending PO request *******************************************************************
+
+
+
+# ********************************************* pending invoice ************************************************************************
+
+- intent: Pending_invoice_intent
+  examples: |
+
+    - INV
+    - inv
+    - give me INV
+    - give me inv
+    - give me invoice 
+    - give me Invoice   
+    - invoice
+    - list of Invoice
+    - list of invoice
+    - list me invoice
+    - list me invoice
+    - Can you please provide me with my invoice?
+    - May I have access to my invoice records?
+    - Is there a way for me to view my invoice?
+    - How do I access my invoice?
+    - Show me invoice
+    - Show me my invoice
+    - Display the invoice
+    - pending invoice
+    - show me the invoice to approve
+    - show me pending invoice
+    - can you show me the pending invoice
+    - what are all the pending invoice
+    - what are invoice are pending
+    - get me the pending invoice
+    - can you get me the pending invoice 
+    - Show me pending invoicen
+    - Show me my pending invoice
+    - Display the invoice
+    - pending invoice
+    - show me the invoice to approve
+    - show me pending invoice
+    - can you show me the pending invoice
+    - what are all the pending invoice
+    - what are invoice are pending
+    - get me the pending invoice
+    - can you get me the pending invoice
+    - Show me pending invoice
+    - Show me my pending invoice
+    - Display the pending invoice
+    - pending invoice
+    - show me the invoice to approve
+    - show me pending invoice
+    - can you show me the pending invoice
+    - what are all the pending invoice
+    - what are Invoice are pending
+    - get me the pending Invoice
+    - can you get me the pending Invoice
+    - Show me pending IN
+    - Show me my pending INV
+    - Display the pending Invoice
+    - pending INV
+    - show me the INV to approve
+    - show me pending IN
+    - can you show me the pending IN
+    - what are all the pending IN
+    - what are IN are pending
+    - get me the pending INV
+    - can you get me the pending INV
+
+
+# ********************************************* pending invoice ************************************************************************
+
