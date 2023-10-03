@@ -2092,15 +2092,14 @@ class Pending_po(Action):
         # Pending_PR_Flag = 1
 
 
-        # metadata = tracker.latest_message.get("metadata")
+        metadata = tracker.latest_message.get("metadata")
 
-        # user_name = metadata['username']
+        user_name = metadata['username']
 
-        # print(metadata['username'],"in action")
+        print(metadata['username'],"in action")
 
         # user_name = "GIRISH"
 
-        user_name = "Girish"
 
 
         pendingpo = pending_po_list(user_name)
