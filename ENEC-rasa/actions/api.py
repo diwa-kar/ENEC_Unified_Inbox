@@ -252,9 +252,9 @@ def pending_po_item_description_ENEC(pono,poitemno):
 
 # ********************************************* pending po approval on digiverz demo system **************************************************
 
-def PoApprovalENEC(pono):
+def PoApprovalENEC(pono:str,comment:str):
 
-    comment = "Approved by Girish"
+    # comment = "Approved by Girish"
     
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_acceptreject?sap-client=100 '
     transport = HttpAuthenticated(username=username, password=password)
@@ -264,7 +264,6 @@ def PoApprovalENEC(pono):
     result = client.service.ZmmPoApprRejFm('A',f'{comment}',f'{pono}','Girish')
 
     # addiing comment with result
-
     result["Comment"] = comment
 
     print(result)
@@ -277,9 +276,9 @@ def PoApprovalENEC(pono):
 
 # ********************************************* pending pr approval on digiverz demo system **************************************************
 
-def PrApprovalENEC(prno):
+def PrApprovalENEC(prno:str,comment:str):
 
-    comment = "Approved by ABAPER1"
+    # comment = "Approved by ABAPER1"
     
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_acceptreject?sap-client=100'
     transport = HttpAuthenticated(username=username, password=password)
