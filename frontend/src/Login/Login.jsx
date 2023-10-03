@@ -25,6 +25,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
+  const [userType, setUserType] = useState([]);
   const navigate = useNavigate();
   const [snackbarOpen, setsnackbarOpen] = useState(false);
   const [snackbarValue, setsnackbarValue] = useState({
@@ -115,13 +116,14 @@ const Login = () => {
 
   const onCreate = async () => {
     try {
-      if (createEmail !== "" && createPassword !== "") {
+      if (createEmail !== "" && createPassword !== "" && userType.length > 0) {
         const response = await fetch(`http://localhost:8000/register`, {
           mode: "cors",
           method: "POST",
           body: JSON.stringify({
             username: createEmail,
             password: createPassword,
+            userType: userType,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -413,38 +415,26 @@ const Login = () => {
                 >
                   Choose User Type
                 </FormLabel>
-                {/* <FormControl sx={{ minWidth: "100%" }}>
-                  <Select
-                    // value={age}
-                    // onChange={handleChange}
-                    displayEmpty
-                    sx={{ width: "100%" }}
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem value={10}>Purchase Requistion</MenuItem>
-                    <MenuItem value={20}>Purchase Order</MenuItem>
-                    <MenuItem value={30}>Invoice</MenuItem>
-                  </Select>
-                </FormControl> */}
+
                 <FormControl sx={{ width: "100%" }}>
                   <Select
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
                     size="medium"
-                    value={["PO", "PR"]}
-                    // onChange={handleChange}
-
+                    value={userType}
+                    onChange={(e) => {
+                      setUserType(e.target.value);
+                    }}
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
-                          <Chip key={value} label={value} />
+                          <Chip key={value} label={value} sx={{ p: 0 }} />
                         ))}
                       </Box>
                     )}
-                    // MenuProps={MenuProps}
                   >
-                    {["PR", "PO", "Invoice"].map((name) => (
+                    {["PR", "PO", "INVOICE", "SES"].map((name) => (
                       <MenuItem key={name} value={name}>
                         {name}
                       </MenuItem>

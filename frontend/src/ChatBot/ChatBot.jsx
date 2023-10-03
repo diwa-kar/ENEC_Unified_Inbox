@@ -1247,23 +1247,81 @@ const ChatBot = () => {
               onClick={() => {
                 console.log("openDialog", openDialog);
                 if (openDialog.buttonType === "approve") {
-                  if (openDialog.type === "PR")
+                  if (openDialog.type === "PR") {
                     handleButtonRequest(`Approve PR ${openDialog.value}`);
-                  else if (openDialog.type === "PL")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "PL") {
                     handleButtonRequest(`Approve PL ${openDialog.value}`);
-                  else if (openDialog.type === "PO")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "PO") {
                     handleButtonRequest(`Approve PO ${openDialog.value}`);
-                  else if (openDialog.type === "IN")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "IN") {
                     handleButtonRequest(`Approve IN ${openDialog.value}`);
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  }
                 } else {
-                  if (openDialog.type === "PR")
+                  if (openDialog.type === "PR") {
                     handleButtonRequest(`Reject PR ${openDialog.value}`);
-                  else if (openDialog.type === "PL")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "PL") {
                     handleButtonRequest(`Reject PL ${openDialog.value}`);
-                  else if (openDialog.type === "PL")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "PL") {
                     handleButtonRequest(`Reject PO ${openDialog.value}`);
-                  else if (openDialog.type === "IN")
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "IN") {
                     handleButtonRequest(`Reject IN ${openDialog.value}`);
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  }
                 }
               }}
             >
