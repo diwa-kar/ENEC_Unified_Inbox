@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list
 
 
 from rasa_sdk import Action, Tracker
@@ -2091,7 +2091,19 @@ class Pending_po(Action):
         # global Pending_PR_Flag 
         # Pending_PR_Flag = 1
 
-        pendingpo = pending_po_list()
+
+        # metadata = tracker.latest_message.get("metadata")
+
+        # user_name = metadata['username']
+
+        # print(metadata['username'],"in action")
+
+        # user_name = "GIRISH"
+
+        user_name = "Girish"
+
+
+        pendingpo = pending_po_list(user_name)
         print(pendingpo)
 
         send = {"requests": pendingpo,
@@ -2244,9 +2256,6 @@ class PoAppprovalENEC(Action):
 
 # *********************************************** approve po from digiverz demo system ********************************
 
-
-
-
 class Pending_invoice(Action):
 
     def name(self) -> Text:
@@ -2257,24 +2266,78 @@ class Pending_invoice(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
                 
-        # metadata = tracker.latest_message.get("metadata")
+        metadata = tracker.latest_message.get("metadata")
 
-        # user_name = metadata['username']
+        user_name = metadata['username']
 
         # print(metadata['username'],"in action")
 
-        # pendingpr = pending_pr_list(user_name)
-        # print(pendingpr)
+        # user_name = "GIRISH"
 
-        # send = {"requests": pendingpr,
-        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-        #         }
+        pendinginvoice = pending_invoice_list(user_name)
+        print(pendinginvoice)
 
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        send = {"requests": pendinginvoice,
+                "msg": "The Pending INVOICE lists are given below. Choose Any one to see PR Items",
+                }
 
-        dispatcher.utter_message(text= "pending invoice is working")
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        # dispatcher.utter_message(text= "pending invoice is working")
 
         return []
 
 # ****************************************** invoice from local system *******************************************
+
+
+
+# ****************************************** invoice details from digi local system ******************************************
+
+
+class INVOICEDescriptonENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_invoice_info_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
+        invoicetext = tracker.latest_message["text"]
+
+        invoice_no = invoicetext.split()[-1]
+
+
+        print(invoice_no)
+        dispatcher.utter_message(text=f"invoice details is working! {invoice_no}")
+        
+
+
+        # details = pending_po_item_description_ENEC(pono,poitemno)
+        
+
+        # send = {
+        #     "msg": "Here is the Details of Purchase Order... ",
+        #     "details": {
+        #         "data":details,"flag":Pending_PO_Flag,"type":"PO"
+        #         }
+        # }
+        
+        # my_json = json.dumps(send)
+        # dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+
+
+
+
+
+
+
+
+
+# ****************************************** invoice details from digi local system ******************************************

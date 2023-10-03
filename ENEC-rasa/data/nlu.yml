@@ -6659,3 +6659,44 @@ nlu:
 
 # ********************************************* pending invoice ************************************************************************
 
+
+# ******************************************** pending invoice info ***************************************************************************
+
+- intent: ENEC_pending_invoice_info
+  examples: |
+    - IN [5105601935](in_number)
+    - in [5105601945](in_number)
+    - give me IN [5105601955](in_number)
+    - give me in [5105601937](in_number)
+    - give me Invoice for [5105601912](in_number)
+    - give me invoice for [5105601934](in_number)
+    - Invoice [5105601998](in_number)
+    - invoice [5105601956](in_number)
+    - invoice number [5105601367](in_number)
+    - invoice Number [5105601123](in_number)
+    - invoice No. [5105601723](in_number)
+    - invoice no. [5105601098](in_number)
+    - show me invoice number [510560157](in_number)
+    - Show me invoice no. [510560253](in_number)
+    - show the invoice [5105601785](in_number)
+    - show me the invoice [5105601992](in_number)
+    - can you show the invoice [5105601467](in_number)
+    - Can you show the invoice [5105601654](in_number)
+    - Please show invoice number [5105601712](in_number)
+    - invoice Num [5105601862](in_number)
+    - invoice num [5105601563](in_number)
+    - show the invoice num [5105601012](in_number)
+    - Show invoice num [5105601375](in_number)
+    - Invoice num [5105601887](in_number)
+    - Invoice Num [5105601062](in_number)
+    - Invoice no. [5105601789](in_number)
+
+
+
+
+
+
+
+
+# ******************************************** pending invoice info ***************************************************************************
+
