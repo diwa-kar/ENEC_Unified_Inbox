@@ -12,7 +12,8 @@ import ChatBotLogo from "./chatbot-ui.png";
 
 // Charts
 import Chart from "react-apexcharts";
-
+import { Box, IconButton } from "@mui/material";
+import { AiOutlineSend } from "react-icons/ai";
 // in all pages
 // it request
 // main pages
@@ -1115,60 +1116,53 @@ const ChatBot = () => {
               </span>
             )}
           </div>
-          <div className="chatscreen-footer" style={{}}>
-            <form onSubmit={handleSubmit}>
-              <div className="chatscreen-footer-input">
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setInputMessage(e.target.value);
-                  }}
-                  id="standard-required"
-                  className="chatscreen-input"
-                  placeholder="Enter Your Message"
-                  disabled={botTyping}
-                  value={inputMessage}
-                  style={{
-                    width: "95%",
-                    height: "3rem",
-                    boxShadow: "none",
-                  }}
-                />
-                {/* <TextField
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            sx={{ m: "10px" }}
+          >
+            <input
+              type="text"
               onChange={(e) => {
                 setInputMessage(e.target.value);
               }}
               id="standard-required"
+              placeholder="Enter Your Message"
               disabled={botTyping}
               value={inputMessage}
-              variant="standard"
-              sx={{
-                ".MuiInput-root": {
-                  borderBottom: darkMode
-                    ? "1px solid white !important"
-                    : "1px solid white !important",
-                },
-                ":before": {
-                  borderBottom: darkMode
-                    ? "1px solid white !important"
-                    : "1px solid white !important",
-                },
-                input: {
-                  color: darkMode ? "white" : "white",
-                },
-              }}
               style={{
-                width: "90%",
+                width: "100%",
+                height: "3rem",
+                boxShadow: "none",
+                padding: "5px",
+                borderRadius: "3px",
               }}
-            /> */}
-              </div>
-              <div className="chatscreen-footer-btn">
-                <button type="submit" className="chatscreen-send">
-                  <img alt="" src={darkMode ? sendDark : send} />
-                </button>
-              </div>
-            </form>
-          </div>
+            />
+            <IconButton
+              sx={{
+                height: "45px",
+                width: "45px",
+                bgcolor: "#a89566",
+                "&:hover": {
+                  bgcolor: "#a89566",
+                  color: "#fff",
+                },
+                color: "#fff",
+                marginLeft: 0.7,
+              }}
+              onClick={handleSubmit}
+            >
+              <AiOutlineSend />
+            </IconButton>
+            {/* <button
+              type="submit"
+              className="chatscreen-send"
+              onClick={handleSubmit}
+            >
+              <img alt="" src={darkMode ? sendDark : send} />
+            </button> */}
+          </Box>
         </div>
       ) : (
         <div className="chatBot-icon" onClick={() => setChatBotOpen(true)}>

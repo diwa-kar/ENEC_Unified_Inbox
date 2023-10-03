@@ -293,7 +293,7 @@ const Notificationdisplay = ({
       }
     } else if (selectedItem.type === "pending invoice") {
       setDisplayShow(true);
-      setLeaveDetail([]);
+      setInvoicedetail([]);
       setLoader(true);
       uri = "Pending_invoice_item_info";
       console.log(selectedItem);
@@ -318,9 +318,9 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (selectedItem.type === "approve invoice") {
+    } else if (selectedItem.type === "approved invoice") {
       setDisplayShow(true);
-      setLeaveDetail([]);
+      setInvoicedetail([]);
       setLoader(true);
       uri = "ENEC_approved_invoice_item_info";
       console.log(selectedItem);
@@ -329,7 +329,7 @@ const Notificationdisplay = ({
           method: "POST",
           body: JSON.stringify({
             inv_no: selectedItem.value.split(" ")[1],
-            // username: JSON.parse(sessionStorage.getItem("email")).value,
+            username: JSON.parse(sessionStorage.getItem("email")).value,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -342,7 +342,7 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (selectedItem.type === "reject invoice") {
+    } else if (selectedItem.type === "rejected invoice") {
       setDisplayShow(true);
       setLeaveDetail([]);
       setLoader(true);
@@ -353,7 +353,7 @@ const Notificationdisplay = ({
           method: "POST",
           body: JSON.stringify({
             inv_no: selectedItem.value.split(" ")[1],
-            // username: JSON.parse(sessionStorage.getItem("email")).value,
+            username: JSON.parse(sessionStorage.getItem("email")).value,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -442,6 +442,7 @@ const Notificationdisplay = ({
     setDisplayShow(false);
     setLeaveDetail([]);
     setTicketdetail([]);
+    setInvoicedetail([]);
   }, [tab]);
 
   // Dialog Handler
@@ -450,7 +451,6 @@ const Notificationdisplay = ({
     type: "",
     comment: "",
   });
-
   const approveRequest = async (username, value, comment) => {
     if (value?.split(" ")[0] === "PR") {
       detailData.length = 0;
@@ -516,7 +516,6 @@ const Notificationdisplay = ({
       }
     }
   };
-
   const approvePendingLeave = () => {
     leaveDetail.length = 0;
     try {
@@ -542,7 +541,6 @@ const Notificationdisplay = ({
       console.log(e);
     }
   };
-
   const rejectPendingLeave = () => {
     leaveDetail.length = 0;
     try {
@@ -568,7 +566,6 @@ const Notificationdisplay = ({
       console.log(e);
     }
   };
-
   const rejectRequest = async (username, value, comment) => {
     if (value?.split(" ")[0] === "PR") {
       detailData.length = 0;
@@ -633,7 +630,6 @@ const Notificationdisplay = ({
       console.log(e);
     }
   };
-
   const approveInvoice = async (username, value, comment) => {
     try {
       const response = await fetch(
@@ -784,7 +780,6 @@ const Notificationdisplay = ({
                 onClick={() =>
                   setOpenDialog({ ...openDialog, open: true, type: "approve" })
                 }
-                // onClick={() => approveRequest()}
               >
                 Approve
               </Button>
@@ -1036,7 +1031,10 @@ const Notificationdisplay = ({
       ) : (
         <></>
       )}
-      {invoicedetail.length > 0 && selectedItem.type === "pending invoice" ? (
+      {invoicedetail.length > 0 &&
+      (selectedItem.type === "pending invoice" ||
+        selectedItem.type === "approved invoice" ||
+        selectedItem.type === "rejected invoice") ? (
         <div className="Notificataion-display-content">
           {invoicedetail.map((data, index) => {
             return (
