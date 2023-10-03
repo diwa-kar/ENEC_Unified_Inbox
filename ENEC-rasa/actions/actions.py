@@ -2278,7 +2278,7 @@ class Pending_invoice(Action):
         print(pendinginvoice)
 
         send = {"requests": pendinginvoice,
-                "msg": "The Pending INVOICE lists are given below. Choose Any one to see PR Items",
+                "msg": "The Pending INVOICE lists are given below. Choose Any one to see INVOICE details",
                 }
 
         my_json = json.dumps(send)
@@ -2303,6 +2303,9 @@ class INVOICEDescriptonENEC(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        global Pending_PR_Flag 
+        Pending_PR_Flag = 1
 
 
         invoicetext = tracker.latest_message["text"]
@@ -2320,7 +2323,7 @@ class INVOICEDescriptonENEC(Action):
         send = {
             "msg": "Here is the Details of Invoice... ",
             "details": {
-                "data":details,"type":"IN"
+                "data":details,"flag":Pending_PR_Flag,"type":"IN"
                 }
         }
         
