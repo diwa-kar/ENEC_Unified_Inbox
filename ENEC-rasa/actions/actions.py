@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info
 
 
 from rasa_sdk import Action, Tracker
@@ -2091,7 +2091,19 @@ class Pending_po(Action):
         # global Pending_PR_Flag 
         # Pending_PR_Flag = 1
 
-        pendingpo = pending_po_list()
+
+        # metadata = tracker.latest_message.get("metadata")
+
+        # user_name = metadata['username']
+
+        # print(metadata['username'],"in action")
+
+        # user_name = "GIRISH"
+
+        user_name = "Girish"
+
+
+        pendingpo = pending_po_list(user_name)
         print(pendingpo)
 
         send = {"requests": pendingpo,
@@ -2244,9 +2256,6 @@ class PoAppprovalENEC(Action):
 
 # *********************************************** approve po from digiverz demo system ********************************
 
-
-
-
 class Pending_invoice(Action):
 
     def name(self) -> Text:
@@ -2263,18 +2272,118 @@ class Pending_invoice(Action):
 
         # print(metadata['username'],"in action")
 
-        # pendingpr = pending_pr_list(user_name)
-        # print(pendingpr)
+        user_name = "GIRISH"
 
-        # send = {"requests": pendingpr,
-        #         "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-        #         }
+        pendinginvoice = pending_invoice_list(user_name)
+        print(pendinginvoice)
 
-        # my_json = json.dumps(send)
-        # dispatcher.utter_message(text=my_json)
+        send = {"requests": pendinginvoice,
+                "msg": "The Pending INVOICE lists are given below. Choose Any one to see PR Items",
+                }
 
-        dispatcher.utter_message(text= "pending invoice is working")
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        # dispatcher.utter_message(text= "pending invoice is working")
 
         return []
 
 # ****************************************** invoice from local system *******************************************
+
+
+
+# ****************************************** invoice details from digi local system ******************************************
+
+
+class INVOICEDescriptonENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_invoice_info_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
+        invoicetext = tracker.latest_message["text"]
+
+        invoice_no = invoicetext.split()[-1]
+
+
+        # print(invoice_no)
+        # dispatcher.utter_message(text=f"invoice details is working! {invoice_no}")
+    
+
+        details = Invoice_info(invoice_no)
+        
+
+        send = {
+            "msg": "Here is the Details of Invoice... ",
+            "details": {
+                "data":details,"type":"IN"
+                }
+        }
+        
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+
+
+
+
+# ****************************************** invoice details from digi local system ******************************************
+
+
+
+# ******************************************** invoice approval ************************************************************
+
+
+class InvoiceAppprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_INVOICE_approval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        invoicetext = tracker.latest_message["text"]
+        invoice_no = invoicetext.split()[-1]
+
+        print(invoice_no)
+
+        dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+
+
+        # result = PoApprovalENEC(pono)
+
+        # Status_code = result["ExStatus"]
+        
+        # user_comment = result["Comment"]
+
+        # print(Status_code)
+        # print(user_comment)
+
+        # if Status_code == "ERROR":
+        #     dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+
+
+        # elif Status_code == "APPROVED":
+
+        #     db = client["ENEC_RasaChatbot"]
+        #     collection = db["Approved_PO"]
+        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
+        #     result = collection.insert_one(document)
+
+        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+
+        # return []
+
+
+
+
+
+# ******************************************** invoice approval ************************************************************
