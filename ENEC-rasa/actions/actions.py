@@ -2265,13 +2265,13 @@ class Pending_invoice(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
                 
-        # metadata = tracker.latest_message.get("metadata")
+        metadata = tracker.latest_message.get("metadata")
 
-        # user_name = metadata['username']
+        user_name = metadata['username']
 
-        # print(metadata['username'],"in action")
+        print(metadata['username'],"in action")
 
-        user_name = "GIRISH"
+        # user_name = "GIRISH"
 
         pendinginvoice = pending_invoice_list(user_name)
         print(pendinginvoice)
