@@ -2175,8 +2175,8 @@ class PoItemDescriptonENEC(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # global Pending_PO_Flag 
-        # Pending_PO_Flag = 1
+        global Pending_PO_Flag 
+        Pending_PO_Flag = 1
         
         global poitemno, pono
 
