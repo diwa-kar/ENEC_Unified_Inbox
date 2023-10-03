@@ -2,10 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
+  FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
   Grid,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -400,6 +406,51 @@ const Login = () => {
                   value={createPassword}
                   onChange={(e) => setCreatePassword(e.target.value)}
                 />
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Choose User Type
+                </FormLabel>
+                {/* <FormControl sx={{ minWidth: "100%" }}>
+                  <Select
+                    // value={age}
+                    // onChange={handleChange}
+                    displayEmpty
+                    sx={{ width: "100%" }}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem value={10}>Purchase Requistion</MenuItem>
+                    <MenuItem value={20}>Purchase Order</MenuItem>
+                    <MenuItem value={30}>Invoice</MenuItem>
+                  </Select>
+                </FormControl> */}
+                <FormControl sx={{ width: "100%" }}>
+                  <Select
+                    labelId="demo-multiple-chip-label"
+                    id="demo-multiple-chip"
+                    multiple
+                    size="medium"
+                    value={["PO", "PR"]}
+                    // onChange={handleChange}
+
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {selected.map((value) => (
+                          <Chip key={value} label={value} />
+                        ))}
+                      </Box>
+                    )}
+                    // MenuProps={MenuProps}
+                  >
+                    {["PR", "PO", "Invoice"].map((name) => (
+                      <MenuItem key={name} value={name}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
               <Box
                 display={"flex"}

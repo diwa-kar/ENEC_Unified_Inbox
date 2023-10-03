@@ -3,8 +3,6 @@ import "./ChatBot.css";
 import Close from "./Close.png";
 import ExternalLink from "./link-light.svg";
 import ExternalLinkDark from "./link-dark.svg";
-import send from "./Sent-1.png";
-import sendDark from "./send-dark.png";
 import UserIcon from "./user.png";
 import UserIconDark from "./user-dark.png";
 import Button from "@mui/material/Button";
@@ -14,60 +12,25 @@ import ChatBotLogo from "./chatbot-ui.png";
 import Chart from "react-apexcharts";
 import { Box, IconButton } from "@mui/material";
 import { AiOutlineSend } from "react-icons/ai";
-// in all pages
-// it request
-// main pages
-// pending
-// approved
-// rejected
-// view the pr in detailed manner
+import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { TextareaAutosize } from "@mui/material";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const ChatBot = () => {
   const [form, setForm] = useState({
     username: JSON.parse(sessionStorage.getItem("email")).value,
   });
 
-  const [chat, setChat] = useState([
-    /*    {
-      sender: "bot",
-      sender_id: "Name",
-      msg: "Hi I am a ChatBot. How may I help you?!",
-      chat_id: 2,
-      actions: ["PR 100001232", "Item No 260"],
-      links: [
-        {
-          link: "https://chat.openai.com/",
-          tag: "ChatGPT",
-        },
-        {
-          link: "https://kaartechit-my.sharepoint.com/:b:/r/personal/damudhesh_kaartech_com/Documents/Documents/Kaar_policies/POLICIES/Corporate%20Attire%20Policy.pdf?csf=1&web=1&e=nhNR98",
-          tag: "Corporate attire",
-        },
-        {
-          link: "https://kaartechit-my.sharepoint.com/:b:/r/personal/damudhesh_kaartech_com/Documents/Documents/Kaar_policies/POLICIES/Kaar%20Overtime%20Policy.pdf?csf=1&web=1&e=gy7927",
-          tag: "Over-time",
-        },
-      ],
-      details: {
-        showButtons: 1,
-        data: { "Pending Request Number": "DFUIVFIEVWIF" },
-        type: "PL"
-      },
-      donutChart: {
-        "Marketing Expense": 67854,
-        "Operational Expense": 99794,
-        "Research Expense": 76803,
-        "Capital Expense": 557890,
-      },
-      cards: [
-        {
-          title: "Commision Revenue",
-          year: "2018",
-          value: "458790",
-        },
-      ],
-    }, */
-  ]);
+  const [chat, setChat] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [botTyping, setBotTyping] = useState(false);
   const [userTyping, setUserTyping] = useState(false);
@@ -149,24 +112,15 @@ const ChatBot = () => {
     setChat((chat) => [...chat, request_temp]);
     setChatIDCounter(chatIDCounter + 1);
     setBotTyping(true);
-    rasaAPI(name, actionValue);
+    rasaAPI(name, actionValue, openDialog.comment);
   };
-  const rasaAPI = async function handleClick(name, msg) {
+  const rasaAPI = async function handleClick(name, msg, comment = "") {
     await fetch("http://localhost:5005/webhooks/rest/webhook", {
       method: "POST",
-      // mode: "cors",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      //   charset: "UTF-8",
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Headers": "*",
-      // },
-      // credentials: "same-origin",
       body: JSON.stringify({
         sender: name,
         message: msg,
-        metadata: form,
+        metadata: { ...form, comment: comment },
       }),
     })
       .then((response) => response.json())
@@ -185,13 +139,10 @@ const ChatBot = () => {
             };
             if (recipient_msg["msg"])
               response_temp["msg"] = recipient_msg["msg"];
-
             if (recipient_msg["requests"])
               response_temp["actions"] = recipient_msg["requests"];
-
             if (recipient_msg["links"])
               response_temp["links"] = recipient_msg["links"];
-
             if (recipient_msg["details"]) {
               if (recipient_msg["details"]["flag"]) {
                 console.log(recipient_msg);
@@ -205,16 +156,12 @@ const ChatBot = () => {
                   data: recipient_msg["details"]["data"],
                 };
             }
-
             if (recipient_msg["donut"])
               response_temp["donutChart"] = recipient_msg["donut"];
-
             if (recipient_msg["pie"])
               response_temp["pieChart"] = recipient_msg["pie"];
-
             if (recipient_msg["line"])
               response_temp["lineChart"] = recipient_msg["line"];
-
             if (recipient_msg["cards"])
               response_temp["cards"] = recipient_msg["cards"];
           } catch {
@@ -661,6 +608,22 @@ const ChatBot = () => {
     );
   }
 
+  // Dialog Handler
+  const [openDialog, setOpenDialog] = React.useState({
+    open: false,
+    type: "",
+    comment: "",
+    buttonType: "",
+    value: "",
+  });
+
+  const [snackbarOpen, setsnackbarOpen] = useState(false);
+  const [snackbarValue, setsnackbarValue] = useState({
+    duration: 5000,
+    type: "error",
+    infomation: "Invalid credentials!!",
+  });
+
   return (
     <div
       className="chatbot-container"
@@ -930,17 +893,37 @@ const ChatBot = () => {
                                 width: "30%",
                               }}
                               color="success"
-                              onClick={(e) => {
-                                console.log(chatContent.details.type);
-                                if (chatContent.details.type === "PR")
-                                  handleButtonRequest(
-                                    `Approve PR ${chatContent.details.data["Purchase Requisition Number"]}`
-                                  );
-                                else if (chatContent.details.type === "PL")
-                                  handleButtonRequest(
-                                    `Approve PL ${chatContent.details.data["Leave Id"]}`
-                                  );
-                              }}
+                              onClick={() =>
+                                setOpenDialog({
+                                  ...openDialog,
+                                  open: true,
+                                  type: chatContent.details.type,
+                                  buttonType: "approve",
+                                  value:
+                                    chatContent.details.type === "PR"
+                                      ? chatContent.details.data[
+                                          "Purchase Requisition Number"
+                                        ]
+                                      : chatContent.details.type === "PL"
+                                      ? chatContent.details.data["Leave Id"]
+                                      : chatContent.details.type === "PO"
+                                      ? chatContent.details.data[
+                                          "Purchase_Order_Number"
+                                        ]
+                                      : "",
+                                })
+                              }
+                              // onClick={(e) => {
+                              //   console.log(chatContent.details.type);
+                              //   if (chatContent.details.type === "PR")
+                              //     handleButtonRequest(
+                              //       `Approve PR ${chatContent.details.data["Purchase Requisition Number"]}`
+                              //     );
+                              //   else if (chatContent.details.type === "PL")
+                              //     handleButtonRequest(
+                              //       `Approve PL ${chatContent.details.data["Leave Id"]}`
+                              //     );
+                              // }}
                             >
                               Approve
                             </Button>
@@ -959,17 +942,37 @@ const ChatBot = () => {
                                 width: "30%",
                               }}
                               color="error"
-                              onClick={(e) => {
-                                console.log(chatContent.details.type);
-                                if (chatContent.details.type === "PR")
-                                  handleButtonRequest(
-                                    `Reject PR ${chatContent.details.data["Purchase Requisition Number"]}`
-                                  );
-                                else if (chatContent.details.type === "PL")
-                                  handleButtonRequest(
-                                    `Reject PL ${chatContent.details.data["Leave Id"]}`
-                                  );
+                              onClick={() => {
+                                setOpenDialog({
+                                  ...openDialog,
+                                  open: true,
+                                  type: chatContent.details.type,
+                                  buttonType: "reject",
+                                  value:
+                                    chatContent.details.type === "PR"
+                                      ? chatContent.details.data[
+                                          "Purchase Requisition Number"
+                                        ]
+                                      : chatContent.details.type === "PL"
+                                      ? chatContent.details.data["Leave Id"]
+                                      : chatContent.details.type === "PO"
+                                      ? chatContent.details.data[
+                                          "Purchase_Order_Number"
+                                        ]
+                                      : "",
+                                });
                               }}
+                              // onClick={(e) => {
+                              //   console.log(chatContent.details.type);
+                              // if (chatContent.details.type === "PR")
+                              //   handleButtonRequest(
+                              //     `Reject PR ${chatContent.details.data["Purchase Requisition Number"]}`
+                              //   );
+                              // else if (chatContent.details.type === "PL")
+                              //   handleButtonRequest(
+                              //     `Reject PL ${chatContent.details.data["Leave Id"]}`
+                              //   );
+                              // }}
                             >
                               Reject
                             </Button>
@@ -1169,6 +1172,96 @@ const ChatBot = () => {
           <img src={ChatBotLogo} alt="Logo" />
         </div>
       )}
+
+      {openDialog.open && (
+        <Dialog
+          open={openDialog.open}
+          TransitionComponent={Transition}
+          keepMounted
+          fullWidth
+          PaperProps={{
+            style: { borderRadius: "10px", padding: "10px" },
+          }}
+          maxWidth={"sm"}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle sx={{ fontSize: "18px", fontWeight: 600 }}>
+            {`Want to add comment while ${
+              openDialog.type === "PR" && openDialog.buttonType === "approve"
+                ? `Approving ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "PR" && openDialog.buttonType === "reject"
+                ? `Rejecting ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "PO" &&
+                  openDialog.buttonType === "approve"
+                ? `Approving ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "PO" && openDialog.buttonType === "reject"
+                ? `Rejecting ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "PL" &&
+                  openDialog.buttonType === "approve"
+                ? `Approving ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "PL" && openDialog.buttonType === "reject"
+                ? `Rejecting ${openDialog.type} ${openDialog.value}?`
+                : ""
+            } `}
+          </DialogTitle>
+          <hr style={{ margin: 0, padding: 0 }} />
+          <DialogContent>
+            <TextareaAutosize
+              aria-label="empty textarea"
+              placeholder="Enter Comment"
+              style={{ width: "100%", padding: "6px", borderRadius: "5px" }}
+              minRows={3}
+              value={openDialog.comment}
+              onChange={(e) =>
+                setOpenDialog({ ...openDialog, comment: e.target.value })
+              }
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              sx={{ fontSize: "14px", textTransform: "capitalize" }}
+              onClick={() => setOpenDialog({ ...openDialog, open: false })}
+            >
+              Close
+            </Button>
+            <Button
+              sx={{
+                fontSize: "14px",
+                width: "fit-content",
+                textTransform: "capitalize",
+                color: "#FFF",
+                bgcolor: "#a89566",
+                "&:hover": { bgcolor: "#a89566" },
+              }}
+              onClick={() => {
+                console.log("openDialog", openDialog);
+                if (openDialog.buttonType === "approve") {
+                  if (openDialog.type === "PR")
+                    handleButtonRequest(`Approve PR ${openDialog.value}`);
+                  else if (openDialog.type === "PL")
+                    handleButtonRequest(`Approve PL ${openDialog.value}`);
+                  else if (openDialog.type === "PO")
+                    handleButtonRequest(`Approve PO ${openDialog.value}`);
+                } else {
+                  if (openDialog.type === "PR")
+                    handleButtonRequest(`Reject PR ${openDialog.value}`);
+                  else if (openDialog.type === "PL")
+                    handleButtonRequest(`Reject PL ${openDialog.value}`);
+                  else if (openDialog.type === "PL")
+                    handleButtonRequest(`Reject PO ${openDialog.value}`);
+                }
+              }}
+            >
+              Add Comment
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
+      <CustomSnackbar
+        open={snackbarOpen}
+        setOpen={setsnackbarOpen}
+        snackbarValue={snackbarValue}
+      />
     </div>
   );
 };

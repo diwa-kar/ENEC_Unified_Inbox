@@ -1231,7 +1231,6 @@ const Notificationdisplay = ({
                 setOpenDialog({ ...openDialog, comment: e.target.value })
               }
             />
-            {/* <TextareaAutosize aria-label="empty textarea" placeholder="Empty" /> */}
           </DialogContent>
           <DialogActions>
             <Button
