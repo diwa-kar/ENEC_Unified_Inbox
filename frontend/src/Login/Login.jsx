@@ -418,22 +418,40 @@ const Login = () => {
 
                 <FormControl sx={{ width: "100%" }}>
                   <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
+                    // labelId="demo-multiple-chip-label"
+                    // id="demo-multiple-chip"
                     multiple
                     size="medium"
+                    displayEmpty
+                    // label="Choose UserType"
                     value={userType}
                     onChange={(e) => {
                       setUserType(e.target.value);
                     }}
-                    renderValue={(selected) => (
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                        {selected.map((value) => (
-                          <Chip key={value} label={value} sx={{ p: 0 }} />
-                        ))}
-                      </Box>
-                    )}
+                    renderValue={(selected) => {
+                      if (selected.length === 0) {
+                        return (
+                          <span style={{ color: "#ced4da", fontWeight: "300" }}>
+                            Choose UserType
+                          </span>
+                        );
+                      }
+
+                      return (
+                        <Box
+                          sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
+                        >
+                          {selected.map((value) => (
+                            <Chip key={value} label={value} sx={{ p: 0 }} />
+                          ))}
+                        </Box>
+                      );
+                    }}
+                    inputProps={{ "aria-label": "Without label" }}
                   >
+                    <MenuItem disabled value="">
+                      <em style={{ color: "grey" }}>Choose UserType</em>
+                    </MenuItem>
                     {["PR", "PO", "INVOICE", "SES"].map((name) => (
                       <MenuItem key={name} value={name}>
                         {name}
