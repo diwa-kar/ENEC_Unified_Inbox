@@ -36,7 +36,11 @@ const NotificationItem = (props) => {
     } else if (card.type === "it ticket") {
       // console.log(card);
       props.updateIt(card);
-    } else if (card.type === "pending invoice") {
+    } else if (
+      card.type === "pending invoice" ||
+      card.type === "approved invoice" ||
+      card.type === "rejected invoice"
+    ) {
       // console.log(card);
       props.updateIt(card);
     }
@@ -93,7 +97,7 @@ const NotificationItem = (props) => {
                   ? "notification-leave"
                   : card.type === "it ticket"
                   ? "notification-it"
-                  : card.type === "pending leave"
+                  : card.type === "pending invoice"
                   ? "notification-invoice"
                   : ""
               }`}
@@ -114,7 +118,9 @@ const NotificationItem = (props) => {
                     ? Leave
                     : card.type === "it ticket"
                     ? Ticket
-                    : card.type === "pending invoice"
+                    : card.type === "pending invoice" ||
+                      card.type === "approved invoice" ||
+                      card.type === "rejected invoice"
                     ? Invoice
                     : ""
                 }

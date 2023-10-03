@@ -318,6 +318,54 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
+    } else if (selectedItem.type === "approve invoice") {
+      setDisplayShow(true);
+      setLeaveDetail([]);
+      setLoader(true);
+      uri = "ENEC_approved_invoice_item_info";
+      console.log(selectedItem);
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            inv_no: selectedItem.value.split(" ")[1],
+            // username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        setInvoicedetail([{ ...data }]);
+        setLoader(false);
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (selectedItem.type === "reject invoice") {
+      setDisplayShow(true);
+      setLeaveDetail([]);
+      setLoader(true);
+      uri = "ENEC_rejected_invoice_item_info";
+      console.log(selectedItem);
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            inv_no: selectedItem.value.split(" ")[1],
+            // username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        setInvoicedetail([{ ...data }]);
+        setLoader(false);
+      } catch (e) {
+        console.log(e);
+      }
     } else if (selectedItem.type === "approved leave") {
       setDisplayShow(true);
       setLeaveDetail([]);
@@ -584,6 +632,65 @@ const Notificationdisplay = ({
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const approveInvoice = async (username, value, comment) => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/pending_invoice_approval",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+            inv_no: value.split(" ")[1],
+            comment: comment,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setCards(cards.filter((card) => card.value !== selectedItem.value));
+      setDisplayShow(false);
+      setInvoicedetail([]);
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "success",
+        infomation: data,
+      });
+      setsnackbarOpen(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const rejectInvoice = async (username, value, comment) => {
+    const response = await fetch(
+      "http://localhost:8000/pending_invoice_rejection",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          inv_no: value.split(" ")[1],
+          comment: comment,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    setCards(cards.filter((card) => card.value !== selectedItem.value));
+    setDisplayShow(false);
+    setInvoicedetail([]);
+    setsnackbarValue({
+      ...snackbarValue,
+      type: "error",
+      infomation: data,
+    });
+    setsnackbarOpen(true);
   };
 
   return (
@@ -985,7 +1092,13 @@ const Notificationdisplay = ({
                   padding: "0.625rem var(--16, 1rem)",
                 }}
                 color="success"
-                // onClick={() => approveRequest()}
+                onClick={() =>
+                  setOpenDialog({
+                    ...openDialog,
+                    open: true,
+                    type: "approve invoice",
+                  })
+                }
               >
                 Approve
               </Button>
@@ -1007,7 +1120,13 @@ const Notificationdisplay = ({
                   padding: "0.625rem var(--16, 1rem)",
                 }}
                 color="error"
-                // onClick={() => rejectRequest()}
+                onClick={() =>
+                  setOpenDialog({
+                    ...openDialog,
+                    open: true,
+                    type: "reject invoice",
+                  })
+                }
               >
                 Reject
               </Button>
@@ -1091,7 +1210,15 @@ const Notificationdisplay = ({
         >
           <DialogTitle sx={{ fontSize: "18px", fontWeight: 600 }}>
             {`Want to add comment while ${
-              openDialog.type === "approve" ? "Approving" : "Rejecting"
+              openDialog.type === "approve"
+                ? "Approving"
+                : openDialog.type === "reject"
+                ? "Rejecting"
+                : openDialog.type === "approve invoice"
+                ? "Approving Invoice"
+                : openDialog.type === "reject invoice"
+                ? "Rejecting Invoice"
+                : ""
             } ${selectedItem.value}?`}
           </DialogTitle>
           <hr style={{ margin: 0, padding: 0 }} />
@@ -1136,8 +1263,30 @@ const Notificationdisplay = ({
                     type: "",
                     comment: "",
                   });
-                } else {
+                } else if (openDialog.type === "reject") {
                   rejectRequest(
+                    JSON.parse(sessionStorage.getItem("email")).value,
+                    selectedItem.value,
+                    openDialog.comment
+                  );
+                  setOpenDialog({
+                    open: false,
+                    type: "",
+                    comment: "",
+                  });
+                } else if (openDialog.type === "approve invoice") {
+                  approveInvoice(
+                    JSON.parse(sessionStorage.getItem("email")).value,
+                    selectedItem.value,
+                    openDialog.comment
+                  );
+                  setOpenDialog({
+                    open: false,
+                    type: "",
+                    comment: "",
+                  });
+                } else {
+                  rejectInvoice(
                     JSON.parse(sessionStorage.getItem("email")).value,
                     selectedItem.value,
                     openDialog.comment

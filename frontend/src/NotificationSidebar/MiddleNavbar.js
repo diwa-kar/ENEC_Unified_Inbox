@@ -30,6 +30,8 @@ const MiddleNavbar = (props) => {
     let rejected_leave = [];
     let it_tickets = [];
     let pending_invoice_list = [];
+    let approved_invoice = [];
+    let rejected_invoice = [];
     if (props.activeTab === "Pending") {
       uri = "pending_pr_list";
       uri1 = "qpmc_leave_reuqest_sf";
@@ -206,6 +208,7 @@ const MiddleNavbar = (props) => {
       uri = "ENEC_approved_pr_list_mongo";
       uri1 = "qpmc_approved_leave_list_mongo";
       uri2 = "ENEC_approved_po_list_mongo";
+      uri3 = "ENEC_approved_invoice_list_mongo";
 
       /* --------------------------(Approved PR List)----------------------------------------- */
       try {
@@ -265,32 +268,67 @@ const MiddleNavbar = (props) => {
       /* --------------------------(Approved PO List)----------------------------------------- */
 
       /* --------------------------(Approved Leave List)----------------------------------------- */
-      const response1 = await fetch(`http://localhost:8000/${uri1}`, {
-        mode: "cors",
-      });
-      const data1 = await response1.json();
-      console.log("Approved Leave", data1);
-      let type1 = "approved leave";
 
-      approved_leave =
-        data1 &&
-        data1?.approved_leave_dets?.map((item, index) => ({
-          type: type1,
-          value: item["Leave_id"],
-          description: item["Leave_Type"],
-        }));
+      try {
+        const response1 = await fetch(`http://localhost:8000/${uri1}`, {
+          mode: "cors",
+        });
+        const data1 = await response1.json();
+        console.log("Approved Leave", data1);
+        let type1 = "approved leave";
+
+        approved_leave =
+          data1 &&
+          data1?.approved_leave_dets?.map((item, index) => ({
+            type: type1,
+            value: item["Leave_id"],
+            description: item["Leave_Type"],
+          }));
+      } catch (error) {
+        console.log(error);
+      }
 
       /* --------------------------(Approved Leave PR List)----------------------------------------- */
+
+      /* --------------------------(Approved Invoice List)----------------------------------------- */
+      try {
+        const response3 = await fetch(`http://localhost:8000/${uri3}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data3 = await response3.json();
+        console.log("Approved Invoice", data3);
+        let type3 = "approved invoice";
+
+        approved_invoice =
+          data3 &&
+          data3?.map((item, index) => ({
+            type: type3,
+            value: item,
+            description: "Invoice",
+          }));
+      } catch (error) {
+        console.log(error);
+      }
+      /* --------------------------(Approved Invoice List)----------------------------------------- */
 
       props.setCards([
         ...approved_prlist,
         ...approved_polist,
         ...approved_leave,
+        ...approved_invoice,
       ]);
       setOriginalList([
         ...approved_prlist,
         ...approved_polist,
         ...approved_leave,
+        ...approved_invoice,
       ]);
     }
 
@@ -298,6 +336,7 @@ const MiddleNavbar = (props) => {
       uri = "ENEC_rejected_pr_list_mongo";
       uri1 = "qpmc_rejected_leave_list_mongo";
       uri2 = "ENEC_rejected_po_list_mongo";
+      uri3 = "ENEC_rejected_invoice_list_mongo";
 
       /* --------------------------(Rejected PR List)----------------------------------------- */
       try {
@@ -379,15 +418,44 @@ const MiddleNavbar = (props) => {
 
       /* --------------------------(Rejected PO List)----------------------------------------- */
 
+      /* --------------------------(Rejected Invoice List)----------------------------------------- */
+      try {
+        const response3 = await fetch(`http://localhost:8000/${uri3}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data3 = await response3.json();
+        console.log("Rejected Invoice", data3);
+        let type3 = "rejected invoice";
+
+        rejected_invoice =
+          data3 &&
+          data3?.map((item, index) => ({
+            type: type3,
+            value: item,
+            description: "Invoice",
+          }));
+      } catch (error) {
+        console.log(error);
+      }
+      /* --------------------------(Rejected Invoice List)----------------------------------------- */
       props.setCards([
         ...rejected_prlist,
         ...rejected_polist,
         ...rejected_leave,
+        ...rejected_invoice,
       ]);
       setOriginalList([
         ...rejected_prlist,
         ...rejected_polist,
         ...rejected_leave,
+        ...rejected_invoice,
       ]);
     }
   };
