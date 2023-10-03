@@ -2,10 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
+  FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
   Grid,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -19,6 +25,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
+  const [userType, setUserType] = useState([]);
   const navigate = useNavigate();
   const [snackbarOpen, setsnackbarOpen] = useState(false);
   const [snackbarValue, setsnackbarValue] = useState({
@@ -109,13 +116,14 @@ const Login = () => {
 
   const onCreate = async () => {
     try {
-      if (createEmail !== "" && createPassword !== "") {
+      if (createEmail !== "" && createPassword !== "" && userType.length > 0) {
         const response = await fetch(`http://localhost:8000/register`, {
           mode: "cors",
           method: "POST",
           body: JSON.stringify({
             username: createEmail,
             password: createPassword,
+            userType: userType,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -400,6 +408,39 @@ const Login = () => {
                   value={createPassword}
                   onChange={(e) => setCreatePassword(e.target.value)}
                 />
+                <FormLabel
+                  className="heading6"
+                  htmlFor="email"
+                  sx={{ m: 0, py: 1, color: "#000" }}
+                >
+                  Choose User Type
+                </FormLabel>
+
+                <FormControl sx={{ width: "100%" }}>
+                  <Select
+                    labelId="demo-multiple-chip-label"
+                    id="demo-multiple-chip"
+                    multiple
+                    size="medium"
+                    value={userType}
+                    onChange={(e) => {
+                      setUserType(e.target.value);
+                    }}
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {selected.map((value) => (
+                          <Chip key={value} label={value} sx={{ p: 0 }} />
+                        ))}
+                      </Box>
+                    )}
+                  >
+                    {["PR", "PO", "INVOICE", "SES"].map((name) => (
+                      <MenuItem key={name} value={name}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
               <Box
                 display={"flex"}
