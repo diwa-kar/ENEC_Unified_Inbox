@@ -2428,7 +2428,7 @@ class PoRejectENEC(Action):
 
 
 
-
+# ********************************************** pending invoice from local digi system *******************************
 
 class Pending_invoice(Action):
 
