@@ -252,7 +252,7 @@ def pending_po_item_description_ENEC(pono,poitemno):
 
 # ********************************************* pending po approval on digiverz demo system **************************************************
 
-def PoApprovalENEC(pono:str,comment:str):
+def PoApprovalENEC(pono:str,comment:str, user_name:str):
 
     # comment = "Approved by Girish"
     
@@ -261,7 +261,7 @@ def PoApprovalENEC(pono:str,comment:str):
     client = Client(url,transport=transport)
 
 
-    result = client.service.ZmmPoApprRejFm('A',f'{comment}',f'{pono}','Girish')
+    result = client.service.ZmmPoApprRejFm('A',f'{comment}',f'{pono}',user_name)
 
     # addiing comment with result
     result["Comment"] = comment
@@ -276,7 +276,7 @@ def PoApprovalENEC(pono:str,comment:str):
 
 # ********************************************* pending pr approval on digiverz demo system **************************************************
 
-def PrApprovalENEC(prno:str,comment:str):
+def PrApprovalENEC(prno:str,comment:str,user_name:str):
 
     # comment = "Approved by ABAPER1"
     
@@ -285,7 +285,7 @@ def PrApprovalENEC(prno:str,comment:str):
     client = Client(url,transport=transport)
 
 
-    result = client.service.ZmmPrApprRejFm('A',f'{comment}',f'{prno}','ABAPER1')
+    result = client.service.ZmmPrApprRejFm('A',f'{comment}',f'{prno}',user_name)
     
     result["Comment"] = comment
 

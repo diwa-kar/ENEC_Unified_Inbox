@@ -78,6 +78,7 @@ class User(BaseModel):
 class UserRegister(BaseModel):
     username: str
     password: str
+    usertype: list = []
 
 
 class UserLogin(BaseModel):
@@ -231,9 +232,12 @@ def register(user: UserRegister):
     user_data = {
         "username": user.username,
         "password": hashed_password,
+        "usertype": user.usertype
 
     }
     collection.insert_one(user_data)
+
+    print(user_data)
 
 
     return {"message": "User Registered Successfully"}

@@ -2027,6 +2027,10 @@ class PrAppprovalENEC(Action):
                         
         metadata = tracker.latest_message.get("metadata")
         comment = metadata['comment']
+        user_name = metadata['username']
+
+
+        print(prno,comment,user_name)
 
 
         # print(prno)
@@ -2034,7 +2038,7 @@ class PrAppprovalENEC(Action):
         # dispatcher.utter_message(text = f"{prno} approval action pr is working fine")
 
 
-        result = PrApprovalENEC(prno,comment)
+        result = PrApprovalENEC(prno,comment,user_name)
 
         Status_code = result["ExStatus"]
         
@@ -2051,7 +2055,7 @@ class PrAppprovalENEC(Action):
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PR"]
-            document = {"Purchase Requistion Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}"}
+            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}", "username":user_name}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PR {prno} was Approved Successfully")
@@ -2232,11 +2236,10 @@ class PoAppprovalENEC(Action):
 
         metadata = tracker.latest_message.get("metadata")
         comment = metadata['comment']
+        user_name = metadata['username']
 
 
-
-
-        result = PoApprovalENEC(pono,comment)
+        result = PoApprovalENEC(pono,comment,user_name)
 
         Status_code = result["ExStatus"]
         
@@ -2253,7 +2256,7 @@ class PoAppprovalENEC(Action):
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PO"]
-            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
+            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
@@ -2276,6 +2279,7 @@ class Pending_invoice(Action):
         metadata = tracker.latest_message.get("metadata")
 
         user_name = metadata['username']
+
 
         # print(metadata['username'],"in action")
 
