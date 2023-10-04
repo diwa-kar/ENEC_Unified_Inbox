@@ -1125,45 +1125,50 @@ const ChatBot = () => {
               </span>
             )}
           </div>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            sx={{ m: "10px" }}
-          >
-            <input
-              type="text"
-              onChange={(e) => {
-                setInputMessage(e.target.value);
-              }}
-              id="standard-required"
-              placeholder="Enter Your Message"
-              disabled={botTyping}
-              value={inputMessage}
+          <Box>
+            <form
+              onSubmit={handleSubmit}
               style={{
-                width: "100%",
-                height: "3rem",
-                boxShadow: "none",
-                padding: "5px",
-                borderRadius: "3px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                margin: "10px",
               }}
-            />
-            <IconButton
-              sx={{
-                height: "45px",
-                width: "45px",
-                bgcolor: "#a89566",
-                "&:hover": {
-                  bgcolor: "#a89566",
-                  color: "#fff",
-                },
-                color: "#fff",
-                marginLeft: 0.7,
-              }}
-              onClick={handleSubmit}
             >
-              <AiOutlineSend />
-            </IconButton>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setInputMessage(e.target.value);
+                }}
+                id="standard-required"
+                placeholder="Enter Your Message"
+                disabled={botTyping}
+                value={inputMessage}
+                style={{
+                  width: "100%",
+                  height: "3rem",
+                  boxShadow: "none",
+                  padding: "5px",
+                  borderRadius: "3px",
+                }}
+              />
+              <IconButton
+                sx={{
+                  height: "45px",
+                  width: "45px",
+                  bgcolor: "#a89566",
+                  "&:hover": {
+                    bgcolor: "#a89566",
+                    color: "#fff",
+                  },
+                  color: "#fff",
+                  marginLeft: 0.7,
+                }}
+                onClick={handleSubmit}
+              >
+                <AiOutlineSend />
+              </IconButton>
+            </form>
             {/* <button
               type="submit"
               className="chatscreen-send"

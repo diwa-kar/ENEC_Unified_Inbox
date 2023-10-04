@@ -725,6 +725,7 @@ const Notificationdisplay = ({
                 key={index}
                 onClick={() => setCurrentContent(index)}
               >
+                <h1>{JSON.stringify(data[0])}</h1>
                 {Object.keys(data).map((key, keyIndex) => (
                   <div>
                     <span

@@ -2,10 +2,12 @@ import React, { useEffect, useContext, useState } from "react";
 import NotificationItem from "./NotificationItem";
 import PuffLoader from "react-spinners/PuffLoader";
 import { ValueContext } from "../LandingPage/MainPage";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const MiddleNavbar = (props) => {
   const showTab = useContext(ValueContext);
   const [originalList, setOriginalList] = useState([]);
+  const [type, setType] = useState("All");
 
   const makeAPICall = async () => {
     let user = sessionStorage?.getItem("email");
@@ -500,13 +502,37 @@ const MiddleNavbar = (props) => {
             borderRight: "1px solid #dfdfdf",
           }}
         >
-          <span className="middle-navbar-heading">
-            {props.activeTab === "Pending"
-              ? "Inbox"
-              : props.activeTab === "Approved"
-              ? "Approved"
-              : "Rejected"}
-          </span>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            sx={{ my: 1 }}
+          >
+            <span className="middle-navbar-heading">
+              {props.activeTab === "Pending"
+                ? "Inbox"
+                : props.activeTab === "Approved"
+                ? "Approved"
+                : "Rejected"}
+            </span>
+            <FormControl sx={{ minWidth: 110 }} size="small">
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={type}
+                autoWidth
+                onChange={(e) => setType(e.target.value)}
+              >
+                <MenuItem value={"All"}>All</MenuItem>
+                <MenuItem value={"PO"}>PO</MenuItem>
+                <MenuItem value={"PL"}>PL</MenuItem>
+                <MenuItem value={"PR"}>PR</MenuItem>
+                <MenuItem value={"IN"}>Invoice</MenuItem>
+                <MenuItem value={"TCK"}>Ticket</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
           <input
             className="search-input"
             style={{ outline: "none" }}
@@ -534,7 +560,9 @@ const MiddleNavbar = (props) => {
             </div>
           ) : (
             <NotificationItem
-              cardItems={props.cards}
+              cardItems={props.cards.filter(
+                (e) => e.value.includes(type) || type === "All"
+              )}
               updateIt={props.updateValues}
               tab={props.activeTab}
               setCurrentContent={props.setCurrentContent}
