@@ -118,7 +118,7 @@ const Login = () => {
           body: JSON.stringify({
             username: createEmail,
             password: createPassword,
-            userType: userType,
+            usertype: userType,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
