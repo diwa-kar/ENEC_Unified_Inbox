@@ -2334,24 +2334,52 @@ class Pending_invoice(Action):
 
         user_name = metadata['username']
 
+        print(user_name,"in action")
 
-        # print(metadata['username'],"in action")
+        # Defining flag to find valid user
+        global invocie_user_flag
+        invoice_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
 
-        # user_name = "GIRISH"
+        # Define the value you want to find in the array
+        value_to_find = "INVOICE"
 
-        pendinginvoice = pending_invoice_list(user_name)
-        print(pendinginvoice)
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
 
-        send = {"requests": pendinginvoice,
-                "msg": "The Pending INVOICE lists are given below. Choose Any one to see INVOICE details",
-                }
+        # Fetch documents matching the query
+        cursor = collection.find(query)
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                invoice_user_flag = 1
 
-        # dispatcher.utter_message(text= "pending invoice is working")
+        if invoice_user_flag:
 
-        return []
+            pendinginvoice = pending_invoice_list(user_name)
+            print(pendinginvoice)
+
+            send = {"requests": pendinginvoice,
+                    "msg": "The Pending INVOICE lists are given below. Choose Any one to see INVOICE details",
+                    }
+
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
+
+            # dispatcher.utter_message(text= "pending invoice is working")
+
+            return []
+        
+        else:
+
+            dispatcher.utter_message(text= "Sorry, Invalid User")
+
+            return []
+
 
 # ****************************************** invoice from local system *******************************************
 
