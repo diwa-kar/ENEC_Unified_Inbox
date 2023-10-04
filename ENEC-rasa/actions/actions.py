@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info,INVOCIEApproval,Pr_Rejection_ENEC
 
 
 from rasa_sdk import Action, Tracker
@@ -1809,26 +1809,57 @@ class Pending_pr(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-                
         metadata = tracker.latest_message.get("metadata")
 
         user_name = metadata['username']
 
-        print(metadata['username'],"in action")
+        # print(user_name,"in action")
 
-        pendingpr = pending_pr_list(user_name)
-        print(pendingpr)
+        # Defining flag to find valid user
+        global pr_user_flag
+        pr_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
 
-        send = {"requests": pendingpr,
-                "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-                }
+        # Define the value you want to find in the array
+        value_to_find = "PR"
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
 
-        # dispatcher.utter_message(text= "pending pr is working")
+        # Fetch documents matching the query
+        cursor = collection.find(query)
 
-        return []
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                pr_user_flag = 1
+
+        if pr_user_flag:
+                
+            pendingpr = pending_pr_list(user_name)
+            print(pendingpr)
+
+            send = {"requests": pendingpr,
+                    "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+                    }
+
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
+
+            # dispatcher.utter_message(text= "pending pr is working")
+
+            return []
+        
+        else :
+
+            dispatcher.utter_message(text= "Sorry, Invalid User")
+
+            return []
+            
+
 
 # ****************************************** pending pr from local system *******************************************
 
@@ -2065,6 +2096,58 @@ class PrAppprovalENEC(Action):
 
 # *********************************************** approve pr from digiverz demo system ***********************************
 
+# ********************************************** reject pr from digiverz demo system ************************************8
+
+class PrRejectionENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_PR_reject_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        prnotext = tracker.latest_message["text"]
+        prno = prnotext.split()[-1]
+
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
+
+        # print(prno,comment,user_name)
+
+        # print(prno)
+
+        # dispatcher.utter_message(text = f"{prno} rejection action pr is working fine")
+
+
+        result = Pr_Rejection_ENEC(prno,comment,user_name)
+
+        Status_code = result["ExStatus"]
+        
+        user_comment = result["Comment"]
+
+        print(Status_code)
+        print(user_comment)
+
+        if Status_code == "ERROR":
+            dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
+
+
+        elif Status_code == "REJECTED":
+
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Rejected_PR"]
+            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Rejected", "Comment":f"{user_comment}", "username":user_name}
+            result = collection.insert_one(document)
+
+            dispatcher.utter_message(text=f"PR {prno} was Rejected Successfully")
+
+        return []
+
+
+# ********************************************** reject pr from digiverz demo system *****************************************
 
 
 
@@ -2097,34 +2180,57 @@ class Pending_po(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # global Pending_PR_Flag 
-        # Pending_PR_Flag = 1
-
-
         metadata = tracker.latest_message.get("metadata")
 
         user_name = metadata['username']
 
-        print(metadata['username'],"in action")
+        print(user_name,"in action")
 
-        # user_name = "GIRISH"
+        # Defining flag to find valid user
+        global po_user_flag
+        po_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
+
+        # Define the value you want to find in the array
+        value_to_find = "PO"
+
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
+
+        # Fetch documents matching the query
+        cursor = collection.find(query)
+
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                po_user_flag = 1
 
 
+        if po_user_flag:
 
-        pendingpo = pending_po_list(user_name)
-        print(pendingpo)
+            pendingpo = pending_po_list(user_name)
+            print(pendingpo)
 
-        send = {"requests": pendingpo,
-                "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
-                
-                }
+            send = {"requests": pendingpo,
+                    "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
+                    
+                    }
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
 
-        # dispatcher.utter_message(text= "pending po is working well")
+            return []
+        
+        else:
 
-        return []
+            dispatcher.utter_message("Sorry, Invalid User")
+
+            return []
+
+
 
 # ****************************************** pending po from local system *******************************************
 
@@ -2266,6 +2372,64 @@ class PoAppprovalENEC(Action):
 
 # *********************************************** approve po from digiverz demo system ********************************
 
+# *********************************************** reject po from digiverz demo system ****************************
+class PoRejectENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_PO_reject_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        ponotext = tracker.latest_message["text"]
+        pono = ponotext.split()[-1]
+
+        print(pono)
+
+        dispatcher.utter_message(text = f"{pono} rejection action is working fine")
+
+        # metadata = tracker.latest_message.get("metadata")
+        # comment = metadata['comment']
+        # user_name = metadata['username']
+
+
+        # result = PoApprovalENEC(pono,comment,user_name)
+
+        # Status_code = result["ExStatus"]
+        
+        # user_comment = result["Comment"]
+
+        # print(Status_code)
+        # print(user_comment)
+
+        # if Status_code == "ERROR":
+        #     dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+
+
+        # elif Status_code == "APPROVED":
+
+        #     db = client["ENEC_RasaChatbot"]
+        #     collection = db["Approved_PO"]
+        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
+        #     result = collection.insert_one(document)
+
+        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+
+        return []
+
+
+# *********************************************** reject po from digiverz demo system ********************************
+
+
+
+
+
+
+
+
+
 class Pending_invoice(Action):
 
     def name(self) -> Text:
@@ -2280,24 +2444,52 @@ class Pending_invoice(Action):
 
         user_name = metadata['username']
 
+        print(user_name,"in action")
 
-        # print(metadata['username'],"in action")
+        # Defining flag to find valid user
+        global invocie_user_flag
+        invoice_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
 
-        # user_name = "GIRISH"
+        # Define the value you want to find in the array
+        value_to_find = "INVOICE"
 
-        pendinginvoice = pending_invoice_list(user_name)
-        print(pendinginvoice)
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
 
-        send = {"requests": pendinginvoice,
-                "msg": "The Pending INVOICE lists are given below. Choose Any one to see INVOICE details",
-                }
+        # Fetch documents matching the query
+        cursor = collection.find(query)
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                invoice_user_flag = 1
 
-        # dispatcher.utter_message(text= "pending invoice is working")
+        if invoice_user_flag:
 
-        return []
+            pendinginvoice = pending_invoice_list(user_name)
+            print(pendinginvoice)
+
+            send = {"requests": pendinginvoice,
+                    "msg": "The Pending INVOICE lists are given below. Choose Any one to see INVOICE details",
+                    }
+
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
+
+            # dispatcher.utter_message(text= "pending invoice is working")
+
+            return []
+        
+        else:
+
+            dispatcher.utter_message(text= "Sorry, Invalid User")
+
+            return []
+
 
 # ****************************************** invoice from local system *******************************************
 
@@ -2368,37 +2560,44 @@ class InvoiceAppprovalENEC(Action):
         invoicetext = tracker.latest_message["text"]
         invoice_no = invoicetext.split()[-1]
 
-        print(invoice_no)
 
-        dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
 
 
-        # result = PoApprovalENEC(pono)
+        print(invoice_no,comment,user_name)
 
-        # Status_code = result["ExStatus"]
+        # print(invoice_no)
+
+        # dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+
+        result = INVOCIEApproval(invoice_no,comment,user_name)
+
+        print(result, "from actions")
+
+        Status_code = result["EX_STATUS"]
         
-        # user_comment = result["Comment"]
+        user_comment = result["Comment"]
 
-        # print(Status_code)
-        # print(user_comment)
+        print(Status_code)
+        print(user_comment)
 
-        # if Status_code == "ERROR":
-        #     dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+        if Status_code == "FAILURE":
 
-
-        # elif Status_code == "APPROVED":
-
-        #     db = client["ENEC_RasaChatbot"]
-        #     collection = db["Approved_PO"]
-        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}"}
-        #     result = collection.insert_one(document)
-
-        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
-
-        # return []
+            dispatcher.utter_message(text=f"IN {invoice_no} is already approved/rejected")
 
 
+        elif Status_code == "SUCCESS":
 
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Approved_INVOICE"]
+            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
+            result = collection.insert_one(document)
+
+            dispatcher.utter_message(text=f"IN {invoice_no} Approved Successfully")
+
+        return []
 
 
 # ******************************************** invoice approval ************************************************************
