@@ -199,7 +199,7 @@ actions:
   - Pending_invoice_action
   - ENEC_pending_invoice_info_action
   - ENEC_INVOICE_approval_action
-  - ENEC_PR_reject_action
+
 
   
 
