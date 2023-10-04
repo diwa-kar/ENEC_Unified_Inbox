@@ -2147,10 +2147,6 @@ class PrRejectionENEC(Action):
         return []
 
 
-
-
-
-
 # ********************************************** reject pr from digiverz demo system ************************************8
 
 
