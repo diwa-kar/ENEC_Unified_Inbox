@@ -6505,6 +6505,9 @@ nlu:
     - Approve PO [4500001787](po_number)
     - Approve PO [4500001787](po_number)
     - Approve PO [4500001787](po_number)
+
+
+
 # ********************************************* approve pending po items in digiverz demo system ***************************************************
 
 
@@ -6718,7 +6721,6 @@ nlu:
     - approve invoice no. [5105601098](in_number)
     - approve invoice number [510560157](in_number)
     - Approve invoice no. [510560253](in_number)
-    - show the invoice [5105601785](in_number)
     - approve the invoice [5105601992](in_number)
     - can you approve the invoice [5105601467](in_number)
     - Can you Approve the invoice [5105601654](in_number)

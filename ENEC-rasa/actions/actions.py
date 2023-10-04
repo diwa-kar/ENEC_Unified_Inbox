@@ -1809,26 +1809,57 @@ class Pending_pr(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-                
         metadata = tracker.latest_message.get("metadata")
 
         user_name = metadata['username']
 
-        print(metadata['username'],"in action")
+        # print(user_name,"in action")
 
-        pendingpr = pending_pr_list(user_name)
-        print(pendingpr)
+        # Defining flag to find valid user
+        global pr_user_flag
+        pr_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
 
-        send = {"requests": pendingpr,
-                "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
-                }
+        # Define the value you want to find in the array
+        value_to_find = "PR"
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
 
-        # dispatcher.utter_message(text= "pending pr is working")
+        # Fetch documents matching the query
+        cursor = collection.find(query)
 
-        return []
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                pr_user_flag = 1
+
+        if pr_user_flag:
+                
+            pendingpr = pending_pr_list(user_name)
+            print(pendingpr)
+
+            send = {"requests": pendingpr,
+                    "msg": "The Pending PR lists are given below. Choose Any one to see PR Items",
+                    }
+
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
+
+            # dispatcher.utter_message(text= "pending pr is working")
+
+            return []
+        
+        else :
+
+            dispatcher.utter_message(text= "Sorry, Invalid User")
+
+            return []
+            
+
 
 # ****************************************** pending pr from local system *******************************************
 
@@ -2097,34 +2128,57 @@ class Pending_po(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # global Pending_PR_Flag 
-        # Pending_PR_Flag = 1
-
-
         metadata = tracker.latest_message.get("metadata")
 
         user_name = metadata['username']
 
-        print(metadata['username'],"in action")
+        print(user_name,"in action")
 
-        # user_name = "GIRISH"
+        # Defining flag to find valid user
+        global po_user_flag
+        po_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
+
+        # Define the value you want to find in the array
+        value_to_find = "PO"
+
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
+
+        # Fetch documents matching the query
+        cursor = collection.find(query)
+
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                po_user_flag = 1
 
 
+        if po_user_flag:
 
-        pendingpo = pending_po_list(user_name)
-        print(pendingpo)
+            pendingpo = pending_po_list(user_name)
+            print(pendingpo)
 
-        send = {"requests": pendingpo,
-                "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
-                
-                }
+            send = {"requests": pendingpo,
+                    "msg": "The Pending PO lists are given below. Choose Any one to see PO Items",
+                    
+                    }
 
-        my_json = json.dumps(send)
-        dispatcher.utter_message(text=my_json)
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
 
-        # dispatcher.utter_message(text= "pending po is working well")
+            return []
+        
+        else:
 
-        return []
+            dispatcher.utter_message("Sorry, Invalid User")
+
+            return []
+
+
 
 # ****************************************** pending po from local system *******************************************
 
@@ -2382,6 +2436,8 @@ class InvoiceAppprovalENEC(Action):
 
         result = INVOCIEApproval(invoice_no,comment,user_name)
 
+        print(result, "from actions")
+
         Status_code = result["EX_STATUS"]
         
         user_comment = result["Comment"]
@@ -2398,7 +2454,7 @@ class InvoiceAppprovalENEC(Action):
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_INVOICE"]
-            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}"}
+            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"IN {invoice_no} Approved Successfully")

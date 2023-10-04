@@ -601,6 +601,6 @@ def INVOCIEApproval(invoice_no:str,comment:str,user_name:str):
 
     print(result)
 
-    return
+    return result
 
 # *********************************************** approved pending invoice on digi demo system**************************************************
