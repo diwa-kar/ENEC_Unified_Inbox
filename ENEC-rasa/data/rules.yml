@@ -394,8 +394,6 @@ rules:
 
 
 
-
-
 # ***************************************** fetching pr items list ************************************************************
 
 - rule: Give list of PR items list from digiverz demo system
@@ -439,10 +437,6 @@ rules:
 
 
 
-
-
-
-
 # ******************************************* fetching pending invoice *********************************************************
 
 - rule: fetching pending invoice from digiverz local system
@@ -476,16 +470,6 @@ rules:
 # ******************************************** invoice approval ***************************************************************
 
 
-
-
-
-
-
-
-
-
-
-
 # ********************************************** fetching pending po item list **********************************************
 
 - rule: Give list of PO items list from digiverz demo system
@@ -514,3 +498,13 @@ rules:
   - action: ENEC_PO_appooval_action
 
 # *********************************************** approve po from digiverz demo system *********************
+
+
+# *********************************************** reject po from digiverz demo system *********************
+
+- rule: reject po from digiverz demo system
+  steps:
+  - intent: ENEC_PO_reject_intent
+  - action: ENEC_PO_reject_action
+
+# *********************************************** reject po from digiverz demo system *********************

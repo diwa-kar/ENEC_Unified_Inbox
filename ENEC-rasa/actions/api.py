@@ -273,6 +273,11 @@ def PoApprovalENEC(pono:str,comment:str, user_name:str):
 
 # ********************************************* pending po approval on digiverz demo system **************************************************
 
+
+
+
+
+
 # ********************************************* pending pr approval on digiverz demo system **************************************************
 
 def PrApprovalENEC(prno:str,comment:str,user_name:str):
@@ -292,10 +297,34 @@ def PrApprovalENEC(prno:str,comment:str,user_name:str):
 
     return result
 
-
-
-
 # ********************************************* pending pr approval on digiverz demo system **************************************************
+
+# ********************************************* pending pr rejection on digiverz demo system **************************************************
+
+def Pr_Rejection_ENEC(prno:str,comment:str,user_name:str):
+
+    # comment = "Approved by ABAPER1"
+    
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_acceptreject?sap-client=100'
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+
+    result = client.service.ZmmPrApprRejFm('R',f'{comment}',f'{prno}',user_name)
+    
+    result["Comment"] = comment
+
+    print(result)
+
+    return result
+
+# ********************************************* pending pr rejection on digiverz demo system **************************************************
+
+
+
+
+
+
 
 
 

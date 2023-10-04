@@ -6460,11 +6460,6 @@ nlu:
 
 
 
-
-
-
-
-
 # # ****************************************** pending po item list from digiverz demo system **************************************************
 
 - intent: ENEC_pending_po_item_list
@@ -6556,6 +6551,50 @@ nlu:
 
 
 # ********************************************* approve pending po items in digiverz demo system ***************************************************
+
+# ******************************************** reject pending po in digi local system ***************************************************************
+
+- intent: ENEC_PO_reject_intent
+  examples: |
+    - Reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - reject po [4500001787](po_number)
+    - Reject po [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+    - Reject PO [4500001787](po_number)
+
+# ******************************************** reject pending po in digi local system ***************************************************************
+
+
+
+
+
 
 
 
