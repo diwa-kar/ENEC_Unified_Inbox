@@ -1299,8 +1299,8 @@ const ChatBot = () => {
                       buttonType: "",
                       value: "",
                     });
-                  } else if (openDialog.type === "PL") {
-                    handleButtonRequest(`Reject PL ${openDialog.value}`);
+                  } else if (openDialog.type === "PO") {
+                    handleButtonRequest(`Reject PO ${openDialog.value}`);
                     setOpenDialog({
                       open: false,
                       type: "",
@@ -1309,7 +1309,7 @@ const ChatBot = () => {
                       value: "",
                     });
                   } else if (openDialog.type === "PL") {
-                    handleButtonRequest(`Reject PO ${openDialog.value}`);
+                    handleButtonRequest(`Reject PL ${openDialog.value}`);
                     setOpenDialog({
                       open: false,
                       type: "",
