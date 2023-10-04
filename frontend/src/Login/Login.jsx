@@ -80,6 +80,8 @@ const Login = () => {
             infomation: "LoggedIn Successfully !! ",
           });
           await setsnackbarOpen(true);
+          setEmail("");
+          setPassword("");
           if (storedEmail && storedPassword) {
             navigate("/main-page");
           }
@@ -134,6 +136,11 @@ const Login = () => {
           });
           setsnackbarOpen(true);
         }
+        setCreateEmail("");
+        setCreatePassword("");
+        setUserType([]);
+        setEmail("");
+        setPassword("");
         setToggle(false);
       } else {
         setsnackbarValue({
