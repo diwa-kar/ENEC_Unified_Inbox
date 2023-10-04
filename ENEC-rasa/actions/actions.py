@@ -24,7 +24,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info,INVOCIEApproval,Pr_Rejection_ENEC
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info,INVOCIEApproval,Pr_Rejection_ENEC,Po_Rejection_ENEC
 
 
 from rasa_sdk import Action, Tracker
@@ -2386,41 +2386,41 @@ class PoRejectENEC(Action):
         ponotext = tracker.latest_message["text"]
         pono = ponotext.split()[-1]
 
-        print(pono)
+        # print(pono)
 
-        dispatcher.utter_message(text = f"{pono} rejection action is working fine")
+        # dispatcher.utter_message(text = f"{pono} rejection action is working fine")
 
-        # metadata = tracker.latest_message.get("metadata")
-        # comment = metadata['comment']
-        # user_name = metadata['username']
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
 
 
-        # result = PoApprovalENEC(pono,comment,user_name)
+        result = Po_Rejection_ENEC(pono,comment,user_name)
 
-        # Status_code = result["ExStatus"]
+        Status_code = result["ExStatus"]
         
-        # user_comment = result["Comment"]
+        user_comment = result["Comment"]
 
         # print(Status_code)
         # print(user_comment)
 
-        # if Status_code == "ERROR":
-        #     dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
+        if Status_code == "ERROR":
+            dispatcher.utter_message(text=f"PO {pono} is already approved/rejected")
 
 
-        # elif Status_code == "APPROVED":
+        elif Status_code == "REJECTED":
 
-        #     db = client["ENEC_RasaChatbot"]
-        #     collection = db["Approved_PO"]
-        #     document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
-        #     result = collection.insert_one(document)
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Rejected_PO"]
+            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Rejected", "Comment":f"{user_comment}","username":user_name}
+            result = collection.insert_one(document)
 
-        #     dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
+            dispatcher.utter_message(text=f"PO {pono} Rejected Successfully")
 
         return []
 
 
-# *********************************************** reject po from digiverz demo system ********************************
+# *********************************************** reject po from digiverz demo system **************************************************
 
 
 
@@ -2601,3 +2601,64 @@ class InvoiceAppprovalENEC(Action):
 
 
 # ******************************************** invoice approval ************************************************************
+
+
+
+
+# ******************************************** invoice rejection *******************************************************************
+
+
+class InvoiceAppprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_INVOICE_approval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        invoicetext = tracker.latest_message["text"]
+        invoice_no = invoicetext.split()[-1]
+
+
+        # metadata = tracker.latest_message.get("metadata")
+        # comment = metadata['comment']
+        # user_name = metadata['username']
+
+
+        # print(invoice_no,comment,user_name)
+
+        print(invoice_no)
+
+        dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+
+        # result = INVOCIEApproval(invoice_no,comment,user_name)
+
+        # print(result, "from actions")
+
+        # Status_code = result["EX_STATUS"]
+        
+        # user_comment = result["Comment"]
+
+        # print(Status_code)
+        # print(user_comment)
+
+        # if Status_code == "FAILURE":
+
+        #     dispatcher.utter_message(text=f"IN {invoice_no} is already approved/rejected")
+
+
+        # elif Status_code == "SUCCESS":
+
+        #     db = client["ENEC_RasaChatbot"]
+        #     collection = db["Approved_INVOICE"]
+        #     document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
+        #     result = collection.insert_one(document)
+
+        #     dispatcher.utter_message(text=f"IN {invoice_no} Approved Successfully")
+
+        return []
+
+
+# ******************************************** invoice rejection *******************************************************************

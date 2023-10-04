@@ -469,6 +469,17 @@ rules:
 
 # ******************************************** invoice approval ***************************************************************
 
+# ******************************************** invoice rejection **************************************************************
+
+- rule: fetching pending invoice rejection from digiverz local system
+  steps:
+  - intent: ENEC_INVOICE_reject_intent
+  - action: ENEC_INVOICE_reject_action
+
+# ******************************************** invoice rejection **************************************************************
+
+
+
 
 # ********************************************** fetching pending po item list **********************************************
 

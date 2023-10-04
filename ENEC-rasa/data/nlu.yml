@@ -6821,3 +6821,45 @@ nlu:
 
 
 # ******************************************* approve invoice ********************************************************************************
+
+
+# ***************************************** reject invoice ***********************************************************************************
+
+
+- intent: ENEC_INVOICE_reject_intent
+  examples: |
+    - Reject IN [5105601935](in_number)
+    - reject IN [5105601935](in_number)
+    - Reject IN [5105601935](in_number)
+    - reject IN [5105601935](in_number)
+    - reject in [5105601945](in_number)
+    - Reject IN [5105601955](in_number)
+    - Reject in [5105601937](in_number)
+    - Reject Invoice for [5105601912](in_number)
+    - reject invoice for [5105601934](in_number)
+    - reject Invoice [5105601998](in_number)
+    - Reject invoice [5105601956](in_number)
+    - reject invoice number [5105601367](in_number)
+    - Reject invoice Number [5105601123](in_number)
+    - Reject invoice No. [5105601723](in_number)
+    - reject invoice no. [5105601098](in_number)
+    - reject invoice number [510560157](in_number)
+    - Reject invoice no. [510560253](in_number)
+    - reject the invoice [5105601785](in_number)
+    - Reject the invoice [5105601992](in_number)
+    - can you reject the invoice [5105601467](in_number)
+    - Can you Reject the invoice [5105601654](in_number)
+    - Please reject invoice number [5105601712](in_number)
+    - Reject invoice Num [5105601862](in_number)
+    - reject invoice num [5105601563](in_number)
+    - reject the invoice num [5105601012](in_number)
+    - Reject invoice num [5105601375](in_number)
+    - Reject Invoice num [5105601887](in_number)
+    - Reject Invoice Num [5105601062](in_number)
+    - reject Invoice no. [5105601789](in_number)
+
+
+
+
+
+# ***************************************** reject invoice ***********************************************************************************

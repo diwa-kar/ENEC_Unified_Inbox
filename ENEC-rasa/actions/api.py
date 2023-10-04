@@ -273,6 +273,32 @@ def PoApprovalENEC(pono:str,comment:str, user_name:str):
 
 # ********************************************* pending po approval on digiverz demo system **************************************************
 
+# ********************************************** Po reject on digi demo system ****************************************************************
+
+
+def Po_Rejection_ENEC(pono:str,comment:str, user_name:str):
+
+    # comment = "Approved by Girish"
+    
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_acceptreject?sap-client=100 '
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+
+    result = client.service.ZmmPoApprRejFm('R',f'{comment}',f'{pono}',user_name)
+
+    # addiing comment with result
+    result["Comment"] = comment
+
+    print(result)
+
+    return result
+
+
+
+
+
+# ********************************************** Po reject on digi demo system ****************************************************************
 
 
 
