@@ -978,7 +978,7 @@ const Notificationdisplay = ({
               </div>
             );
           })}
-          {selectedItem.type === "it ticket" && (
+          {/* {selectedItem.type === "it ticket" && (
             <div className="Notificataion-display-buttons-leave">
               <Button
                 variant={"contained"}
@@ -1026,7 +1026,7 @@ const Notificationdisplay = ({
                 Reject
               </Button>
             </div>
-          )}
+          )} */}
         </div>
       ) : (
         <></>
