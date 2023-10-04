@@ -6702,6 +6702,9 @@ nlu:
 - intent: ENEC_INVOICE_approval_intent
   examples: |
     - Approve IN [5105601935](in_number)
+    - Approve IN [5105601935](in_number)
+    - Approve IN [5105601935](in_number)
+    - Approve IN [5105601935](in_number)
     - Approve in [5105601945](in_number)
     - approve IN [5105601955](in_number)
     - approve in [5105601937](in_number)
