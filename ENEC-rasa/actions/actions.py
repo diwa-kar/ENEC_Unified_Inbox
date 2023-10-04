@@ -2096,6 +2096,62 @@ class PrAppprovalENEC(Action):
 
 # *********************************************** approve pr from digiverz demo system ***********************************
 
+# ********************************************** reject pr from digiverz demo system ************************************8
+
+class PrRejectionENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_PR_reject_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        prnotext = tracker.latest_message["text"]
+        prno = prnotext.split()[-1]
+
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
+
+        print(prno,comment,user_name)
+
+        print(prno)
+
+        dispatcher.utter_message(text = f"{prno} rejection action pr is working fine")
+
+
+        # result = PrApprovalENEC(prno,comment,user_name)
+
+        # Status_code = result["ExStatus"]
+        
+        # user_comment = result["Comment"]
+
+        # print(Status_code)
+        # print(user_comment)
+
+        # if Status_code == "ERROR":
+        #     dispatcher.utter_message(text=f"PR {prno} is already approved/rejected")
+
+
+        # elif Status_code == "APPROVED":
+
+        #     db = client["ENEC_RasaChatbot"]
+        #     collection = db["Approved_PR"]
+        #     document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}", "username":user_name}
+        #     result = collection.insert_one(document)
+
+        #     dispatcher.utter_message(text=f"PR {prno} was Approved Successfully")
+
+        return []
+
+
+
+
+
+
+# ********************************************** reject pr from digiverz demo system ************************************8
 
 
 

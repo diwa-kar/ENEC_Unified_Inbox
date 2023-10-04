@@ -427,6 +427,15 @@ rules:
 
 # *********************************************** approve pr from digiverz demo system *********************
 
+# ********************************************** reject pr from digiverz demo system ************************
+
+- rule: reject pr from digiverz demo system
+  steps:
+  - intent: ENEC_PR_reject_intent
+  - action: ENEC_PR_reject_action
+
+
+# ********************************************** reject pr from digiverz demo system ************************
 
 
 

@@ -6418,6 +6418,53 @@ nlu:
 
 # ********************************************* approve pending pr items in digiverz demo system ***************************************************
 
+# ********************************************* rejecte pending pr in digiverz demo system *********************************************************
+
+- intent: ENEC_PR_reject_intent
+  examples: |
+    - Reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - reject PR [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject pr [4500001787](pr_number)
+    - reject PR [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - reject PR [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - reject pr [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+    - Reject PR [4500001787](pr_number)
+
+
+# ********************************************* rejecte pending pr in digiverz demo system *********************************************************
+
+
+
+
+
+
+
+
 # # ****************************************** pending po item list from digiverz demo system **************************************************
 
 - intent: ENEC_pending_po_item_list
