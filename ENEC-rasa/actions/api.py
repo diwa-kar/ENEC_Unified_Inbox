@@ -659,3 +659,25 @@ def INVOCIEApproval(invoice_no:str,comment:str,user_name:str):
     return result
 
 # *********************************************** approved pending invoice on digi demo system**************************************************
+
+
+
+
+# *********************************************** reject pending invoice on digi demo system**************************************************
+
+def Rejection_ENEC_Invoice(invoice_no:str,comment:str,user_name:str):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_apprej_web?sap-client=100'
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+
+    result = client.service.ZFM_INV_APPROVAL('R',f'{comment}',f'{invoice_no}',user_name)
+
+    result["Comment"] = comment
+
+    print(result)
+
+    return result
+
+# *********************************************** reject pending invoice on digi demo system**************************************************
