@@ -1125,14 +1125,14 @@ const ChatBot = () => {
               </span>
             )}
           </div>
-          <Box>
+          <Box sx={{ background: "#fff", p: 1 }}>
             <form
               onSubmit={handleSubmit}
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                margin: "10px",
+                // margin: "10px",
               }}
             >
               <input
