@@ -1164,7 +1164,7 @@ def pending_po_rejection(data : pending_po_rejection):
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PO"]
-        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Rejected","Comment":f"{data.comment}"}
+        document = {"Purchase Order Number": "PO "+f"{data.pono}", "Status":"Rejected","Comment":f"{data.comment}", "username":data.username }
         res = collection.insert_one(document)
 
         text =f"PO {data.pono} is Rejected successfully" 
