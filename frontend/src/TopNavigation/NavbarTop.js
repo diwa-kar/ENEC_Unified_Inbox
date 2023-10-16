@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 
 const NavbarTop = (props) => {
+  
   return (
     <>
       <Navbar bg="" expand="lg" className="nav-top">

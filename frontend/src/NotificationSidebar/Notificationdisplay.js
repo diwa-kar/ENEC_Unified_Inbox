@@ -12,9 +12,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { TextareaAutosize } from "@mui/material";
+import { Card, Chip, Grid, TextareaAutosize } from "@mui/material";
 import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar";
-
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import { FcExpand } from "react-icons/fc";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -22,6 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
 const Notificationdisplay = ({
   selectedItem,
   isSidebarOpen,
@@ -689,11 +694,19 @@ const Notificationdisplay = ({
     setsnackbarOpen(true);
   };
 
+  const [expanded, setExpanded] = React.useState("panel0");
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <div
-      className="Notificataion-display"
+      // className="Notificataion-display"
       style={{
         width: "100%",
+        // height: "70vh",
+        overflow: "auto",
       }}
     >
       {detailData.length > 0 ||
@@ -715,45 +728,206 @@ const Notificationdisplay = ({
         selectedItem.type === "pending po" ||
         selectedItem.type === "approved po" ||
         selectedItem.type === "rejected po") ? (
-        <div className="Notificataion-display-content">
+        // <div className="Notificataion-display-content">
+        <Card
+          data-aos="zoom-in-up"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: "20px",
+            padding: "12px",
+            margin: "15px",
+            boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+          }}
+        >
           {detailData.map((data, index) => {
+            console.log(data);
             return (
-              <div
-                className={`Notificataion-display-detail ${
-                  currentContent !== index ? "collapsable" : ""
-                }`}
-                key={index}
-                onClick={() => setCurrentContent(index)}
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
               >
-                <h1>{JSON.stringify(data[0])}</h1>
-                {Object.keys(data).map((key, keyIndex) => (
-                  <div>
-                    <span
-                      style={{
-                        wordWrap: "break-word",
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {key?.replace(/_/g, " ")}
-                    </span>
-                    <span
-                      style={{
-                        margin: "0px 4px",
-                        color: "darkblue",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {data[key] ? data[key] : "-"}
-                    </span>
-                  </div>
-                ))}
-              </div>
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {selectedItem.type === "pending pr" ||
+                    selectedItem.type === "approved pr" ||
+                    selectedItem.type === "rejected pr"
+                      ? data?.Purchase_Requisition_Number
+                      : data?.Purchase_Order_Number}
+                  </Typography>
+                  <Typography sx={{ width: "33%", color: "text.secondary" }}>
+                    {selectedItem.type === "pending pr" ||
+                    selectedItem.type === "approved pr" ||
+                    selectedItem.type === "rejected pr"
+                      ? data.Purchase_Requisition_Item_Text
+                      : data.CreatedByUser}
+                  </Typography>
+                  <Chip
+                    label={
+                      selectedItem.type === "pending pr" ||
+                      selectedItem.type === "approved pr" ||
+                      selectedItem.type === "rejected pr"
+                        ? data.Creation_Date.slice(0, 10)
+                        : data.CreationDate.slice(0, 10)
+                    }
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data).map((key, keyIndex) => {
+                      return (
+                        <Grid item xs={12} md={6} display="flex">
+                          <Grid item xs={12} md={6}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {" "}
+                              {key?.replace(/_/g, " ")}
+                            </Typography>
+                            {/* <span
+                                style={{
+                                  wordWrap: "break-word",
+                                  color:
+                                    key === "Comment" ? "#a89566" : "black",
+                                }}
+                              >
+                                {key?.replace(/_/g, " ")}
+                              </span> */}
+                          </Grid>
+                          <Grid item xs={12} md={1}>
+                            <span
+                              style={{
+                                margin: "0px 4px",
+                                color: "darkblue",
+                              }}
+                            >
+                              :
+                            </span>
+                          </Grid>
+                          <Grid item xs={12} md={5}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {data[key] ? data[key] : "-"}
+                            </Typography>
+                            {/* <span
+                                style={{
+                                  color:
+                                    key === "Comment" ? "#a89566" : "black",
+                                }}
+                              >
+                                {data[key] ? data[key] : "-"}
+                              </span> */}
+                          </Grid>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                  {/* {Object.keys(data).map((key, keyIndex) => (
+                      <>
+                        <span
+                          style={{
+                            wordWrap: "break-word",
+                            color: key === "Comment" ? "#a89566" : "black",
+                          }}
+                        >
+                          {key?.replace(/_/g, " ")}
+                        </span>
+                        <span
+                          style={{
+                            margin: "0px 4px",
+                            color: "darkblue",
+                          }}
+                        >
+                          :
+                        </span>
+                        <span
+                          style={{
+                            color: key === "Comment" ? "#a89566" : "black",
+                          }}
+                        >
+                          {data[key] ? data[key] : "-"}
+                        </span>
+                      </>
+                    ))} */}
+                </AccordionDetails>
+              </Accordion>
+
+              // <div
+              //   className={`Notificataion-display-detail ${
+              //     currentContent !== index ? "collapsable" : ""
+              //   }`}
+              //   key={index}
+              //   onClick={() => setCurrentContent(index)}
+              // >
+              // {Object.keys(data).map((key, keyIndex) => (
+              //   <div>
+              //     <span
+              //       style={{
+              //         wordWrap: "break-word",
+              //         color: key === "Comment" ? "#a89566" : "black",
+              //       }}
+              //     >
+              //       {key?.replace(/_/g, " ")}
+              //     </span>
+              //     <span
+              //       style={{
+              //         margin: "0px 4px",
+              //         color: "darkblue",
+              //       }}
+              //     >
+              //       :
+              //     </span>
+              //     <span
+              //       style={{
+              //         color: key === "Comment" ? "#a89566" : "black",
+              //       }}
+              //     >
+              //       {data[key] ? data[key] : "-"}
+              //     </span>
+              //   </div>
+              // ))}
+              // </div>
             );
           })}
           {(selectedItem.type === "pending pr" ||
@@ -779,7 +953,11 @@ const Notificationdisplay = ({
                 }}
                 color="success"
                 onClick={() =>
-                  setOpenDialog({ ...openDialog, open: true, type: "approve" })
+                  setOpenDialog({
+                    ...openDialog,
+                    open: true,
+                    type: "approve",
+                  })
                 }
               >
                 Approve
@@ -810,58 +988,157 @@ const Notificationdisplay = ({
               </Button>
             </div>
           )}
-        </div>
+        </Card>
       ) : (
+        // </div>
         <></>
       )}
       {leaveDetail.length > 0 &&
       (selectedItem.type === "pending leave" ||
         selectedItem.type === "approved leave" ||
         selectedItem.type === "rejected leave") ? (
-        <div className="Notificataion-display-content">
+        <Card
+          data-aos="zoom-in-up"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: "20px",
+            padding: "12px",
+            margin: "15px",
+            boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+          }}
+        >
           {console.log(leaveDetail)}
           {leaveDetail.map((data, index) => {
             return (
-              <div
-                className="Notificataion-display-detail-leave"
-                key={index}
-                style={
-                  {
-                    // background: tab=='Pending' ? "#EBF2F4": tab=='Approved'?"#EFFFEE":"#FFEEEE",
-                    // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-                    // marginBottom: detailData.length == index + 1 ? "20px" : "0px",
-                  }
-                }
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
               >
-                {Object.keys(data).map((key, keyIndex) => (
-                  <div>
-                    <span
-                      style={{
-                        // color: "#002D62",
-                        wordWrap: "break-word",
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {key?.replace(/_/g, " ")}
-                    </span>
-                    <span
-                      style={{
-                        margin: "0px 4px",
-                        color: "darkblue",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {data[key] ? data[key] : "-"}
-                    </span>
-                  </div>
-                ))}
-              </div>
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "50%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data[Object.keys(data)[1]]}
+                  </Typography>
+
+                  <Chip
+                    label={data[Object.keys(data)[3]]}
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data).map((key, keyIndex) => {
+                      return (
+                        <Grid item xs={12} md={6} display="flex">
+                          <Grid item xs={12} md={6}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {key?.replace(/_/g, " ")}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={1}>
+                            <span
+                              style={{
+                                margin: "0px 4px",
+                                color: "darkblue",
+                              }}
+                            >
+                              :
+                            </span>
+                          </Grid>
+                          <Grid item xs={12} md={5}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {data[key] ? data[key] : "-"}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              // <div
+              //   className="Notificataion-display-detail-leave"
+              //   key={index}
+              //   style={
+              //     {
+              //       // background: tab=='Pending' ? "#EBF2F4": tab=='Approved'?"#EFFFEE":"#FFEEEE",
+              //       // boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              //       // marginBottom: detailData.length == index + 1 ? "20px" : "0px",
+              //     }
+              //   }
+              // >
+              //   {Object.keys(data).map((key, keyIndex) => (
+              //     <div>
+              //       <span
+              //         style={{
+              //           // color: "#002D62",
+              //           wordWrap: "break-word",
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {key?.replace(/_/g, " ")}
+              //       </span>
+              //       <span
+              //         style={{
+              //           margin: "0px 4px",
+              //           color: "darkblue",
+              //         }}
+              //       >
+              //         :
+              //       </span>
+              //       <span
+              //         style={{
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {data[key] ? data[key] : "-"}
+              //       </span>
+              //     </div>
+              //   ))}
+              // </div>
             );
           })}
           {selectedItem.type === "pending leave" && (
@@ -913,7 +1190,7 @@ const Notificationdisplay = ({
               </Button>
             </div>
           )}
-        </div>
+        </Card>
       ) : (
         <></>
       )}
@@ -945,38 +1222,137 @@ const Notificationdisplay = ({
       </Snackbar>
 
       {ticketdetail.length > 0 && selectedItem.type === "it ticket" ? (
-        <div className="Notificataion-display-content">
+        <Card
+          data-aos="zoom-in-up"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: "20px",
+            padding: "12px",
+            margin: "15px",
+            boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+          }}
+        >
           {ticketdetail.map((data, index) => {
+            console.log(data);
             return (
-              <div className="Notificataion-display-detail-leave" key={index}>
-                {Object.keys(data).map((key, keyIndex) => (
-                  <div>
-                    <span
-                      style={{
-                        wordWrap: "break-word",
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {key?.replace(/_/g, " ")}
-                    </span>
-                    <span
-                      style={{
-                        margin: "0px 4px",
-                        color: "darkblue",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {data[key] ? data[key] : "-"}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              // <div className="Notificataion-display-detail-leave" key={index}>
+              // {Object.keys(data).map((key, keyIndex) => (
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
+              >
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "50%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data[Object.keys(data)[0]]}
+                  </Typography>
+
+                  <Chip
+                    label={data[Object.keys(data)[1]]}
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data).map((key, keyIndex) => {
+                      return (
+                        <Grid item xs={12} md={6} display="flex">
+                          <Grid item xs={12} md={6}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {key?.replace(/_/g, " ")}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={1}>
+                            <span
+                              style={{
+                                margin: "0px 4px",
+                                color: "darkblue",
+                              }}
+                            >
+                              :
+                            </span>
+                          </Grid>
+                          <Grid item xs={12} md={5}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {data[key] ? data[key] : "-"}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              // <div>
+              //   <span
+              //     style={{
+              //       wordWrap: "break-word",
+              //       color: key === "Comment" ? "#a89566" : "black",
+              //     }}
+              //   >
+              //     {key?.replace(/_/g, " ")}
+              //   </span>
+              //   <span
+              //     style={{
+              //       margin: "0px 4px",
+              //       color: "darkblue",
+              //     }}
+              //   >
+              //     :
+              //   </span>
+              //   <span
+              //     style={{
+              //       color: key === "Comment" ? "#a89566" : "black",
+              //     }}
+              //   >
+              //     {data[key] ? data[key] : "-"}
+              //   </span>
+              // </div>
+              // ))}
+              // </div>
             );
           })}
           {/* {selectedItem.type === "it ticket" && (
@@ -1028,7 +1404,7 @@ const Notificationdisplay = ({
               </Button>
             </div>
           )} */}
-        </div>
+        </Card>
       ) : (
         <></>
       )}
@@ -1036,38 +1412,148 @@ const Notificationdisplay = ({
       (selectedItem.type === "pending invoice" ||
         selectedItem.type === "approved invoice" ||
         selectedItem.type === "rejected invoice") ? (
-        <div className="Notificataion-display-content">
+          <Card
+          data-aos="zoom-in-up"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: "20px",
+            padding: "12px",
+            margin: "15px",
+            boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+          }}
+        >
           {invoicedetail.map((data, index) => {
+            console.log(data);
             return (
-              <div className="Notificataion-display-detail-leave" key={index}>
-                {Object.keys(data).map((key, keyIndex) => (
-                  <div>
-                    <span
-                      style={{
-                        wordWrap: "break-word",
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {key?.replace(/_/g, " ")}
-                    </span>
-                    <span
-                      style={{
-                        margin: "0px 4px",
-                        color: "darkblue",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        color: key === "Comment" ? "#a89566" : "black",
-                      }}
-                    >
-                      {data[key] ? data[key] : "-"}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
+              >
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data["Invocie_no"]}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data["user_name"]}
+                  </Typography>
+
+                  <Chip
+                    label={data["Document_Date"]}
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data).map((key, keyIndex) => {
+                      return (
+                        <Grid item xs={12} md={6} display="flex">
+                          <Grid item xs={12} md={6}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {key?.replace(/_/g, " ")}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={1}>
+                            <span
+                              style={{
+                                margin: "0px 4px",
+                                color: "darkblue",
+                              }}
+                            >
+                              :
+                            </span>
+                          </Grid>
+                          <Grid item xs={12} md={5}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {data[key] ? data[key] : "-"}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              // <div className="Notificataion-display-detail-leave" key={index}>
+              //   {Object.keys(data).map((key, keyIndex) => (
+              //     <div>
+              //       <span
+              //         style={{
+              //           wordWrap: "break-word",
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {key?.replace(/_/g, " ")}
+              //       </span>
+              //       <span
+              //         style={{
+              //           margin: "0px 4px",
+              //           color: "darkblue",
+              //         }}
+              //       >
+              //         :
+              //       </span>
+              //       <span
+              //         style={{
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {data[key] ? data[key] : "-"}
+              //       </span>
+              //     </div>
+              //   ))}
+              // </div>
             );
           })}
           {selectedItem.type === "pending invoice" && (
@@ -1131,7 +1617,7 @@ const Notificationdisplay = ({
               </Button>
             </div>
           )}
-        </div>
+        </Card>
       ) : (
         <></>
       )}

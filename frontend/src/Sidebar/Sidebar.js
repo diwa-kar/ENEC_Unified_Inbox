@@ -15,6 +15,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { ValueContext } from "../LandingPage/MainPage";
 import { Snackbar, Alert } from "@mui/material";
+import DashboardIcon from "./Dashboard.png";
 
 const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
   const [open, setOpen] = useState(false);
@@ -51,6 +52,15 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
           <i class="fa-solid fa-house"></i>
           <span>HOME</span>
         </div> */}
+        <div
+          className={`sidebar-items ${
+            tab === "Dashboard" ? "sidebar-items-active" : ""
+          }`}
+          onClick={() => setTab("Dashboard")}
+        >
+          <img src={DashboardIcon} alt="Dashboard"></img>
+          <span>Dashboard</span>
+        </div>
         <div
           className={`sidebar-items ${
             tab === "Pending" ? "sidebar-items-active" : ""
