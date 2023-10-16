@@ -193,6 +193,16 @@ class ENEC_rejected_invoice_item_info(BaseModel):
     inv_no : str
     username : str
 
+# ************************************* Dashbodard Class ******************************************************************
+
+class ENEC_Total_PR_req_count(BaseModel):
+    username : str
+
+
+
+# ************************************* Dashbodard Class ******************************************************************
+
+
 
 
 
@@ -1771,6 +1781,86 @@ def ENEC_rejected_invoice_item_info(data:ENEC_rejected_invoice_item_info):
 
 
     return invoice_info
+
+
+# ********************************************************** Dashboard API **********************************************************
+
+@app.get('/ENEC_IT_request_count')
+async def ENEC_IT_request_count():
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["ITTickets"]
+    a=collection.find()
+
+    ticket_count = 0
+
+    for details in a:
+            ticket_count += 1
+    # print(ticket_count)
+
+
+    return ticket_count
+
+
+@app.post('/ENEC_Total_PR_req_count')
+async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
+
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_PR"]
+    a=collection.find()
+
+    approved_pr_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            approved_pr_list.append(i['Purchase Requisition Number'])
+
+
+    Approved_pr_count = len(approved_pr_list)
+    # print(approved_pr_list)
+    # print(len(approved_pr_list))
+
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZfmPrPending(data.username) 
+    listofobj = result[0]
+    pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
+
+    Pending_pr_count = len(pendingpr)
+    # print(pendingpr)
+    # print(len(pendingpr))
+
+
+    Total_pending_pr_count = Pending_pr_count + Approved_pr_count
+    print(Total_pending_pr_count)
+
+
+
+    return Total_pending_pr_count
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ********************************************************** Dashboard API **********************************************************
+
+
+
+
 
 
 
