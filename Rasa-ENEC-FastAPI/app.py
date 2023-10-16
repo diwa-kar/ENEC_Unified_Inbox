@@ -34,6 +34,8 @@ import datetime
 
 from passlib.context import CryptContext
 
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Total_PR_req_count_api, ENEC_Total_PO_count_api, ENEC_Total_Invoice_count_api, ENEC_Total_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api
+
 
 # username = 'KAAR'
 # password = 'Qpmck@@r098'
@@ -204,8 +206,26 @@ class ENEC_Total_PO_count(BaseModel):
 class ENEC_Total_Invoice_count(BaseModel):
     username : str
 
-# ************************************* Dashbodard Class ******************************************************************
+class ENEC_Total_pending_req(BaseModel):
+    username: str
 
+
+
+
+class ENEC_Approved_PR_count(BaseModel):
+    username: str
+
+class ENEC_Approved_PO_count(BaseModel):
+    username: str
+
+class ENEC_Approved_INVOICE_count(BaseModel):
+    username: str
+
+class ENEC_Total_Approved_count(BaseModel):
+    username: str
+
+
+# ************************************* Dashbodard Class ******************************************************************
 
 
 
@@ -1784,15 +1804,7 @@ def ENEC_rejected_invoice_item_info(data:ENEC_rejected_invoice_item_info):
 @app.get('/ENEC_IT_request_count')
 async def ENEC_IT_request_count():
 
-    db = client["ENEC_RasaChatbot"]
-    collection = db["ITTickets"]
-    a=collection.find()
-
-    ticket_count = 0
-
-    for details in a:
-            ticket_count += 1
-    # print(ticket_count)
+    ticket_count = ENEC_IT_request_count_api()
 
 
     return ticket_count
@@ -1801,75 +1813,22 @@ async def ENEC_IT_request_count():
 @app.post('/ENEC_Total_PR_req_count')
 async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
 
-
-    # db = client["ENEC_RasaChatbot"]
-    # collection = db["Approved_PR"]
-    # a=collection.find()
-
-    # approved_pr_list = []
-
-    # for i in a:
-    #     if data.username == i["username"]:
-    #         approved_pr_list.append(i['Purchase Requisition Number'])
-
-
-    # Approved_pr_count = len(approved_pr_list)
-    # print(approved_pr_list)
-    # print(len(approved_pr_list))
-
-
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
-
-    transport = HttpAuthenticated(username=sap_username, password=sap_password)
-    sap_client = Client(url,transport=transport)
-    result = sap_client.service.ZfmPrPending(data.username) 
-    listofobj = result[0]
-    pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
-
-    Pending_pr_count = len(pendingpr)
-    # print(pendingpr)
-    # print(len(pendingpr))
-
-
-    # Total_pending_pr_count = Pending_pr_count + Approved_pr_count
-    # print(Total_pending_pr_count)
-
+    Pending_pr_count  = ENEC_Total_PR_req_count_api(data.username)
 
     return Pending_pr_count
+
 
 @app.post('/ENEC_Total_PO_count')
 async def ENEC_Total_PO_count(data:ENEC_Total_PO_count):
 
-    url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
-
-    transport = HttpAuthenticated(username=sap_username, password=sap_password)
-    client = Client(url,transport=transport)
-    result = client.service.ZfmPoPending(f'{data.username}') 
-    listofobj = result[0]
-    pendingpo = ['PO '+str(i.Ebeln) for i in listofobj]
-
-    print(pendingpo)
-
-    pending_po_count = len(pendingpo)
+    pending_po_count = ENEC_Total_PO_count_api(data.username)
 
     return pending_po_count
 
 @app.post('/ENEC_Total_Invoice_count')
 async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
 
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
-
-    transport = HttpAuthenticated(username=sap_username, password=sap_password)
-    client = Client(url,transport=transport)
-    result = client.service.ZFM_INV_PENDING(data.username) 
-    listofobj = result[0]
-    pendinginvoice = ['IN '+str(i.INVOICE) for i in listofobj]
-
-    Pending_Invoice_count = len(pendinginvoice)
-
-    # print(pendinginvoice)
-    # print(Pending_Invoice_count)
-
+    Pending_Invoice_count = ENEC_Total_Invoice_count_api(data.username)
 
     return Pending_Invoice_count
 
@@ -1878,98 +1837,63 @@ async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
 @app.get('/ENEC_Total_PL_count')
 async def ENEC_Total_PL_count():
 
-    # db = client["QPMC_RasaChatbot"]
-    # collection = db["Approved_Leave"]
-    # a=collection.find()
-
-    # approved_leave_list = []
-
-    # for i in a:
-    #     approved_leave_list.append(i['Leave Id'])
-
-
-    # Approved_leave_count = len(approved_leave_list)
-    # print(Approved_leave_count)
-
-
-    username = 'kaaradmin@qatarprimaT1'
-    password = 'Qpmc@456'
-
-     # extranct date from the sentence
-    def extract_date_from_sentence(sentence):
-        pattern = r"\((.*?)\)"  # Regex pattern to match text within parentheses
-        match = re.search(pattern, sentence)  # Search for the pattern in the sentence
-
-        if match:
-            date_within_parentheses = match.group(1)  # Extract the text within parentheses
-            return date_within_parentheses
-        else:
-            return None
-
-    # extracting words before paranthesis to find Leave Type
-    def words_before_parenthesis(sentence):
-        # Find the index of the opening parenthesis
-        parenthesis_index = sentence.find("(")
-
-        if parenthesis_index != -1:
-            words = sentence[:parenthesis_index][:-1]
-            return words
-        else:
-            return None
-
-    # picking up name from the sentece 
-    def pick_name_from_sentence(sentence):
-        colon_index = sentence.find(":")
-        
-        if colon_index != -1:
-            words = sentence[colon_index+2:]
-            return words
-        else:
-            return None
-
-    url = 'https://api2preview.sapsf.eu/odata/v2/Todo?$filter=categoryId%20eq%20%2718%27'
-    session = requests.Session()
-    session.auth = (username, password)
-    # Send a GET request to the SAP system
-    response = session.get(url)
-    # Print the response status code and content
-    obj = response.content
-    objstr = str(obj, 'UTF-8')
-    obj2 = xmltodict.parse(objstr)
-    js = json.dumps(obj2)
-    js_obj = json.loads(js)
-    flatjs = flatten(js_obj)
-
-    pendingleave=[]
-    i=0 
-    while True:
-        try:
-            d={
-            'Leave Id':flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectId'],
-            'Employee Name':pick_name_from_sentence(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName']),
-            'Leave Duration': extract_date_from_sentence(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName']),
-            'Leave Type': words_before_parenthesis(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName'])
-            }
-            pendingleave.append(d)
-            i+=1
-        except: 
-            break
-  
-    # print(pendingleave)
-    # print(len(pendingleave))
-    Pending_leave_count = len(pendingleave)
-
-
-    # Total_PL_count = Pending_leave_count + Approved_leave_count
-
+    Pending_leave_count = ENEC_Total_PL_count_api()
 
     return Pending_leave_count
 
 
+@app.post('/ENEC_Total_pending_req')
+async def ENEC_Total_pending_req(data:ENEC_Total_pending_req):
+
+    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Total_PL_count_api() + ENEC_Total_PR_req_count_api(data.username) + ENEC_Total_PO_count_api(data.username) + ENEC_Total_Invoice_count_api(data.username)
+
+    return Total_pending_req
 
 
 
 
+
+
+
+
+
+@app.post('/ENEC_Approved_PR_count')
+async def ENEC_Approved_PR_count(data:ENEC_Approved_PR_count):
+
+    Approved_pr_count = ENEC_Approved_PR_count_api(data.username)
+
+    return Approved_pr_count
+
+
+@app.post('/ENEC_Approved_PO_count')
+async def ENEC_Approved_PR_count(data:ENEC_Approved_PO_count):
+
+    Approved_po_count = ENEC_Approved_PO_count_api(data.username)
+
+    return Approved_po_count
+
+@app.post('/ENEC_Approved_INVOICE_count')
+async def ENEC_Approved_INVOICE_count(data:ENEC_Approved_INVOICE_count):
+
+    Approved_invoice_count = ENEC_Approved_INVOICE_count_api(data.username)
+
+    return Approved_invoice_count
+
+
+@app.post('/ENEC_Approved_Leave_count')
+async def ENEC_Approved_Leave_count():
+
+    Approved_leave_count = ENEC_Approved_Leave_count_api()
+
+    return Approved_leave_count
+
+
+@app.post('/ENEC_Total_Approved_count')
+async def ENEC_Total_Approved_count(data:ENEC_Total_Approved_count):
+
+    ENEC_Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api()
+
+    return ENEC_Total_approved_count
 
 
 
