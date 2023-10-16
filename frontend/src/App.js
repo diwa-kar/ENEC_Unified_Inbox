@@ -13,6 +13,7 @@ import LandingPageHome from "./LandingPage/LandingPageHome";
 import ChatBot from "./ChatBot/ChatBot";
 import Login from "./Login/Login";
 import { useEffect } from "react";
+import Dashboard from "./Dashboard/Dashboard";
 
 function App() {
   let location = useLocation();

@@ -515,7 +515,7 @@ const MiddleNavbar = (props) => {
                 ? "Approved"
                 : "Rejected"}
             </span>
-            <FormControl sx={{ minWidth: 110 }} size="small">
+            <FormControl sx={{ width: 110 }} size="small">
               <Select
                 labelId="demo-select-small-label"
                 id="demo-select-small"
@@ -524,9 +524,9 @@ const MiddleNavbar = (props) => {
                 onChange={(e) => setType(e.target.value)}
               >
                 <MenuItem value={"All"}>All</MenuItem>
-                <MenuItem value={"PO"}>PO</MenuItem>
-                <MenuItem value={"PL"}>PL</MenuItem>
-                <MenuItem value={"PR"}>PR</MenuItem>
+                <MenuItem value={"PO"}>Purchase Order</MenuItem>
+                <MenuItem value={"PL"}>Leave Request</MenuItem>
+                <MenuItem value={"PR"}>Purchase Requisition</MenuItem>
                 <MenuItem value={"IN"}>Invoice</MenuItem>
                 <MenuItem value={"TCK"}>Ticket</MenuItem>
               </Select>
