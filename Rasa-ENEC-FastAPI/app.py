@@ -201,7 +201,8 @@ class ENEC_Total_PR_req_count(BaseModel):
 class ENEC_Total_PO_count(BaseModel):
     username : str
 
-
+class ENEC_Total_Invoice_count(BaseModel):
+    username : str
 
 # ************************************* Dashbodard Class ******************************************************************
 
@@ -1852,6 +1853,25 @@ async def ENEC_Total_PO_count(data:ENEC_Total_PO_count):
     pending_po_count = len(pendingpo)
 
     return pending_po_count
+
+@app.post('/ENEC_Total_Invoice_count')
+async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZFM_INV_PENDING(data.username) 
+    listofobj = result[0]
+    pendinginvoice = ['IN '+str(i.INVOICE) for i in listofobj]
+
+    Pending_Invoice_count = len(pendinginvoice)
+
+    # print(pendinginvoice)
+    # print(Pending_Invoice_count)
+
+
+    return Pending_Invoice_count
 
 
 
