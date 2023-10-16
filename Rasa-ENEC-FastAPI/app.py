@@ -198,6 +198,9 @@ class ENEC_rejected_invoice_item_info(BaseModel):
 class ENEC_Total_PR_req_count(BaseModel):
     username : str
 
+class ENEC_Total_PO_count(BaseModel):
+    username : str
+
 
 
 # ************************************* Dashbodard Class ******************************************************************
@@ -1404,14 +1407,6 @@ async def qpmc_rejected_leave_list_mongo():
 
 
 
-
-
-
-
-
-
-
-
 @app.get('/qpmc_leave_reuqest_sf')
 async def qpmc_leave_reuqest_sf():
 
@@ -1806,18 +1801,18 @@ async def ENEC_IT_request_count():
 async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
 
 
-    db = client["ENEC_RasaChatbot"]
-    collection = db["Approved_PR"]
-    a=collection.find()
+    # db = client["ENEC_RasaChatbot"]
+    # collection = db["Approved_PR"]
+    # a=collection.find()
 
-    approved_pr_list = []
+    # approved_pr_list = []
 
-    for i in a:
-        if data.username == i["username"]:
-            approved_pr_list.append(i['Purchase Requisition Number'])
+    # for i in a:
+    #     if data.username == i["username"]:
+    #         approved_pr_list.append(i['Purchase Requisition Number'])
 
 
-    Approved_pr_count = len(approved_pr_list)
+    # Approved_pr_count = len(approved_pr_list)
     # print(approved_pr_list)
     # print(len(approved_pr_list))
 
@@ -1835,12 +1830,125 @@ async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
     # print(len(pendingpr))
 
 
-    Total_pending_pr_count = Pending_pr_count + Approved_pr_count
-    print(Total_pending_pr_count)
+    # Total_pending_pr_count = Pending_pr_count + Approved_pr_count
+    # print(Total_pending_pr_count)
+
+
+    return Pending_pr_count
+
+@app.post('/ENEC_Total_PO_count')
+async def ENEC_Total_PO_count(data:ENEC_Total_PO_count):
+
+    url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZfmPoPending(f'{data.username}') 
+    listofobj = result[0]
+    pendingpo = ['PO '+str(i.Ebeln) for i in listofobj]
+
+    print(pendingpo)
+
+    pending_po_count = len(pendingpo)
+
+    return pending_po_count
 
 
 
-    return Total_pending_pr_count
+@app.get('/ENEC_Total_PL_count')
+async def ENEC_Total_PL_count():
+
+    # db = client["QPMC_RasaChatbot"]
+    # collection = db["Approved_Leave"]
+    # a=collection.find()
+
+    # approved_leave_list = []
+
+    # for i in a:
+    #     approved_leave_list.append(i['Leave Id'])
+
+
+    # Approved_leave_count = len(approved_leave_list)
+    # print(Approved_leave_count)
+
+
+    username = 'kaaradmin@qatarprimaT1'
+    password = 'Qpmc@456'
+
+     # extranct date from the sentence
+    def extract_date_from_sentence(sentence):
+        pattern = r"\((.*?)\)"  # Regex pattern to match text within parentheses
+        match = re.search(pattern, sentence)  # Search for the pattern in the sentence
+
+        if match:
+            date_within_parentheses = match.group(1)  # Extract the text within parentheses
+            return date_within_parentheses
+        else:
+            return None
+
+    # extracting words before paranthesis to find Leave Type
+    def words_before_parenthesis(sentence):
+        # Find the index of the opening parenthesis
+        parenthesis_index = sentence.find("(")
+
+        if parenthesis_index != -1:
+            words = sentence[:parenthesis_index][:-1]
+            return words
+        else:
+            return None
+
+    # picking up name from the sentece 
+    def pick_name_from_sentence(sentence):
+        colon_index = sentence.find(":")
+        
+        if colon_index != -1:
+            words = sentence[colon_index+2:]
+            return words
+        else:
+            return None
+
+    url = 'https://api2preview.sapsf.eu/odata/v2/Todo?$filter=categoryId%20eq%20%2718%27'
+    session = requests.Session()
+    session.auth = (username, password)
+    # Send a GET request to the SAP system
+    response = session.get(url)
+    # Print the response status code and content
+    obj = response.content
+    objstr = str(obj, 'UTF-8')
+    obj2 = xmltodict.parse(objstr)
+    js = json.dumps(obj2)
+    js_obj = json.loads(js)
+    flatjs = flatten(js_obj)
+
+    pendingleave=[]
+    i=0 
+    while True:
+        try:
+            d={
+            'Leave Id':flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectId'],
+            'Employee Name':pick_name_from_sentence(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName']),
+            'Leave Duration': extract_date_from_sentence(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName']),
+            'Leave Type': words_before_parenthesis(flatjs[f'feed_entry_content_m:properties_d:todos_d:element_d:entries_d:element_{i}_d:subjectFullName'])
+            }
+            pendingleave.append(d)
+            i+=1
+        except: 
+            break
+  
+    # print(pendingleave)
+    # print(len(pendingleave))
+    Pending_leave_count = len(pendingleave)
+
+
+    # Total_PL_count = Pending_leave_count + Approved_leave_count
+
+
+    return Pending_leave_count
+
+
+
+
+
 
 
 
