@@ -647,7 +647,7 @@ const ChatBot = () => {
             <div className="chatscreen-header-logo">
               {/* darkMode ? DigiverzLogoDark : DigiverzLogo */}
               {/* <img src={ChatBotGIF} alt="Logo" /> */}
-              <span>Web Assist</span>
+              <span>Digital Assistant</span>
             </div>
             {/* <div className="chatscreen-header-menu">
         <img src={DigiverzMenu} alt="Logo" />
