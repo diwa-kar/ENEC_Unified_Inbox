@@ -36,32 +36,11 @@ function MainPage(props) {
     setAnchorEl3(null);
   };
   const [selectedItem, setSelectedItem] = useState([]);
-  const [activeTab, setActiveTab] = useState("Pending");
+  const [activeTab, setActiveTab] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [displayShow, setDisplayShow] = useState(false);
   const [showTab, setShowtab] = useState(false);
-  const [cards, setCards] = useState([
-    // {
-    //   type: "Pending Request",
-    //   value: "PR 1000005421",
-    // },
-    // {
-    //   type: "Pending Request",
-    //   value: "PR 1000005447",
-    // },
-    // {
-    //   type: "Pending Request",
-    //   value: "PR 1000005455",
-    // },
-    // {
-    //   type: "Pending Request",
-    //   value: "PR 1000005456",
-    // },
-    // {
-    //   type: "Pending Request",
-    //   value: "PR 1000005496",
-    // },
-  ]);
+  const [cards, setCards] = useState([]);
   const [currentContent, setCurrentContent] = useState(0);
   useEffect(() => {
     setCards([]);

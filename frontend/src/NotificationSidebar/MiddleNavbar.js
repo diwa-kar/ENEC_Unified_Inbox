@@ -2,14 +2,49 @@ import React, { useEffect, useContext, useState } from "react";
 import NotificationItem from "./NotificationItem";
 import PuffLoader from "react-spinners/PuffLoader";
 import { ValueContext } from "../LandingPage/MainPage";
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  IconButton,
+  InputLabel,
+  Menu,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@mui/material";
+import { FiFilter } from "react-icons/fi";
 
 const MiddleNavbar = (props) => {
+  console.log("Cards", props.cards);
   const showTab = useContext(ValueContext);
   const [originalList, setOriginalList] = useState([]);
   const [type, setType] = useState("All");
+  const [filterUser, setFilterUser] = useState("All");
+  const [filterDate, setFilterDate] = useState("");
+
+  const [anchorEl3, setAnchorEl3] = useState(null);
+  const handleClick3 = (event) => {
+    setAnchorEl3(event.currentTarget);
+  };
+  const handleClose3 = () => {
+    setAnchorEl3(null);
+  };
 
   const makeAPICall = async () => {
+    const dates = [
+      "2023-10-16",
+      "2023-10-17",
+      "2023-10-18",
+      "2023-10-19",
+      "2023-10-20",
+    ];
+    const users = ["ABAPER", "GIRISH", "ABAPER1"];
     let user = sessionStorage?.getItem("email");
     let username = "";
 
@@ -64,6 +99,8 @@ const MiddleNavbar = (props) => {
               type: type,
               value: data,
               description: "PR Request",
+              date: dates[Math.floor(Math.random() * dates.length)],
+              createdBy: users[Math.floor(Math.random() * users.length)],
             };
           });
       } catch (error) {
@@ -99,6 +136,8 @@ const MiddleNavbar = (props) => {
               type: type1,
               value: "PL " + some,
               description: description,
+              date: dates[Math.floor(Math.random() * dates.length)],
+              createdBy: users[Math.floor(Math.random() * users.length)],
             };
           });
       } catch (error) {
@@ -123,6 +162,8 @@ const MiddleNavbar = (props) => {
             type: type2,
             value: item,
             description: "Ticket",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -153,6 +194,8 @@ const MiddleNavbar = (props) => {
               type: type3,
               value: data,
               description: "PO Request",
+              date: dates[Math.floor(Math.random() * dates.length)],
+              createdBy: users[Math.floor(Math.random() * users.length)],
             };
           });
       } catch (error) {
@@ -184,6 +227,8 @@ const MiddleNavbar = (props) => {
               type: type4,
               value: data,
               description: "Invoice Request",
+              date: dates[Math.floor(Math.random() * dates.length)],
+              createdBy: users[Math.floor(Math.random() * users.length)],
             };
           });
       } catch (error) {
@@ -233,6 +278,8 @@ const MiddleNavbar = (props) => {
             type: type,
             value: item,
             description: "PR Request",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -262,6 +309,8 @@ const MiddleNavbar = (props) => {
             type: type2,
             value: item,
             description: "PO Request",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -285,6 +334,8 @@ const MiddleNavbar = (props) => {
             type: type1,
             value: item["Leave_id"],
             description: item["Leave_Type"],
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error);
@@ -314,6 +365,8 @@ const MiddleNavbar = (props) => {
             type: type3,
             value: item,
             description: "Invoice",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error);
@@ -332,9 +385,7 @@ const MiddleNavbar = (props) => {
         ...approved_leave,
         ...approved_invoice,
       ]);
-    }
-
-    if (props.activeTab === "Rejected") {
+    } else if (props.activeTab === "Rejected") {
       uri = "ENEC_rejected_pr_list_mongo";
       uri1 = "qpmc_rejected_leave_list_mongo";
       uri2 = "ENEC_rejected_po_list_mongo";
@@ -362,6 +413,8 @@ const MiddleNavbar = (props) => {
             type: type,
             value: item,
             description: "PR Request",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -384,6 +437,8 @@ const MiddleNavbar = (props) => {
             type: type1,
             value: item.Leave_id,
             description: item.Leave_Type,
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -413,6 +468,8 @@ const MiddleNavbar = (props) => {
             type: type2,
             value: item,
             description: "PO Request",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error.message);
@@ -442,6 +499,8 @@ const MiddleNavbar = (props) => {
             type: type3,
             value: item,
             description: "Invoice",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
         console.log(error);
@@ -482,6 +541,105 @@ const MiddleNavbar = (props) => {
     }
   }, [searchValue]);
 
+  const [choose, setChoose] = useState("none");
+  const [filterSort, setFilterSort] = useState("none");
+  const [value, setValue] = React.useState("ascending");
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  function compareAscending(a, b) {
+    if (filterSort === "choosesortbyname") {
+      if (a.value < b.value) {
+        return -1;
+      }
+      if (a.value > b.value) {
+        return 1;
+      }
+    } else if (filterSort === "choosesortbydate") {
+      if (a.date < b.date) {
+        return -1;
+      }
+      if (a.date > b.date) {
+        return 1;
+      }
+    } else if (filterSort === "choosesortcreatedby") {
+      if (a.createdBy < b.createdBy) {
+        return -1;
+      }
+      if (a.createdBy > b.createdBy) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  function compareDescending(a, b) {
+    if (filterSort === "choosesortbyname") {
+      if (a.value > b.value) {
+        return -1;
+      }
+      if (a.value < b.value) {
+        return 1;
+      }
+    } else if (filterSort === "choosesortbydate") {
+      if (a.date > b.date) {
+        return -1;
+      }
+      if (a.date < b.date) {
+        return 1;
+      }
+    } else if (filterSort === "choosesortcreatedby") {
+      if (a.createdBy > b.createdBy) {
+        return -1;
+      }
+      if (a.createdBy < b.createdBy) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  useEffect(() => {
+    let sortedCards = [...props.cards];
+    // if (filterSort !== "choosesortbynone") {
+    if (value === "ascending") {
+      sortedCards.sort(compareAscending);
+    } else if (value === "descending") {
+      sortedCards.sort(compareDescending);
+    }
+
+    if (!areArraysEqual(props.cards, sortedCards)) {
+      props.setCards(sortedCards);
+    }
+  }, [value, props.cards, filterSort]);
+  function areArraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+
+    return true;
+  }
+
+  useEffect(() => {
+    // Perform initial sorting when the component loads
+    let sortedCards = [...props.cards];
+    // if (filterSort !== "choosesortbynone") {
+    if (value === "ascending") {
+      sortedCards.sort(compareAscending);
+    } else if (value === "descending") {
+      sortedCards.sort(compareDescending);
+    }
+
+    props.setCards([...sortedCards]);
+    // }
+    // else {
+    //   props.setCards([...sortedCards]);
+    // }
+  }, []);
+
   return (
     <div className="middle-sidebar">
       <div
@@ -505,8 +663,8 @@ const MiddleNavbar = (props) => {
           <Box
             display={"flex"}
             alignItems={"center"}
-            justifyContent={"space-around"}
-            sx={{ my: 1 }}
+            justifyContent={"space-between"}
+            sx={{ my: 1, px: 2 }}
           >
             <span className="middle-navbar-heading">
               {props.activeTab === "Pending"
@@ -515,31 +673,299 @@ const MiddleNavbar = (props) => {
                 ? "Approved"
                 : "Rejected"}
             </span>
-            <FormControl sx={{ width: 110 }} size="small">
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={type}
-                autoWidth
-                onChange={(e) => setType(e.target.value)}
-              >
-                <MenuItem value={"All"}>All</MenuItem>
-                <MenuItem value={"PO"}>Purchase Order</MenuItem>
-                <MenuItem value={"PL"}>Leave Request</MenuItem>
-                <MenuItem value={"PR"}>Purchase Requisition</MenuItem>
-                <MenuItem value={"IN"}>Invoice</MenuItem>
-                <MenuItem value={"TCK"}>Ticket</MenuItem>
-              </Select>
-            </FormControl>
+            <IconButton size="small" onClick={handleClick3} color="primary">
+              <FiFilter />
+            </IconButton>
+
+            <Menu
+              id="msgs-menu"
+              anchorEl={anchorEl3}
+              keepMounted
+              open={Boolean(anchorEl3)}
+              onClose={handleClose3}
+              anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+              transformOrigin={{ horizontal: "left", vertical: "top" }}
+              sx={{
+                "& .MuiMenu-paper": {
+                  width: "250px",
+                  right: 0,
+                  top: "70px ",
+                },
+                "& .MuiList-padding": {
+                  p: "15px",
+                },
+              }}
+            >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <FormControl sx={{ borderBottom: "1px solid black", pb: 1 }}>
+                  <FormLabel
+                    id="demo-radio-buttons-group-label"
+                    sx={{ p: 0, m: 0 }}
+                  >
+                    Filter
+                  </FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    name="radio-buttons-group"
+                    value={choose}
+                    onChange={(e) => setChoose(e.target.value)}
+                  >
+                    <FormControlLabel
+                      value="chooseid"
+                      control={<Radio />}
+                      label="ID"
+                    />
+                    <FormControlLabel
+                      value="choosetype"
+                      control={<Radio />}
+                      label="Type"
+                    />
+                    <FormControlLabel
+                      value="choosedate"
+                      control={<Radio />}
+                      label="Date"
+                    />
+                    <FormControlLabel
+                      value="choosename"
+                      control={<Radio />}
+                      label="Created By"
+                    />
+                    <FormControlLabel
+                      value="none"
+                      control={<Radio />}
+                      label="None"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                <FormControl sx={{ borderBottom: "1px solid black", pb: 1 }}>
+                  <FormLabel
+                    id="demo-radio-buttons-group-label"
+                    sx={{ my: 1, mx: 0 }}
+                  >
+                    Sort
+                  </FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    name="radio-buttons-group"
+                    value={filterSort}
+                    onChange={(e) => setFilterSort(e.target.value)}
+                  >
+                    <FormControlLabel
+                      value="choosesortbyname"
+                      control={<Radio />}
+                      label="ID"
+                    />
+                    <FormControlLabel
+                      value="choosesortcreatedby"
+                      control={<Radio />}
+                      label="Created By"
+                    />
+                    <FormControlLabel
+                      value="choosesortbydate"
+                      control={<Radio />}
+                      label="Date"
+                    />
+                    <FormControlLabel
+                      value="chsoosesortbynone"
+                      control={<Radio />}
+                      label="None"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+              {filterSort !== "chsoosesortbynone" &&
+                (filterSort === "choosesortbyname" ||
+                filterSort === "choosesortbydate" ||
+                filterSort === "choosesortcreatedby" ? (
+                  <Box display="flex" flexDirection={"column"}>
+                    <FormLabel sx={{ py: 1, m: 0 }}>
+                      Sort By{" "}
+                      {filterSort === "choosesortbyname"
+                        ? "Name"
+                        : filterSort === "choosesortbydate"
+                        ? "Date"
+                        : filterSort === "choosesortcreatedby"
+                        ? "Created By"
+                        : ""}
+                      :
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value}
+                        onChange={handleChange}
+                      >
+                        <FormControlLabel
+                          value="ascending"
+                          control={<Radio />}
+                          label="Ascending"
+                        />
+                        <FormControlLabel
+                          value="descending"
+                          control={<Radio />}
+                          label="Descending"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
+                ) : (
+                  ""
+                ))}
+
+              {/* <FormLabel sx={{ py: 1, m: 0 }}>Choose Type:</FormLabel>
+              <FormControl sx={{ width: "100%" }} size="small">
+                <Select
+                  labelId="demo-select-small-label"
+                  id="demo-select-small"
+                  value={type}
+                  autoWidth
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <MenuItem value={"All"}>All</MenuItem>
+                  <MenuItem value={"PO"}>Purchase Order</MenuItem>
+                  <MenuItem value={"PL"}>Leave Request</MenuItem>
+                  <MenuItem value={"PR"}>Purchase Requisition</MenuItem>
+                  <MenuItem value={"IN"}>Invoice</MenuItem>
+                  <MenuItem value={"TCK"}>Ticket</MenuItem>
+                </Select>
+              </FormControl>
+              <Box display="flex" flexDirection={"column"}>
+                <FormLabel sx={{ py: 1, m: 0 }}>Sort By:</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={value}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="ascending"
+                      control={<Radio />}
+                      label="Ascending"
+                    />
+                    <FormControlLabel
+                      value="descending"
+                      control={<Radio />}
+                      label="Descending"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box> */}
+            </Menu>
           </Box>
 
-          <input
+          {choose === "choosetype" ? (
+            <Box sx={{ px: 2 }}>
+              <Autocomplete
+                value={type}
+                onChange={(event, newValue) => {
+                  setType(newValue);
+                }}
+                id="controllable-states-demo"
+                options={[
+                  "All",
+                  "Purchase Order",
+                  "Leave Request",
+                  "Purchase Requisition",
+                  "Invoice",
+                  "Ticket",
+                ]}
+                sx={{ width: "100%" }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    size="small"
+                    placeholder="Choose Type"
+                    sx={{ width: "100%" }}
+                  />
+                )}
+              />
+            </Box>
+          ) : choose === "chooseid" ? (
+            <Box sx={{ px: 2 }}>
+              <TextField
+                className="search-input"
+                type="text"
+                size="small"
+                sx={{ width: "100%", my: 1 }}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search here..."
+              />
+            </Box>
+          ) : choose === "choosedate" ? (
+            <Box sx={{ px: 2 }}>
+              <TextField
+                className="search-input"
+                size="small"
+                type="date"
+                sx={{ width: "100%", my: 1 }}
+                value={filterDate}
+                onChange={(e) => setFilterDate(e.target.value)}
+                placeholder="Search by date"
+              />
+            </Box>
+          ) : choose === "choosename" ? (
+            <Box sx={{ px: 2 }}>
+              <Autocomplete
+                value={filterUser}
+                onChange={(event, newValue) => {
+                  setFilterUser(newValue);
+                }}
+                id="controllable-states-demo"
+                options={["All", "ABAPER", "ABAPER1", "GIRISH"]}
+                sx={{ width: "100%" }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    size="small"
+                    placeholder="Choose User"
+                    sx={{ width: "100%" }}
+                  />
+                )}
+              />
+            </Box>
+          ) : choose === "choosesort" ? (
+            <Box
+              display="flex"
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <FormLabel sx={{ py: 1, m: 0 }}>Sort By:</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="ascending"
+                    control={<Radio />}
+                    label="Ascending"
+                  />
+                  <FormControlLabel
+                    value="descending"
+                    control={<Radio />}
+                    label="Descending"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Box>
+          ) : (
+            ""
+          )}
+
+          {/* <input
             className="search-input"
             style={{ outline: "none" }}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search here..."
-          />
+          /> */}
           <div className="middle-navbar-filter-container"></div>
           {props.cards.length === 0 ? (
             <div
@@ -560,9 +986,31 @@ const MiddleNavbar = (props) => {
             </div>
           ) : (
             <NotificationItem
-              cardItems={props.cards.filter(
-                (e) => e.value.includes(type) || type === "All"
-              )}
+              cardItems={
+                choose === "none" || choose === "chooseid"
+                  ? props.cards
+                  : props.cards.filter((e) =>
+                      choose === "choosetype"
+                        ? e.value.includes(
+                            type === "Purchase Order"
+                              ? "PO"
+                              : type === "Leave Request"
+                              ? "PL"
+                              : type === "Purchase Requisition"
+                              ? "PR"
+                              : type === "Invoice"
+                              ? "IN"
+                              : type === "Ticket"
+                              ? "TCK"
+                              : ""
+                          ) || type === "All"
+                        : choose === "choosedate"
+                        ? e.date.includes(filterDate)
+                        : choose === "choosename"
+                        ? e.createdBy === filterUser || filterUser === "All"
+                        : ""
+                    )
+              }
               updateIt={props.updateValues}
               tab={props.activeTab}
               setCurrentContent={props.setCurrentContent}

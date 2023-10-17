@@ -41,6 +41,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import Counter from "./Counter/Counter";
 
 const Dashboard = () => {
   const overallStats = [
@@ -59,21 +60,21 @@ const Dashboard = () => {
       bgColor: "#FCEAFF",
     },
     {
-      total: "7239",
+      total: "30",
       name: "Leave Request",
       icon: <BsCalendarEvent />,
       foreColor: "#FFA74E",
       bgColor: "#FFEEDB",
     },
     {
-      total: "5239",
+      total: "40",
       name: "PR Request",
       icon: <BsFileEarmarkMedical />,
       foreColor: "#58D365",
       bgColor: "#EBffED",
     },
     {
-      total: "5239",
+      total: "100",
       name: "Invoice",
       icon: <AiFillFileAdd />,
       foreColor: "#291BF8",
@@ -122,7 +123,7 @@ const Dashboard = () => {
       width: "100%",
       stackType: "100%",
     },
-    colors: ["#3D5AF1", "#95A6FF"],
+    colors: ["#3D5AF1", "#E4E4FF"],
     responsive: [
       {
         breakpoint: 480,
@@ -155,6 +156,7 @@ const Dashboard = () => {
         horizontal: false,
         columnWidth: "35%",
         endingShape: "rounded",
+        borderRadius: 10,
       },
     },
     grid: {
@@ -342,7 +344,8 @@ const Dashboard = () => {
                       justifyContent={"center"}
                       sx={{ mt: 1 }}
                     >
-                      <Typography
+                      <Counter targetNumber={Number(row.total)} />
+                      {/* <Typography
                         sx={{
                           fontWeight: 500,
                           fontSize: "1.3125rem",
@@ -350,7 +353,7 @@ const Dashboard = () => {
                         }}
                       >
                         {row.total}
-                      </Typography>
+                      </Typography> */}
                     </Box>
                     <Box
                       display="flex"
@@ -428,15 +431,7 @@ const Dashboard = () => {
                       </IconButton>
                     </Box>
                     <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: "1.3125rem",
-                          lineHeight: "1.5",
-                        }}
-                      >
-                        {row.total}
-                      </Typography>
+                      <Counter targetNumber={Number(row.total)} />
                     </Box>
                     <Box display="flex" alignItems="center">
                       <Typography

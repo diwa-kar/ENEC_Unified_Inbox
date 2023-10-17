@@ -4,6 +4,7 @@ import Leave from "./Leave.png";
 import PR from "./PR.png";
 import PO from "./online-shop.png";
 import Invoice from "./invoice.png";
+import { Box, Chip } from "@mui/material";
 
 const NotificationItem = (props) => {
   useEffect(() => {
@@ -103,6 +104,8 @@ const NotificationItem = (props) => {
               }`}
             >
               <img
+                height={"45px"}
+                width={"45px"}
                 src={
                   card.type === "pending pr" ||
                   card.type === "approved pr" ||
@@ -131,6 +134,7 @@ const NotificationItem = (props) => {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                width: "100%",
               }}
             >
               <div
@@ -148,7 +152,39 @@ const NotificationItem = (props) => {
                   <span style={{ fontWeight: "bold" }}>{card.value}</span>
                 )}
               </div>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  // px: 1,
+                }}
+              >
+                <span
+                  class="notification-description"
+                  style={{ fontWeight: "bold" }}
+                >
+                  {card.createdBy}
+                </span>
+                <Chip
+                  sx={{
+                    backgroundColor: "#D4EFFE",
+                    color: "#00A4FF",
+                    borderRadius: "6px",
+                    mx: 1,
+                    pl: "3px",
+                    pr: "3px",
+                    width: "fit-content",
+                  }}
+                  size="small"
+                  label={card.date}
+                />
+              </Box>
+
               <span class="notification-description">{card.description}</span>
+              {/* <span class="notification-description">{card.date}</span> */}
+
               {/* {card.type ? (
                 <span
                   style={{
