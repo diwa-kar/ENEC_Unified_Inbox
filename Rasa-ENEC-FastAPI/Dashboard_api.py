@@ -64,7 +64,7 @@ def ENEC_IT_request_count_api():
 
     return ticket_count
 
-def ENEC_Total_PR_req_count_api(username):
+def ENEC_Pending_PR_req_count_api(username):
 
     # db = client["ENEC_RasaChatbot"]
     # collection = db["Approved_PR"]
@@ -103,7 +103,7 @@ def ENEC_Total_PR_req_count_api(username):
     return Pending_pr_count
 
 
-def ENEC_Total_PO_count_api(username):
+def ENEC_Pending_PO_count_api(username):
      
     url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
 
@@ -119,7 +119,7 @@ def ENEC_Total_PO_count_api(username):
      
     return pending_po_count
 
-def ENEC_Total_Invoice_count_api(username):
+def ENEC_Pending_Invoice_count_api(username):
      
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
 
@@ -137,7 +137,7 @@ def ENEC_Total_Invoice_count_api(username):
     return Pending_Invoice_count
 
 
-def ENEC_Total_PL_count_api():
+def ENEC_Pending_PL_count_api():
      
          # db = client["QPMC_RasaChatbot"]
     # collection = db["Approved_Leave"]
@@ -299,3 +299,83 @@ def ENEC_Approved_Leave_count_api():
     print(Approved_leave_count)
 
     return Approved_leave_count
+
+
+
+
+
+
+
+
+def ENEC_Rejected_PR_count_api(username):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_PR"]
+    a=collection.find()
+
+    rejected_pr_list = []
+
+    for i in a:
+        if username == i["username"]:
+            rejected_pr_list.append(i['Purchase Requisition Number'])
+    
+    rejected_pr_count = len(rejected_pr_list)
+
+    return rejected_pr_count
+
+
+def ENEC_Rejected_PO_count_api(username):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_PO"]
+    a=collection.find()
+
+    rejected_po_list = []
+
+    for i in a:
+        if username == i["username"]:
+            rejected_po_list.append(i['Purchase Order Number'])
+
+    rejected_po_count = len(rejected_po_list)
+
+    
+    return rejected_po_count
+
+
+def ENEC_Rejected_Invoice_count_api(username):
+
+    
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_INVOICE"]
+    a=collection.find()
+
+    rejected_invoice_list = []
+
+    for i in a:
+        if username == i["username"]:
+            rejected_invoice_list.append(i['Invoice number'])
+
+    print(rejected_invoice_list)
+
+    rejected_invoice_count = len(rejected_invoice_list)
+
+
+    return rejected_invoice_count
+
+
+def ENEC_Rejected_Leave_req_api():
+
+    db = client["QPMC_RasaChatbot"]
+    collection = db["Rejected_Leave"]
+    a=collection.find()
+
+    rejected_leave_list=[]
+
+
+    for i in a:
+        rejected_leave_list.append(i['Leave Id'])
+
+    rejected_leave_req_count = len(rejected_leave_list)
+    
+
+    return rejected_leave_req_count

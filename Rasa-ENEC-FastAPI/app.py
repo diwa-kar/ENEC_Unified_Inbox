@@ -34,7 +34,7 @@ import datetime
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Total_PR_req_count_api, ENEC_Total_PO_count_api, ENEC_Total_Invoice_count_api, ENEC_Total_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api
 
 
 # username = 'KAAR'
@@ -222,6 +222,26 @@ class ENEC_Approved_INVOICE_count(BaseModel):
     username: str
 
 class ENEC_Total_Approved_count(BaseModel):
+    username: str
+
+
+
+class ENEC_Rejected_PR_count(BaseModel):
+    username: str
+
+class ENEC_Rejected_PO_count(BaseModel):
+    username: str
+
+class ENEC_Rejected_Invoice_count(BaseModel):
+    username: str
+
+class ENEC_Total_Rejected_count(BaseModel):
+    username: str
+
+
+
+
+class Bar_chart_opened_closed_req(BaseModel):
     username: str
 
 
@@ -1344,13 +1364,13 @@ async def ENEC_rejected_pr_list_mongo(data : ENEC_rejected_pr_list_mongo):
     collection = db["Rejected_PR"]
     a=collection.find()
 
-    approved_pr_list = []
+    rejected_pr_list = []
 
     for i in a:
         if data.username == i["username"]:
-            approved_pr_list.append(i['Purchase Requisition Number'])
+            rejected_pr_list.append(i['Purchase Requisition Number'])
 
-    return approved_pr_list
+    return rejected_pr_list
 
 @app.post('/ENEC_rejected_po_list_mongo')
 async def ENEC_rejected_po_list_mongo(data : ENEC_rejected_po_list_mongo):
@@ -1359,13 +1379,13 @@ async def ENEC_rejected_po_list_mongo(data : ENEC_rejected_po_list_mongo):
     collection = db["Rejected_PO"]
     a=collection.find()
 
-    approved_po_list = []
+    rejected_po_list = []
 
     for i in a:
         if data.username == i["username"]:
-            approved_po_list.append(i['Purchase Order Number'])
+            rejected_po_list.append(i['Purchase Order Number'])
 
-    return approved_po_list
+    return rejected_po_list
 
 
 @app.get('/qpmc_rejected_leave_list_mongo')
@@ -1813,7 +1833,7 @@ async def ENEC_IT_request_count():
 @app.post('/ENEC_Total_PR_req_count')
 async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
 
-    Pending_pr_count  = ENEC_Total_PR_req_count_api(data.username)
+    Pending_pr_count  = ENEC_Pending_PR_req_count_api(data.username)
 
     return Pending_pr_count
 
@@ -1821,14 +1841,14 @@ async def ENEC_Total_PR_req_count(data:ENEC_Total_PR_req_count):
 @app.post('/ENEC_Total_PO_count')
 async def ENEC_Total_PO_count(data:ENEC_Total_PO_count):
 
-    pending_po_count = ENEC_Total_PO_count_api(data.username)
+    pending_po_count = ENEC_Pending_PO_count_api(data.username)
 
     return pending_po_count
 
 @app.post('/ENEC_Total_Invoice_count')
 async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
 
-    Pending_Invoice_count = ENEC_Total_Invoice_count_api(data.username)
+    Pending_Invoice_count = ENEC_Pending_Invoice_count_api(data.username)
 
     return Pending_Invoice_count
 
@@ -1837,7 +1857,7 @@ async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
 @app.get('/ENEC_Total_PL_count')
 async def ENEC_Total_PL_count():
 
-    Pending_leave_count = ENEC_Total_PL_count_api()
+    Pending_leave_count = ENEC_Pending_PL_count_api()
 
     return Pending_leave_count
 
@@ -1845,7 +1865,7 @@ async def ENEC_Total_PL_count():
 @app.post('/ENEC_Total_pending_req')
 async def ENEC_Total_pending_req(data:ENEC_Total_pending_req):
 
-    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Total_PL_count_api() + ENEC_Total_PR_req_count_api(data.username) + ENEC_Total_PO_count_api(data.username) + ENEC_Total_Invoice_count_api(data.username)
+    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Pending_PL_count_api() + ENEC_Pending_PR_req_count_api(data.username) + ENEC_Pending_PO_count_api(data.username) + ENEC_Pending_Invoice_count_api(data.username)
 
     return Total_pending_req
 
@@ -1897,6 +1917,115 @@ async def ENEC_Total_Approved_count(data:ENEC_Total_Approved_count):
 
 
 
+
+
+
+
+
+
+
+
+
+@app.post('/ENEC_Rejected_PR_count')
+async def ENEC_Rejected_PR_count(data:ENEC_Rejected_PR_count):
+
+    rejected_pr_count = ENEC_Rejected_PR_count_api(data.username)
+
+    return rejected_pr_count
+
+
+
+@app.post('/ENEC_Rejected_PO_count')
+async def ENEC_Rejected_PO_count(data:ENEC_Rejected_PO_count):
+
+    rejected_po_count = ENEC_Rejected_PO_count_api(data.username)
+
+    return rejected_po_count
+
+@app.post('/ENEC_Rejected_Invoice_count')
+async def ENEC_Rejected_Invoice_count(data:ENEC_Rejected_Invoice_count):
+
+    rejected_invoice_count = ENEC_Rejected_Invoice_count_api(data.username)
+
+    return rejected_invoice_count
+
+
+@app.post('/ENEC_Rejected_Leave_req')
+async def ENEC_Rejected_Leave_req():
+
+    ENEC_Rejected_Leave_req_count = ENEC_Rejected_Leave_req_api()
+
+    return ENEC_Rejected_Leave_req_count
+
+
+@app.post('/ENEC_Total_Rejected_count')
+async def ENEC_Total_Rejected_count(data:ENEC_Total_Rejected_count):
+
+    Total_Rejected_count = ENEC_Rejected_PR_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username) + ENEC_Rejected_Invoice_count_api(data.username) + ENEC_Rejected_Leave_req_api()
+
+    return Total_Rejected_count
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.post('/Bar_chart_opened_closed_req')
+async def Bar_chart_opened_closed_req(data:Bar_chart_opened_closed_req):
+
+    Opened_requests = []
+    Closed_requests = []
+
+    # PR opened and closed
+
+    Opened_requests_pr = ENEC_Pending_PR_req_count_api(data.username)
+    Opened_requests.append(Opened_requests_pr)
+
+    Closed_requests_pr = ENEC_Approved_PR_count_api(data.username) + ENEC_Rejected_PR_count_api(data.username)
+    Closed_requests.append(Closed_requests_pr)
+
+
+    # PO opened and closed
+
+    Opened_requests_po = ENEC_Pending_PO_count_api(data.username)
+    Opened_requests.append(Opened_requests_po)
+
+    Closed_requests_po = ENEC_Approved_PO_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username)
+    Closed_requests.append(Closed_requests_po)
+
+    
+    # Invoice opened and closed
+
+    Opened_requests_invoice = ENEC_Pending_Invoice_count_api(data.username)
+    Opened_requests.append(Opened_requests_invoice)
+
+    Closed_requests_invoice = ENEC_Approved_INVOICE_count_api(data) + ENEC_Rejected_Invoice_count_api(data.username)
+    Closed_requests.append(Closed_requests_invoice)
+
+
+    # leave req Opened and closed
+
+    Opened_requests_leave = ENEC_Pending_PL_count_api()
+    Opened_requests.append(Opened_requests_leave)
+
+    Closed_requests_leave = ENEC_Approved_Leave_count_api() + ENEC_Rejected_Leave_req_api()
+    Closed_requests.append(Closed_requests_leave)
+
+
+    Bar_chart_data = {
+        "Opened_requests":Opened_requests,
+        "Closed_requests":Closed_requests
+    }
+
+
+    return Bar_chart_data
 
 
 
