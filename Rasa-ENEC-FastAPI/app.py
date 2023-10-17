@@ -245,7 +245,26 @@ class Bar_chart_opened_closed_req(BaseModel):
     username: str
 
 
+
+class Donut_chart_opened_closed_req(BaseModel):
+    username: str
+
+
 # ************************************* Dashbodard Class ******************************************************************
+
+
+
+
+
+#************************************** combined dashboard api ***********************************************************
+
+class Dashboard_combined_api(BaseModel):
+    username: str
+
+
+#************************************** combined dashboard api ***********************************************************
+
+
 
 
 
@@ -2033,12 +2052,198 @@ async def Bar_chart_opened_closed_req(data:Bar_chart_opened_closed_req):
 
 
 
+@app.post('/Donut_chart_req')
+def Donut_chart_opened_closed_req(data:Donut_chart_opened_closed_req):
+
+    # pending pr count
+    Donut_pending_pr_count = ENEC_Pending_PR_req_count_api(data.username)
+
+    # pending po count 
+    Donut_pending_po_count = ENEC_Pending_PO_count_api(data.username)
+
+    # pending Invoice count
+    Donut_pending_invoice_count = ENEC_Pending_Invoice_count_api(data.username)
+
+    # pending Leave count
+    Donut_pending_leave_count = ENEC_Pending_PL_count_api()
+    
+
+    Donut_data = {
+        "Donut_pending_pr_count":Donut_pending_pr_count,
+        "Donut_pending_po_count":Donut_pending_po_count,
+        "Donut_pending_invoice_count":Donut_pending_invoice_count,
+        "Donut_pending_leave_count":Donut_pending_leave_count
+    }
+
+
+    return Donut_data
+
+
+
+
+
+
+
 
 
 
 
 # ********************************************************** Dashboard API **********************************************************
 
+
+
+
+#*********************************************************** Dashboard Combined API **********************************************************
+
+
+@app.post('/Dashboard_combined_api')
+def Dashboard_combined_api(data:Dashboard_combined_api):
+
+    # Total ticket count
+    ticket_count = ENEC_IT_request_count_api()
+
+    # Total Pending pr count
+    Pending_pr_count  = ENEC_Pending_PR_req_count_api(data.username)
+
+    # Total Pending po count 
+    pending_po_count = ENEC_Pending_PO_count_api(data.username)
+
+    # Total Pending invoice count 
+    Pending_Invoice_count = ENEC_Pending_Invoice_count_api(data.username)
+
+    # Total Pending Leave req count
+    Pending_leave_count = ENEC_Pending_PL_count_api()
+
+    # Combined all req count 
+    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Pending_PL_count_api() + ENEC_Pending_PR_req_count_api(data.username) + ENEC_Pending_PO_count_api(data.username) + ENEC_Pending_Invoice_count_api(data.username)
+
+
+
+
+
+    # Total Approved req count
+    Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api()
+
+    # Total Rejected req count
+    Total_Rejected_count = ENEC_Rejected_PR_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username) + ENEC_Rejected_Invoice_count_api(data.username) + ENEC_Rejected_Leave_req_api()
+
+
+
+
+
+
+    # *********************************************************** BAR CHART ****************************************************************
+
+    Opened_requests = []
+    Closed_requests = []
+
+    # PR opened and closed
+
+    Opened_requests_pr = ENEC_Pending_PR_req_count_api(data.username)
+    Opened_requests.append(Opened_requests_pr)
+
+    Closed_requests_pr = ENEC_Approved_PR_count_api(data.username) + ENEC_Rejected_PR_count_api(data.username)
+    Closed_requests.append(Closed_requests_pr)
+
+
+    # PO opened and closed
+
+    Opened_requests_po = ENEC_Pending_PO_count_api(data.username)
+    Opened_requests.append(Opened_requests_po)
+
+    Closed_requests_po = ENEC_Approved_PO_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username)
+    Closed_requests.append(Closed_requests_po)
+
+    
+    # Invoice opened and closed
+
+    Opened_requests_invoice = ENEC_Pending_Invoice_count_api(data.username)
+    Opened_requests.append(Opened_requests_invoice)
+
+    Closed_requests_invoice = ENEC_Approved_INVOICE_count_api(data) + ENEC_Rejected_Invoice_count_api(data.username)
+    Closed_requests.append(Closed_requests_invoice)
+
+
+    # leave req Opened and closed
+
+    Opened_requests_leave = ENEC_Pending_PL_count_api()
+    Opened_requests.append(Opened_requests_leave)
+
+    Closed_requests_leave = ENEC_Approved_Leave_count_api() + ENEC_Rejected_Leave_req_api()
+    Closed_requests.append(Closed_requests_leave)
+
+
+    Bar_chart_data = {
+        "Opened_requests":Opened_requests,
+        "Closed_requests":Closed_requests
+    }
+
+    # *********************************************************** BAR CHART ****************************************************************
+
+    # *********************************************************** DONUT CHART **************************************************************
+
+    # pending pr count
+    Donut_pending_pr_count = ENEC_Pending_PR_req_count_api(data.username)
+
+    # pending po count 
+    Donut_pending_po_count = ENEC_Pending_PO_count_api(data.username)
+
+    # pending Invoice count
+    Donut_pending_invoice_count = ENEC_Pending_Invoice_count_api(data.username)
+
+    # pending Leave count
+    Donut_pending_leave_count = ENEC_Pending_PL_count_api()
+    
+
+    Donut_data = {
+        "Donut_pending_pr_count":Donut_pending_pr_count,
+        "Donut_pending_po_count":Donut_pending_po_count,
+        "Donut_pending_invoice_count":Donut_pending_invoice_count,
+        "Donut_pending_leave_count":Donut_pending_leave_count
+    }
+
+
+
+    # *********************************************************** DONUT CHART **************************************************************
+
+
+
+
+    Dashboard_data = {
+
+        "ticket_count":ticket_count,
+        "Pending_pr_count":Pending_pr_count,
+        "pending_po_count":pending_po_count,
+        "Pending_Invoice_count":Pending_Invoice_count,
+        "Pending_leave_count": Pending_leave_count,
+
+
+        "Total_pending_req": Total_pending_req,
+
+
+        "Total_approved_count": Total_approved_count,
+        "Total_Rejected_count": Total_Rejected_count,
+
+
+        "Bar_chart_data": Bar_chart_data,
+
+    
+        "Donut_chart_data": Donut_data
+
+
+
+
+    }
+
+
+
+    return Dashboard_data
+
+
+
+
+
+#*********************************************************** Dashboard Combined API **********************************************************
 
 
 
