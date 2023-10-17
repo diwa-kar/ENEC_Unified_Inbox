@@ -14,7 +14,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiFillCheckCircle,
   AiFillFileAdd,
@@ -44,37 +44,80 @@ import { Pagination, Navigation } from "swiper/modules";
 import Counter from "./Counter/Counter";
 
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState({});
+  const [loader, setLoader] = useState(false);
+
+  const makeApiCall = async (username) => {
+    try {
+      setLoader(true);
+      const response = await fetch(
+        "http://localhost:8000/Dashboard_combined_api",
+        {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: JSON.parse(username).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+
+      const data = await response.json();
+      await setDashboardData(data);
+      console.log("Dashboard Stats", data);
+      setLoader(false);
+    } catch (error) {
+      console.log(error);
+      setLoader(false);
+    }
+  };
+  useEffect(() => {
+    const emailData = sessionStorage?.getItem("email");
+    console.log(emailData);
+    if (emailData) {
+      makeApiCall(emailData);
+    }
+  }, []);
   const overallStats = [
     {
-      total: "100",
+      total: dashboardData?.Total_pending_req,
       name: "Total Request",
       icon: <LuMailPlus />,
       foreColor: "#4899FF",
       bgColor: "#E8F1FD",
     },
     {
-      total: "523",
+      total: dashboardData?.ticket_count,
       name: "IT Request",
       icon: <MdDisplaySettings />,
       foreColor: "#291BF8",
       bgColor: "#FCEAFF",
     },
     {
-      total: "30",
+      total: dashboardData?.Pending_leave_count,
       name: "Leave Request",
       icon: <BsCalendarEvent />,
       foreColor: "#FFA74E",
       bgColor: "#FFEEDB",
     },
     {
-      total: "40",
+      total: dashboardData?.Pending_pr_count,
       name: "PR Request",
       icon: <BsFileEarmarkMedical />,
       foreColor: "#58D365",
       bgColor: "#EBffED",
     },
     {
-      total: "100",
+      total: dashboardData?.pending_po_count,
+      name: "PO Request",
+      icon: <BsFileEarmarkMedical />,
+      foreColor: "#4899FF",
+      bgColor: "#E8F1FD",
+    },
+    {
+      total: dashboardData?.Pending_Invoice_count,
       name: "Invoice",
       icon: <AiFillFileAdd />,
       foreColor: "#291BF8",
@@ -83,36 +126,35 @@ const Dashboard = () => {
   ];
   const overallStats1 = [
     {
-      total: "100",
+      total: dashboardData?.Total_approved_count,
       name: "Approved",
       icon: <AiFillCheckCircle />,
       foreColor: "#17c964",
       bgColor: "#D4FEE7",
     },
     {
-      total: "523",
+      total: dashboardData?.Total_Rejected_count,
       name: "Rejected",
       icon: <BsFillXCircleFill />,
       foreColor: "#FF0000",
       bgColor: "#FED6D4",
-    },
-    {
-      total: "7239",
-      name: "Pending",
-      icon: <LuFileClock />,
-      foreColor: "#DBA362",
-      bgColor: "#FFEEDB",
     },
   ];
 
   const chartSeries = [
     {
       name: "Opened Requests",
-      data: [44, 55, 41, 67, 22, 43, 21, 49],
+      data:
+        dashboardData?.Bar_chart_data?.Opened_requests.length === 0
+          ? []
+          : dashboardData?.Bar_chart_data?.Opened_requests,
     },
     {
       name: "Closed Requests",
-      data: [13, 23, 20, 8, 13, 27, 33, 12],
+      data:
+        dashboardData?.Bar_chart_data?.Closed_requests.length === 0
+          ? []
+          : dashboardData?.Bar_chart_data?.Closed_requests,
     },
   ];
   const chartOptions = {
@@ -123,7 +165,7 @@ const Dashboard = () => {
       width: "100%",
       stackType: "100%",
     },
-    colors: ["#3D5AF1", "#E4E4FF"],
+    colors: ["#3D5AF1", "#C5C5FF"],
     responsive: [
       {
         breakpoint: 480,
@@ -137,16 +179,7 @@ const Dashboard = () => {
       },
     ],
     xaxis: {
-      categories: [
-        "2011 Q1",
-        "2011 Q2",
-        "2011 Q3",
-        "2011 Q4",
-        "2012 Q1",
-        "2012 Q2",
-        "2012 Q3",
-        "2012 Q4",
-      ],
+      categories: ["Invoice", "PO", "PR", "Ticket"],
     },
     fill: {
       opacity: 1,
@@ -167,7 +200,10 @@ const Dashboard = () => {
       offsetX: 0,
     },
     dataLabels: {
-      enabled: false, // Set this to false to hide data labels
+      enabled: false,
+    },
+    markers: {
+      size: 0,
     },
   };
 
@@ -212,7 +248,9 @@ const Dashboard = () => {
     },
   };
 
-  const donutSeries = [44, 55, 41, 17, 15, 41, 17, 15];
+  const donutSeries = dashboardData?.Donut_chart_data
+    ? Object.values(dashboardData?.Donut_chart_data)
+    : [];
   const donutOption = {
     chart: {
       type: "donut",
@@ -221,10 +259,29 @@ const Dashboard = () => {
     dataLabels: {
       enabled: false,
     },
+    // legend: {
+    //   position: "bottom",
+    //   offsetX: 0,
+    // },
+    labels: [
+      "Purchase Requisition",
+      "Leave Request",
+      "Purchase Order",
+      "Invoice",
+    ],
     legend: {
+      show: true,
+      customLegendItems: [
+        "Purchase Requisition",
+        "Leave Request",
+        "Purchase Order",
+        "Invoice",
+      ],
       position: "bottom",
-      offsetX: 0,
+      verticalAlign: "bottom",
+      align: "center",
     },
+
     colors: [
       "#000075",
       "#0000A3",
@@ -275,7 +332,7 @@ const Dashboard = () => {
   ]);
   return (
     <Grid container spacing={0} sx={{ background: "#F2F7FE" }}>
-      <Grid item xs={12} sm={12} md={7}>
+      <Grid item xs={12} sm={12} md={8}>
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -344,7 +401,21 @@ const Dashboard = () => {
                       justifyContent={"center"}
                       sx={{ mt: 1 }}
                     >
-                      <Counter targetNumber={Number(row.total)} />
+                      {/* {loader ? (
+                        <Loading />
+                      ) : ( */}
+
+                      <Typography
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: "1.3125rem",
+                          lineHeight: "1.5",
+                        }}
+                      >
+                        {row.total ? row.total : 0}
+                      </Typography>
+
+                      {/* )} */}
                       {/* <Typography
                         sx={{
                           fontWeight: 500,
@@ -352,7 +423,7 @@ const Dashboard = () => {
                           lineHeight: "1.5",
                         }}
                       >
-                        {row.total}
+                        {row.total ? row.total : 0}
                       </Typography> */}
                     </Box>
                     <Box
@@ -380,7 +451,7 @@ const Dashboard = () => {
           {/* </Grid> */}
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={5}>
+      <Grid item xs={12} sm={12} md={4}>
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -403,7 +474,7 @@ const Dashboard = () => {
           <Grid container spacing={0}>
             {overallStats1.map((row, index) => {
               return (
-                <Grid item xs={12} lg={4} sm={6}>
+                <Grid item xs={12} lg={6} sm={6}>
                   <CardContent
                     sx={{
                       borderRight:
@@ -431,7 +502,15 @@ const Dashboard = () => {
                       </IconButton>
                     </Box>
                     <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
-                      <Counter targetNumber={Number(row.total)} />
+                      <Typography
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: "1.3125rem",
+                          lineHeight: "1.5",
+                        }}
+                      >
+                        {row.total ? row.total : 0}
+                      </Typography>
                     </Box>
                     <Box display="flex" alignItems="center">
                       <Typography
