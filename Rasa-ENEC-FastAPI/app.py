@@ -2115,17 +2115,32 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     Pending_leave_count = ENEC_Pending_PL_count_api()
 
     # Combined all req count 
-    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Pending_PL_count_api() + ENEC_Pending_PR_req_count_api(data.username) + ENEC_Pending_PO_count_api(data.username) + ENEC_Pending_Invoice_count_api(data.username)
+    Total_pending_req = ticket_count + Pending_leave_count + Pending_pr_count + pending_po_count + Pending_Invoice_count
 
+    
+    # Approved requests
+
+    Approved_pr_count = ENEC_Approved_PR_count_api(data.username)
+    Approved_po_count = ENEC_Approved_PO_count_api(data.username)
+    Approved_invoice_count = ENEC_Approved_INVOICE_count_api(data.username)
+    Approved_leave_count = ENEC_Approved_Leave_count_api()
+
+
+    # Rejected requests
+
+    Rejected_pr_count = ENEC_Rejected_PR_count_api(data.username)
+    Rejected_po_count = ENEC_Rejected_PO_count_api(data.username)
+    Rejected_invoice_count = ENEC_Rejected_Invoice_count_api(data.username)
+    Rejected_leave_count = ENEC_Rejected_Leave_req_api()
 
 
 
 
     # Total Approved req count
-    Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api()
+    Total_approved_count = Approved_pr_count + Approved_po_count + Approved_invoice_count + Approved_leave_count
 
     # Total Rejected req count
-    Total_Rejected_count = ENEC_Rejected_PR_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username) + ENEC_Rejected_Invoice_count_api(data.username) + ENEC_Rejected_Leave_req_api()
+    Total_Rejected_count = Rejected_pr_count + Rejected_po_count + Rejected_invoice_count + Rejected_leave_count
 
 
 
@@ -2139,37 +2154,37 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
 
     # PR opened and closed
 
-    Opened_requests_pr = ENEC_Pending_PR_req_count_api(data.username)
+    Opened_requests_pr = Pending_pr_count
     Opened_requests.append(Opened_requests_pr)
 
-    Closed_requests_pr = ENEC_Approved_PR_count_api(data.username) + ENEC_Rejected_PR_count_api(data.username)
+    Closed_requests_pr = Approved_pr_count + Rejected_pr_count
     Closed_requests.append(Closed_requests_pr)
 
 
     # PO opened and closed
 
-    Opened_requests_po = ENEC_Pending_PO_count_api(data.username)
+    Opened_requests_po = pending_po_count 
     Opened_requests.append(Opened_requests_po)
 
-    Closed_requests_po = ENEC_Approved_PO_count_api(data.username) + ENEC_Rejected_PO_count_api(data.username)
+    Closed_requests_po = Approved_po_count + Rejected_po_count
     Closed_requests.append(Closed_requests_po)
 
     
     # Invoice opened and closed
 
-    Opened_requests_invoice = ENEC_Pending_Invoice_count_api(data.username)
+    Opened_requests_invoice = Pending_Invoice_count
     Opened_requests.append(Opened_requests_invoice)
 
-    Closed_requests_invoice = ENEC_Approved_INVOICE_count_api(data) + ENEC_Rejected_Invoice_count_api(data.username)
+    Closed_requests_invoice = Approved_invoice_count + Rejected_invoice_count
     Closed_requests.append(Closed_requests_invoice)
 
 
     # leave req Opened and closed
 
-    Opened_requests_leave = ENEC_Pending_PL_count_api()
+    Opened_requests_leave = Pending_leave_count
     Opened_requests.append(Opened_requests_leave)
 
-    Closed_requests_leave = ENEC_Approved_Leave_count_api() + ENEC_Rejected_Leave_req_api()
+    Closed_requests_leave = Approved_leave_count + Rejected_leave_count
     Closed_requests.append(Closed_requests_leave)
 
 
@@ -2183,16 +2198,16 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     # *********************************************************** DONUT CHART **************************************************************
 
     # pending pr count
-    Donut_pending_pr_count = ENEC_Pending_PR_req_count_api(data.username)
+    Donut_pending_pr_count = Pending_pr_count
 
     # pending po count 
-    Donut_pending_po_count = ENEC_Pending_PO_count_api(data.username)
+    Donut_pending_po_count = pending_po_count 
 
     # pending Invoice count
-    Donut_pending_invoice_count = ENEC_Pending_Invoice_count_api(data.username)
+    Donut_pending_invoice_count = Pending_Invoice_count
 
     # pending Leave count
-    Donut_pending_leave_count = ENEC_Pending_PL_count_api()
+    Donut_pending_leave_count = Pending_leave_count
     
 
     Donut_data = {
@@ -2201,7 +2216,6 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
         "Donut_pending_invoice_count":Donut_pending_invoice_count,
         "Donut_pending_leave_count":Donut_pending_leave_count
     }
-
 
 
     # *********************************************************** DONUT CHART **************************************************************
@@ -2229,8 +2243,6 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
 
     
         "Donut_chart_data": Donut_data
-
-
 
 
     }
