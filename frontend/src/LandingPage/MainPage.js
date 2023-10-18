@@ -36,7 +36,7 @@ function MainPage(props) {
     setAnchorEl3(null);
   };
   const [selectedItem, setSelectedItem] = useState([]);
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const [activeTab, setActiveTab] = useState("Pending");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [displayShow, setDisplayShow] = useState(false);
   const [showTab, setShowtab] = useState(false);

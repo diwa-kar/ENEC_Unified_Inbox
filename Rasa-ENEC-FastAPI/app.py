@@ -34,7 +34,7 @@ import datetime
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list
 
 
 # username = 'KAAR'
@@ -260,6 +260,11 @@ class Donut_chart_opened_closed_req(BaseModel):
 
 class Dashboard_combined_api(BaseModel):
     username: str
+
+
+class ENEC_Recent_requests(BaseModel):
+    username: str
+
 
 
 #************************************** combined dashboard api ***********************************************************
@@ -2256,6 +2261,70 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
 
 
 #*********************************************************** Dashboard Combined API **********************************************************
+
+
+#********************************************************** Recent requests API ********************************************************************
+
+
+
+@app.post('/ENEC_Recent_requests')
+def ENEC_Recent_requests(data:ENEC_Recent_requests):
+
+
+    pendingpr = ENEC_Pending_PR_list(data.username)
+    pendingpo = ENEC_Pending_PO_list(data.username)
+    pendinginvoice = ENEC_Pending_invoice_list(data.username)
+
+
+
+    #  Pending pr 
+
+    recent_pr = pendingpr[-1]
+    print(recent_pr)
+
+    recent_req_dashboard = []
+
+    d = {"PR":recent_pr,"type":"PR"}
+    recent_req_dashboard.append(d)
+
+    
+    # Pending po
+
+
+    recent_po = pendingpo[-1]
+    print(recent_po)
+
+    d = {"PO":recent_po,"type":"PO"}
+    recent_req_dashboard.append(d)
+
+
+    # pending invoice
+
+    recent_inv = pendinginvoice[-1]
+    print(recent_inv)
+
+    d = {"IN":recent_inv,"type":"IN"}
+    recent_req_dashboard.append(d)
+
+
+
+    print(recent_req_dashboard)
+
+
+    return recent_req_dashboard
+
+
+
+#********************************************************** Recent requests API ********************************************************************
+
+
+
+   
+
+
+
+
+
 
 
 

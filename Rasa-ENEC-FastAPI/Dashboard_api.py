@@ -379,3 +379,52 @@ def ENEC_Rejected_Leave_req_api():
     
 
     return rejected_leave_req_count
+
+
+
+def ENEC_Pending_PR_list(username):
+    
+    
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZfmPrPending(username) 
+    listofobj = result[0]
+    pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
+
+    # print(pendingpr)
+    # print(pendingpr[-1])
+
+    return pendingpr
+
+
+def ENEC_Pending_PO_list(username):
+
+    url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZfmPoPending(username) 
+    listofobj = result[0]
+    pendingpo = ['PO '+str(i.Ebeln) for i in listofobj]
+
+    # print(pendingpo)
+    # print(pendingpo[-1])
+
+    return pendingpo
+
+
+def ENEC_Pending_invoice_list(username):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZFM_INV_PENDING(username) 
+    listofobj = result[0]
+    pendinginvoice = ['IN '+str(i.INVOICE) for i in listofobj]
+
+
+
+    return pendinginvoice
