@@ -922,7 +922,7 @@ const MiddleNavbar = (props) => {
                     {...params}
                     size="small"
                     placeholder="Choose User"
-                    sx={{ width: "100%" }}
+                    sx={{ width: "100%", border: "1px solid #00A885" }}
                   />
                 )}
               />
@@ -987,7 +987,8 @@ const MiddleNavbar = (props) => {
           ) : (
             <NotificationItem
               cardItems={
-                choose === "none" || choose === "chooseid"
+                // props.cards
+                choose === "none" && choose === "chooseid"
                   ? props.cards
                   : props.cards.filter((e) =>
                       choose === "choosetype"

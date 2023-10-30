@@ -190,12 +190,13 @@ const ChatBot = () => {
   };
   // Line Charts
   function displayDonut(values) {
+    console.log(values);
     const labels = [];
     const series = [];
 
     for (const [key, value] of Object.entries(values)) {
       labels.push(key);
-      series.push(value);
+      series.push(parseInt(value));
     }
 
     const ChartData = {
