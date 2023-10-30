@@ -2665,4 +2665,82 @@ class InvoiceRejectionENEC(Action):
         return []
 
 
+
 # ******************************************** invoice rejection *******************************************************************
+
+# ******************************************** Pending SES *******************************************************************
+
+
+class PendingSESENEC(Action):
+
+    def name(self) -> Text:
+        return "Pending_ses_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+            print("Inside PendingSES")
+
+            dispatcher.utter_message(text="Pending SES Working")
+
+            return []
+# ******************************************** Pending SES *******************************************************************
+
+
+# ******************************************** Pending SES info *******************************************************************
+
+class SESInfoENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_ses_info_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+            print("Inside SES Info")
+
+            dispatcher.utter_message(text="Pending SES Info Working")
+
+            return []
+
+# ******************************************** Pending SES info *******************************************************************
+
+# ******************************************** SES approve *******************************************************************
+
+
+class SESApprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_SES_approval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+            print("Inside SES Approve")
+
+            dispatcher.utter_message(text="Pending SES Approve Working")
+
+            return []
+
+# ******************************************** SES approve *******************************************************************
+
+# ******************************************** SES reject *******************************************************************
+
+class SESRejectENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_SES_reject_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+            print("Inside SES Reject")
+
+            dispatcher.utter_message(text="Pending SES Reject Working")
+
+            return []
+# ******************************************** SES reject *******************************************************************

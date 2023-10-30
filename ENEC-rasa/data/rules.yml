@@ -519,3 +519,40 @@ rules:
   - action: ENEC_PO_reject_action
 
 # *********************************************** reject po from digiverz demo system *********************
+
+# *********************************************** Pending SES List from digiverz demo system *********************
+
+- rule: pending SES List from digiverz demo system
+  steps:
+  - intent: Pending_ses_intent
+  - action: Pending_ses_action
+
+# *********************************************** Pending SES list from digiverz demo system *********************
+
+
+# *********************************************** Pending SES info from digiverz demo system *********************
+
+- rule: pending ses info from digiverz demo system
+  steps:
+  - intent: ENEC_pending_invoice_info
+  - action: ENEC_pending_ses_info_action
+
+# *********************************************** Pending SES info from digiverz demo system *********************
+
+# *********************************************** SES approve from digiverz demo system *********************
+
+- rule: ses approve from digiverz demo system
+  steps:
+  - intent: ENEC_INVOICE_approval_intent
+  - action: ENEC_SES_approval_action
+
+# *********************************************** SES approve from digiverz demo system *********************
+
+# *********************************************** SES reject from digiverz demo system *********************
+
+- rule: ses reject from digiverz demo system
+  steps:
+  - intent: ENEC_INVOICE_reject_intent
+  - action: ENEC_SES_reject_action
+
+# *********************************************** SES reject from digiverz demo system *********************
