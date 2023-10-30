@@ -56,6 +56,7 @@ const MiddleNavbar = (props) => {
     let uri2 = "";
     let uri3 = "";
     let uri4 = "";
+    let uri5 = "";
     let pending_prlist = [];
     let pending_polist = [];
     let pending_leave = [];
@@ -69,12 +70,14 @@ const MiddleNavbar = (props) => {
     let pending_invoice_list = [];
     let approved_invoice = [];
     let rejected_invoice = [];
+    let pending_ses_list = [];
     if (props.activeTab === "Pending") {
       uri = "pending_pr_list";
       uri1 = "qpmc_leave_reuqest_sf";
       uri2 = "IT_ticket_list";
       uri3 = "pending_po_list";
       uri4 = "Pending_invoice_list";
+      uri5 = "ENEC_Pending_SES_List";
 
       /* --------------------------(Pending PR List)----------------------------------------- */
       try {
@@ -235,12 +238,46 @@ const MiddleNavbar = (props) => {
         console.log(error.message);
       }
       /* --------------------------(Pending Invoice List)----------------------------------------- */
+
+      /* --------------------------(Pending SES List)----------------------------------------- */
+      try {
+        const response5 = await fetch(`http://localhost:8000/${uri5}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data5 = await response5.json();
+        console.log("pending_SES_list", data5);
+        let type5 = "pending SES";
+
+        pending_ses_list =
+          data5 &&
+          data5?.map((data, index) => {
+            return {
+              type: type5,
+              value: data?.ENTRYSHEET_NO,
+              description: "SES Request",
+              date: data.CREATED_ON,
+              createdBy: data.CREATED_BY,
+            };
+          });
+      } catch (error) {
+        console.log(error.message);
+      }
+      /* --------------------------(Pending SES List)----------------------------------------- */
+
       props.setCards([
         ...it_tickets,
         ...pending_prlist,
         ...pending_leave,
         ...pending_polist,
         ...pending_invoice_list,
+        ...pending_ses_list,
       ]);
       setOriginalList([
         ...it_tickets,
@@ -248,6 +285,7 @@ const MiddleNavbar = (props) => {
         ...pending_leave,
         ...pending_polist,
         ...pending_invoice_list,
+        ...pending_ses_list,
       ]);
 
       showTab.setShowtab(true);
@@ -922,7 +960,7 @@ const MiddleNavbar = (props) => {
                     {...params}
                     size="small"
                     placeholder="Choose User"
-                    sx={{ width: "100%" }}
+                    sx={{ width: "100%", border: "1px solid #00A885" }}
                   />
                 )}
               />
@@ -987,6 +1025,7 @@ const MiddleNavbar = (props) => {
           ) : (
             <NotificationItem
               cardItems={
+                // props.cards
                 choose === "none" || choose === "chooseid"
                   ? props.cards
                   : props.cards.filter((e) =>

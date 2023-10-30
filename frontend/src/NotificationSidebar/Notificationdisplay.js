@@ -51,6 +51,7 @@ const Notificationdisplay = ({
   const [leaveDetail, setLeaveDetail] = useState([]);
   const [ticketdetail, setTicketdetail] = useState([]);
   const [invoicedetail, setInvoicedetail] = useState([]);
+  const [sesdetail, setSesDetail] = useState([]);
   const [leavetype, setLeavetype] = useState("");
   const [leaveduration, setLeaveduration] = useState("");
   const [leavename, setLeavename] = useState("");
@@ -367,6 +368,29 @@ const Notificationdisplay = ({
         const data = await response.json();
         console.log(data);
         setInvoicedetail([{ ...data }]);
+        setLoader(false);
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (selectedItem.type === "pending SES") {
+      setDisplayShow(true);
+      setSesDetail([]);
+      setLoader(true);
+      uri = "ENEC_SES_DETAILS";
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            ses_no: selectedItem.value.split(" ")[1],
+            username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+
+        setSesDetail([{ ...data }]);
         setLoader(false);
       } catch (e) {
         console.log(e);
@@ -712,7 +736,8 @@ const Notificationdisplay = ({
       {detailData.length > 0 ||
       leaveDetail.length > 0 ||
       ticketdetail.length > 0 ||
-      invoicedetail.length ? (
+      invoicedetail.length > 0 ||
+      sesdetail.length > 0 ? (
         <div className="Notificataion-display-title">
           {/* <span>{tab} Notification</span> */}
           <span>{selectedItem.value}</span>
@@ -1412,7 +1437,7 @@ const Notificationdisplay = ({
       (selectedItem.type === "pending invoice" ||
         selectedItem.type === "approved invoice" ||
         selectedItem.type === "rejected invoice") ? (
-          <Card
+        <Card
           data-aos="zoom-in-up"
           sx={{
             display: "flex",
@@ -1463,6 +1488,218 @@ const Notificationdisplay = ({
 
                   <Chip
                     label={data["Document_Date"]}
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data).map((key, keyIndex) => {
+                      return (
+                        <Grid item xs={12} md={6} display="flex">
+                          <Grid item xs={12} md={6}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {key?.replace(/_/g, " ")}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={1}>
+                            <span
+                              style={{
+                                margin: "0px 4px",
+                                color: "darkblue",
+                              }}
+                            >
+                              :
+                            </span>
+                          </Grid>
+                          <Grid item xs={12} md={5}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.875rem",
+                                lineHeight: "1.5",
+                                wordWrap: "break-word",
+                                py: 1,
+                                color: key === "Comment" ? "#a89566" : "black",
+                              }}
+                            >
+                              {data[key] ? data[key] : "-"}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              // <div className="Notificataion-display-detail-leave" key={index}>
+              //   {Object.keys(data).map((key, keyIndex) => (
+              //     <div>
+              //       <span
+              //         style={{
+              //           wordWrap: "break-word",
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {key?.replace(/_/g, " ")}
+              //       </span>
+              //       <span
+              //         style={{
+              //           margin: "0px 4px",
+              //           color: "darkblue",
+              //         }}
+              //       >
+              //         :
+              //       </span>
+              //       <span
+              //         style={{
+              //           color: key === "Comment" ? "#a89566" : "black",
+              //         }}
+              //       >
+              //         {data[key] ? data[key] : "-"}
+              //       </span>
+              //     </div>
+              //   ))}
+              // </div>
+            );
+          })}
+          {selectedItem.type === "pending invoice" && (
+            <div className="Notificataion-display-buttons-leave">
+              <Button
+                variant={"contained"}
+                size="medium"
+                sx={{
+                  backgroundColor: "#17C964",
+                  fontWeight: "bold",
+                }}
+                style={{
+                  display: "inline-flex",
+                  gap: "var(--8, 0.5rem)",
+                  margin: "5px 0px",
+                  textTransform: "capitalize",
+                  letterSpacing: "1px",
+                  fontSize: "11px",
+                  fontWeight: "550",
+                  marginRight: "20px",
+                  padding: "0.625rem var(--16, 1rem)",
+                }}
+                color="success"
+                onClick={() =>
+                  setOpenDialog({
+                    ...openDialog,
+                    open: true,
+                    type: "approve invoice",
+                  })
+                }
+              >
+                Approve
+              </Button>
+              <Button
+                variant={"contained"}
+                size="medium"
+                sx={{
+                  backgroundColor: "#F31260",
+                }}
+                style={{
+                  display: "inline-flex",
+                  gap: "var(--8, 0.5rem)",
+                  margin: "5px 0px",
+                  textTransform: "capitalize",
+                  letterSpacing: "1px",
+                  fontSize: "11px",
+                  fontWeight: "550",
+                  marginRight: "20px",
+                  padding: "0.625rem var(--16, 1rem)",
+                }}
+                color="error"
+                onClick={() =>
+                  setOpenDialog({
+                    ...openDialog,
+                    open: true,
+                    type: "reject invoice",
+                  })
+                }
+              >
+                Reject
+              </Button>
+            </div>
+          )}
+        </Card>
+      ) : (
+        <></>
+      )}
+
+      {sesdetail.length > 0 && selectedItem.type === "pending SES" ? (
+        // ||   selectedItem.type === "approved invoice" ||
+        //   selectedItem.type === "rejected invoice"
+        <Card
+          data-aos="zoom-in-up"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: "20px",
+            padding: "12px",
+            margin: "15px",
+            boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+          }}
+        >
+          {sesdetail.map((data, index) => {
+            return (
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
+              >
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data["SHEET_NO"]}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data["CREATED_BY"]}
+                  </Typography>
+
+                  <Chip
+                    label={data["CREATED_ON"]}
                     size="small"
                     sx={{
                       backgroundColor: "#D4EFFE",
