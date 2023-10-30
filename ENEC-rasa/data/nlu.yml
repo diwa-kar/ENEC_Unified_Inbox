@@ -7153,7 +7153,7 @@ nlu:
 # ***************************************** reject Service entry sheet ***********************************************************************************
 
 
-- intent: ENEC_SES_reject_intect
+- intent: ENEC_SES_reject_intent
   examples: |
     - Reject SES [1000001935](ses_number)
     - Reject SES [1000001935](ses_number)
