@@ -635,6 +635,7 @@ const ChatBot = () => {
         height: chatBotOpen ? "85vh" : "",
         right: chatBotOpen ? "4px" : "35px",
         bottom: chatBotOpen ? "10px" : "35px",
+        zIndex: 999,
       }}
     >
       {chatBotOpen ? (

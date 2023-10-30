@@ -4,6 +4,7 @@ import Leave from "./Leave.png";
 import PR from "./PR.png";
 import PO from "./online-shop.png";
 import Invoice from "./invoice.png";
+import Goods from "./goods.png";
 import { Box, Chip } from "@mui/material";
 
 const NotificationItem = (props) => {
@@ -44,6 +45,14 @@ const NotificationItem = (props) => {
     ) {
       // console.log(card);
       props.updateIt(card);
+    } else if (
+      card.type === "pending SES"
+
+      // ||  card.type === "approved invoice" ||
+      // card.type === "rejected invoice"
+    ) {
+      // console.log(card);
+      props.updateIt(card);
     }
   };
   return (
@@ -71,8 +80,8 @@ const NotificationItem = (props) => {
               alignItems: "center",
               background: "white",
               boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-              padding: "8px 0px",
-              paddingLeft: "2rem",
+              padding: "8px 10px",
+              // paddingLeft: "2rem",
               borderTop: "1px solid #dfdfdf",
               // borderLeft: `4px solid ${
               //   props.tab == "Pending"
@@ -106,6 +115,7 @@ const NotificationItem = (props) => {
               <img
                 height={"45px"}
                 width={"45px"}
+                style={{ objectFit: "contain" }}
                 src={
                   card.type === "pending pr" ||
                   card.type === "approved pr" ||
@@ -125,6 +135,10 @@ const NotificationItem = (props) => {
                       card.type === "approved invoice" ||
                       card.type === "rejected invoice"
                     ? Invoice
+                    : card.type === "pending SES"
+                    ? // ||card.type === "approved invoice" ||
+                      //   card.type === "rejected invoice"
+                      Goods
                     : ""
                 }
                 alt="Ticket"
