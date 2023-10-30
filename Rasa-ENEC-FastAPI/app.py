@@ -213,6 +213,11 @@ class ENEC_SES_Rejection(BaseModel):
     ses_no: str
     comment: str
 
+class ENEC_approved_ses_list_mongo(BaseModel):
+    username: str
+
+class ENEC_rejected_ses_list_mongo(BaseModel):
+    username: str
 
 
 # ************************************* Dashbodard Class ******************************************************************
@@ -2009,6 +2014,44 @@ async def ENEC_SES_Rejection(data:ENEC_SES_Rejection):
 
 
     return text
+
+
+@app.post('/ENEC_approved_ses_list_mongo')
+def ENEC_approved_ses_list_mongo(data:ENEC_approved_ses_list_mongo):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_SES"]
+    a=collection.find()
+
+    approved_ses_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            approved_ses_list.append(i['SES number'])
+
+    print(approved_ses_list)
+
+
+    return approved_ses_list
+
+@app.post('/ENEC_rejected_ses_list_mongo')
+def ENEC_rejected_ses_list_mongo(data:ENEC_rejected_ses_list_mongo):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_SES"]
+    a=collection.find()
+
+    rejected_ses_list = []
+
+    for i in a:
+        if data.username == i["username"]:
+            rejected_ses_list.append(i['SES number'])
+
+    print(rejected_ses_list)
+
+
+    return rejected_ses_list
+
 
 
 
