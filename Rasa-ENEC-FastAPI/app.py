@@ -203,6 +203,10 @@ class ENEC_SES_DETAILS(BaseModel):
     username: str
     ses_no : str
 
+class ENEC_SES_Approval(BaseModel):
+    username: str
+    ses_no: str
+    comment: str
 
 
 
@@ -1914,7 +1918,42 @@ async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
 
 
 
+@app.post('/ENEC_SES_Approval')
+async def ENEC_SES_Approval(data:ENEC_SES_Approval):
 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_apporreject_bapi?sap-client=100'
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+
+
+    result = sap_client.service.ZMM_SES_APPROVE_FM('A',f'{data.comment}',f'{data.ses_no}',data.username)
+
+    # result["Comment"] = comment
+
+    print(result)
+
+    print(result["EX_STATUS"])
+
+    Status_code = result["EX_STATUS"]
+
+    if Status_code == "ERROR":
+
+        text =f"SES {data.ses_no} is already approved/rejected" 
+
+
+    elif Status_code == "Success":
+
+        db = client["ENEC_RasaChatbot"]
+        collection = db["Approved_SES"]
+        document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
+        
+        
+        res = collection.insert_one(document)
+
+        text =f"SES {data.ses_no} is Approved successfully" 
+
+
+    return text
 
 
 
