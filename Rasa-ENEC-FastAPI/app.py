@@ -204,6 +204,8 @@ class ENEC_SES_DETAILS(BaseModel):
     ses_no : str
 
 
+
+
 # ************************************* Dashbodard Class ******************************************************************
 
 class ENEC_Total_PR_req_count(BaseModel):
@@ -1855,14 +1857,17 @@ def ENEC_rejected_invoice_item_info(data:ENEC_rejected_invoice_item_info):
 @app.post('/ENEC_Pending_SES_List')
 def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
 
+    # sap_username = "GIRISH"
+    # sap_password = "Kaar@12345"
+
+    user_name = "GIRISH"
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZMM_SES_PENDING_FM(data.username)
+    result = client.service.ZMM_SES_PENDING_FM(user_name)
 
     listofobj = result[0]
-    # print(type(listofobj))
 
 
     pending_ses_list = []
@@ -1875,6 +1880,7 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
         pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
         # print(pending_ses_dict)
         pending_ses_list.append(pending_ses_dict)
+
 
 
     return pending_ses_list
@@ -1905,6 +1911,9 @@ async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
     SES_DETAILS["NET_VALUE"] = data["NET_VALUE"]
 
     return SES_DETAILS
+
+
+
 
 
 
