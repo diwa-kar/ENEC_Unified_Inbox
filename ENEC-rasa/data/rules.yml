@@ -534,7 +534,7 @@ rules:
 
 - rule: pending ses info from digiverz demo system
   steps:
-  - intent: ENEC_pending_invoice_info
+  - intent: ENEC_pending_ses_info
   - action: ENEC_pending_ses_info_action
 
 # *********************************************** Pending SES info from digiverz demo system *********************
@@ -543,7 +543,7 @@ rules:
 
 - rule: ses approve from digiverz demo system
   steps:
-  - intent: ENEC_INVOICE_approval_intent
+  - intent: ENEC_SES_approval_intent
   - action: ENEC_SES_approval_action
 
 # *********************************************** SES approve from digiverz demo system *********************
@@ -552,7 +552,7 @@ rules:
 
 - rule: ses reject from digiverz demo system
   steps:
-  - intent: ENEC_INVOICE_reject_intent
+  - intent: ENEC_SES_reject_intent
   - action: ENEC_SES_reject_action
 
 # *********************************************** SES reject from digiverz demo system *********************
