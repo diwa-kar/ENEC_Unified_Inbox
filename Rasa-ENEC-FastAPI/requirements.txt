@@ -1,0 +1,11 @@
+xmltodict
+fastapi
+uvicorn
+pandas
+pymongo
+suds
+numpy
+bcrypt
+passlib
+flatten_json
+requests

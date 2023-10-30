@@ -1679,6 +1679,8 @@ class LeaveBalance(Action):
 
 class LeaveRequestSF(Action):
 
+    
+
     def name(self) -> Text:
         return "Leave_Request_SF_action"
 
