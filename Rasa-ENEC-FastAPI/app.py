@@ -208,6 +208,11 @@ class ENEC_SES_Approval(BaseModel):
     ses_no: str
     comment: str
 
+class ENEC_SES_Rejection(BaseModel):
+    username: str
+    ses_no: str
+    comment: str
+
 
 
 # ************************************* Dashbodard Class ******************************************************************
@@ -1864,12 +1869,12 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
     # sap_username = "GIRISH"
     # sap_password = "Kaar@12345"
 
-    user_name = "GIRISH"
+    # user_name = "GIRISH"
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZMM_SES_PENDING_FM(user_name)
+    result = client.service.ZMM_SES_PENDING_FM(data.username)
 
     listofobj = result[0]
 
@@ -1884,6 +1889,10 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
         pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
         # print(pending_ses_dict)
         pending_ses_list.append(pending_ses_dict)
+
+    if len(pending_ses_list) >= 21:
+    
+        pending_ses_list = pending_ses_list[:20]
 
 
 
@@ -1930,9 +1939,9 @@ async def ENEC_SES_Approval(data:ENEC_SES_Approval):
 
     # result["Comment"] = comment
 
-    print(result)
+    # print(result)
 
-    print(result["EX_STATUS"])
+    # print(result["EX_STATUS"])
 
     Status_code = result["EX_STATUS"]
 
@@ -1943,9 +1952,13 @@ async def ENEC_SES_Approval(data:ENEC_SES_Approval):
 
     elif Status_code == "Success":
 
+        current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
+
+
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_SES"]
-        document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
+        document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}", "Date_of_approval": f"{current_date}", "Time_of_approval": f"{current_time}" }
         
         
         res = collection.insert_one(document)
@@ -1956,7 +1969,46 @@ async def ENEC_SES_Approval(data:ENEC_SES_Approval):
     return text
 
 
+@app.post('/ENEC_SES_Rejection')
+async def ENEC_SES_Rejection(data:ENEC_SES_Rejection):
 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_apporreject_bapi?sap-client=100'
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+
+
+    result = sap_client.service.ZMM_SES_APPROVE_FM('R',f'{data.comment}',f'{data.ses_no}',data.username)
+
+    # result["Comment"] = comment
+
+    # print(result)
+
+    # print(result["EX_STATUS"])
+
+    Status_code = result["EX_STATUS"]
+
+    if Status_code == "ERROR":
+
+        text =f"SES {data.ses_no} is already approved/rejected" 
+
+
+    elif Status_code == "Success":
+
+        current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
+
+
+        db = client["ENEC_RasaChatbot"]
+        collection = db["Rejected_SES"]
+        document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}", "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}" }
+        
+        
+        res = collection.insert_one(document)
+
+        text =f"SES {data.ses_no} is Rejected successfully"    
+
+
+    return text
 
 
 
