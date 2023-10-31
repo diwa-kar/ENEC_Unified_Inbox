@@ -689,7 +689,7 @@ def pending_ses_list(user_name:str):
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
 
-    transport = HttpAuthenticated(username=username, password=password)
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
     result = client.service.ZMM_SES_PENDING_FM(user_name)
 
@@ -701,12 +701,11 @@ def pending_ses_list(user_name:str):
 
 
     for i in listofobj:
-        pending_ses_dict = {}
-        pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
-        pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
-        pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
-        # print(pending_ses_dict)
-        pending_ses_list.append(pending_ses_dict)
+        
+        pending_ses_list.append("SES " + str(i['ENTRYSHEET']))
+        pending_ses_list = pending_ses_list[:21]
+
+    print(pending_ses_list)
     
     return pending_ses_list
 
