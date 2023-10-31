@@ -372,7 +372,11 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (selectedItem.type === "pending SES") {
+    } else if (
+      selectedItem.type === "pending SES" ||
+      selectedItem.type === "approved SES" ||
+      selectedItem.type === "rejected SES"
+    ) {
       setDisplayShow(true);
       setSesDetail([]);
       setLoader(true);
@@ -472,6 +476,7 @@ const Notificationdisplay = ({
     setLeaveDetail([]);
     setTicketdetail([]);
     setInvoicedetail([]);
+    setSesDetail([]);
   }, [tab]);
 
   // Dialog Handler
@@ -1703,9 +1708,9 @@ const Notificationdisplay = ({
         <></>
       )}
 
-      {sesdetail.length > 0 && selectedItem.type === "pending SES" ? (
-        // ||   selectedItem.type === "approved invoice" ||
-        //   selectedItem.type === "rejected invoice"
+      {(sesdetail.length > 0 && selectedItem.type === "pending SES") ||
+      selectedItem.type === "approved SES" ||
+      selectedItem.type === "rejected SES" ? (
         <Card
           data-aos="zoom-in-up"
           sx={{

@@ -916,6 +916,8 @@ const ChatBot = () => {
                                         ]
                                       : chatContent.details.type === "IN"
                                       ? chatContent.details.data["Invocie_no"]
+                                      : chatContent.details.type === "SES"
+                                      ? chatContent.details.data["SHEET_NO"]
                                       : "",
                                 })
                               }
@@ -967,6 +969,8 @@ const ChatBot = () => {
                                         ]
                                       : chatContent.details.type === "IN"
                                       ? chatContent.details.data["Invocie_no"]
+                                      : chatContent.details.type === "SES"
+                                      ? chatContent.details.data["SHEET_NO"]
                                       : "",
                                 });
                               }}
@@ -1219,6 +1223,12 @@ const ChatBot = () => {
                 ? `Approving ${openDialog.type} ${openDialog.value}?`
                 : openDialog.type === "IN" && openDialog.buttonType === "reject"
                 ? `Rejecting ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "SES" &&
+                  openDialog.buttonType === "approve"
+                ? `Approving ${openDialog.type} ${openDialog.value}?`
+                : openDialog.type === "SES" &&
+                  openDialog.buttonType === "reject"
+                ? `Rejecting ${openDialog.type} ${openDialog.value}?`
                 : ""
             } `}
           </DialogTitle>
@@ -1290,6 +1300,15 @@ const ChatBot = () => {
                       buttonType: "",
                       value: "",
                     });
+                  } else if (openDialog.type === "SES") {
+                    handleButtonRequest(`Approve SES ${openDialog.value}`);
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
                   }
                 } else {
                   if (openDialog.type === "PR") {
@@ -1321,6 +1340,15 @@ const ChatBot = () => {
                     });
                   } else if (openDialog.type === "IN") {
                     handleButtonRequest(`Reject IN ${openDialog.value}`);
+                    setOpenDialog({
+                      open: false,
+                      type: "",
+                      comment: "",
+                      buttonType: "",
+                      value: "",
+                    });
+                  } else if (openDialog.type === "SES") {
+                    handleButtonRequest(`Reject SES ${openDialog.value}`);
                     setOpenDialog({
                       open: false,
                       type: "",
