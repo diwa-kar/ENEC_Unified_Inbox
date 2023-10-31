@@ -435,10 +435,10 @@ const MiddleNavbar = (props) => {
           data4 &&
           data4?.map((item, index) => ({
             type: type4,
-            value: item,
+            value: item.SES_No,
             description: "SES",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item.Date_of.approval,
+            createdBy: item.Approved_by,
           }));
       } catch (error) {
         console.log(error);
@@ -582,6 +582,8 @@ const MiddleNavbar = (props) => {
       }
       /* --------------------------(Rejected Invoice List)----------------------------------------- */
 
+      /* --------------------------(Rejected SES List)----------------------------------------- */
+
       try {
         const response4 = await fetch(`http://localhost:8000/${uri4}`, {
           mode: "cors",
@@ -603,18 +605,19 @@ const MiddleNavbar = (props) => {
             type: type4,
             value: item,
             description: "SES",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item.Date_of.approval,
+            createdBy: item.Approved_by,
           }));
       } catch (error) {
         console.log(error);
       }
+      /* --------------------------(Rejected SES List)----------------------------------------- */
       props.setCards([
         ...rejected_prlist,
         ...rejected_polist,
         ...rejected_leave,
         ...rejected_invoice,
-        ...rejected_ses,  
+        ...rejected_ses,
       ]);
       setOriginalList([
         ...rejected_prlist,
