@@ -220,6 +220,11 @@ class ENEC_rejected_ses_list_mongo(BaseModel):
     username: str
 
 
+class ENEC_approved_ses_item_info(BaseModel):
+    ses_no : str
+    username : str
+
+
 # ************************************* Dashbodard Class ******************************************************************
 
 class ENEC_Total_PR_req_count(BaseModel):
@@ -2067,6 +2072,14 @@ def ENEC_rejected_ses_list_mongo(data:ENEC_rejected_ses_list_mongo):
 
 
     return rejected_ses_list
+
+
+@app.post('/ENEC_approved_ses_info')
+async def ENEC_approved_ses_item_info(data:ENEC_approved_ses_item_info):
+
+
+
+    return
 
 
 
