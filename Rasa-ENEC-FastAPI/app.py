@@ -2026,8 +2026,17 @@ def ENEC_approved_ses_list_mongo(data:ENEC_approved_ses_list_mongo):
     approved_ses_list = []
 
     for i in a:
+        user_data = {}
         if data.username == i["username"]:
-            approved_ses_list.append(i['SES number'])
+
+            user_data["SES_No"] = i['SES number']
+            user_data["Date_of_approval"] = i['Date_of_approval']
+            user_data["Time_of_approval"] = i['Time_of_approval']
+            user_data["Approved_by"] = i['username']
+
+            # approved_ses_list.append(i['SES number'])
+
+            approved_ses_list.append(user_data)
 
     print(approved_ses_list)
 
@@ -2044,8 +2053,15 @@ def ENEC_rejected_ses_list_mongo(data:ENEC_rejected_ses_list_mongo):
     rejected_ses_list = []
 
     for i in a:
+        user_data = {}
         if data.username == i["username"]:
-            rejected_ses_list.append(i['SES number'])
+
+            user_data["SES_No"] = i['SES number']
+            user_data["Date_of_rejection"] = i['Date_of_rejection']
+            user_data["Time_of_rejection"] = i['Time_of_rejection']
+            user_data["Rejected_by"] = i['username']
+
+            rejected_ses_list.append(user_data)
 
     print(rejected_ses_list)
 
