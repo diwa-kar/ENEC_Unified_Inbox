@@ -220,7 +220,11 @@ class ENEC_rejected_ses_list_mongo(BaseModel):
     username: str
 
 
-class ENEC_approved_ses_item_info(BaseModel):
+class ENEC_approved_ses_info(BaseModel):
+    ses_no : str
+    username : str
+
+class ENEC_rejected_ses_info(BaseModel):
     ses_no : str
     username : str
 
@@ -2075,19 +2079,102 @@ def ENEC_rejected_ses_list_mongo(data:ENEC_rejected_ses_list_mongo):
 
 
 @app.post('/ENEC_approved_ses_info')
-async def ENEC_approved_ses_item_info(data:ENEC_approved_ses_item_info):
+async def ENEC_approved_ses_info(data:ENEC_approved_ses_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_SES"]
+    a=collection.find()
+
+
+    ses_comment = ""
+
+    for i in a:
+        if i['SES number'].split()[-1] == data.ses_no and i['username'] == data.username:
+            ses_comment = i['Comment']
+           
+
+    print("the sesno and comment",data.ses_no,ses_comment)
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZMM_SES_GET_DETAIL_FM(data.ses_no) 
+    # print(result)
+    # print(result[0])
+
+    data = result[0]
+
+    SES_DETAILS = {}
+
+    SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
+    SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
+    SES_DETAILS["CREATED_ON"] = data["CREATED_ON"]
+    SES_DETAILS["CURRENCY"] = data["CURRENCY"]
+    SES_DETAILS["PO_NUMBER"] = data["PO_NUMBER"]
+    SES_DETAILS["PO_ITEM"] = data["PO_ITEM"]
+    SES_DETAILS["SHORT_TEXT"] = data["SHORT_TEXT"]
+    SES_DETAILS["PCKG_NO"] = data["PCKG_NO"]
+    SES_DETAILS["NET_VALUE"] = data["NET_VALUE"]
+
+
+    # adding invoice to the dict
+    SES_DETAILS["Comment"] = ses_comment
+
+
+    return SES_DETAILS
+
+
+@app.post('/ENEC_rejected_ses_info')
+async def ENEC_rejected_ses_info(data:ENEC_rejected_ses_info):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_SES"]
+    a=collection.find()
+
+
+    ses_comment = ""
+
+    for i in a:
+        if i['SES number'].split()[-1] == data.ses_no and i['username'] == data.username:
+            ses_comment = i['Comment']
+           
+
+    print("the sesno and comment",data.ses_no,ses_comment)
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZMM_SES_GET_DETAIL_FM(data.ses_no) 
+    # print(result)
+    # print(result[0])
+
+    data = result[0]
+
+    SES_DETAILS = {}
+
+    SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
+    SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
+    SES_DETAILS["CREATED_ON"] = data["CREATED_ON"]
+    SES_DETAILS["CURRENCY"] = data["CURRENCY"]
+    SES_DETAILS["PO_NUMBER"] = data["PO_NUMBER"]
+    SES_DETAILS["PO_ITEM"] = data["PO_ITEM"]
+    SES_DETAILS["SHORT_TEXT"] = data["SHORT_TEXT"]
+    SES_DETAILS["PCKG_NO"] = data["PCKG_NO"]
+    SES_DETAILS["NET_VALUE"] = data["NET_VALUE"]
+
+
+    # adding invoice to the dict
+    SES_DETAILS["Comment"] = ses_comment
 
 
 
-    return
-
-
-
-
-
+    return SES_DETAILS
 
 
 # ********************************************************** Dashboard API **********************************************************
+
 
 @app.get('/ENEC_IT_request_count')
 async def ENEC_IT_request_count():
