@@ -437,7 +437,7 @@ const MiddleNavbar = (props) => {
             type: type4,
             value: item.SES_No,
             description: "SES",
-            date: item.Date_of.approval,
+            date: item.Date_of_approval,
             createdBy: item.Approved_by,
           }));
       } catch (error) {
@@ -603,10 +603,10 @@ const MiddleNavbar = (props) => {
           data4 &&
           data4?.map((item, index) => ({
             type: type4,
-            value: item,
+            value: item.SES_No,
             description: "SES",
-            date: item.Date_of.approval,
-            createdBy: item.Approved_by,
+            date: item.Date_of_rejection,
+            createdBy: item.Rejected_by,
           }));
       } catch (error) {
         console.log(error);
