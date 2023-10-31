@@ -372,15 +372,57 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (
-      selectedItem.type === "pending SES" ||
-      selectedItem.type === "approved SES" ||
-      selectedItem.type === "rejected SES"
-    ) {
+    } else if (selectedItem.type === "pending SES") {
       setDisplayShow(true);
       setSesDetail([]);
       setLoader(true);
       uri = "ENEC_SES_DETAILS";
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            ses_no: selectedItem.value.split(" ")[1],
+            username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+
+        setSesDetail([{ ...data }]);
+        setLoader(false);
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (selectedItem.type === "approved SES") {
+      setDisplayShow(true);
+      setSesDetail([]);
+      setLoader(true);
+      uri = "ENEC_approved_ses_info";
+      try {
+        const response = await fetch(`http://localhost:8000/${uri}`, {
+          method: "POST",
+          body: JSON.stringify({
+            ses_no: selectedItem.value.split(" ")[1],
+            username: JSON.parse(sessionStorage.getItem("email")).value,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+
+        setSesDetail([{ ...data }]);
+        setLoader(false);
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (selectedItem.type === "rejected SES") {
+      setDisplayShow(true);
+      setSesDetail([]);
+      setLoader(true);
+      uri = "ENEC_rejected_ses_info";
       try {
         const response = await fetch(`http://localhost:8000/${uri}`, {
           method: "POST",
