@@ -681,3 +681,110 @@ def Rejection_ENEC_Invoice(invoice_no:str,comment:str,user_name:str):
     return result
 
 # *********************************************** reject pending invoice on digi demo system**************************************************
+
+
+# ************************************************ pending ses list from digi demo system ****************************************************
+
+def pending_ses_list(user_name:str):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
+
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+    result = client.service.ZMM_SES_PENDING_FM(user_name)
+
+    listofobj = result[0]
+    # print(type(listofobj))
+
+
+    pending_ses_list = []
+
+
+    for i in listofobj:
+        pending_ses_dict = {}
+        pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
+        pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
+        pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
+        # print(pending_ses_dict)
+        pending_ses_list.append(pending_ses_dict)
+    
+    return pending_ses_list
+
+
+# ************************************************ pending ses list from digi demo system ****************************************************
+
+# *********************************************** pending ses details from digi demo system **************************************************
+
+def SES_info(ses_no:set):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
+
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+    result = client.service.ZMM_SES_GET_DETAIL_FM(ses_no) 
+    # print(result)
+    # print(result[0])
+
+    data = result[0]
+
+    SES_DETAILS = {}
+
+    SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
+    SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
+    SES_DETAILS["CREATED_ON"] = data["CREATED_ON"]
+    SES_DETAILS["CURRENCY"] = data["CURRENCY"]
+    SES_DETAILS["PO_NUMBER"] = data["PO_NUMBER"]
+    SES_DETAILS["PO_ITEM"] = data["PO_ITEM"]
+    SES_DETAILS["SHORT_TEXT"] = data["SHORT_TEXT"]
+    SES_DETAILS["PCKG_NO"] = data["PCKG_NO"]
+    SES_DETAILS["NET_VALUE"] = data["NET_VALUE"]
+
+
+    return SES_DETAILS
+
+
+# *********************************************** pending ses details from digi demo system **************************************************
+
+# *********************************************** SES Appproval ******************************************************************************
+
+def SES_Approval(ses_no:str,comment:str,user_name:str):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_apporreject_bapi?sap-client=100'
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+
+    result = client.service.ZMM_SES_APPROVE_FM('R',f'{comment}',f'{ses_no}',user_name)
+
+    # result["Comment"] = comment
+
+    print(result)
+
+    print(result["EX_STATUS"])
+
+
+    return result
+
+# *********************************************** SES Appproval ******************************************************************************
+
+
+# *********************************************** SES Rejection ******************************************************************************
+
+def SES_Rejection(ses_no:str,comment:str,user_name:str):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_apporreject_bapi?sap-client=100'
+    transport = HttpAuthenticated(username=username, password=password)
+    client = Client(url,transport=transport)
+
+    result = client.service.ZMM_SES_APPROVE_FM('R',f'{comment}',f'{ses_no}',user_name)
+
+    # result["Comment"] = comment
+
+    print(result)
+
+    print(result["EX_STATUS"])
+
+    return result
+
+
+# *********************************************** SES Rejection ******************************************************************************
