@@ -755,7 +755,7 @@ def SES_Approval(ses_no:str,comment:str,user_name:str):
 
     result = client.service.ZMM_SES_APPROVE_FM('R',f'{comment}',f'{ses_no}',user_name)
 
-    # result["Comment"] = comment
+    result["Comment"] = comment
 
     print(result)
 
