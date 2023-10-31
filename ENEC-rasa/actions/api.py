@@ -689,7 +689,7 @@ def pending_ses_list(user_name:str):
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
 
-    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    transport = HttpAuthenticated(username=username, password=password)
     client = Client(url,transport=transport)
     result = client.service.ZMM_SES_PENDING_FM(user_name)
 
