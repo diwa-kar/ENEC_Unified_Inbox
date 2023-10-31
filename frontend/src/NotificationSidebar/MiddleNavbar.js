@@ -71,6 +71,8 @@ const MiddleNavbar = (props) => {
     let approved_invoice = [];
     let rejected_invoice = [];
     let pending_ses_list = [];
+    let approved_ses = [];
+    let rejected_ses = [];
     if (props.activeTab === "Pending") {
       uri = "pending_pr_list";
       uri1 = "qpmc_leave_reuqest_sf";
@@ -294,6 +296,7 @@ const MiddleNavbar = (props) => {
       uri1 = "qpmc_approved_leave_list_mongo";
       uri2 = "ENEC_approved_po_list_mongo";
       uri3 = "ENEC_approved_invoice_list_mongo";
+      uri4 = "ENEC_approved_ses_list_mongo";
 
       /* --------------------------(Approved PR List)----------------------------------------- */
       try {
@@ -411,23 +414,57 @@ const MiddleNavbar = (props) => {
       }
       /* --------------------------(Approved Invoice List)----------------------------------------- */
 
+      /* --------------------------(Approved SES List)----------------------------------------- */
+
+      try {
+        const response4 = await fetch(`http://localhost:8000/${uri4}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data4 = await response4.json();
+        console.log("data4", data4);
+        let type4 = "approved SES";
+
+        approved_ses =
+          data4 &&
+          data4?.map((item, index) => ({
+            type: type4,
+            value: item,
+            description: "SES",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
+          }));
+      } catch (error) {
+        console.log(error);
+      }
+      /* --------------------------(Approved SES List)----------------------------------------- */
+
       props.setCards([
         ...approved_prlist,
         ...approved_polist,
         ...approved_leave,
         ...approved_invoice,
+        ...approved_ses,
       ]);
       setOriginalList([
         ...approved_prlist,
         ...approved_polist,
         ...approved_leave,
         ...approved_invoice,
+        ...approved_ses,
       ]);
     } else if (props.activeTab === "Rejected") {
       uri = "ENEC_rejected_pr_list_mongo";
       uri1 = "qpmc_rejected_leave_list_mongo";
       uri2 = "ENEC_rejected_po_list_mongo";
       uri3 = "ENEC_rejected_invoice_list_mongo";
+      uri4 = "ENEC_rejected_ses_list_mongo";
 
       /* --------------------------(Rejected PR List)----------------------------------------- */
       try {
@@ -544,11 +581,40 @@ const MiddleNavbar = (props) => {
         console.log(error);
       }
       /* --------------------------(Rejected Invoice List)----------------------------------------- */
+
+      try {
+        const response4 = await fetch(`http://localhost:8000/${uri4}`, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const data4 = await response4.json();
+        console.log("Rejected SES", data4);
+        let type4 = "rejected SES";
+
+        rejected_ses =
+          data4 &&
+          data4?.map((item, index) => ({
+            type: type4,
+            value: item,
+            description: "SES",
+            date: dates[Math.floor(Math.random() * dates.length)],
+            createdBy: users[Math.floor(Math.random() * users.length)],
+          }));
+      } catch (error) {
+        console.log(error);
+      }
       props.setCards([
         ...rejected_prlist,
         ...rejected_polist,
         ...rejected_leave,
         ...rejected_invoice,
+        ...rejected_ses,  
       ]);
       setOriginalList([
         ...rejected_prlist,

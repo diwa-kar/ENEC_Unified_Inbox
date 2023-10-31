@@ -372,7 +372,11 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (selectedItem.type === "pending SES") {
+    } else if (
+      selectedItem.type === "pending SES" ||
+      selectedItem.type === "approved SES" ||
+      selectedItem.type === "rejected SES"
+    ) {
       setDisplayShow(true);
       setSesDetail([]);
       setLoader(true);
@@ -472,6 +476,7 @@ const Notificationdisplay = ({
     setLeaveDetail([]);
     setTicketdetail([]);
     setInvoicedetail([]);
+    setSesDetail([]);
   }, [tab]);
 
   // Dialog Handler
@@ -680,6 +685,62 @@ const Notificationdisplay = ({
       setCards(cards.filter((card) => card.value !== selectedItem.value));
       setDisplayShow(false);
       setInvoicedetail([]);
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "success",
+        infomation: data,
+      });
+      setsnackbarOpen(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const approveSES = async (username, value, comment) => {
+    try {
+      const response = await fetch("http://localhost:8000/ENEC_SES_Approval", {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          ses_no: value.split(" ")[1],
+          comment: comment,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setCards(cards.filter((card) => card.value !== selectedItem.value));
+      setDisplayShow(false);
+      setSesDetail([]);
+      setsnackbarValue({
+        ...snackbarValue,
+        type: "success",
+        infomation: data,
+      });
+      setsnackbarOpen(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const rejectSES = async (username, value, comment) => {
+    try {
+      const response = await fetch("http://localhost:8000/ENEC_SES_Rejection", {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          ses_no: value.split(" ")[1],
+          comment: comment,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setCards(cards.filter((card) => card.value !== selectedItem.value));
+      setDisplayShow(false);
+      setSesDetail([]);
       setsnackbarValue({
         ...snackbarValue,
         type: "success",
@@ -1647,9 +1708,9 @@ const Notificationdisplay = ({
         <></>
       )}
 
-      {sesdetail.length > 0 && selectedItem.type === "pending SES" ? (
-        // ||   selectedItem.type === "approved invoice" ||
-        //   selectedItem.type === "rejected invoice"
+      {(sesdetail.length > 0 && selectedItem.type === "pending SES") ||
+      selectedItem.type === "approved SES" ||
+      selectedItem.type === "rejected SES" ? (
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -1793,7 +1854,7 @@ const Notificationdisplay = ({
               // </div>
             );
           })}
-          {selectedItem.type === "pending invoice" && (
+          {selectedItem.type === "pending SES" && (
             <div className="Notificataion-display-buttons-leave">
               <Button
                 variant={"contained"}
@@ -1818,7 +1879,7 @@ const Notificationdisplay = ({
                   setOpenDialog({
                     ...openDialog,
                     open: true,
-                    type: "approve invoice",
+                    type: "approve SES",
                   })
                 }
               >
@@ -1846,7 +1907,7 @@ const Notificationdisplay = ({
                   setOpenDialog({
                     ...openDialog,
                     open: true,
-                    type: "reject invoice",
+                    type: "reject SES",
                   })
                 }
               >
@@ -1940,6 +2001,10 @@ const Notificationdisplay = ({
                 ? "Approving Invoice"
                 : openDialog.type === "reject invoice"
                 ? "Rejecting Invoice"
+                : openDialog.type === "approve SES"
+                ? "Approving SES"
+                : openDialog.type === "reject SES"
+                ? "Rejecting SES"
                 : ""
             } ${selectedItem.value}?`}
           </DialogTitle>
@@ -1997,6 +2062,28 @@ const Notificationdisplay = ({
                   });
                 } else if (openDialog.type === "approve invoice") {
                   approveInvoice(
+                    JSON.parse(sessionStorage.getItem("email")).value,
+                    selectedItem.value,
+                    openDialog.comment
+                  );
+                  setOpenDialog({
+                    open: false,
+                    type: "",
+                    comment: "",
+                  });
+                } else if (openDialog.type === "approve SES") {
+                  approveSES(
+                    JSON.parse(sessionStorage.getItem("email")).value,
+                    selectedItem.value,
+                    openDialog.comment
+                  );
+                  setOpenDialog({
+                    open: false,
+                    type: "",
+                    comment: "",
+                  });
+                } else if (openDialog.type === "reject SES") {
+                  rejectSES(
                     JSON.parse(sessionStorage.getItem("email")).value,
                     selectedItem.value,
                     openDialog.comment
