@@ -2888,7 +2888,7 @@ class SESRejectENEC(Action):
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_SES"]
-            document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Rejected","Comment":f"{comment}","username": f"{user_name}", "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}" }
+            document = {"SES number": "SES "+f"{ses_no}", "Status":"Rejected","Comment":f"{comment}","username": f"{user_name}", "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}" }
 
             result = collection.insert_one(document)
 
