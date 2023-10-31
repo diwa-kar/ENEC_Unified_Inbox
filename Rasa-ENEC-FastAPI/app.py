@@ -26,7 +26,7 @@ from typing import Union
 
 import re
 
-import httpx
+# import httpx
 
 # importing datetime module
 import datetime

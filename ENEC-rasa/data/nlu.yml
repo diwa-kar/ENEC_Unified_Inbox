@@ -6862,4 +6862,331 @@ nlu:
 
 
 
-# ***************************************** reject invoice ***********************************************************************************
+# ***************************************** Pending SES intent ***********************************************************************************
+- intent: Pending_ses_intent
+  examples: |
+    - SES
+    - SeS
+    - Ses
+    - SEs
+    - sEs
+    - SEs
+    - ses
+    - seS
+    - Ses
+    - srvc entry Sheet
+    - srvc entry sheet
+    - srvc Entry Sheet
+    - srvc Entry sheet
+    - srvce entry Sheet
+    - srvce entry sheet
+    - srvce Entry Sheet
+    - srvce Entry sheet
+    - Service entry Sheet
+    - Service entry sheet
+    - Service entry sheet
+    - Service entry sheet
+    - Service entry sheet
+    - Service entry sheet
+    - Service Entry Sheet
+    - Service Entry Sheet
+    - Service Entry Sheet
+    - Service Entry Sheet
+    - Service Entry sheet
+    - service entry Sheet
+    - service entry sheet
+    - service Entry Sheet
+    - service Entry sheet
+    - Can you show me my pending SES
+    - Can you show my pending SES
+    - pending SES
+    - give me pending SES
+    - Can you give pending SES
+    - please show me my pending SES
+    - please show my pending SES
+    - pending SES
+    - give me pending SES
+    - please give pending SES
+    - list show me my pending SES
+    - list show my pending SES
+    - pending SES
+    - give me pending SES
+    - list give pending SES
+    - could you show me my pending SES
+    - could you show my pending SES
+    - pending SES
+    - give me pending SES
+    - could you give pending SES
+    - fetch show me my pending SES
+    - fetch show my pending SES
+    - pending SES
+    - give me pending SES
+    - fetch give pending SES
+    - Can you show me my pending service entry sheet
+    - Can you show my pending service entry sheet
+    - pending service entry sheet
+    - give me pending service entry sheet
+    - Can you give pending service entry sheet
+    - please show me my pending service entry sheet
+    - please show my pending service entry sheet
+    - pending service entry sheet
+    - give me pending service entry sheet
+    - please give pending service entry sheet
+    - list show me my pending service entry sheet
+    - list show my pending service entry sheet
+    - pending service entry sheet
+    - give me pending service entry sheet
+    - list give pending service entry sheet
+    - could you show me my pending service entry sheet
+    - could you show my pending service entry sheet
+    - pending service entry sheet
+    - give me pending service entry sheet
+    - could you give pending service entry sheet
+    - fetch show me my pending service entry sheet
+    - fetch show my pending service entry sheet
+    - pending service entry sheet
+    - give me pending service entry sheet
+    - fetch give pending service entry sheet
+    - Can you show me my pending Service entry Sheet
+    - Can you show my pending Service entry Sheet
+    - pending Service entry Sheet
+    - give me pending Service entry Sheet
+    - Can you give pending Service entry Sheet
+    - please show me my pending Service entry Sheet
+    - please show my pending Service entry Sheet
+    - pending Service entry Sheet
+    - give me pending Service entry Sheet
+    - please give pending Service entry Sheet
+    - list show me my pending Service entry Sheet
+    - list show my pending Service entry Sheet
+    - pending Service entry Sheet
+    - give me pending Service entry Sheet
+    - list give pending Service entry Sheet
+    - could you show me my pending Service entry Sheet
+    - could you show my pending Service entry Sheet
+    - pending Service entry Sheet
+    - give me pending Service entry Sheet
+    - could you give pending Service entry Sheet
+    - fetch show me my pending Service entry Sheet
+    - fetch show my pending Service entry Sheet
+    - pending Service entry Sheet
+    - give me pending Service entry Sheet
+    - fetch give pending Service entry Sheet
+    - Can you show me my pending ses
+    - Can you show my pending ses
+    - pending ses
+    - give me pending ses
+    - Can you give pending ses
+    - please show me my pending ses
+    - please show my pending ses
+    - pending ses
+    - give me pending ses
+    - please give pending ses
+    - list show me my pending ses
+    - list show my pending ses
+    - pending ses
+    - give me pending ses
+    - list give pending ses
+    - could you show me my pending ses
+    - could you show my pending ses
+    - pending ses
+    - give me pending ses
+    - could you give pending ses
+    - fetch show me my pending ses
+    - fetch show my pending ses
+    - pending ses
+    - give me pending ses
+    - fetch give pending ses
+    - Can you show me my pending Service Entry Sheet
+    - Can you show my pending Service Entry Sheet
+    - pending Service Entry Sheet
+    - give me pending Service Entry Sheet
+    - Can you give pending Service Entry Sheet
+    - please show me my pending Service Entry Sheet
+    - please show my pending Service Entry Sheet
+    - pending Service Entry Sheet
+    - give me pending Service Entry Sheet
+    - please give pending Service Entry Sheet
+    - list show me my pending Service Entry Sheet
+    - list show my pending Service Entry Sheet
+    - pending Service Entry Sheet
+    - give me pending Service Entry Sheet
+    - list give pending Service Entry Sheet
+    - could you show me my pending Service Entry Sheet
+    - could you show my pending Service Entry Sheet
+    - pending Service Entry Sheet
+    - give me pending Service Entry Sheet
+    - could you give pending Service Entry Sheet
+    - fetch show me my pending Service Entry Sheet
+    - fetch show my pending Service Entry Sheet
+    - pending Service Entry Sheet
+    - give me pending Service Entry Sheet
+    - fetch give pending Service Entry Sheet
+    - Can you show me my pending Ses
+    - Can you show my pending Ses
+    - pending Ses
+    - give me pending Ses
+    - Can you give pending Ses
+    - please show me my pending Ses
+    - please show my pending Ses
+    - pending Ses
+    - give me pending Ses
+    - please give pending Ses
+    - list show me my pending Ses
+    - list show my pending Ses
+    - pending Ses
+    - give me pending Ses
+    - list give pending Ses
+    - could you show me my pending Ses
+    - could you show my pending Ses
+    - pending Ses
+    - give me pending Ses
+    - could you give pending Ses
+    - fetch show me my pending Ses
+    - fetch show my pending Ses
+    - pending Ses
+    - give me pending Ses
+    - fetch give pending Ses
+    - Can you show me my pending srvc entry sheet
+    - Can you show my pending srvc entry sheet
+    - pending srvc entry sheet
+    - give me pending srvc entry sheet
+    - Can you give pending srvc entry sheet
+    - please show me my pending srvc entry sheet
+    - please show my pending srvc entry sheet
+    - pending srvc entry sheet
+    - give me pending srvc entry sheet
+    - please give pending srvc entry sheet
+    - list show me my pending srvc entry sheet
+    - list show my pending srvc entry sheet
+    - pending srvc entry sheet
+    - give me pending srvc entry sheet
+    - list give pending srvc entry sheet
+    - could you show me my pending srvc entry sheet
+    - could you show my pending srvc entry sheet
+    - pending srvc entry sheet
+    - give me pending srvc entry sheet
+    - could you give pending srvc entry sheet
+    - fetch show me my pending srvc entry sheet
+    - fetch show my pending srvc entry sheet
+    - pending srvc entry sheet
+    - give me pending srvc entry sheet
+    - fetch give pending srvc entry sheet
+    
+# ***************************************** Pending SES intent ***********************************************************************************
+
+# ***************************************** Pending SES info  ***********************************************************************************
+- intent: ENEC_pending_ses_info
+  examples: |
+    - SES [1000000890](ses_number)
+    - SES [1000000890](ses_number)
+    - SES [1000000890](ses_number)
+    - SES [1000000890](ses_number)
+    - ses [1000001935](ses_number)
+    - ses [1000001935](ses_number)
+    - ses [1000001935](ses_number)
+    - ses [1000001935](ses_number)
+    - ses [1000001935](ses_number)
+    - ses [1000001945](ses_number)
+    - give me ses [1000001955](ses_number)
+    - give me ses [1000001937](ses_number)
+    - give me service entry sheet for [1000001912](ses_number)
+    - give me service entry sheet for [1000001934](ses_number)
+    - service entry sheet [1000001998](ses_number)
+    - service entry sheet [1000001956](ses_number)
+    - service entry sheet number [1000001367](ses_number)
+    - service entry sheet Number [1000001123](ses_number)
+    - service entry sheet No. [1000001723](ses_number)
+    - service entry sheet no. [1000001098](ses_number)
+    - show me service entry sheet number [100000157](ses_number)
+    - Show me service entry sheet no. [100000253](ses_number)
+    - show the service entry sheet [1000001785](ses_number)
+    - show me the service entry sheet [1000001992](ses_number)
+    - can you show the service entry sheet [1000001467](ses_number)
+    - Can you show the service entry sheet [1000001654](ses_number)
+    - Please show service entry sheet number [1000001712](ses_number)
+    - service entry sheet Num [1000001862](ses_number)
+    - service entry sheet num [1000001563](ses_number)
+    - show the service entry sheet num [1000001012](ses_number)
+    - Show service entry sheet num [1000001375](ses_number)
+    - service entry sheet num [1000001887](ses_number)
+    - service entry sheet Num [1000001062](ses_number)
+    - service entry sheet no. [1000001789](ses_number)
+
+
+# ******************************************* approve Service entry sheet ********************************************************************************
+
+- intent: ENEC_SES_approval_intent
+  examples: |
+    - Approve SES [1000001935](ses_number)
+    - Approve SES [1000001935](ses_number)
+    - Approve SES [1000001935](ses_number)
+    - Approve SES [1000001935](ses_number)
+    - Approve ses [1000001945](ses_number)
+    - approve ses [1000001955](ses_number)
+    - approve ses [1000001937](ses_number)
+    - Approve Service entry sheet for [1000001912](ses_number)
+    - approve Service entry sheet for [1000001934](ses_number)
+    - approve Service entry sheet [1000001998](ses_number)
+    - Approve Service entry sheet [1000001956](ses_number)
+    - Approve Service entry sheet number [1000001367](ses_number)
+    - approve Service entry sheet Number [1000001123](ses_number)
+    - Approve Service entry sheet No. [1000001723](ses_number)
+    - approve Service entry sheet no. [1000001098](ses_number)
+    - approve Service entry sheet number [100000157](ses_number)
+    - Approve Service entry sheet no. [100000253](ses_number)
+    - approve the Service entry sheet [1000001992](ses_number)
+    - can you approve the Service entry sheet [1000001467](ses_number)
+    - Can you Approve the Service entry sheet [1000001654](ses_number)
+    - Please approve Service entry sheet number [1000001712](ses_number)
+    - approve Service entry sheet Num [1000001862](ses_number)
+    - Approve Service entry sheet num [1000001563](ses_number)
+    - Approve the Service entry sheet num [1000001012](ses_number)
+    - approve Service entry sheet num [1000001375](ses_number)
+    - approve Service entry sheet num [1000001887](ses_number)
+    - Approve Service entry sheet Num [1000001062](ses_number)
+    - approve Service entry sheet no. [1000001789](ses_number)
+
+
+# ******************************************* approve Service entry sheet ********************************************************************************
+
+
+# ***************************************** reject Service entry sheet ***********************************************************************************
+
+
+- intent: ENEC_SES_reject_intent
+  examples: |
+    - Reject SES [1000001935](ses_number)
+    - Reject SES [1000001935](ses_number)
+    - Reject SES [1000001935](ses_number)
+    - Reject SES [1000001935](ses_number)
+    - reject SES [1000001935](ses_number)
+    - Reject SES [1000001935](ses_number)
+    - reject ses [1000001935](ses_number)
+    - reject ses [1000001945](ses_number)
+    - Reject ses [1000001955](ses_number)
+    - Reject ses [1000001937](ses_number)
+    - Reject Service entry sheet for [1000001912](ses_number)
+    - reject Service entry sheet for [1000001934](ses_number)
+    - reject Service entry sheet [1000001998](ses_number)
+    - Reject Service entry sheet [1000001956](ses_number)
+    - reject Service entry sheet number [1000001367](ses_number)
+    - Reject Service entry sheet Number [1000001123](ses_number)
+    - Reject Service entry sheet No. [1000001723](ses_number)
+    - reject Service entry sheet no. [1000001098](ses_number)
+    - reject Service entry sheet number [100000157](ses_number)
+    - Reject Service entry sheet no. [100000253](ses_number)
+    - reject the Service entry sheet [1000001785](ses_number)
+    - Reject the Service entry sheet [1000001992](ses_number)
+    - can you reject the Service entry sheet [1000001467](ses_number)
+    - Can you Reject the Service entry sheet [1000001654](ses_number)
+    - Please reject Service entry sheet number [1000001712](ses_number)
+    - Reject Service entry sheet Num [1000001862](ses_number)
+    - reject Service entry sheet num [1000001563](ses_number)
+    - reject the Service entry sheet num [1000001012](ses_number)
+    - Reject Service entry sheet num [1000001375](ses_number)
+    - Reject Service entry sheet num [1000001887](ses_number)
+    - Reject Service entry sheet Num [1000001062](ses_number)
+    - reject Service entry sheet no. [1000001789](ses_number)
+
+# ***************************************** reject Service entry sheet ***********************************************************************************

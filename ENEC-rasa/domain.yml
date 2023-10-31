@@ -98,6 +98,11 @@ intents:
   - ENEC_INVOICE_reject_intent
 
 
+  - Pending_ses_intent
+  - ENEC_pending_ses_info
+  - ENEC_SES_approval_intent
+  - ENEC_SES_reject_intent
+
 
 
 actions:
@@ -200,6 +205,12 @@ actions:
   - ENEC_pending_invoice_info_action
   - ENEC_INVOICE_approval_action
   - ENEC_INVOICE_reject_action
+
+
+  - Pending_ses_action
+  - ENEC_pending_ses_info_action
+  - ENEC_SES_approval_action
+  - ENEC_SES_reject_action
 
 
   
@@ -335,6 +346,17 @@ entities:
 
 
 # ************************************************** invoice no ***************************************************************
+
+
+# ************************************************** ses no ***************************************************************
+
+
+  - ses_number:
+      type: regex
+      pattern: "[0-9]{8}"
+
+
+# ************************************************** ses no ***************************************************************
 
 
 
@@ -545,6 +567,19 @@ slots:
   
 
 # ************************************************** invoice no ***************************************************************
+
+
+# ************************************************** ses no ***************************************************************
+
+  sesnumber:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: ses_number  
+  
+
+# ************************************************** ses no ***************************************************************
 
 
 

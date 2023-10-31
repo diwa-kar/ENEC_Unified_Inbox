@@ -15,6 +15,9 @@ from typing import Any, Text, Dict, List
 
 from pymongo import MongoClient
 
+# importing datetime module
+import datetime
+
 
 import numpy as np
 
@@ -24,7 +27,7 @@ mongodb_uri = (
 client = MongoClient(mongodb_uri)
 
 
-from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info,INVOCIEApproval,Pr_Rejection_ENEC,Po_Rejection_ENEC,Rejection_ENEC_Invoice
+from actions.api import Leave_Request_SF,Accept_leave_req_SF,Reject_leave_req_SF,Leave_Request_SF_Details, pending_pr_list, pending_po_list, pending_prlist_ENEC,pending_pr_item_description_ENEC,pending_polist_ENEC, pending_po_item_description_ENEC,PoApprovalENEC,PrApprovalENEC,pending_invoice_list,Invoice_info,INVOCIEApproval,Pr_Rejection_ENEC,Po_Rejection_ENEC,Rejection_ENEC_Invoice,pending_ses_list,SES_info,SES_Approval,SES_Rejection
 
 
 from rasa_sdk import Action, Tracker
@@ -1679,6 +1682,8 @@ class LeaveBalance(Action):
 
 class LeaveRequestSF(Action):
 
+    
+
     def name(self) -> Text:
         return "Leave_Request_SF_action"
 
@@ -1920,9 +1925,6 @@ class PrItemDescriptonENEC(Action):
         global pritemno, prno
         pritemnotext = tracker.latest_message["text"]
         pritemno = pritemnotext.split()[-1]
-
-
-
 
         
         # prno = tracker.get_slot("prnumber")
@@ -2664,3 +2666,234 @@ class InvoiceRejectionENEC(Action):
 
 
 # ******************************************** invoice rejection *******************************************************************
+
+
+# ******************************************** Pending SES *******************************************************************
+ 
+
+class PendingSESENEC(Action):
+
+
+    def name(self) -> Text:
+        return "Pending_ses_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+                
+        metadata = tracker.latest_message.get("metadata")
+
+        user_name = metadata['username']
+
+        print(user_name,"in action")
+
+        # Defining flag to find valid user
+        global ses_user_flag
+        ses_user_flag = 0
+        
+        db = client["ENEC_RasaChatbot"]
+        collection = db["ENEC_Credentials"]
+
+        # Define the value you want to find in the array
+        value_to_find = "SES"
+
+        # Use the $in operator to query for documents where the element is present in the array
+        query = {"usertype": {"$in": [value_to_find]}}
+
+        # Fetch documents matching the query
+        cursor = collection.find(query)
+
+        # Iterate over the cursor to retrieve matching documents
+        for document in cursor:
+            if document["username"] == user_name:
+                # print(document)
+                ses_user_flag = 1
+
+        if ses_user_flag:
+
+            pendingses = pending_ses_list(user_name)
+            print(pendingses)
+
+            send = {"requests": pendingses,
+                    "msg": "The Pending SES lists are given below. Choose Any one to see SES details",
+                    }
+
+            my_json = json.dumps(send)
+            dispatcher.utter_message(text=my_json)
+
+            return []
+        
+        else:
+
+            dispatcher.utter_message(text= "Sorry, Invalid User")
+
+            return []
+
+# ******************************************** Pending SES *******************************************************************
+
+ 
+
+# ******************************************** Pending SES info *******************************************************************
+
+
+class SESInfoENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_pending_ses_info_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        global Pending_SES_Flag 
+        Pending_SES_Flag = 1
+
+
+        sestext = tracker.latest_message["text"]
+
+        ses_no = sestext.split()[-1]
+
+        print(ses_no)
+    
+
+        details = SES_info(ses_no)
+        
+
+        send = {
+            "msg": "Here is the Details of Invoice... ",
+            "details": {
+                "data":details,"flag":Pending_SES_Flag,"type":"SES"
+                }
+        }
+        
+        my_json = json.dumps(send)
+        # print(send,my_json)
+        dispatcher.utter_message(text=my_json)
+
+        return []
+
+# ******************************************** Pending SES info *******************************************************************
+
+
+# ******************************************** SES approve *******************************************************************
+
+ 
+class SESApprovalENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_SES_approval_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        sestext = tracker.latest_message["text"]
+        ses_no = sestext.split()[-1]
+
+
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
+
+
+        print(ses_no,comment,user_name)
+
+        # print(invoice_no)
+
+        # dispatcher.utter_message(text = f"{invoice_no} invoice approval is working fine")
+
+        result = SES_Approval(ses_no,comment,user_name)
+
+        print(result, "from actions")
+
+        Status_code = result["EX_STATUS"]
+        
+        user_comment = result["Comment"]
+
+        print(Status_code)
+        print(user_comment)
+
+        if Status_code == "ERROR":
+
+            dispatcher.utter_message(text=f"SES {ses_no} is already approved/rejected")
+
+
+        elif Status_code == "Success":
+
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Approved_SES"]
+            document = {"SES number": "SES "+f"{ses_no}", "Status":"Approved","Comment":f"{comment}","username": f"{user_name}", "Date_of_approval": f"{current_date}", "Time_of_approval": f"{current_time}" }
+
+            result = collection.insert_one(document)
+
+            dispatcher.utter_message(text=f"SES {ses_no} Approved Successfully")
+
+        return []
+
+
+
+# ******************************************** SES approve *******************************************************************
+
+ 
+
+# ******************************************** SES reject *******************************************************************
+
+ 
+
+class SESRejectENEC(Action):
+
+    def name(self) -> Text:
+        return "ENEC_SES_reject_action"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        sestext = tracker.latest_message["text"]
+        ses_no = sestext.split()[-1]
+
+
+        metadata = tracker.latest_message.get("metadata")
+        comment = metadata['comment']
+        user_name = metadata['username']
+
+        print(ses_no,comment,user_name)
+
+        result = SES_Rejection(ses_no,comment,user_name)
+
+        # print(result, "from actions")
+
+        Status_code = result["EX_STATUS"]
+        
+        user_comment = result["Comment"]
+
+        print(Status_code)
+        print(user_comment)
+
+        if Status_code == "ERROR":
+
+            dispatcher.utter_message(text=f"SES {ses_no} is already approved/rejected")
+
+
+        elif Status_code == "Success":
+
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
+            db = client["ENEC_RasaChatbot"]
+            collection = db["Rejected_SES"]
+            document = {"SES number": "SES "+f"{data.ses_no}", "Status":"Rejected","Comment":f"{comment}","username": f"{user_name}", "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}" }
+
+            result = collection.insert_one(document)
+
+            dispatcher.utter_message(text=f"SES {ses_no} Rejected Successfully")
+
+        return []
+
+# ******************************************** SES reject *******************************************************************
