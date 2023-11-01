@@ -34,7 +34,7 @@ import datetime
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list,ENEC_Pending_SES_count_api
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api
 
 
 # username = 'KAAR'
@@ -257,6 +257,10 @@ class ENEC_Approved_PO_count(BaseModel):
 
 class ENEC_Approved_INVOICE_count(BaseModel):
     username: str
+
+class ENEC_Approved_SES_count(BaseModel):
+    username: str
+
 
 class ENEC_Total_Approved_count(BaseModel):
     username: str
@@ -2253,7 +2257,6 @@ async def ENEC_Total_SES_count(data:ENEC_Total_SES_count):
 
     Pending_SES_count = ENEC_Pending_SES_count_api(data.username)
 
-
     return Pending_SES_count
 
 
@@ -2298,6 +2301,15 @@ async def ENEC_Approved_INVOICE_count(data:ENEC_Approved_INVOICE_count):
     return Approved_invoice_count
 
 
+@app.post('/ENEC_Approved_SES_count')
+async def ENEC_Approved_SES_count(data:ENEC_Approved_SES_count):
+
+    Approved_ses_count = ENEC_Approved_SES_count_api(data.username)
+
+
+    return Approved_ses_count
+
+
 @app.post('/ENEC_Approved_Leave_count')
 async def ENEC_Approved_Leave_count():
 
@@ -2306,20 +2318,14 @@ async def ENEC_Approved_Leave_count():
     return Approved_leave_count
 
 
+
+
 @app.post('/ENEC_Total_Approved_count')
 async def ENEC_Total_Approved_count(data:ENEC_Total_Approved_count):
 
     ENEC_Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api()
 
     return ENEC_Total_approved_count
-
-
-
-
-
-
-
-
 
 
 

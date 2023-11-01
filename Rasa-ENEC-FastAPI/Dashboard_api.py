@@ -151,7 +151,6 @@ def ENEC_Pending_SES_count_api(username):
     Pending_SES_count = len(pending_ses_list)
 
 
-
     return Pending_SES_count
 
 
@@ -300,6 +299,27 @@ def ENEC_Approved_INVOICE_count_api(username):
     approved_invoice_count = len(approved_invoice_list)
 
     return approved_invoice_count
+
+def ENEC_Approved_SES_count_api(username):
+
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Approved_SES"]
+    a=collection.find()
+
+    approved_ses_list = []
+
+    for i in a:
+        if username == i["username"]:
+            approved_ses_list.append(i['SES number'])
+
+    # print(approved_invoice_list)
+
+    approved_ses_count = len(approved_ses_list)
+
+    return approved_ses_count
+
+
+    return 
 
 
 def ENEC_Approved_Leave_count_api():
