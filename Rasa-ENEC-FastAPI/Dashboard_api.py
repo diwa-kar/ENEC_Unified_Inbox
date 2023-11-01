@@ -151,7 +151,6 @@ def ENEC_Pending_SES_count_api(username):
     Pending_SES_count = len(pending_ses_list)
 
 
-
     return Pending_SES_count
 
 

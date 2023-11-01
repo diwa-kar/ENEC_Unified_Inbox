@@ -2253,7 +2253,6 @@ async def ENEC_Total_SES_count(data:ENEC_Total_SES_count):
 
     Pending_SES_count = ENEC_Pending_SES_count_api(data.username)
 
-
     return Pending_SES_count
 
 
