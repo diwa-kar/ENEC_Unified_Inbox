@@ -65,21 +65,6 @@ def ENEC_IT_request_count_api():
 
 def ENEC_Pending_PR_req_count_api(username):
 
-    # db = client["ENEC_RasaChatbot"]
-    # collection = db["Approved_PR"]
-    # a=collection.find()
-
-    # approved_pr_list = []
-
-    # for i in a:
-    #     if data.username == i["username"]:
-    #         approved_pr_list.append(i['Purchase Requisition Number'])
-
-
-    # Approved_pr_count = len(approved_pr_list)
-    # print(approved_pr_list)
-    # print(len(approved_pr_list))
-
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
 
@@ -134,6 +119,41 @@ def ENEC_Pending_Invoice_count_api(username):
     # print(Pending_Invoice_count)
 
     return Pending_Invoice_count
+
+def ENEC_Pending_SES_count_api(username):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_pen_time_bapi?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZMM_SES_PENDING_FM(username)
+
+    listofobj = result[0]
+    # print(listofobj)
+
+
+    pending_ses_list = []
+
+
+    for i in listofobj:
+        pending_ses_dict = {}
+        pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
+        pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
+        pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_ses_dict['CREATED_TIME'] = i['CREATEDTIME']
+        # print(pending_ses_dict)
+        pending_ses_list.append(pending_ses_dict)
+
+
+    print(pending_ses_list)
+
+
+    Pending_SES_count = len(pending_ses_list)
+
+
+
+    return Pending_SES_count
+
 
 
 def ENEC_Pending_PL_count_api():

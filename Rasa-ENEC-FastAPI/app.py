@@ -34,7 +34,7 @@ import datetime
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list,ENEC_Pending_SES_count_api
 
 
 # username = 'KAAR'
@@ -240,6 +240,9 @@ class ENEC_Total_PO_count(BaseModel):
 class ENEC_Total_Invoice_count(BaseModel):
     username : str
 
+class ENEC_Total_SES_count(BaseModel):
+    username : str
+
 class ENEC_Total_pending_req(BaseModel):
     username: str
 
@@ -385,18 +388,30 @@ def login(user: UserLogin):
 @app.post("/pending_pr_list")
 def Pending_pr_list(data: Pending_pr_list):
 
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_pr_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZfmPrPending(f'{data.username}') 
+    result = client.service.ZFM_PR_PENDING(data.username)
+
     listofobj = result[0]
-    pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
-
-    print(pendingpr)
+    # print(listofobj)
 
 
-    return pendingpr
+    pending_pr_list = []
+
+
+    for i in listofobj:
+        pending_pr_dict = {}
+        pending_pr_dict['PR_NO'] = "PR " + str(i['BANFN'])
+        pending_pr_dict['CH_ON'] = i['CH_ON']
+        pending_pr_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_pr_dict['CREATED_TIME'] = i['CREATEDTIME']
+        # print(pending_ses_dict)
+        pending_pr_list.append(pending_pr_dict)
+
+
+    return pending_pr_list
 
 
 @app.post("/pending_pr_item_list")
@@ -912,17 +927,28 @@ def pending_po_item_info(data:pending_po_item_info):
 @app.post('/pending_po_list')
 def pending_po_list(data: pending_po_list):
 
-    url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_po_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZfmPoPending(f'{data.username}') 
+    result = client.service.ZFM_PO_PENDING(data.username)
+
     listofobj = result[0]
-    pendingpo = ['PO '+str(i.Ebeln) for i in listofobj]
+    # print(listofobj)
 
-    print(pendingpo)
 
-    return pendingpo
+    pending_po_list = []
+
+
+    for i in listofobj:
+        pending_po_dict = {}
+        pending_po_dict['PO_NO'] = "PO " + str(i['EBELN'])
+        pending_po_dict['CREATED_ON'] = i['CREATED_ON']
+        pending_po_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_po_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_po_list.append(pending_po_dict)
+
+    return pending_po_list
 
 @app.post('/pending_po_item_list')
 def pending_po_item_list(data: pending_po_item_list):
@@ -1639,15 +1665,28 @@ async def qpmc_reject_leave_request_sf(WfRequestId:str,name:str,type:str,duratio
 @app.post("/Pending_invoice_list")
 def Pending_invoice_list(data:Pending_invoice_list):
 
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_inv_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZFM_INV_PENDING(data.username) 
-    listofobj = result[0]
-    pendinginvoice_list = ['IN '+str(i.INVOICE) for i in listofobj]
+    result = client.service.ZFM_INV_PENDING(data.username)
 
-    return pendinginvoice_list
+    listofobj = result[0]
+    # print(listofobj)
+
+
+    pending_inv_list = []
+
+
+    for i in listofobj:
+        pending_inv_dict = {}
+        pending_inv_dict['INVOICE_NO'] = "IN " + str(i['INVOICE'])
+        pending_inv_dict['CREATED_DATE'] = i['CREATEDDATE']
+        pending_inv_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_inv_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_inv_list.append(pending_inv_dict)
+
+    return pending_inv_list
 
 
 
@@ -1884,7 +1923,7 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
     # sap_password = "Kaar@12345"
 
     # user_name = "GIRISH"
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_pending?sap-client=100'
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
@@ -1901,6 +1940,8 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
         pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
         pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
         pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_ses_dict['CREATED_TIME'] = i['CREATEDTIME']
+
         # print(pending_ses_dict)
         pending_ses_list.append(pending_ses_dict)
 
@@ -2207,6 +2248,14 @@ async def ENEC_Total_Invoice_count(data:ENEC_Total_Invoice_count):
 
     return Pending_Invoice_count
 
+@app.post('/ENEC_Total_SES_count')
+async def ENEC_Total_SES_count(data:ENEC_Total_SES_count):
+
+    Pending_SES_count = ENEC_Pending_SES_count_api(data.username)
+
+
+    return Pending_SES_count
+
 
 
 @app.get('/ENEC_Total_PL_count')
@@ -2220,15 +2269,9 @@ async def ENEC_Total_PL_count():
 @app.post('/ENEC_Total_pending_req')
 async def ENEC_Total_pending_req(data:ENEC_Total_pending_req):
 
-    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Pending_PL_count_api() + ENEC_Pending_PR_req_count_api(data.username) + ENEC_Pending_PO_count_api(data.username) + ENEC_Pending_Invoice_count_api(data.username)
+    Total_pending_req = ENEC_IT_request_count_api() + ENEC_Pending_PL_count_api() + ENEC_Pending_PR_req_count_api(data.username) + ENEC_Pending_PO_count_api(data.username) + ENEC_Pending_Invoice_count_api(data.username) + ENEC_Pending_SES_count_api(data.username)
 
     return Total_pending_req
-
-
-
-
-
-
 
 
 
