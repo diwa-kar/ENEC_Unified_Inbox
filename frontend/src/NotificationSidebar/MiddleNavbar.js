@@ -102,10 +102,10 @@ const MiddleNavbar = (props) => {
           data?.map((data, index) => {
             return {
               type: type,
-              value: data,
+              value: data.PR_NO,
               description: "PR Request",
-              date: dates[Math.floor(Math.random() * dates.length)],
-              createdBy: users[Math.floor(Math.random() * users.length)],
+              date: data.CH_ON,
+              createdBy: data.CREATED_BY,
             };
           });
       } catch (error) {
@@ -141,8 +141,8 @@ const MiddleNavbar = (props) => {
               type: type1,
               value: "PL " + some,
               description: description,
-              date: dates[Math.floor(Math.random() * dates.length)],
-              createdBy: users[Math.floor(Math.random() * users.length)],
+              date: data["Leave Duration"],
+              createdBy: data["Employee Name"],
             };
           });
       } catch (error) {
@@ -197,10 +197,10 @@ const MiddleNavbar = (props) => {
           data3?.map((data, index) => {
             return {
               type: type3,
-              value: data,
+              value: data.PO_NO,
               description: "PO Request",
-              date: dates[Math.floor(Math.random() * dates.length)],
-              createdBy: users[Math.floor(Math.random() * users.length)],
+              date: data.CREATED_ON,
+              createdBy: data.CREATED_BY,
             };
           });
       } catch (error) {
@@ -230,10 +230,10 @@ const MiddleNavbar = (props) => {
           data4?.map((data, index) => {
             return {
               type: type4,
-              value: data,
+              value: data.INVOICE_NO,
               description: "Invoice Request",
-              date: dates[Math.floor(Math.random() * dates.length)],
-              createdBy: users[Math.floor(Math.random() * users.length)],
+              date: data.CREATED_DATE,
+              createdBy: data.CREATED_BY,
             };
           });
       } catch (error) {
