@@ -318,8 +318,26 @@ def ENEC_Approved_SES_count_api(username):
 
     return approved_ses_count
 
+def ENEC_Rejected_SES_count_api(username):
 
-    return 
+    db = client["ENEC_RasaChatbot"]
+    collection = db["Rejected_SES"]
+    a=collection.find()
+
+    rejected_ses_list = []
+
+    for i in a:
+        if username == i["username"]:
+            rejected_ses_list.append(i['SES number'])
+
+    # print(approved_invoice_list)
+
+    rejected_ses_count = len(rejected_ses_list)
+
+    return rejected_ses_count
+
+
+    
 
 
 def ENEC_Approved_Leave_count_api():

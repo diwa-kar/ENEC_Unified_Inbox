@@ -805,6 +805,8 @@ class ENECTicketRaiseMonitor(Action):
         print(date.today())
 
         ticket_date = date.today()
+        # current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
 
 
         # Dictionary to be inserted
@@ -813,7 +815,8 @@ class ENECTicketRaiseMonitor(Action):
             "Ticket type": "hardware",
             "Hardware type": hardware_type,
             "Monitor Size": monitor_inches,
-            "date": f"{ticket_date}"
+            "date": f"{ticket_date}",
+            "time": f"{current_time}"
 
         }
 
@@ -881,13 +884,17 @@ class ENECTicketRaise(Action):
         print(ticket_number)
 
         ticket_date = date.today()
+        current_time = datetime.datetime.now().time()
+
 
         # Dictionary to be inserted
         data = {
             "Ticket ID": ticket_number,
             "Ticket type": "hardware",
             "Hardware type": hardware_type,
-            "date": f"{ticket_date}"
+            "date": f"{ticket_date}",
+            "time": f"{current_time}"
+
         }
 
         # Insert the dictionary into the collection
