@@ -30,11 +30,13 @@ import re
 
 # importing datetime module
 import datetime
+from datetime import datetime
+
 
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list,ENEC_Pending_PO_list,ENEC_Pending_invoice_list,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api,ENEC_Rejected_SES_count_api
 
 
 # username = 'KAAR'
@@ -320,6 +322,7 @@ class IT_ticket_creation(BaseModel):
     tickettype : str
     Hardwaretype : str
     monitorsize : str | None
+    username: str
 
 # class It_tickets_details(BaseModel):
     
@@ -1321,18 +1324,30 @@ def IT_ticket_creation(data : IT_ticket_creation):
     random_number = np.random.randint(10000, 100000)
     ticket_number = "TCKT"+str(random_number)
     print(ticket_number)
+
+    current_date = datetime.date.today()
+    current_time = datetime.datetime.now().time()
+
+
     if(data.Hardwaretype == "Monitor"):
         data = {
             "Ticket ID": ticket_number,
             "Ticket type": data.tickettype,
             "Hardware type": data.Hardwaretype,
-            "Monitor Size": data.monitorsize
+            "Monitor Size": data.monitorsize,
+            "Created_by": data.username,
+            "Created_date": current_date,
+            "Created_time": current_time
         }
     else:
         data = {
             "Ticket ID": ticket_number,
             "Ticket type": data.tickettype,
-            "Hardware type": data.Hardwaretype
+            "Hardware type": data.Hardwaretype,
+            "Created_by": data.username,
+            "Created_date": current_date,
+            "Created_time": current_time
+
         }
     result = collection.insert_one(data)
     if result.inserted_id:
@@ -1350,14 +1365,28 @@ async def IT_ticket_list():
     collection = db["ITTickets"]
     a=collection.find()
 
-    it_tickets = []
+    it_ticket_detail = []
+
 
     for i in a:
-        print(i)
-        it_tickets.append(i['Ticket ID'])
+        ticket={}
+        ticket["Ticket id"]=i['Ticket ID']
+        ticket["Ticket type"]=i['Ticket type']
+        ticket["Hardware type"]=i['Hardware type']
+        ticket["Created_date"] = i["date"]
+
+        time_obj = datetime.strptime(i["time"], "%H:%M:%S.%f")
+        time_without_decimals = time_obj.strftime("%H:%M:%S")
+
+        ticket["Created_time"] = time_without_decimals
 
 
-    return it_tickets
+        if(i['Hardware type']=="monitor" or i['Hardware type']=="Monitor" ):
+            ticket["Monitor Size"]=i['Monitor Size']
+        it_ticket_detail.append(ticket)
+
+
+    return it_ticket_detail
 
 
 @app.get('/It_tickets_details')
@@ -1374,6 +1403,15 @@ async def It_tickets_details():
         ticket["Ticket id"]=i['Ticket ID']
         ticket["Ticket type"]=i['Ticket type']
         ticket["Hardware type"]=i['Hardware type']
+        ticket["Created_date"] = i["date"]
+        
+        time_obj = datetime.strptime(i["time"], "%H:%M:%S.%f")
+        time_without_decimals = time_obj.strftime("%H:%M:%S")
+
+        ticket["Created_time"] = time_without_decimals
+
+
+
         if(i['Hardware type']=="monitor" or i['Hardware type']=="Monitor" ):
             ticket["Monitor Size"]=i['Monitor Size']
         it_ticket_detail.append(ticket)
@@ -2323,7 +2361,7 @@ async def ENEC_Approved_Leave_count():
 @app.post('/ENEC_Total_Approved_count')
 async def ENEC_Total_Approved_count(data:ENEC_Total_Approved_count):
 
-    ENEC_Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api()
+    ENEC_Total_approved_count = ENEC_Approved_PR_count_api(data.username) + ENEC_Approved_PO_count_api(data.username) + ENEC_Approved_INVOICE_count_api(data.username) + ENEC_Approved_Leave_count_api() + ENEC_Approved_SES_count_api(data.username)
 
     return ENEC_Total_approved_count
 
@@ -2465,14 +2503,6 @@ def Donut_chart_opened_closed_req(data:Donut_chart_opened_closed_req):
 
 
 
-
-
-
-
-
-
-
-
 # ********************************************************** Dashboard API **********************************************************
 
 
@@ -2496,11 +2526,14 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     # Total Pending invoice count 
     Pending_Invoice_count = ENEC_Pending_Invoice_count_api(data.username)
 
+    # Total Pending SES count
+    Pending_ses_count = ENEC_Pending_SES_count_api(data.username)
+
     # Total Pending Leave req count
     Pending_leave_count = ENEC_Pending_PL_count_api()
 
     # Combined all req count 
-    Total_pending_req = ticket_count + Pending_leave_count + Pending_pr_count + pending_po_count + Pending_Invoice_count
+    Total_pending_req = ticket_count + Pending_leave_count + Pending_pr_count + pending_po_count + Pending_Invoice_count + Pending_ses_count
 
     
     # Approved requests
@@ -2508,7 +2541,9 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     Approved_pr_count = ENEC_Approved_PR_count_api(data.username)
     Approved_po_count = ENEC_Approved_PO_count_api(data.username)
     Approved_invoice_count = ENEC_Approved_INVOICE_count_api(data.username)
+    Approved_ses_count = ENEC_Approved_SES_count_api(data.username)
     Approved_leave_count = ENEC_Approved_Leave_count_api()
+
 
 
     # Rejected requests
@@ -2516,16 +2551,17 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     Rejected_pr_count = ENEC_Rejected_PR_count_api(data.username)
     Rejected_po_count = ENEC_Rejected_PO_count_api(data.username)
     Rejected_invoice_count = ENEC_Rejected_Invoice_count_api(data.username)
+    Rejected_ses_count = ENEC_Rejected_SES_count_api(data.username)
     Rejected_leave_count = ENEC_Rejected_Leave_req_api()
 
 
 
 
     # Total Approved req count
-    Total_approved_count = Approved_pr_count + Approved_po_count + Approved_invoice_count + Approved_leave_count
+    Total_approved_count = Approved_pr_count + Approved_po_count + Approved_invoice_count + Approved_leave_count + Approved_ses_count
 
     # Total Rejected req count
-    Total_Rejected_count = Rejected_pr_count + Rejected_po_count + Rejected_invoice_count + Rejected_leave_count
+    Total_Rejected_count = Rejected_pr_count + Rejected_po_count + Rejected_invoice_count + Rejected_leave_count + Rejected_ses_count
 
 
 
