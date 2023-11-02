@@ -269,7 +269,10 @@ const Notificationdisplay = ({
       } catch (e) {
         console.log(e);
       }
-    } else if (selectedItem.type === "it ticket") {
+    } else if (
+      selectedItem.type === "hardware" ||
+      selectedItem.type === "software"
+    ) {
       setDisplayShow(true);
       setLeaveDetail([]);
       setLoader(true);
@@ -514,11 +517,11 @@ const Notificationdisplay = ({
 
   useEffect(() => {
     setDetailData([]);
-    setDisplayShow(false);
     setLeaveDetail([]);
     setTicketdetail([]);
     setInvoicedetail([]);
     setSesDetail([]);
+    setDisplayShow(false);
   }, [tab]);
 
   // Dialog Handler
@@ -1349,7 +1352,8 @@ const Notificationdisplay = ({
         </Alert>
       </Snackbar>
 
-      {ticketdetail.length > 0 && selectedItem.type === "it ticket" ? (
+      {ticketdetail.length > 0 &&
+      (selectedItem.type === "hardware" || selectedItem.type === "software") ? (
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -1750,9 +1754,10 @@ const Notificationdisplay = ({
         <></>
       )}
 
-      {(sesdetail.length > 0 && selectedItem.type === "pending SES") ||
-      selectedItem.type === "approved SES" ||
-      selectedItem.type === "rejected SES" ? (
+      {sesdetail.length > 0 &&
+      (selectedItem.type === "pending SES" ||
+        selectedItem.type === "approved SES" ||
+        selectedItem.type === "rejected SES") ? (
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -1961,7 +1966,12 @@ const Notificationdisplay = ({
       ) : (
         <></>
       )}
-      {detailData.length === 0 && displayShow === false ? (
+      {(detailData.length === 0 ||
+        invoicedetail.length == 0 ||
+        sesdetail.length == 0 ||
+        ticketdetail.length == 0 ||
+        leaveDetail.length == 0) &&
+      displayShow === false ? (
         <div
           style={{
             width: "100%",

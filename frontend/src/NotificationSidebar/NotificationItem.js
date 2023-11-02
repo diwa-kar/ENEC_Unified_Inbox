@@ -35,7 +35,7 @@ const NotificationItem = (props) => {
     ) {
       // console.log(card);
       props.updateIt(card);
-    } else if (card.type === "it ticket") {
+    } else if (card.type === "hardware" || card.type === "software") {
       // console.log(card);
       props.updateIt(card);
     } else if (
@@ -104,7 +104,7 @@ const NotificationItem = (props) => {
                     card.type === "approved leave" ||
                     card.type === "rejected leave"
                   ? "notification-leave"
-                  : card.type === "it ticket"
+                  : card.type === "hardware" || card.type == "software"
                   ? "notification-it"
                   : card.type === "pending invoice"
                   ? "notification-invoice"

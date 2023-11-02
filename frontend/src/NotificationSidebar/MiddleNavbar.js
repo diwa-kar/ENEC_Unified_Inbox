@@ -168,7 +168,7 @@ const MiddleNavbar = (props) => {
             value: item["Ticket id"],
             description: "Ticket",
             date: item["Created_date"],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            createdBy: item["Created_by"],
           }));
       } catch (error) {
         console.log(error.message);
