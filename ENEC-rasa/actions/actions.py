@@ -776,6 +776,10 @@ class ENECTicketRaiseMonitor(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+        metadata = tracker.latest_message.get("metadata")
+
+        user_name = metadata['username']
+        
         db = client["ENEC_RasaChatbot"]
         collection = db["ITTickets"]
         
@@ -816,7 +820,8 @@ class ENECTicketRaiseMonitor(Action):
             "Hardware type": hardware_type,
             "Monitor Size": monitor_inches,
             "date": f"{ticket_date}",
-            "time": f"{current_time}"
+            "time": f"{current_time}",
+            "Created_by": user_name
 
         }
 
@@ -841,6 +846,10 @@ class ENECTicketRaise(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get("metadata")
+
+        user_name = metadata['username']
             
         
         db = client["ENEC_RasaChatbot"]
@@ -893,7 +902,9 @@ class ENECTicketRaise(Action):
             "Ticket type": "hardware",
             "Hardware type": hardware_type,
             "date": f"{ticket_date}",
-            "time": f"{current_time}"
+            "time": f"{current_time}",
+            "Created_by": user_name
+
 
         }
 

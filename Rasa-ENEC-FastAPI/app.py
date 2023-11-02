@@ -1374,6 +1374,8 @@ async def IT_ticket_list():
         ticket["Ticket type"]=i['Ticket type']
         ticket["Hardware type"]=i['Hardware type']
         ticket["Created_date"] = i["date"]
+        ticket["Created_by"] = i["Created_by"]
+
 
         time_obj = datetime.strptime(i["time"], "%H:%M:%S.%f")
         time_without_decimals = time_obj.strftime("%H:%M:%S")
@@ -1404,6 +1406,7 @@ async def It_tickets_details():
         ticket["Ticket type"]=i['Ticket type']
         ticket["Hardware type"]=i['Hardware type']
         ticket["Created_date"] = i["date"]
+        ticket["Created_by"] = i["Created_by"]
         
         time_obj = datetime.strptime(i["time"], "%H:%M:%S.%f")
         time_without_decimals = time_obj.strftime("%H:%M:%S")
