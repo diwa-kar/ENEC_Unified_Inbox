@@ -130,7 +130,7 @@ const NotificationItem = (props) => {
                       card.type === "approved leave" ||
                       card.type === "rejected leave"
                     ? Leave
-                    : card.type === "it ticket"
+                    : card.type === "hardware" || card.type === "software"
                     ? Ticket
                     : card.type === "pending invoice" ||
                       card.type === "approved invoice" ||
