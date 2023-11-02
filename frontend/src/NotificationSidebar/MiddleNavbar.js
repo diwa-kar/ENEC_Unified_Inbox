@@ -164,10 +164,10 @@ const MiddleNavbar = (props) => {
         it_tickets =
           data2 &&
           data2?.map((item, index) => ({
-            type: type2,
-            value: item,
+            type: item["Ticket type"],
+            value: item["Ticket id"],
             description: "Ticket",
-            date: dates[Math.floor(Math.random() * dates.length)],
+            date: item["Created_date"],
             createdBy: users[Math.floor(Math.random() * users.length)],
           }));
       } catch (error) {
