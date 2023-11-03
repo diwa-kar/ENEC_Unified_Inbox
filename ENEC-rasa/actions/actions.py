@@ -2386,9 +2386,12 @@ class PoAppprovalENEC(Action):
 
         elif Status_code == "APPROVED":
 
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PO"]
-            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
+            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name, "Approved_date": f"{current_date}","Approved_time": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PO {pono} Approved Successfully")
@@ -2436,9 +2439,12 @@ class PoRejectENEC(Action):
 
         elif Status_code == "REJECTED":
 
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_PO"]
-            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Rejected", "Comment":f"{user_comment}","username":user_name}
+            document = {"Purchase Order Number": "PO "+f"{pono}", "Status":"Rejected", "Comment":f"{user_comment}","username":user_name, "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PO {pono} Rejected Successfully")
