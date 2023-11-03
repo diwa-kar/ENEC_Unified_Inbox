@@ -833,8 +833,29 @@ class ENECTicketRaiseMonitor(Action):
         else:
             print("Failed to insert ticket to mongo")
 
+        ticket_flag = 0
 
-        dispatcher.utter_message(text=f"Your ticket has been raised with Ticket ID: {ticket_number} \nTicket type:{ticket_type} \nHardware type:{hardware_type} \nInches:{monitor_inches}")
+        details = {}
+
+        details["Ticket_ID"] = f"{ticket_number}"
+        details["Ticket_type"] = f"{ticket_type}"
+        details["Hardware_type"] = f"{hardware_type}"
+        details["Inches"] = f"{monitor_inches}"
+
+
+
+        send = {
+            "msg": "Here is the Details of Purchase Order... ",
+            "details": {
+                "data":details,"flag":ticket_flag,"type":"TCKT"
+                }
+        }
+        
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
+
+
+        # dispatcher.utter_message(text=f"Your ticket has been raised with Ticket ID: {ticket_number} \nTicket type:{ticket_type} \nHardware type:{hardware_type} \nInches:{monitor_inches}")
 
         return []
     
@@ -917,7 +938,23 @@ class ENECTicketRaise(Action):
             print("Failed to insert ticket to mongo")
 
 
-        dispatcher.utter_message(text=f"Your ticket has been raised with Ticket ID: {ticket_number} \nTicket type:{ticket_type} \nHardware type:{hardware_type} \n")
+        ticket_flag = 0
+
+        details = {}
+
+        details["Ticket_ID"] = f"{ticket_number}"
+        details["Ticket_type"] = f"{ticket_type}"
+        details["Hardware_type"] = f"{hardware_type}"
+
+        send = {
+            "msg": "Here is the Details of Purchase Order... ",
+            "details": {
+                "data":details,"flag":ticket_flag,"type":"TCKT"
+                }
+        }
+        
+        my_json = json.dumps(send)
+        dispatcher.utter_message(text=my_json)
 
 
         return []
