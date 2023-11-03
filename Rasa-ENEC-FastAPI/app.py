@@ -2651,7 +2651,14 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     Closed_requests_invoice = Approved_invoice_count + Rejected_invoice_count
     Closed_requests.append(Closed_requests_invoice)
 
+    # SES opened and closed 
 
+    Opened_requests_ses = Pending_ses_count
+    Opened_requests.append(Opened_requests_ses)
+
+    Closed_requests_ses = Approved_ses_count + Rejected_ses_count
+    Closed_requests.append(Closed_requests_ses)
+    
     # leave req Opened and closed
 
     Opened_requests_leave = Pending_leave_count
@@ -2679,14 +2686,21 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     # pending Invoice count
     Donut_pending_invoice_count = Pending_Invoice_count
 
+
+    # pending SES count
+    Donut_pending_ses_count = Pending_ses_count
+
     # pending Leave count
     Donut_pending_leave_count = Pending_leave_count
+
+
     
 
     Donut_data = {
         "Donut_pending_pr_count":Donut_pending_pr_count,
         "Donut_pending_po_count":Donut_pending_po_count,
         "Donut_pending_invoice_count":Donut_pending_invoice_count,
+        "Donut_pending_ses_count" : Donut_pending_ses_count,
         "Donut_pending_leave_count":Donut_pending_leave_count
     }
 
@@ -2702,6 +2716,7 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
         "Pending_pr_count":Pending_pr_count,
         "pending_po_count":pending_po_count,
         "Pending_Invoice_count":Pending_Invoice_count,
+        "Pending_SES_Ccount": Pending_ses_count,
         "Pending_leave_count": Pending_leave_count,
 
 
