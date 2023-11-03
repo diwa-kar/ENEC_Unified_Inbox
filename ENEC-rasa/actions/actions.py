@@ -16,7 +16,8 @@ from typing import Any, Text, Dict, List
 from pymongo import MongoClient
 
 # importing datetime module
-import datetime
+from datetime import datetime
+
 
 
 import numpy as np
@@ -808,9 +809,8 @@ class ENECTicketRaiseMonitor(Action):
 
         print(date.today())
 
-        ticket_date = date.today()
-        # current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        ticket_date = datetime.now().date()
+        current_time = datetime.now().time()
 
 
         # Dictionary to be inserted
@@ -892,8 +892,8 @@ class ENECTicketRaise(Action):
         ticket_number = "TCKT"+str(random_number)
         print(ticket_number)
 
-        ticket_date = date.today()
-        current_time = datetime.datetime.now().time()
+        ticket_date = datetime.now().date()
+        current_time = datetime.now().time()
 
 
         # Dictionary to be inserted
@@ -2104,8 +2104,8 @@ class PrAppprovalENEC(Action):
 
         elif Status_code == "APPROVED":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PR"]
@@ -2160,8 +2160,8 @@ class PrRejectionENEC(Action):
 
         elif Status_code == "REJECTED":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_PR"]
@@ -2386,8 +2386,8 @@ class PoAppprovalENEC(Action):
 
         elif Status_code == "APPROVED":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PO"]
@@ -2439,8 +2439,8 @@ class PoRejectENEC(Action):
 
         elif Status_code == "REJECTED":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_PO"]
@@ -2622,9 +2622,12 @@ class InvoiceAppprovalENEC(Action):
 
         elif Status_code == "SUCCESS":
 
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_INVOICE"]
-            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name}
+            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Approved", "Comment":f"{user_comment}","username":user_name,"Approved_date": f"{current_date}","Approved_time": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"IN {invoice_no} Approved Successfully")
@@ -2685,9 +2688,12 @@ class InvoiceRejectionENEC(Action):
 
         elif Status_code == "SUCCESS":
 
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_INVOICE"]
-            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Rejected", "Comment":f"{user_comment}","username":user_name}
+            document = {"Invoice number": "IN "+f"{invoice_no}", "Status":"Rejected", "Comment":f"{user_comment}","username":user_name,"Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"IN {invoice_no} Rejected Successfully")
@@ -2852,8 +2858,8 @@ class SESApprovalENEC(Action):
 
         elif Status_code == "Success":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_SES"]
@@ -2913,8 +2919,8 @@ class SESRejectENEC(Action):
 
         elif Status_code == "Success":
 
-            current_date = datetime.date.today()
-            current_time = datetime.datetime.now().time()
+            current_date = datetime.now().date()
+            current_time = datetime.now().time()
 
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_SES"]
