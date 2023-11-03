@@ -808,8 +808,8 @@ def pending_pr_approval(data : pending_pr_approval):
 
     elif Status_code == "APPROVED":
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_PR"]
@@ -842,8 +842,8 @@ def pending_pr_rejection(data : pending_pr_rejection):
 
     elif Status_code == "REJECTED":
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PR"]
@@ -1283,8 +1283,8 @@ def pending_po_approval(data : pending_po_approval):
     elif Status_code == "APPROVED":
 
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_PO"]
@@ -1320,8 +1320,8 @@ def pending_po_rejection(data : pending_po_rejection):
 
     elif Status_code == "REJECTED":
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PO"]
@@ -1341,8 +1341,8 @@ def IT_ticket_creation(data : IT_ticket_creation):
     ticket_number = "TCKT"+str(random_number)
     print(ticket_number)
 
-    current_date = datetime.date.today()
-    current_time = datetime.datetime.now().time()
+    current_date = datetime.now().date()
+    current_time = datetime.now().time()
 
 
     if(data.Hardwaretype == "Monitor"):
@@ -1831,9 +1831,12 @@ def pending_invoice_approval(data:pending_invoice_approval):
 
     elif Status_code == "SUCCESS":
 
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
+
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_INVOICE"]
-        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
+        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}","Approved_date": f"{current_date}","Approved_time": f"{current_time}"}
         
         res = collection.insert_one(document)
 
@@ -1865,9 +1868,12 @@ def pending_invoice_rejection(data : pending_invoice_rejection):
 
     elif Status_code == "SUCCESS":
 
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
+
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_INVOICE"]
-        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}"}
+        document = {"Invoice number": "IN "+f"{data.inv_no}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}","Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}"}
         
         res = collection.insert_one(document)
 
@@ -2095,8 +2101,8 @@ async def ENEC_SES_Approval(data:ENEC_SES_Approval):
 
     elif Status_code == "Success":
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
 
         db = client["ENEC_RasaChatbot"]
@@ -2137,8 +2143,8 @@ async def ENEC_SES_Rejection(data:ENEC_SES_Rejection):
 
     elif Status_code == "Success":
 
-        current_date = datetime.date.today()
-        current_time = datetime.datetime.now().time()
+        current_date = datetime.now().date()
+        current_time = datetime.now().time()
 
 
         db = client["ENEC_RasaChatbot"]
