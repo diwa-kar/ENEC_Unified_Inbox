@@ -30,7 +30,10 @@ import re
 
 # importing datetime module
 import datetime
-from datetime import datetime
+# from datetime import datetime
+
+# today = datetime.today()
+
 
 
 
@@ -805,9 +808,12 @@ def pending_pr_approval(data : pending_pr_approval):
 
     elif Status_code == "APPROVED":
 
+        current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
+
         db = client["ENEC_RasaChatbot"]
         collection = db["Approved_PR"]
-        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}"}
+        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Approved","Comment":f"{data.comment}","username": f"{data.username}", "Approved_date": f"{current_date}","Approved_time": f"{current_time}" }
         res = collection.insert_one(document)
 
         text =f"PR {data.prno} is Approved successfully" 
@@ -836,9 +842,12 @@ def pending_pr_rejection(data : pending_pr_rejection):
 
     elif Status_code == "REJECTED":
 
+        current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
+
         db = client["ENEC_RasaChatbot"]
         collection = db["Rejected_PR"]
-        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}"}
+        document = {"Purchase Requisition Number": "PR "+f"{data.prno}", "Status":"Rejected","Comment":f"{data.comment}","username": f"{data.username}", "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}"}
         res = collection.insert_one(document)
 
         text =f"PR {data.prno} is Rejected successfully" 
@@ -1435,9 +1444,15 @@ async def ENEC_approved_pr_list_mongo(data : ENEC_approved_pr_list_mongo):
 
     for i in a:
         if data.username == i["username"]:
-            approved_pr_list.append(i['Purchase Requisition Number'])
+            approved_pr_dict = {}
 
-    print(approved_pr_list)
+            approved_pr_dict["PR_NO"] = i['Purchase Requisition Number']
+            approved_pr_dict["Approver_name"] = i["username"]
+            approved_pr_dict["Approved_time"] = i["Approved_time"]
+            approved_pr_dict["Approved_date"] = i["Approved_date"]
+
+            approved_pr_list.append(approved_pr_dict)
+
 
     return approved_pr_list
 
@@ -1497,7 +1512,14 @@ async def ENEC_rejected_pr_list_mongo(data : ENEC_rejected_pr_list_mongo):
 
     for i in a:
         if data.username == i["username"]:
-            rejected_pr_list.append(i['Purchase Requisition Number'])
+            rejected_pr_dict = {}
+
+            rejected_pr_dict["PR_NO"] = i['Purchase Requisition Number']
+            rejected_pr_dict["Approver_name"] = i["username"]
+            rejected_pr_dict["Rejected_time"] = i["Date_of_rejection"]
+            rejected_pr_dict["Rejected_date"] = i["Date_of_rejection"]
+
+            rejected_pr_list.append(rejected_pr_dict)
 
     return rejected_pr_list
 

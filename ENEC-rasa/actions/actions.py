@@ -2104,9 +2104,12 @@ class PrAppprovalENEC(Action):
 
         elif Status_code == "APPROVED":
 
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Approved_PR"]
-            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}", "username":user_name}
+            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Approved", "Comment":f"{user_comment}", "username":user_name, "Approved_date": f"{current_date}","Approved_time": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PR {prno} was Approved Successfully")
@@ -2157,9 +2160,12 @@ class PrRejectionENEC(Action):
 
         elif Status_code == "REJECTED":
 
+            current_date = datetime.date.today()
+            current_time = datetime.datetime.now().time()
+
             db = client["ENEC_RasaChatbot"]
             collection = db["Rejected_PR"]
-            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Rejected", "Comment":f"{user_comment}", "username":user_name}
+            document = {"Purchase Requisition Number": "PR "+f"{prno}", "Status":"Rejected", "Comment":f"{user_comment}", "username":user_name, "Date_of_rejection": f"{current_date}", "Time_of_rejection": f"{current_time}"}
             result = collection.insert_one(document)
 
             dispatcher.utter_message(text=f"PR {prno} was Rejected Successfully")
