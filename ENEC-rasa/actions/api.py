@@ -229,19 +229,19 @@ def pending_po_item_description_ENEC(pono,poitemno):
     
     desc = {}
     desc['Purchase_Order_Number'] = flatjs['entry_content_m:properties_d:PurchaseOrder']
-    desc['CompanyCode'] = flatjs['entry_content_m:properties_d:CompanyCode']
-    desc['CreatedByUser'] = flatjs['entry_content_m:properties_d:CreatedByUser']
-    desc['PurchasingProcessingStatus'] = flatjs['entry_content_m:properties_d:PurchasingProcessingStatus']
-    desc['CreationDate'] = flatjs['entry_content_m:properties_d:CreationDate']
+    desc['Company_Code'] = flatjs['entry_content_m:properties_d:CompanyCode']
+    desc['Created_By_User'] = flatjs['entry_content_m:properties_d:CreatedByUser']
+    desc['Purchasing_Processing_Status'] = flatjs['entry_content_m:properties_d:PurchasingProcessingStatus']
+    desc['Creation_Date'] = flatjs['entry_content_m:properties_d:CreationDate']
     desc['Supplier'] = flatjs['entry_content_m:properties_d:Supplier']
-    desc['PurchaseOrderSubtype'] = flatjs['entry_content_m:properties_d:PurchaseOrderSubtype']
-    desc['PaymentTerms'] = flatjs['entry_content_m:properties_d:PaymentTerms']
-    desc['PurchasingGroup'] = flatjs['entry_content_m:properties_d:PurchasingGroup']
-    desc['AddressCityName'] = flatjs['entry_content_m:properties_d:AddressCityName']
-    desc['AddressPostalCode'] = flatjs['entry_content_m:properties_d:AddressPostalCode']
-    desc['AddressStreetName'] = flatjs['entry_content_m:properties_d:AddressStreetName']
-    desc['AddressCountry'] = flatjs['entry_content_m:properties_d:AddressCountry']
-    desc['AddressRegion'] = flatjs['entry_content_m:properties_d:AddressRegion']
+    desc['Purchase_Order_Subtype'] = flatjs['entry_content_m:properties_d:PurchaseOrderSubtype']
+    desc['Payment_Terms'] = flatjs['entry_content_m:properties_d:PaymentTerms']
+    desc['Purchasing_Group'] = flatjs['entry_content_m:properties_d:PurchasingGroup']
+    desc['Address_City_Name'] = flatjs['entry_content_m:properties_d:AddressCityName']
+    desc['Address_Postal_Code'] = flatjs['entry_content_m:properties_d:AddressPostalCode']
+    desc['Address_Street_Name'] = flatjs['entry_content_m:properties_d:AddressStreetName']
+    desc['Address_Country'] = flatjs['entry_content_m:properties_d:AddressCountry']
+    desc['Address_Region'] = flatjs['entry_content_m:properties_d:AddressRegion']
     
     print(desc)
 
