@@ -178,7 +178,7 @@ const NotificationItem = (props) => {
               >
                 <span
                   class="notification-description"
-                  style={{ fontWeight: "bold" }}
+                  // style={{ fontWeight: "bold" }}
                 >
                   {card.createdBy}
                 </span>
