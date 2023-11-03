@@ -677,36 +677,37 @@ const Notificationdisplay = ({
       } catch (error) {
         console.log(error);
       }
-    }
-    detailData.length = 0;
-    try {
-      const response = await fetch(
-        "http://localhost:8000/pending_po_rejection",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            username: username,
-            pono: value.split(" ")[1],
-            comment: comment,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const data = await response.json();
-      console.log(data);
-      setCards(cards.filter((card) => card.value !== selectedItem.value));
-      setDisplayShow(false);
-      setDetailData([]);
-      setsnackbarValue({
-        ...snackbarValue,
-        type: "success",
-        infomation: data,
-      });
-      setsnackbarOpen(true);
-    } catch (e) {
-      console.log(e);
+    } else {
+      detailData.length = 0;
+      try {
+        const response = await fetch(
+          "http://localhost:8000/pending_po_rejection",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              username: username,
+              pono: value.split(" ")[1],
+              comment: comment,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        setCards(cards.filter((card) => card.value !== selectedItem.value));
+        setDisplayShow(false);
+        setDetailData([]);
+        setsnackbarValue({
+          ...snackbarValue,
+          type: "success",
+          infomation: data,
+        });
+        setsnackbarOpen(true);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
   const approveInvoice = async (username, value, comment) => {
