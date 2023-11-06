@@ -317,10 +317,10 @@ const MiddleNavbar = (props) => {
           data &&
           data?.map((item, index) => ({
             type: type,
-            value: item,
+            value: item["PR_NO"],
             description: "PR Request",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item["Approved_date"],
+            createdBy: item["Approver_name"],
           }));
       } catch (error) {
         console.log(error.message);
@@ -348,10 +348,10 @@ const MiddleNavbar = (props) => {
           data2 &&
           data2?.map((item, index) => ({
             type: type2,
-            value: item,
+            value: item["PO_NO"],
             description: "PO Request",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item["Approved_date"],
+            createdBy: item["Approver_name"],
           }));
       } catch (error) {
         console.log(error.message);
@@ -486,10 +486,10 @@ const MiddleNavbar = (props) => {
           data &&
           data?.map((item, index) => ({
             type: type,
-            value: item,
+            value: item["PR_NO"],
             description: "PR Request",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item["Rejected_date"],
+            createdBy: item["Approver_name"],
           }));
       } catch (error) {
         console.log(error.message);
@@ -541,10 +541,10 @@ const MiddleNavbar = (props) => {
           data2 &&
           data2?.map((item, index) => ({
             type: type2,
-            value: item,
+            value: item["PO_NO"],
             description: "PO Request",
-            date: dates[Math.floor(Math.random() * dates.length)],
-            createdBy: users[Math.floor(Math.random() * users.length)],
+            date: item["Rejected_date"],
+            createdBy: item["Approver_name"],
           }));
       } catch (error) {
         console.log(error.message);
