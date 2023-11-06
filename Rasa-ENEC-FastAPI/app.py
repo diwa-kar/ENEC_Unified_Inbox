@@ -1550,7 +1550,7 @@ async def ENEC_rejected_po_list_mongo(data : ENEC_rejected_po_list_mongo):
         if data.username == i["username"]:
             rejected_po_dict = {}
 
-            rejected_po_dict["PR_NO"] = i['Purchase Order Number']
+            rejected_po_dict["PO_NO"] = i['Purchase Order Number']
             rejected_po_dict["Approver_name"] = i["username"]
             rejected_po_dict["Rejected_time"] = i["Time_of_rejection"]
             rejected_po_dict["Rejected_date"] = i["Date_of_rejection"]
@@ -2706,9 +2706,6 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
 
 
     # *********************************************************** DONUT CHART **************************************************************
-
-
-
 
     Dashboard_data = {
 
