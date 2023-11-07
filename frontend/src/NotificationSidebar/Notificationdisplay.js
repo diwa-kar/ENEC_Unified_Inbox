@@ -12,13 +12,23 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Card, Chip, Grid, TextareaAutosize } from "@mui/material";
+import {
+  Box,
+  Card,
+  Chip,
+  Grid,
+  IconButton,
+  TextareaAutosize,
+} from "@mui/material";
 import CustomSnackbar from "../ReusableComponents/CustomSnackbar/CustomSnackbar";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { FcExpand } from "react-icons/fc";
+import { FiDownload } from "react-icons/fi";
+import PDF from "./PDF.png";
+import PreviewMedia from "./PreviewMedia";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -93,9 +103,10 @@ const Notificationdisplay = ({
           console.log("PR Response Data", data);
 
           const tempData = [];
-          Object.keys(data).map((key, index) => {
-            tempData.push(data[key]);
-          });
+          data &&
+            Object.keys(data).map((key, index) => {
+              tempData.push(data[key]);
+            });
           console.log(tempData);
           setLoader(false);
           setDetailData(tempData);
@@ -175,9 +186,10 @@ const Notificationdisplay = ({
           const data = await response.json();
           console.log("PO Response Data", data);
           const tempData = [];
-          Object.keys(data).map((key, index) => {
-            tempData.push(data[key]);
-          });
+          data &&
+            Object.keys(data).map((key, index) => {
+              tempData.push(data[key]);
+            });
           console.log(tempData);
           setLoader(false);
           setDetailData(tempData);
@@ -831,12 +843,12 @@ const Notificationdisplay = ({
     setExpanded(isExpanded ? panel : false);
   };
 
+  const [preview, setpreview] = useState({ open: false, value: "" });
+
   return (
     <div
-      // className="Notificataion-display"
       style={{
         width: "100%",
-        // height: "70vh",
         overflow: "auto",
       }}
     >
@@ -846,7 +858,6 @@ const Notificationdisplay = ({
       invoicedetail.length > 0 ||
       sesdetail.length > 0 ? (
         <div className="Notificataion-display-title">
-          {/* <span>{tab} Notification</span> */}
           <span>{selectedItem.value}</span>
         </div>
       ) : (
@@ -860,7 +871,6 @@ const Notificationdisplay = ({
         selectedItem.type === "pending po" ||
         selectedItem.type === "approved po" ||
         selectedItem.type === "rejected po") ? (
-        // <div className="Notificataion-display-content">
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -877,191 +887,178 @@ const Notificationdisplay = ({
           {detailData.map((data, index) => {
             console.log(data);
             return (
-              <Accordion
-                expanded={expanded === `panel${index}`}
-                onChange={handleChange(`panel${index}`)}
-                sx={{ width: "100%", border: "none", boxShadow: "none" }}
-              >
-                <AccordionSummary
-                  expandIcon={<FcExpand />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
+              <>
+                <Accordion
+                  expanded={expanded === `panel${index}`}
+                  onChange={handleChange(`panel${index}`)}
+                  sx={{ width: "100%", border: "none", boxShadow: "none" }}
                 >
-                  <Typography
-                    sx={{
-                      width: "33%",
-                      flexShrink: 0,
-                      fontWeight: 500,
-                      fontSize: "1.025rem",
-                      lineHeight: "1.5",
-                    }}
+                  <AccordionSummary
+                    expandIcon={<FcExpand />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
                   >
-                    {selectedItem.type === "pending pr" ||
-                    selectedItem.type === "approved pr" ||
-                    selectedItem.type === "rejected pr"
-                      ? data?.Purchase_Requisition_Number
-                      : data?.Purchase_Order_Number}
-                  </Typography>
-                  <Typography sx={{ width: "33%", color: "text.secondary" }}>
-                    {selectedItem.type === "pending pr" ||
-                    selectedItem.type === "approved pr" ||
-                    selectedItem.type === "rejected pr"
-                      ? data.Purchase_Requisition_Item_Text
-                      : data.CreatedByUser}
-                  </Typography>
-                  <Chip
-                    label={
-                      selectedItem.type === "pending pr" ||
+                    <Typography
+                      sx={{
+                        width: "33%",
+                        flexShrink: 0,
+                        fontWeight: 500,
+                        fontSize: "1.025rem",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {selectedItem.type === "pending pr" ||
                       selectedItem.type === "approved pr" ||
                       selectedItem.type === "rejected pr"
-                        ? data.Creation_Date.slice(0, 10)
-                        : data.CreationDate.slice(0, 10)
-                    }
-                    size="small"
-                    sx={{
-                      backgroundColor: "#D4EFFE",
-                      color: "#00A4FF",
-                      // width: "33%",
-                      borderRadius: "6px",
-                      pl: "3px",
-                      pr: "3px",
-                    }}
-                  />
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Grid container spacing={0}>
-                    {Object.keys(data).map((key, keyIndex) => {
-                      return (
-                        <Grid item xs={12} md={6} display="flex">
-                          <Grid item xs={12} md={6}>
-                            <Typography
-                              variant="h6"
-                              sx={{
-                                fontWeight: 500,
-                                fontSize: "0.875rem",
-                                lineHeight: "1.5",
-                                wordWrap: "break-word",
-                                py: 1,
-                                color: key === "Comment" ? "#a89566" : "black",
-                              }}
-                            >
-                              {" "}
-                              {key?.replace(/_/g, " ")}
-                            </Typography>
-                            {/* <span
-                                style={{
+                        ? data?.Purchase_Requisition_Number
+                        : data?.Purchase_Order_Number}
+                    </Typography>
+                    <Typography sx={{ width: "33%", color: "text.secondary" }}>
+                      {selectedItem.type === "pending pr" ||
+                      selectedItem.type === "approved pr" ||
+                      selectedItem.type === "rejected pr"
+                        ? data.Purchase_Requisition_Item_Text
+                        : data.CreatedByUser}
+                    </Typography>
+                    <Chip
+                      label={
+                        selectedItem.type === "pending pr" ||
+                        selectedItem.type === "approved pr" ||
+                        selectedItem.type === "rejected pr"
+                          ? data.Creation_Date &&
+                            data.Creation_Date.slice(0, 10)
+                          : data.CreationDate && data.CreationDate.slice(0, 10)
+                      }
+                      size="small"
+                      sx={{
+                        backgroundColor: "#D4EFFE",
+                        color: "#00A4FF",
+                        borderRadius: "6px",
+                        pl: "3px",
+                        pr: "3px",
+                      }}
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={0}>
+                      {Object.keys(data).map((key, keyIndex) => {
+                        return (
+                          <Grid item xs={12} md={6} display="flex">
+                            <Grid item xs={12} md={6}>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 500,
+                                  fontSize: "0.875rem",
+                                  lineHeight: "1.5",
                                   wordWrap: "break-word",
+                                  py: 1,
                                   color:
                                     key === "Comment" ? "#a89566" : "black",
                                 }}
                               >
+                                {" "}
                                 {key?.replace(/_/g, " ")}
-                              </span> */}
-                          </Grid>
-                          <Grid item xs={12} md={1}>
-                            <span
-                              style={{
-                                margin: "0px 4px",
-                                color: "darkblue",
-                              }}
-                            >
-                              :
-                            </span>
-                          </Grid>
-                          <Grid item xs={12} md={5}>
-                            <Typography
-                              variant="h6"
-                              sx={{
-                                fontWeight: 400,
-                                fontSize: "0.875rem",
-                                lineHeight: "1.5",
-                                wordWrap: "break-word",
-                                py: 1,
-                                color: key === "Comment" ? "#a89566" : "black",
-                              }}
-                            >
-                              {data[key] ? data[key] : "-"}
-                            </Typography>
-                            {/* <span
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={1}>
+                              <span
                                 style={{
+                                  margin: "0px 4px",
+                                  color: "darkblue",
+                                }}
+                              >
+                                :
+                              </span>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 400,
+                                  fontSize: "0.875rem",
+                                  lineHeight: "1.5",
+                                  wordWrap: "break-word",
+                                  py: 1,
                                   color:
                                     key === "Comment" ? "#a89566" : "black",
                                 }}
                               >
                                 {data[key] ? data[key] : "-"}
-                              </span> */}
+                              </Typography>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                  {/* {Object.keys(data).map((key, keyIndex) => (
-                      <>
-                        <span
-                          style={{
-                            wordWrap: "break-word",
-                            color: key === "Comment" ? "#a89566" : "black",
-                          }}
-                        >
-                          {key?.replace(/_/g, " ")}
-                        </span>
-                        <span
-                          style={{
-                            margin: "0px 4px",
-                            color: "darkblue",
-                          }}
-                        >
-                          :
-                        </span>
-                        <span
-                          style={{
-                            color: key === "Comment" ? "#a89566" : "black",
-                          }}
-                        >
-                          {data[key] ? data[key] : "-"}
-                        </span>
-                      </>
-                    ))} */}
-                </AccordionDetails>
-              </Accordion>
-
-              // <div
-              //   className={`Notificataion-display-detail ${
-              //     currentContent !== index ? "collapsable" : ""
-              //   }`}
-              //   key={index}
-              //   onClick={() => setCurrentContent(index)}
-              // >
-              // {Object.keys(data).map((key, keyIndex) => (
-              //   <div>
-              //     <span
-              //       style={{
-              //         wordWrap: "break-word",
-              //         color: key === "Comment" ? "#a89566" : "black",
-              //       }}
-              //     >
-              //       {key?.replace(/_/g, " ")}
-              //     </span>
-              //     <span
-              //       style={{
-              //         margin: "0px 4px",
-              //         color: "darkblue",
-              //       }}
-              //     >
-              //       :
-              //     </span>
-              //     <span
-              //       style={{
-              //         color: key === "Comment" ? "#a89566" : "black",
-              //       }}
-              //     >
-              //       {data[key] ? data[key] : "-"}
-              //     </span>
-              //   </div>
-              // ))}
-              // </div>
+                        );
+                      })}
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+              </>
             );
           })}
+          <Grid container spacing={0}>
+            {[1, 2, 3, 4].map((e) => {
+              return (
+                <Grid item xs={12} sm={6} md={6} lg={3} sx={{ my: 4 }}>
+                  <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    sx={{
+                      bgcolor: "#f7f7f7",
+                      p: 0.7,
+                      borderRadius: "8px",
+                      width: "fit-content",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      const base64String =
+                        "77u/c2VwPTsKSUQ7VGl0bGU7TGluaw0KMzA3NzU4MDsiIiJhY2NvdW50IGFzc2lnbm1lbnQgY2F0ZWdvcnkiIiBvZiBQdXJjaGFzZSByZXF1aXNpdGlvbiBpcyAiIlUiIiI7aHR0cHM6Ly9sYXVuY2hwYWQuc3VwcG9ydC5zYXAuY29tLyMvbm90ZXMvMzA3NzU4MA==";
+                      const binaryData = atob(base64String);
+
+                      const arrayBuffer = new ArrayBuffer(binaryData.length);
+                      const uint8Array = new Uint8Array(arrayBuffer);
+                      for (let i = 0; i < binaryData.length; i++) {
+                        uint8Array[i] = binaryData.charCodeAt(i);
+                      }
+                      const blob = new Blob([arrayBuffer], {
+                        type: "text/csv",
+                      });
+
+                      const blobURL = URL.createObjectURL(blob);
+                      console.log("Hii", blobURL);
+                      setpreview({ open: true, value: blobURL });
+                    }}
+                  >
+                    <img src={PDF} height={30} width={30} />
+                    <Box
+                      display={"flex"}
+                      flexDirection={"column"}
+                      sx={{ px: 2, borderRight: "2px solid #d0d3d9" }}
+                    >
+                      <Typography
+                        variant="h6"
+                        fontWeight={500}
+                        color="#5c6980"
+                        sx={{ fontSize: "0.8rem" }}
+                      >
+                        Attachment 01
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        fontWeight={300}
+                        color="#5c6980"
+                      >
+                        146.5 KB
+                      </Typography>
+                    </Box>
+                    <IconButton color="primary" size="small" sx={{ px: 2 }}>
+                      <FiDownload />
+                    </IconButton>
+                  </Box>
+                </Grid>
+              );
+            })}
+          </Grid>
           {(selectedItem.type === "pending pr" ||
             selectedItem.type === "pending po") && (
             <div className="Notificataion-display-buttons">
@@ -2170,6 +2167,8 @@ const Notificationdisplay = ({
         setOpen={setsnackbarOpen}
         snackbarValue={snackbarValue}
       />
+
+      <PreviewMedia preview={preview} setpreview={setpreview} />
     </div>
   );
 };
