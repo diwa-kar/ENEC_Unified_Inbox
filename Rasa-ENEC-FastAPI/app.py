@@ -563,23 +563,24 @@ def ENEC_pending_pr_item_info(data : ENEC_pending_pr_item_info):
 
     data_list = []
 
-    result_2 = result[0]
+    if len(result) != 0:
+        result_2  = result[0]
 
-    # print(result_2)
+        # print(result_2)
 
 
-    for i in result_2:
-        data_dict = {}
-        data_dict["OBJKY"] = i["OBJKY"]
-        data_dict["DOKNR"] = i["DOKNR"]
-        data_dict["FILETYPE"] = i["FILETYPE"]
-        data_dict["FILENAME"] = i["FILENAME"]
-        data_dict["ZBASE64"] = i["ZBASE64"]
-        
-        data_list.append(data_dict)
+        for i in result_2:
+            data_dict = {}
+            data_dict["OBJKY"] = i["OBJKY"]
+            data_dict["DOKNR"] = i["DOKNR"]
+            data_dict["FILETYPE"] = i["FILETYPE"]
+            data_dict["FILENAME"] = i["FILENAME"]
+            data_dict["ZBASE64"] = i["ZBASE64"]
+            
+            data_list.append(data_dict)
     
 
-    item_list_description["docs"] = data_list
+        item_list_description["docs"] = data_list   
 
     # ********************************************** code for retreival of docs from sap system **************************************************
 
