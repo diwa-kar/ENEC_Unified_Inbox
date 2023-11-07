@@ -942,6 +942,9 @@ const Notificationdisplay = ({
                   <AccordionDetails>
                     <Grid container spacing={0}>
                       {Object.keys(data).map((key, keyIndex) => {
+                        // if (key === "docs") {
+                        //   return null; // Skip rendering for this key
+                        // }
                         return (
                           <Grid item xs={12} md={6} display="flex">
                             <Grid item xs={12} md={6}>
