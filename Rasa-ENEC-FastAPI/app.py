@@ -546,8 +546,43 @@ def ENEC_pending_pr_item_info(data : ENEC_pending_pr_item_info):
 
     print(items_list)
 
+ 
+
+
     # dict for  storing item description
     item_list_description = {}
+
+
+    # ********************************************** code for retreival of docs from sap system **************************************************
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_pr_dms_base64?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZMM_PR_DMS_BASE64(data.prno) 
+
+    data_list = []
+
+    result_2 = result[0]
+
+    # print(result_2)
+
+
+    for i in result_2:
+        data_dict = {}
+        data_dict["OBJKY"] = i["OBJKY"]
+        data_dict["DOKNR"] = i["DOKNR"]
+        data_dict["FILETYPE"] = i["FILETYPE"]
+        data_dict["FILENAME"] = i["FILENAME"]
+        data_dict["ZBASE64"] = i["ZBASE64"]
+        
+        data_list.append(data_dict)
+    
+
+    item_list_description["docs"] = data_list
+
+    # ********************************************** code for retreival of docs from sap system **************************************************
+
 
     for i in items_list:
         
@@ -579,9 +614,12 @@ def ENEC_pending_pr_item_info(data : ENEC_pending_pr_item_info):
         desc['Processing_Status'] = flatjs['entry_content_m:properties_d:ProcessingStatus']
         desc['Delivery_Date'] = flatjs['entry_content_m:properties_d:DeliveryDate']
         desc['Creation_Date'] = flatjs['entry_content_m:properties_d:CreationDate']
+
         item_list_description["PR item "+ i] = desc
 
     print(item_list_description)
+
+
 
 
     return item_list_description
@@ -2796,6 +2834,32 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
 
 
 #********************************************************** Recent requests API ********************************************************************
+
+
+
+
+
+# ********************************************************* Base64 file transfer **************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+# ********************************************************* Base64 file transfer **************************************************************************
+
+
+
+
+
+
+
+
 
 
 
