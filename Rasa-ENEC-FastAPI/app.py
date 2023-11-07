@@ -1008,7 +1008,7 @@ def pending_po_item_info(data:pending_po_item_info):
         desc['AddressRegion'] = flatjs['entry_content_m:properties_d:AddressRegion']
         item_list_description["PO item "+ i] = desc
 
-        print(item_list_description)
+        # print(item_list_description)
 
     return item_list_description
 
@@ -2123,17 +2123,41 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
 @app.post('/ENEC_SES_DETAILS')
 async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_gos_att_bapi?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    docs_result = client.service.ZMM_SES_GOS_ATT(data.ses_no) 
+
+    data_list = []
+
+    SES_DETAILS = {}
+
+
+    if len(docs_result) != 0:
+
+        result_2 = docs_result[0]
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["DOC_TYPE"] = i["DOC_TY"]
+            data_dict["DOC_NAME"] = i["DOC_NAME"]
+            data_dict["BASE64"] = i["BASE64"]
+            data_list.append(data_dict)
+
+        SES_DETAILS["docs"] = data_list
+
+    
+
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
     result = client.service.ZMM_SES_GET_DETAIL_FM(data.ses_no) 
-    # print(result)
-    # print(result[0])
 
     data = result[0]
 
-    SES_DETAILS = {}
+
 
     SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
     SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
@@ -2144,6 +2168,8 @@ async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
     SES_DETAILS["SHORT_TEXT"] = data["SHORT_TEXT"]
     SES_DETAILS["PCKG_NO"] = data["PCKG_NO"]
     SES_DETAILS["NET_VALUE"] = data["NET_VALUE"]
+
+
 
     return SES_DETAILS
 
