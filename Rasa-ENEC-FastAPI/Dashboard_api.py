@@ -442,34 +442,55 @@ def ENEC_Rejected_Leave_req_api():
 def ENEC_Pending_PR_list(username):
     
     
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_pr_pending?sap-client=100'
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_pr_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
-    sap_client = Client(url,transport=transport)
-    result = sap_client.service.ZfmPrPending(username) 
+    client = Client(url,transport=transport)
+    result = client.service.ZFM_PR_PENDING(username)
+
     listofobj = result[0]
-    pendingpr = ['PR '+str(i.Banfn) for i in listofobj]
+    # print(listofobj)
 
-    # print(pendingpr)
-    # print(pendingpr[-1])
 
-    return pendingpr
+    pending_pr_list = []
+
+
+    for i in listofobj:
+        pending_pr_dict = {}
+        pending_pr_dict['PR_NO'] = "PR " + str(i['BANFN'])
+        pending_pr_dict['CH_ON'] = i['CH_ON']
+        pending_pr_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_pr_dict['CREATED_TIME'] = i['CREATEDTIME']
+        # print(pending_ses_dict)
+        pending_pr_list.append(pending_pr_dict)
+
+    return pending_pr_list
 
 
 def ENEC_Pending_PO_list(username):
 
-    url = "http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A1011D1/bndg_url/sap/bc/srt/scs/sap/zsd_mm_po_pending?sap-client=100" 
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_po_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZfmPoPending(username) 
+    result = client.service.ZFM_PO_PENDING(data.username)
+
     listofobj = result[0]
-    pendingpo = ['PO '+str(i.Ebeln) for i in listofobj]
+    # print(listofobj)
 
-    # print(pendingpo)
-    # print(pendingpo[-1])
 
-    return pendingpo
+    pending_po_list = []
+
+
+    for i in listofobj:
+        pending_po_dict = {}
+        pending_po_dict['PO_NO'] = "PO " + str(i['EBELN'])
+        pending_po_dict['CREATED_ON'] = i['CREATED_ON']
+        pending_po_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_po_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_po_list.append(pending_po_dict)
+
+    return pending_po_list
 
 
 def ENEC_Pending_invoice_list(username):

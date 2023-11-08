@@ -2112,9 +2112,9 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
         # print(pending_ses_dict)
         pending_ses_list.append(pending_ses_dict)
 
-    if len(pending_ses_list) >= 21:
+    # if len(pending_ses_list) >= 21:
     
-        pending_ses_list = pending_ses_list[:20]
+    #     pending_ses_list = pending_ses_list[:20]
 
 
 
