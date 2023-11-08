@@ -535,9 +535,10 @@ def ENEC_Pending_ses_list_recent(username):
 
     for i in listofobj:
         pending_ses_dict = {}
-        pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
+        pending_ses_dict['NO'] = "SES " + str(i['ENTRYSHEET'])
         pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
         pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
         pending_ses_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_ses_dict['TYPE'] = "SES"
 
     return pending_ses_dict
