@@ -68,7 +68,7 @@ const Dashboard = () => {
       );
 
       const data = await response.json();
-      await setDashboardData(data);
+      await setDashboardData({ ...data });
       console.log("Dashboard Stats", data);
       setLoader(false);
     } catch (error) {
@@ -310,30 +310,6 @@ const Dashboard = () => {
       },
     ],
   };
-
-  const [tickets, setTickets] = useState([
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "Low",
-    },
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "Medium",
-    },
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "High",
-    },
-  ]);
 
   return (
     <Grid container spacing={0} sx={{ background: "#F2F7FE" }}>
@@ -654,7 +630,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
-            height: "92%",
+            height: "100%",
           }}
         >
           <Typography
@@ -701,6 +677,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+            height: "100%",
           }}
         >
           <Typography
@@ -713,115 +690,169 @@ const Dashboard = () => {
           >
             Recent Request
           </Typography>
-          <TableContainer
-            sx={{ height: "300px" }}
-            style={{ padding: 0, boxShadow: "none" }}
-            component={Paper}
-          >
-            <Table sx={{ whiteSpace: { xs: "nowrap", sm: "unset" } }}>
-              <TableHead>
-                <TableRow>
-                  {[
-                    "Request No",
-                    "Request Type",
-                    "Requester Name",
-                    "Submission Date",
-                    "Ageing",
-                  ].map((col) => {
+          {loader ? (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              height={"100%"}
+            >
+              <ClipLoader color="#36d7b7" size={54} />
+              <Typography
+                variant="caption"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                Fetching Data...
+              </Typography>
+            </Box>
+          ) : (
+            <TableContainer
+              sx={{ height: "300px" }}
+              style={{ padding: 0, boxShadow: "none" }}
+              component={Paper}
+            >
+              <Table sx={{ whiteSpace: { xs: "nowrap", sm: "unset" } }}>
+                <TableHead>
+                  <TableRow>
+                    {[
+                      "Request No",
+                      "Request Type",
+                      "Requester Name",
+                      "Created Date",
+                      "Ageing",
+                    ].map((col) => {
+                      return (
+                        <TableCell>
+                          <Typography
+                            sx={{
+                              fontWeight: 500,
+                              fontSize: "0.87rem",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                            {col}
+                          </Typography>
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {dashboardData?.Recent_requests?.map((row, index) => {
                     return (
-                      <TableCell>
-                        <Typography
-                          sx={{
-                            fontWeight: 500,
-                            fontSize: "0.87rem",
-                            lineHeight: "1.5",
-                          }}
-                        >
-                          {col}
-                        </Typography>
-                      </TableCell>
+                      <>
+                        <TableRow key={index}>
+                          <TableCell>
+                            <Typography
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.9rem",
+                                lineHeight: "1.5",
+                              }}
+                            >
+                              {row?.NO}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.9rem",
+                                lineHeight: "1.5",
+                              }}
+                            >
+                              {row?.TYPE}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.9rem",
+                                lineHeight: "1.5",
+                              }}
+                            >
+                              {row?.CREATED_BY}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography
+                              sx={{
+                                fontWeight: 400,
+                                fontSize: "0.9rem",
+                                lineHeight: "1.5",
+                              }}
+                            >
+                              {row?.CREATED_ON}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Chip
+                              sx={{
+                                backgroundColor:
+                                  (new Date(
+                                    new Date().toISOString().slice(0, 10)
+                                  ) -
+                                    new Date(row.CREATED_ON)) /
+                                    (1000 * 60 * 60 * 24) <
+                                  2
+                                    ? "#D4EFFE"
+                                    : (new Date(
+                                        new Date().toISOString().slice(0, 10)
+                                      ) -
+                                        new Date(row.CREATED_ON)) /
+                                        (1000 * 60 * 60 * 24) <
+                                      4
+                                    ? "#FEEDD4"
+                                    : "#FED4D4",
+                                color:
+                                  (new Date(
+                                    new Date().toISOString().slice(0, 10)
+                                  ) -
+                                    new Date(row.CREATED_ON)) /
+                                    (1000 * 60 * 60 * 24) <
+                                  2
+                                    ? "#00A4FF"
+                                    : (new Date(
+                                        new Date().toISOString().slice(0, 10)
+                                      ) -
+                                        new Date(row.CREATED_ON)) /
+                                        (1000 * 60 * 60 * 24) <
+                                      4
+                                    ? "#FFB800"
+                                    : "#FF0000",
+                                borderRadius: "6px",
+                                pl: "3px",
+                                pr: "3px",
+                              }}
+                              label={
+                                (new Date(
+                                  new Date().toISOString().slice(0, 10)
+                                ) -
+                                  new Date(row.CREATED_ON)) /
+                                  (1000 * 60 * 60 * 24) <
+                                2
+                                  ? "Low"
+                                  : (new Date(
+                                      new Date().toISOString().slice(0, 10)
+                                    ) -
+                                      new Date(row.CREATED_ON)) /
+                                      (1000 * 60 * 60 * 24) <
+                                    4
+                                  ? "Medium"
+                                  : "High"
+                              }
+                            />
+                          </TableCell>
+                        </TableRow>
+                      </>
                     );
                   })}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {tickets.map((row, index) => {
-                  return (
-                    <>
-                      <TableRow key={index}>
-                        <TableCell>
-                          <Typography
-                            sx={{
-                              fontWeight: 400,
-                              fontSize: "0.9rem",
-                              lineHeight: "1.5",
-                            }}
-                          >
-                            {row.no}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography
-                            sx={{
-                              fontWeight: 400,
-                              fontSize: "0.9rem",
-                              lineHeight: "1.5",
-                            }}
-                          >
-                            {row.type}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography
-                            sx={{
-                              fontWeight: 400,
-                              fontSize: "0.9rem",
-                              lineHeight: "1.5",
-                            }}
-                          >
-                            {row.name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography
-                            sx={{
-                              fontWeight: 400,
-                              fontSize: "0.9rem",
-                              lineHeight: "1.5",
-                            }}
-                          >
-                            {row.date}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Chip
-                            sx={{
-                              backgroundColor:
-                                row.ageing === "Low"
-                                  ? "#D4EFFE"
-                                  : row.ageing === "High"
-                                  ? "#FED4D4"
-                                  : "#FEEDD4",
-                              color:
-                                row.ageing === "Low"
-                                  ? "#00A4FF"
-                                  : row.ageing === "High"
-                                  ? "#FF0000"
-                                  : "#FFB800",
-                              borderRadius: "6px",
-                              pl: "3px",
-                              pr: "3px",
-                            }}
-                            label={row.ageing}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    </>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </Card>
       </Grid>
     </Grid>
