@@ -124,7 +124,7 @@ function MainPage(props) {
                   ).value?.substring(0, 2)}
                 </span>
               </div> */}
-              <IconButton
+              {/* <IconButton
                 size="large"
                 aria-label="menu"
                 color="inherit"
@@ -135,7 +135,7 @@ function MainPage(props) {
                 <Badge variant="dot" color="secondary">
                   <BsFillBellFill />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <Menu
                 id="msgs-menu"
                 anchorEl={anchorEl3}
