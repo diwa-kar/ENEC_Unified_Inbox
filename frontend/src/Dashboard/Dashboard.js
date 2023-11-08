@@ -26,6 +26,7 @@ import {
   BsCalendarEvent,
   BsFileEarmarkMedical,
   BsFillXCircleFill,
+  BsViewList,
 } from "react-icons/bs";
 import Charts from "react-apexcharts";
 
@@ -42,7 +43,9 @@ import "swiper/css/navigation";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import Counter from "./Counter/Counter";
+import { FiList } from "react-icons/fi";
 
+import { ClipLoader } from "react-spinners";
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({});
   const [loader, setLoader] = useState(false);
@@ -112,7 +115,7 @@ const Dashboard = () => {
     {
       total: dashboardData?.pending_po_count,
       name: "PO Request",
-      icon: <BsFileEarmarkMedical />,
+      icon: <BsViewList />,
       foreColor: "#4899FF",
       bgColor: "#E8F1FD",
     },
@@ -122,6 +125,13 @@ const Dashboard = () => {
       icon: <AiFillFileAdd />,
       foreColor: "#291BF8",
       bgColor: "#FCEAFF",
+    },
+    {
+      total: dashboardData?.Pending_SES_Ccount,
+      name: "SES Request",
+      icon: <FiList />,
+      foreColor: "#58D365",
+      bgColor: "#EBffED",
     },
   ];
   const overallStats1 = [
@@ -179,7 +189,7 @@ const Dashboard = () => {
       },
     ],
     xaxis: {
-      categories: ["Invoice", "PO", "PR", "Ticket"],
+      categories: ["Invoice", "PO", "PR", "SES", "Ticket"],
     },
     fill: {
       opacity: 1,
@@ -265,17 +275,19 @@ const Dashboard = () => {
     // },
     labels: [
       "Purchase Requisition",
-      "Leave Request",
       "Purchase Order",
       "Invoice",
+      "SES",
+      "Leave Request",
     ],
     legend: {
       show: true,
       customLegendItems: [
         "Purchase Requisition",
-        "Leave Request",
         "Purchase Order",
         "Invoice",
+        "SES",
+        "Leave Request",
       ],
       position: "bottom",
       verticalAlign: "bottom",
@@ -354,7 +366,7 @@ const Dashboard = () => {
           </Typography>
           {/* <Grid container spacing={0}> */}
           <Swiper
-            slidesPerView={4}
+            slidesPerView={5}
             // spaceBetween={30}
             // loop={true}
             // pagination={{
@@ -378,6 +390,7 @@ const Dashboard = () => {
                       flexDirection: "column",
                     }}
                   >
+                    {/* <ClipLoader color="#36d7b7" /> */}
                     <Box
                       display={"flex"}
                       alignItems={"center"}
