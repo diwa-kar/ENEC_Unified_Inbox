@@ -39,6 +39,7 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
             "https://media.licdn.com/dms/image/C4D0BAQF5--sx9bcpVA/company-logo_200_200/0/1652781524472?e=2147483647&v=beta&t=LETyKk97tPZ8egJ1PfV3pxl0I7UBF900-qWk7hDbFeU"
           }
           alt="Logo"
+          style={{ width: "68%" }}
         />
       </div>
       <div className="sidebar-content">
