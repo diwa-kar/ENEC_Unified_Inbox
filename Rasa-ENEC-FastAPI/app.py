@@ -39,7 +39,7 @@ from datetime import datetime
 
 from passlib.context import CryptContext
 
-from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list_recent,ENEC_Pending_PO_list_recent,ENEC_Pending_invoice_list_recent,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api,ENEC_Rejected_SES_count_api
+from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list_recent,ENEC_Pending_PO_list_recent,ENEC_Pending_invoice_list_recent,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api,ENEC_Rejected_SES_count_api,ENEC_Pending_ses_list_recent
 
 
 # username = 'KAAR'
@@ -2086,10 +2086,6 @@ def ENEC_rejected_invoice_item_info(data:ENEC_rejected_invoice_item_info):
 @app.post('/ENEC_Pending_SES_List')
 def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
 
-    # sap_username = "GIRISH"
-    # sap_password = "Kaar@12345"
-
-    # user_name = "GIRISH"
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
@@ -2804,6 +2800,37 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
     }
 
 
+    # ****************************************************** recent requests ******************************************************************
+
+    pendingpr = ENEC_Pending_PR_list_recent(data.username)
+    pendingpo = ENEC_Pending_PO_list_recent(data.username)
+    pendinginvoice = ENEC_Pending_invoice_list_recent(data.username)
+    pendingses = ENEC_Pending_ses_list_recent(data.username)
+
+    recent_req_dashboard = []
+
+    #  Pending pr 
+
+    recent_req_dashboard.append(pendingpr)
+    
+    # Pending po
+
+    recent_req_dashboard.append(pendingpo)
+
+    # pending invoice
+
+    recent_req_dashboard.append(pendinginvoice)
+
+    # pending ses
+
+    recent_req_dashboard.append(pendingses)
+
+
+
+    # ****************************************************** recent requests ******************************************************************
+
+
+
     # *********************************************************** DONUT CHART **************************************************************
 
     Dashboard_data = {
@@ -2826,7 +2853,10 @@ def Dashboard_combined_api(data:Dashboard_combined_api):
         "Bar_chart_data": Bar_chart_data,
 
     
-        "Donut_chart_data": Donut_data
+        "Donut_chart_data": Donut_data,
+
+
+        "Recent_requests": recent_req_dashboard
 
 
     }
@@ -2853,6 +2883,7 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
     pendingpr = ENEC_Pending_PR_list_recent(data.username)
     pendingpo = ENEC_Pending_PO_list_recent(data.username)
     pendinginvoice = ENEC_Pending_invoice_list_recent(data.username)
+    pendingses = ENEC_Pending_ses_list_recent(data.username)
 
     # print("app")
 
@@ -2885,6 +2916,11 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
     # print(recent_inv)
 
     recent_req_dashboard.append(pendinginvoice)
+
+
+    # pending ses
+
+    recent_req_dashboard.append(pendingses)
 
 
 
