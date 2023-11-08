@@ -45,7 +45,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import Counter from "./Counter/Counter";
 import { FiList } from "react-icons/fi";
 
-import { ClipLoader } from "react-spinners";
+import { BeatLoader, ClipLoader } from "react-spinners";
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({});
   const [loader, setLoader] = useState(false);
@@ -219,12 +219,18 @@ const Dashboard = () => {
 
   const areaSeries = [
     {
-      name: "Opened",
-      data: [31, 40, 28, 51, 42, 109, 100],
+      name: "Opened Requests",
+      data:
+        dashboardData?.Bar_chart_data?.Opened_requests.length === 0
+          ? []
+          : dashboardData?.Bar_chart_data?.Opened_requests,
     },
     {
-      name: "Closed",
-      data: [11, 32, 45, 32, 34, 52, 41],
+      name: "Closed Requests",
+      data:
+        dashboardData?.Bar_chart_data?.Closed_requests.length === 0
+          ? []
+          : dashboardData?.Bar_chart_data?.Closed_requests,
     },
   ];
   const areaOption = {
@@ -240,21 +246,7 @@ const Dashboard = () => {
       curve: "smooth",
     },
     xaxis: {
-      type: "datetime",
-      categories: [
-        "2018-09-19T00:00:00.000Z",
-        "2018-09-19T01:30:00.000Z",
-        "2018-09-19T02:30:00.000Z",
-        "2018-09-19T03:30:00.000Z",
-        "2018-09-19T04:30:00.000Z",
-        "2018-09-19T05:30:00.000Z",
-        "2018-09-19T06:30:00.000Z",
-      ],
-    },
-    tooltip: {
-      x: {
-        format: "dd/MM/yy HH:mm",
-      },
+      categories: ["Invoice", "PO", "PR", "SES", "Ticket"],
     },
   };
 
@@ -342,6 +334,7 @@ const Dashboard = () => {
       ageing: "High",
     },
   ]);
+
   return (
     <Grid container spacing={0} sx={{ background: "#F2F7FE" }}>
       <Grid item xs={12} sm={12} md={8}>
@@ -390,7 +383,6 @@ const Dashboard = () => {
                       flexDirection: "column",
                     }}
                   >
-                    {/* <ClipLoader color="#36d7b7" /> */}
                     <Box
                       display={"flex"}
                       alignItems={"center"}
@@ -417,16 +409,23 @@ const Dashboard = () => {
                       {/* {loader ? (
                         <Loading />
                       ) : ( */}
-
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: "1.3125rem",
-                          lineHeight: "1.5",
-                        }}
-                      >
-                        {row.total ? row.total : 0}
-                      </Typography>
+                      {loader ? (
+                        <BeatLoader
+                          color="#36d7b7"
+                          size={9}
+                          style={{ marginTop: "5px", marginBottom: "5px" }}
+                        />
+                      ) : (
+                        <Typography
+                          sx={{
+                            fontWeight: 500,
+                            fontSize: "1.3125rem",
+                            lineHeight: "1.5",
+                          }}
+                        >
+                          {row.total ? row.total : 0}
+                        </Typography>
+                      )}
 
                       {/* )} */}
                       {/* <Typography
@@ -515,15 +514,24 @@ const Dashboard = () => {
                       </IconButton>
                     </Box>
                     <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: "1.3125rem",
-                          lineHeight: "1.5",
-                        }}
-                      >
-                        {row.total ? row.total : 0}
-                      </Typography>
+                      {loader ? (
+                        <BeatLoader
+                          color="#36d7b7"
+                          size={9}
+                          style={{ marginTop: "5px", marginBottom: "5px" }}
+                        />
+                      ) : (
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: 500,
+                            fontSize: "1.3125rem",
+                            lineHeight: "1",
+                          }}
+                        >
+                          {row.total ? row.total : 0}
+                        </Typography>
+                      )}
                     </Box>
                     <Box display="flex" alignItems="center">
                       <Typography
@@ -552,6 +560,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+            height: "92%",
           }}
         >
           <Typography
@@ -564,12 +573,30 @@ const Dashboard = () => {
           >
             Open vs Closed Stats
           </Typography>
-          <Charts
-            options={chartOptions}
-            series={chartSeries}
-            type="bar"
-            height={300}
-          />
+          {loader ? (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              height={"100%"}
+            >
+              <ClipLoader color="#36d7b7" size={54} />
+              <Typography
+                variant="caption"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                Fetching Data...
+              </Typography>
+            </Box>
+          ) : (
+            <Charts
+              options={chartOptions}
+              series={chartSeries}
+              type="bar"
+              height={300}
+            />
+          )}
         </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
@@ -580,6 +607,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+            height: "92%",
           }}
         >
           <Typography
@@ -592,12 +620,30 @@ const Dashboard = () => {
           >
             Tickets Summary
           </Typography>
-          <Charts
-            options={areaOption}
-            series={areaSeries}
-            type="area"
-            height={300}
-          />
+          {loader ? (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              height={"100%"}
+            >
+              <ClipLoader color="#36d7b7" size={54} />
+              <Typography
+                variant="caption"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                Fetching Data...
+              </Typography>
+            </Box>
+          ) : (
+            <Charts
+              options={areaOption}
+              series={areaSeries}
+              type="area"
+              height={300}
+            />
+          )}
         </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
@@ -608,6 +654,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
+            height: "92%",
           }}
         >
           <Typography
@@ -618,14 +665,32 @@ const Dashboard = () => {
               px: 2,
             }}
           >
-            Recent Submissions
+            Pending Requests
           </Typography>
-          <Charts
-            options={donutOption}
-            series={donutSeries}
-            type="donut"
-            height={300}
-          />
+          {loader ? (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              height={"100%"}
+            >
+              <ClipLoader color="#36d7b7" size={54} />
+              <Typography
+                variant="caption"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                Fetching Data...
+              </Typography>
+            </Box>
+          ) : (
+            <Charts
+              options={donutOption}
+              series={donutSeries}
+              type="donut"
+              height={300}
+            />
+          )}
         </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={8}>
