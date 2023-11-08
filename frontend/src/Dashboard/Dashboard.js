@@ -311,29 +311,7 @@ const Dashboard = () => {
     ],
   };
 
-  const [tickets, setTickets] = useState([
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "Low",
-    },
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "Medium",
-    },
-    {
-      no: "PR 20004259",
-      type: "PR",
-      name: "Ahmed Al Said",
-      date: "2023-09-10",
-      ageing: "High",
-    },
-  ]);
+  const [tickets, setTickets] = useState(dashboardData?.Recent_requests);
 
   return (
     <Grid container spacing={0} sx={{ background: "#F2F7FE" }}>
@@ -725,7 +703,7 @@ const Dashboard = () => {
                     "Request No",
                     "Request Type",
                     "Requester Name",
-                    "Submission Date",
+                    "Created Date",
                     "Ageing",
                   ].map((col) => {
                     return (
@@ -757,7 +735,7 @@ const Dashboard = () => {
                               lineHeight: "1.5",
                             }}
                           >
-                            {row.no}
+                            {row?.NO}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -768,7 +746,7 @@ const Dashboard = () => {
                               lineHeight: "1.5",
                             }}
                           >
-                            {row.type}
+                            {row?.TYPE}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -779,7 +757,7 @@ const Dashboard = () => {
                               lineHeight: "1.5",
                             }}
                           >
-                            {row.name}
+                            {row?.CREATED_BY}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -790,11 +768,11 @@ const Dashboard = () => {
                               lineHeight: "1.5",
                             }}
                           >
-                            {row.date}
+                            {row?.CREATED_ON}
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Chip
+                          {/* <Chip
                             sx={{
                               backgroundColor:
                                 row.ageing === "Low"
@@ -813,7 +791,7 @@ const Dashboard = () => {
                               pr: "3px",
                             }}
                             label={row.ageing}
-                          />
+                          /> */}
                         </TableCell>
                       </TableRow>
                     </>
