@@ -723,7 +723,7 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickets.map((row, index) => {
+                {tickets?.map((row, index) => {
                   return (
                     <>
                       <TableRow key={index}>
