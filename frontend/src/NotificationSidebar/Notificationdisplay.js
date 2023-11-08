@@ -113,6 +113,7 @@ const Notificationdisplay = ({
               tempData.push(data[key]);
             });
           console.log(tempData);
+
           setLoader(false);
           setDetailData(tempData);
         } catch (e) {
@@ -166,6 +167,38 @@ const Notificationdisplay = ({
             tempData.push(data[key]);
           });
           console.log(tempData);
+
+          const documentGroups = {};
+
+          Array.isArray(tempData[0]) &&
+            tempData[0].forEach((document) => {
+              const objky = document.OBJKY;
+              const prItemNumber = objky.slice(-5); // Slice the last 5 characters of OBJKY
+
+              if (!documentGroups[prItemNumber]) {
+                documentGroups[prItemNumber] = [];
+              }
+
+              documentGroups[prItemNumber].push(document);
+            });
+
+          const resultArray = Object.values(documentGroups).map((documents) => {
+            const prItemNumber = documents[0].OBJKY.slice(-5);
+
+            // Find the matching purchase request item for the first document in the group
+            const matchingItem = tempData.find(
+              (item) => item.Purchase_Requisition_Item_Number === prItemNumber
+            );
+
+            // Create a new object that includes the item details and the documents
+            return {
+              ...matchingItem,
+              docs: documents,
+            };
+          });
+
+          console.log("resultArray", resultArray);
+
           setLoader(false);
           setDetailData(tempData);
         } catch (e) {
@@ -411,7 +444,7 @@ const Notificationdisplay = ({
           },
         });
         const data = await response.json();
-
+        console.log("Enec ses detail data", data);
         setSesDetail([{ ...data }]);
         setLoader(false);
       } catch (e) {
@@ -1886,58 +1919,58 @@ const Notificationdisplay = ({
           }}
         >
           {sesdetail.map((data, index) => {
-            return;
-            {
-              !Array.isArray(data) && (
-                <Accordion
-                  expanded={expanded === `panel${index}`}
-                  onChange={handleChange(`panel${index}`)}
-                  sx={{ width: "100%", border: "none", boxShadow: "none" }}
+            return (
+              <Accordion
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
+                sx={{ width: "100%", border: "none", boxShadow: "none" }}
+              >
+                <AccordionSummary
+                  expandIcon={<FcExpand />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
                 >
-                  <AccordionSummary
-                    expandIcon={<FcExpand />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
                   >
-                    <Typography
-                      sx={{
-                        width: "33%",
-                        flexShrink: 0,
-                        fontWeight: 500,
-                        fontSize: "1.025rem",
-                        lineHeight: "1.5",
-                      }}
-                    >
-                      {data["SHEET_NO"]}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        width: "33%",
-                        flexShrink: 0,
-                        fontWeight: 500,
-                        fontSize: "1.025rem",
-                        lineHeight: "1.5",
-                      }}
-                    >
-                      {data["CREATED_BY"]}
-                    </Typography>
+                    {data["SHEET_NO"]}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      fontWeight: 500,
+                      fontSize: "1.025rem",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    {data["CREATED_BY"]}
+                  </Typography>
 
-                    <Chip
-                      label={data["CREATED_ON"]}
-                      size="small"
-                      sx={{
-                        backgroundColor: "#D4EFFE",
-                        color: "#00A4FF",
-                        // width: "33%",
-                        borderRadius: "6px",
-                        pl: "3px",
-                        pr: "3px",
-                      }}
-                    />
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Grid container spacing={0}>
-                      {Object.keys(data).map((key, keyIndex) => {
+                  <Chip
+                    label={data["CREATED_ON"]}
+                    size="small"
+                    sx={{
+                      backgroundColor: "#D4EFFE",
+                      color: "#00A4FF",
+                      // width: "33%",
+                      borderRadius: "6px",
+                      pl: "3px",
+                      pr: "3px",
+                    }}
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={0}>
+                    {Object.keys(data)
+                      .filter((e) => e !== "docs")
+                      .map((key, keyIndex) => {
                         return (
                           <Grid item xs={12} md={6} display="flex">
                             <Grid item xs={12} md={6}>
@@ -1985,11 +2018,10 @@ const Notificationdisplay = ({
                           </Grid>
                         );
                       })}
-                    </Grid>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            }
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+            );
             // <div className="Notificataion-display-detail-leave" key={index}>
             //   {Object.keys(data).map((key, keyIndex) => (
             //     <div>
@@ -2022,132 +2054,122 @@ const Notificationdisplay = ({
           })}
 
           <Grid container spacing={1}>
-            {sesdetail.map((data, index) => {
+            {console.log("sesdetail", sesdetail)}
+            {sesdetail[0]?.docs?.map((e, index) => {
               return (
-                Array.isArray(data) &&
-                data.map((e) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} sx={{ my: 2 }}>
+                <Grid item xs={12} sm={6} md={4} lg={3} sx={{ my: 2 }}>
+                  <Box
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    sx={{
+                      bgcolor: "#f7f7f7",
+                      p: 0.7,
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Box display="flex">
+                      <img
+                        src={
+                          e.DOC_TYPE === "PDF"
+                            ? PDF
+                            : e.DOC_TYPE === "DOC" || e.DOC_TYPE === "DOCX"
+                            ? DOC
+                            : e.DOC_TYPE === "XLS" || e.DOC_TYPE === "XLSX"
+                            ? XLSX
+                            : e.DOC_TYPE === "CSV"
+                            ? CSV
+                            : TXT
+                        }
+                        height={30}
+                        width={30}
+                      />
                       <Box
                         display={"flex"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
+                        flexDirection={"column"}
                         sx={{
-                          bgcolor: "#f7f7f7",
-                          p: 0.7,
-                          borderRadius: "8px",
+                          px: 2,
+                          borderRight: "2px solid #d0d3d9",
+                          width: "130px",
+                          cursor: "pointer",
                         }}
-                      >
-                        <Box display="flex">
-                          <img
-                            src={
-                              e.DOC_TYPE === "PDF"
-                                ? PDF
-                                : e.DOC_TYPE === "DOC" || e.DOC_TYPE === "DOCX"
-                                ? DOC
-                                : e.DOC_TYPE === "XLS" || e.DOC_TYPE === "XLSX"
-                                ? XLSX
-                                : e.DOC_TYPE === "CSV"
-                                ? CSV
-                                : TXT
-                            }
-                            height={30}
-                            width={30}
-                          />
-                          <Box
-                            display={"flex"}
-                            flexDirection={"column"}
-                            sx={{
-                              px: 2,
-                              borderRight: "2px solid #d0d3d9",
-                              width: "130px",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              if (
-                                e.DOC_TYPE === "PDF" ||
-                                e.DOC_TYPE === "TXT"
-                              ) {
-                                const blobURL = formConversion(
-                                  e["ZBASE64"],
-                                  e.DOC_TYPE
-                                );
-                                setpreview({
-                                  open: true,
-                                  value: blobURL,
-                                  type: e.DOC_TYPE,
-                                });
-                              } else {
-                                setsnackbarValue({
-                                  ...snackbarValue,
-                                  type: "info",
-                                  infomation: `Oops! We couldn't open ${e.FILENAME}. Please download it to access the content.`,
-                                });
-                                setsnackbarOpen(true);
-                              }
-                            }}
-                          >
-                            <Typography
-                              variant="h6"
-                              fontWeight={500}
-                              color="#5c6980"
-                              sx={{
-                                fontSize: "0.8rem",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                width: "100%",
-                              }}
-                            >
-                              {e.DOC_NAME}
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              fontWeight={300}
-                              color="#5c6980"
-                              sx={{
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                width: "100%",
-                              }}
-                            >
-                              {e.DOC_TYPE}
-                              {/* {e.OBJKY} */}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <IconButton
-                          color="primary"
-                          size="small"
-                          sx={{ px: 2 }}
-                          onClick={() => {
+                        onClick={() => {
+                          if (e.DOC_TYPE === "PDF" || e.DOC_TYPE === "TXT") {
                             const blobURL = formConversion(
                               e["BASE64"],
                               e.DOC_TYPE
                             );
-
-                            const a = document.createElement("a");
-                            a.href = blobURL;
-                            a.download =
-                              e.DOC_NAME + "." + e.DOC_TYPE.toLowerCase();
-                            a.click();
-
-                            URL.revokeObjectURL(blobURL);
+                            setpreview({
+                              open: true,
+                              value: blobURL,
+                              type: e.DOC_TYPE,
+                            });
+                          } else {
                             setsnackbarValue({
                               ...snackbarValue,
-                              type: "success",
-                              infomation: `${e.DOC_NAME} - Downloaded Successfully.`,
+                              type: "info",
+                              infomation: `Oops! We couldn't open ${e.DOC_NAME}. Please download it to access the content.`,
                             });
                             setsnackbarOpen(true);
+                          }
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          fontWeight={500}
+                          color="#5c6980"
+                          sx={{
+                            fontSize: "0.8rem",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            width: "100%",
                           }}
                         >
-                          <FiDownload />
-                        </IconButton>
+                          {e.DOC_NAME}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          fontWeight={300}
+                          color="#5c6980"
+                          sx={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            width: "100%",
+                          }}
+                        >
+                          {e.DOC_TYPE}
+                          {/* {e.OBJKY} */}
+                        </Typography>
                       </Box>
-                    </Grid>
-                  );
-                })
+                    </Box>
+                    <IconButton
+                      color="primary"
+                      size="small"
+                      sx={{ px: 2 }}
+                      onClick={() => {
+                        const blobURL = formConversion(e["BASE64"], e.DOC_TYPE);
+
+                        const a = document.createElement("a");
+                        a.href = blobURL;
+                        a.download =
+                          e.DOC_NAME + "." + e.DOC_TYPE.toLowerCase();
+                        a.click();
+
+                        URL.revokeObjectURL(blobURL);
+                        setsnackbarValue({
+                          ...snackbarValue,
+                          type: "success",
+                          infomation: `${e.DOC_NAME} - Downloaded Successfully.`,
+                        });
+                        setsnackbarOpen(true);
+                      }}
+                    >
+                      <FiDownload />
+                    </IconButton>
+                  </Box>
+                </Grid>
               );
             })}
           </Grid>
