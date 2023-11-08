@@ -312,7 +312,11 @@ const Dashboard = () => {
   };
 
   return (
-    <Grid container spacing={0} sx={{ background: "#F2F7FE" }}>
+    <Grid
+      container
+      spacing={0}
+      sx={{ background: !loader ? "#F2F7FE" : "#fff" }}
+    >
       <Grid item xs={12} sm={12} md={8}>
         <Card
           data-aos="zoom-in-up"
@@ -457,7 +461,7 @@ const Dashboard = () => {
               px: 2,
             }}
           >
-            Approvals, Denials and Pending Requests
+            Approvals, Denials Requests
           </Typography>
           <Grid container spacing={0}>
             {overallStats1.map((row, index) => {
@@ -528,7 +532,7 @@ const Dashboard = () => {
           </Grid>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={8}>
+      <Grid item xs={12} sm={12} md={6}>
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -575,7 +579,7 @@ const Dashboard = () => {
           )}
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={4}>
+      {/* <Grid item xs={12} sm={12} md={4}>
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -668,8 +672,8 @@ const Dashboard = () => {
             />
           )}
         </Card>
-      </Grid>
-      <Grid item xs={12} sm={12} md={8}>
+      </Grid> */}
+      <Grid item xs={12} sm={12} md={6}>
         <Card
           data-aos="zoom-in-up"
           sx={{
@@ -677,7 +681,7 @@ const Dashboard = () => {
             padding: "12px",
             margin: "15px",
             boxShadow: "0px 7px 30px 0px rgba(90, 114, 123, 0.11)",
-            height: "100%",
+            height: "92%",
           }}
         >
           <Typography
