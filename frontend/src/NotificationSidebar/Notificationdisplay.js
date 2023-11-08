@@ -1886,135 +1886,271 @@ const Notificationdisplay = ({
           }}
         >
           {sesdetail.map((data, index) => {
-            return (
-              <Accordion
-                expanded={expanded === `panel${index}`}
-                onChange={handleChange(`panel${index}`)}
-                sx={{ width: "100%", border: "none", boxShadow: "none" }}
-              >
-                <AccordionSummary
-                  expandIcon={<FcExpand />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
+            return;
+            {
+              !Array.isArray(data) && (
+                <Accordion
+                  expanded={expanded === `panel${index}`}
+                  onChange={handleChange(`panel${index}`)}
+                  sx={{ width: "100%", border: "none", boxShadow: "none" }}
                 >
-                  <Typography
-                    sx={{
-                      width: "33%",
-                      flexShrink: 0,
-                      fontWeight: 500,
-                      fontSize: "1.025rem",
-                      lineHeight: "1.5",
-                    }}
+                  <AccordionSummary
+                    expandIcon={<FcExpand />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
                   >
-                    {data["SHEET_NO"]}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      width: "33%",
-                      flexShrink: 0,
-                      fontWeight: 500,
-                      fontSize: "1.025rem",
-                      lineHeight: "1.5",
-                    }}
-                  >
-                    {data["CREATED_BY"]}
-                  </Typography>
+                    <Typography
+                      sx={{
+                        width: "33%",
+                        flexShrink: 0,
+                        fontWeight: 500,
+                        fontSize: "1.025rem",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {data["SHEET_NO"]}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        width: "33%",
+                        flexShrink: 0,
+                        fontWeight: 500,
+                        fontSize: "1.025rem",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {data["CREATED_BY"]}
+                    </Typography>
 
-                  <Chip
-                    label={data["CREATED_ON"]}
-                    size="small"
-                    sx={{
-                      backgroundColor: "#D4EFFE",
-                      color: "#00A4FF",
-                      // width: "33%",
-                      borderRadius: "6px",
-                      pl: "3px",
-                      pr: "3px",
-                    }}
-                  />
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Grid container spacing={0}>
-                    {Object.keys(data).map((key, keyIndex) => {
-                      return (
-                        <Grid item xs={12} md={6} display="flex">
-                          <Grid item xs={12} md={6}>
-                            <Typography
-                              variant="h6"
-                              sx={{
-                                fontWeight: 500,
-                                fontSize: "0.875rem",
-                                lineHeight: "1.5",
-                                wordWrap: "break-word",
-                                py: 1,
-                                color: key === "Comment" ? "#a89566" : "black",
-                              }}
-                            >
-                              {key?.replace(/_/g, " ")}
-                            </Typography>
+                    <Chip
+                      label={data["CREATED_ON"]}
+                      size="small"
+                      sx={{
+                        backgroundColor: "#D4EFFE",
+                        color: "#00A4FF",
+                        // width: "33%",
+                        borderRadius: "6px",
+                        pl: "3px",
+                        pr: "3px",
+                      }}
+                    />
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={0}>
+                      {Object.keys(data).map((key, keyIndex) => {
+                        return (
+                          <Grid item xs={12} md={6} display="flex">
+                            <Grid item xs={12} md={6}>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 500,
+                                  fontSize: "0.875rem",
+                                  lineHeight: "1.5",
+                                  wordWrap: "break-word",
+                                  py: 1,
+                                  color:
+                                    key === "Comment" ? "#a89566" : "black",
+                                }}
+                              >
+                                {key?.replace(/_/g, " ")}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={1}>
+                              <span
+                                style={{
+                                  margin: "0px 4px",
+                                  color: "darkblue",
+                                }}
+                              >
+                                :
+                              </span>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 400,
+                                  fontSize: "0.875rem",
+                                  lineHeight: "1.5",
+                                  wordWrap: "break-word",
+                                  py: 1,
+                                  color:
+                                    key === "Comment" ? "#a89566" : "black",
+                                }}
+                              >
+                                {data[key] ? data[key] : "-"}
+                              </Typography>
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12} md={1}>
-                            <span
-                              style={{
-                                margin: "0px 4px",
-                                color: "darkblue",
-                              }}
-                            >
-                              :
-                            </span>
-                          </Grid>
-                          <Grid item xs={12} md={5}>
-                            <Typography
-                              variant="h6"
-                              sx={{
-                                fontWeight: 400,
-                                fontSize: "0.875rem",
-                                lineHeight: "1.5",
-                                wordWrap: "break-word",
-                                py: 1,
-                                color: key === "Comment" ? "#a89566" : "black",
-                              }}
-                            >
-                              {data[key] ? data[key] : "-"}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </AccordionDetails>
-              </Accordion>
-              // <div className="Notificataion-display-detail-leave" key={index}>
-              //   {Object.keys(data).map((key, keyIndex) => (
-              //     <div>
-              //       <span
-              //         style={{
-              //           wordWrap: "break-word",
-              //           color: key === "Comment" ? "#a89566" : "black",
-              //         }}
-              //       >
-              //         {key?.replace(/_/g, " ")}
-              //       </span>
-              //       <span
-              //         style={{
-              //           margin: "0px 4px",
-              //           color: "darkblue",
-              //         }}
-              //       >
-              //         :
-              //       </span>
-              //       <span
-              //         style={{
-              //           color: key === "Comment" ? "#a89566" : "black",
-              //         }}
-              //       >
-              //         {data[key] ? data[key] : "-"}
-              //       </span>
-              //     </div>
-              //   ))}
-              // </div>
-            );
+                        );
+                      })}
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+              );
+            }
+            // <div className="Notificataion-display-detail-leave" key={index}>
+            //   {Object.keys(data).map((key, keyIndex) => (
+            //     <div>
+            //       <span
+            //         style={{
+            //           wordWrap: "break-word",
+            //           color: key === "Comment" ? "#a89566" : "black",
+            //         }}
+            //       >
+            //         {key?.replace(/_/g, " ")}
+            //       </span>
+            //       <span
+            //         style={{
+            //           margin: "0px 4px",
+            //           color: "darkblue",
+            //         }}
+            //       >
+            //         :
+            //       </span>
+            //       <span
+            //         style={{
+            //           color: key === "Comment" ? "#a89566" : "black",
+            //         }}
+            //       >
+            //         {data[key] ? data[key] : "-"}
+            //       </span>
+            //     </div>
+            //   ))}
+            // </div>
           })}
+
+          <Grid container spacing={1}>
+            {sesdetail.map((data, index) => {
+              return (
+                Array.isArray(data) &&
+                data.map((e) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={4} lg={3} sx={{ my: 2 }}>
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"space-between"}
+                        sx={{
+                          bgcolor: "#f7f7f7",
+                          p: 0.7,
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <Box display="flex">
+                          <img
+                            src={
+                              e.DOC_TYPE === "PDF"
+                                ? PDF
+                                : e.DOC_TYPE === "DOC" || e.DOC_TYPE === "DOCX"
+                                ? DOC
+                                : e.DOC_TYPE === "XLS" || e.DOC_TYPE === "XLSX"
+                                ? XLSX
+                                : e.DOC_TYPE === "CSV"
+                                ? CSV
+                                : TXT
+                            }
+                            height={30}
+                            width={30}
+                          />
+                          <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            sx={{
+                              px: 2,
+                              borderRight: "2px solid #d0d3d9",
+                              width: "130px",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              if (
+                                e.DOC_TYPE === "PDF" ||
+                                e.DOC_TYPE === "TXT"
+                              ) {
+                                const blobURL = formConversion(
+                                  e["ZBASE64"],
+                                  e.DOC_TYPE
+                                );
+                                setpreview({
+                                  open: true,
+                                  value: blobURL,
+                                  type: e.DOC_TYPE,
+                                });
+                              } else {
+                                setsnackbarValue({
+                                  ...snackbarValue,
+                                  type: "info",
+                                  infomation: `Oops! We couldn't open ${e.FILENAME}. Please download it to access the content.`,
+                                });
+                                setsnackbarOpen(true);
+                              }
+                            }}
+                          >
+                            <Typography
+                              variant="h6"
+                              fontWeight={500}
+                              color="#5c6980"
+                              sx={{
+                                fontSize: "0.8rem",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                width: "100%",
+                              }}
+                            >
+                              {e.DOC_NAME}
+                            </Typography>
+                            <Typography
+                              variant="caption"
+                              fontWeight={300}
+                              color="#5c6980"
+                              sx={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                width: "100%",
+                              }}
+                            >
+                              {e.DOC_TYPE}
+                              {/* {e.OBJKY} */}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <IconButton
+                          color="primary"
+                          size="small"
+                          sx={{ px: 2 }}
+                          onClick={() => {
+                            const blobURL = formConversion(
+                              e["BASE64"],
+                              e.DOC_TYPE
+                            );
+
+                            const a = document.createElement("a");
+                            a.href = blobURL;
+                            a.download =
+                              e.DOC_NAME + "." + e.DOC_TYPE.toLowerCase();
+                            a.click();
+
+                            URL.revokeObjectURL(blobURL);
+                            setsnackbarValue({
+                              ...snackbarValue,
+                              type: "success",
+                              infomation: `${e.DOC_NAME} - Downloaded Successfully.`,
+                            });
+                            setsnackbarOpen(true);
+                          }}
+                        >
+                          <FiDownload />
+                        </IconButton>
+                      </Box>
+                    </Grid>
+                  );
+                })
+              );
+            })}
+          </Grid>
           {selectedItem.type === "pending SES" && (
             <div className="Notificataion-display-buttons-leave">
               <Button
