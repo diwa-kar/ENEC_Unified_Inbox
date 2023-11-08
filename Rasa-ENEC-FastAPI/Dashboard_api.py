@@ -524,6 +524,8 @@ def ENEC_Pending_invoice_list_recent(username):
 
 def ENEC_Pending_ses_list_recent(username):
 
+    # current_date = datetime.datetime.now()
+
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
@@ -539,6 +541,15 @@ def ENEC_Pending_ses_list_recent(username):
         pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
         pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
         pending_ses_dict['CREATED_TIME'] = i['CREATEDTIME']
+
+        
+        # created_date = datetime.datetime.strptime(i['CREATED_ON'], "%Y-%m-%d")
+
+        # aging_days = current_date - created_date
+        # aging_days = aging_days.days
+
+        # pending_ses_dict['Ageing days'] = aging_days
+        
         pending_ses_dict['TYPE'] = "SES"
 
     return pending_ses_dict
