@@ -2112,9 +2112,9 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
         # print(pending_ses_dict)
         pending_ses_list.append(pending_ses_dict)
 
-    if len(pending_ses_list) >= 21:
+    # if len(pending_ses_list) >= 21:
     
-        pending_ses_list = pending_ses_list[:20]
+    #     pending_ses_list = pending_ses_list[:20]
 
 
 
@@ -2854,6 +2854,10 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
     pendingpo = ENEC_Pending_PO_list(data.username)
     pendinginvoice = ENEC_Pending_invoice_list(data.username)
 
+    # print("app")
+
+    # print(pendinginvoice)
+
 
 
     #  Pending pr 
@@ -2891,6 +2895,7 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
 
 
     return recent_req_dashboard
+
 
 
 
