@@ -473,7 +473,7 @@ def ENEC_Pending_PO_list(username):
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZFM_PO_PENDING(data.username)
+    result = client.service.ZFM_PO_PENDING(username)
 
     listofobj = result[0]
     # print(listofobj)
@@ -495,14 +495,25 @@ def ENEC_Pending_PO_list(username):
 
 def ENEC_Pending_invoice_list(username):
 
-    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/scs/sap/zbapi_inv_pending_web?sap-client=100'
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_inv_pen_time_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
     client = Client(url,transport=transport)
-    result = client.service.ZFM_INV_PENDING(username) 
+    result = client.service.ZFM_INV_PENDING(username)
+
     listofobj = result[0]
-    pendinginvoice = ['IN '+str(i.INVOICE) for i in listofobj]
+    # print(listofobj)
 
 
+    pending_inv_list = []
 
-    return pendinginvoice
+
+    for i in listofobj:
+        pending_inv_dict = {}
+        pending_inv_dict['INVOICE_NO'] = "IN " + str(i['INVOICE'])
+        pending_inv_dict['CREATED_DATE'] = i['CREATEDDATE']
+        pending_inv_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_inv_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_inv_list.append(pending_inv_dict)
+
+    return pending_inv_list

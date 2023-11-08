@@ -2854,6 +2854,10 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
     pendingpo = ENEC_Pending_PO_list(data.username)
     pendinginvoice = ENEC_Pending_invoice_list(data.username)
 
+    # print("app")
+
+    # print(pendinginvoice)
+
 
 
     #  Pending pr 
@@ -2891,6 +2895,7 @@ def ENEC_Recent_requests(data:ENEC_Recent_requests):
 
 
     return recent_req_dashboard
+
 
 
 
