@@ -519,3 +519,25 @@ def ENEC_Pending_invoice_list_recent(username):
     # pending_inv_list.append(pending_inv_dict)
 
     return pending_inv_dict
+
+
+
+def ENEC_Pending_ses_list_recent(username):
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_pen_time_bapi?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    client = Client(url,transport=transport)
+    result = client.service.ZMM_SES_PENDING_FM(username)
+
+    listofobj = result[0]
+
+
+    for i in listofobj:
+        pending_ses_dict = {}
+        pending_ses_dict['ENTRYSHEET_NO'] = "SES " + str(i['ENTRYSHEET'])
+        pending_ses_dict['CREATED_ON'] = i['CREATED_ON']
+        pending_ses_dict['CREATED_BY'] = i['CREATED_BY']
+        pending_ses_dict['CREATED_TIME'] = i['CREATEDTIME']
+
+    return pending_ses_dict
