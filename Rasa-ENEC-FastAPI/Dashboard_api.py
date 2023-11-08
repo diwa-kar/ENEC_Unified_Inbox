@@ -439,7 +439,7 @@ def ENEC_Rejected_Leave_req_api():
 
 
 
-def ENEC_Pending_PR_list(username):
+def ENEC_Pending_PR_list_recent(username):
     
     
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_pr_pen_time_bapi?sap-client=100'
@@ -452,22 +452,20 @@ def ENEC_Pending_PR_list(username):
     # print(listofobj)
 
 
-    pending_pr_list = []
-
-
     for i in listofobj:
         pending_pr_dict = {}
-        pending_pr_dict['PR_NO'] = "PR " + str(i['BANFN'])
-        pending_pr_dict['CH_ON'] = i['CH_ON']
+        pending_pr_dict['NO'] = "PR " + str(i['BANFN'])
+        pending_pr_dict['CREATED_ON'] = i['CH_ON']
         pending_pr_dict['CREATED_BY'] = i['CREATED_BY']
         pending_pr_dict['CREATED_TIME'] = i['CREATEDTIME']
+        pending_pr_dict['TYPE'] = "PR"
         # print(pending_ses_dict)
-        pending_pr_list.append(pending_pr_dict)
+    
 
-    return pending_pr_list
+    return pending_pr_dict
 
 
-def ENEC_Pending_PO_list(username):
+def ENEC_Pending_PO_list_recent(username):
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_po_pen_time_bapi?sap-client=100'
 
@@ -479,21 +477,23 @@ def ENEC_Pending_PO_list(username):
     # print(listofobj)
 
 
-    pending_po_list = []
+    # pending_po_list = []
 
 
     for i in listofobj:
         pending_po_dict = {}
-        pending_po_dict['PO_NO'] = "PO " + str(i['EBELN'])
+        pending_po_dict['NO'] = "PO " + str(i['EBELN'])
         pending_po_dict['CREATED_ON'] = i['CREATED_ON']
         pending_po_dict['CREATED_BY'] = i['CREATED_BY']
         pending_po_dict['CREATED_TIME'] = i['CREATEDTIME']
-        pending_po_list.append(pending_po_dict)
+        pending_po_dict['TYPE'] = "PO"
 
-    return pending_po_list
+    # pending_po_list.append(pending_po_dict)
+
+    return pending_po_dict
 
 
-def ENEC_Pending_invoice_list(username):
+def ENEC_Pending_invoice_list_recent(username):
 
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_inv_pen_time_bapi?sap-client=100'
 
@@ -505,15 +505,17 @@ def ENEC_Pending_invoice_list(username):
     # print(listofobj)
 
 
-    pending_inv_list = []
+    # pending_inv_list = []
 
 
     for i in listofobj:
         pending_inv_dict = {}
-        pending_inv_dict['INVOICE_NO'] = "IN " + str(i['INVOICE'])
-        pending_inv_dict['CREATED_DATE'] = i['CREATEDDATE']
+        pending_inv_dict['NO'] = "IN " + str(i['INVOICE'])
+        pending_inv_dict['CREATED_ON'] = i['CREATEDDATE']
         pending_inv_dict['CREATED_BY'] = i['CREATED_BY']
         pending_inv_dict['CREATED_TIME'] = i['CREATEDTIME']
-        pending_inv_list.append(pending_inv_dict)
+        pending_inv_dict['TYPE'] = "IN"
 
-    return pending_inv_list
+    # pending_inv_list.append(pending_inv_dict)
+
+    return pending_inv_dict
