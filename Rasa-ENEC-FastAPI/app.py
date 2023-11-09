@@ -2248,6 +2248,9 @@ def ENEC_Pending_SES_List(data:ENEC_Pending_SES_List):
 @app.post('/ENEC_SES_DETAILS')
 async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
 
+    # ***************************************** code for docs retreival ************************************************************
+
+
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_gos_att_bapi?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
@@ -2271,6 +2274,8 @@ async def ENEC_SES_DETAILS(data:ENEC_SES_DETAILS):
             data_list.append(data_dict)
 
         SES_DETAILS["docs"] = data_list
+
+    # ***************************************** code for docs retreival ************************************************************
 
     
 
@@ -2454,6 +2459,36 @@ async def ENEC_approved_ses_info(data:ENEC_approved_ses_info):
 
     print("the sesno and comment",data.ses_no,ses_comment)
 
+    # ***************************************** code for docs retreival ************************************************************
+
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_gos_att_bapi?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    docs_result = sap_client.service.ZMM_SES_GOS_ATT(data.ses_no) 
+
+    data_list = []
+
+    SES_DETAILS = {}
+
+
+    if len(docs_result) != 0:
+
+        result_2 = docs_result[0]
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["DOC_TYPE"] = i["DOC_TY"]
+            data_dict["DOC_NAME"] = i["DOC_NAME"]
+            data_dict["BASE64"] = i["BASE64"]
+            data_list.append(data_dict)
+
+        SES_DETAILS["docs"] = data_list
+
+    # ***************************************** code for docs retreival ************************************************************
+
+
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
@@ -2464,7 +2499,7 @@ async def ENEC_approved_ses_info(data:ENEC_approved_ses_info):
 
     data = result[0]
 
-    SES_DETAILS = {}
+    # SES_DETAILS = {}
 
     SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
     SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
@@ -2501,6 +2536,37 @@ async def ENEC_rejected_ses_info(data:ENEC_rejected_ses_info):
 
     print("the sesno and comment",data.ses_no,ses_comment)
 
+
+    # ***************************************** code for docs retreival ************************************************************
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zmm_ses_gos_att_bapi?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    docs_result = sap_client.service.ZMM_SES_GOS_ATT(data.ses_no) 
+
+    data_list = []
+
+    SES_DETAILS = {}
+
+
+    if len(docs_result) != 0:
+
+        result_2 = docs_result[0]
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["DOC_TYPE"] = i["DOC_TY"]
+            data_dict["DOC_NAME"] = i["DOC_NAME"]
+            data_dict["BASE64"] = i["BASE64"]
+            data_list.append(data_dict)
+
+        SES_DETAILS["docs"] = data_list
+
+    # ***************************************** code for docs retreival ************************************************************
+
+
+
     url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_ses_get_detail_time?sap-client=100'
 
     transport = HttpAuthenticated(username=sap_username, password=sap_password)
@@ -2511,7 +2577,7 @@ async def ENEC_rejected_ses_info(data:ENEC_rejected_ses_info):
 
     data = result[0]
 
-    SES_DETAILS = {}
+    # SES_DETAILS = {}
 
     SES_DETAILS["SHEET_NO"] =  data["SHEET_NO"]
     SES_DETAILS["CREATED_BY"] = data["CREATED_BY"]
