@@ -541,7 +541,7 @@ const MiddleNavbar = (props) => {
           data2 &&
           data2?.map((item, index) => ({
             type: type2,
-            value: item["PR_NO"],
+            value: item["PO_NO"],
             description: "PO Request",
             date: item["Rejected_date"],
             createdBy: item["Approver_name"],
