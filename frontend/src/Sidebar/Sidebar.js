@@ -229,7 +229,7 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
           <span>Rejected</span>
         </div>
       </div>
-      <div
+      {/* <div
         className="sidebar-logout"
         onClick={() => {
           sessionStorage.clear();
@@ -238,7 +238,7 @@ const Sidebar = ({ setTab, tab, setIsOpen, isOpen }) => {
       >
         <img src={Logout} alt="Logout" />
         <span>Logout</span>
-      </div>
+      </div> */}
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}

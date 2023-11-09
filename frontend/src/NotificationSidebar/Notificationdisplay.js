@@ -2326,9 +2326,9 @@ const Notificationdisplay = ({
                 : openDialog.type === "reject invoice"
                 ? "Rejecting Invoice"
                 : openDialog.type === "approve SES"
-                ? "Approving SES"
+                ? "Approving Service Entry Sheet"
                 : openDialog.type === "reject SES"
-                ? "Rejecting SES"
+                ? "Rejecting Service Entry Sheet"
                 : ""
             } ${selectedItem.value}?`}
           </DialogTitle>

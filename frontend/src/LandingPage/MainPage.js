@@ -16,6 +16,7 @@ import {
   Divider,
   Drawer,
   IconButton,
+  ListItemIcon,
   Menu,
   MenuItem,
   Typography,
@@ -25,6 +26,8 @@ import { AiFillBell } from "react-icons/ai";
 import { BsFillBellFill } from "react-icons/bs";
 import Overdue from "./overdue.png";
 import { MdOutlineClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
 export const ValueContext = createContext(null);
 
 function MainPage(props) {
@@ -84,6 +87,16 @@ function MainPage(props) {
 
   const [showDrawer, setShowDrawer] = useState(false);
   const [state, setState] = useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const navigate = useNavigate();
   return (
     <ValueContext.Provider value={{ showTab, setShowtab }}>
       <div className="App">
@@ -364,7 +377,56 @@ function MainPage(props) {
                 )}
               </Avatar>
               <span>{JSON.parse(sessionStorage?.getItem("email")).value}</span>
-              <img alt="" src={ProfileDown} />
+              <img alt="" src={ProfileDown} onClick={handleClick} />
+              <Menu
+                anchorEl={anchorEl}
+                id="account-menu"
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    width: "200px",
+                    overflow: "visible",
+                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                    mt: 2,
+                    "& .MuiAvatar-root": {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    "&:before": {
+                      content: '""',
+                      display: "block",
+                      position: "absolute",
+                      top: 0,
+                      right: 5,
+                      width: 10,
+                      height: 10,
+                      bgcolor: "background.paper",
+                      transform: "translateY(-50%) rotate(45deg)",
+                      zIndex: 0,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                {" "}
+                <MenuItem
+                  onClick={() => {
+                    sessionStorage.clear();
+                    navigate("/login");
+                  }}
+                >
+                  <ListItemIcon>
+                    <FiLogOut fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+              </Menu>
             </div>
           </div>
           {activeTab === "Dashboard" ? (
