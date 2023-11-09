@@ -978,6 +978,7 @@ const MiddleNavbar = (props) => {
                   "Purchase Requisition",
                   "Invoice",
                   "Ticket",
+                  "Service Sheet Entry",
                 ]}
                 sx={{ width: "100%" }}
                 renderInput={(params) => (
@@ -1110,6 +1111,8 @@ const MiddleNavbar = (props) => {
                               ? "IN"
                               : type === "Ticket"
                               ? "TCK"
+                              : type === "Service Sheet Entry"
+                              ? "SES"
                               : ""
                           ) || type === "All"
                         : choose === "choosedate"
