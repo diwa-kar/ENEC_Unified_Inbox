@@ -815,6 +815,37 @@ def rejected_pr_item_info(data : ENEC_rejected_pr_item_info):
     # dict for  storing item description
     item_list_description = {}
 
+    
+    # ********************************************** code for retreival of docs from sap system **************************************************
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_pr_dms_base64?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZMM_PR_DMS_BASE64(data.prno) 
+
+    data_list = []
+
+    if len(result) != 0:
+        result_2  = result[0]
+
+        # print(result_2)
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["OBJKY"] = i["OBJKY"]
+            data_dict["DOKNR"] = i["DOKNR"]
+            data_dict["FILETYPE"] = i["FILETYPE"]
+            data_dict["FILENAME"] = i["FILENAME"]
+            data_dict["ZBASE64"] = i["ZBASE64"]
+            
+            data_list.append(data_dict)
+    
+
+        item_list_description["docs"] = data_list   
+
+    # ********************************************** code for retreival of docs from sap system **************************************************
+
     for i in items_list:
         
         url = f'http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/C_PURREQUISITION_FS_SRV/I_Purchaserequisitionitem(PurchaseRequisition=\'{data.prno}\',PurchaseRequisitionItem=\'{i}\')'
@@ -1208,6 +1239,38 @@ def approved_po_item_info(data : approved_po_item_info):
     # dict for  storing item description
     item_list_description = {}
 
+    # *********************************************************** code for po attachment **************************************************************
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_po_dms_base64?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZMM_DMS_BASE64(data.pono) 
+
+    data_list = []
+
+    if len(result) != 0:
+
+        result_2 = result[0]
+
+        print(result_2)
+
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["OBJKY"] = i["OBJKY"]
+            data_dict["DOKNR"] = i["DOKNR"]
+            data_dict["FILETYPE"] = i["FILETYPE"]
+            data_dict["FILENAME"] = i["FILENAME"]
+            data_dict["ZBASE64"] = i["ZBASE64"]
+            
+            data_list.append(data_dict)
+        
+        item_list_description["docs"] = data_list   
+
+    # *********************************************************** code for po attachment **************************************************************
+
+
     for i in items_list:
         
         url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrderItem(PurchaseOrder=\'{data.pono}\',PurchaseOrderItem=\'{i}\')/to_PurchaseOrder"
@@ -1312,6 +1375,40 @@ def rejected_po_item_info(data : rejected_po_item_info):
 
     # dict for  storing item description
     item_list_description = {}
+
+
+    # *********************************************************** code for po attachment **************************************************************
+
+    url = 'http://dxbktlds4.kaarcloud.com:8000/sap/bc/srt/wsdl/flv_10002A111AD1/srvc_url/sap/bc/srt/scs/sap/zbapi_po_dms_base64?sap-client=100'
+
+    transport = HttpAuthenticated(username=sap_username, password=sap_password)
+    sap_client = Client(url,transport=transport)
+    result = sap_client.service.ZMM_DMS_BASE64(data.pono) 
+
+    data_list = []
+
+    if len(result) != 0:
+
+        result_2 = result[0]
+
+        print(result_2)
+
+
+        for i in result_2:
+            data_dict = {}
+            data_dict["OBJKY"] = i["OBJKY"]
+            data_dict["DOKNR"] = i["DOKNR"]
+            data_dict["FILETYPE"] = i["FILETYPE"]
+            data_dict["FILENAME"] = i["FILENAME"]
+            data_dict["ZBASE64"] = i["ZBASE64"]
+            
+            data_list.append(data_dict)
+        
+        item_list_description["docs"] = data_list   
+
+    # *********************************************************** code for po attachment **************************************************************
+
+
 
     for i in items_list:
         
