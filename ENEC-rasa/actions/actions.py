@@ -845,7 +845,7 @@ class ENECTicketRaiseMonitor(Action):
 
 
         send = {
-            "msg": "Here is the Details of Purchase Order... ",
+            "msg": "Here is the Details for the raised ticket... ",
             "details": {
                 "data":details,"flag":ticket_flag,"type":"TCKT"
                 }
@@ -947,7 +947,7 @@ class ENECTicketRaise(Action):
         details["Hardware_type"] = f"{hardware_type}"
 
         send = {
-            "msg": "Here is the Details of Purchase Order... ",
+            "msg": "Here is the Details for your raised ticket... ",
             "details": {
                 "data":details,"flag":ticket_flag,"type":"TCKT"
                 }

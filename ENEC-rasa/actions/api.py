@@ -19,7 +19,7 @@ client = MongoClient(mongodb_uri)
 
 
 username = 'Girish'
-password = 'Kaar@12345'
+password = 'Enec@12345'
 
 
 # *********************************************** pending pr from digiverz local system *********************************************
@@ -79,7 +79,7 @@ def pending_prlist_ENEC(prno):
 
 
     username = 'Girish'
-    password = 'Kaar@12345'
+    password = 'Enec@12345'
     # Create a session and set the authorization header
     session = requests.Session()
     session.auth = (username, password)
@@ -121,7 +121,7 @@ def pending_pr_item_description_ENEC(prno,pritemno):
     url = f'http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/C_PURREQUISITION_FS_SRV/I_Purchaserequisitionitem(PurchaseRequisition=\'{prno}\',PurchaseRequisitionItem=\'{pritemno}\')'
 
     username = 'Girish'
-    password = 'Kaar@12345'
+    password = 'Enec@12345'
     # Create a session and set the authorization header
     session = requests.Session()
     session.auth = (username, password)
@@ -169,7 +169,7 @@ def pending_polist_ENEC(pono):
     url = f"http://dxbktlds4.kaarcloud.com:8000/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrder(\'{pono}\')/to_PurchaseOrderItem"
 
     username = 'Girish'
-    password = 'Kaar@12345'
+    password = 'Enec@12345'
     # Create a session and set the authorization header
     session = requests.Session()
     session.auth = (username, password)
@@ -213,7 +213,7 @@ def pending_po_item_description_ENEC(pono,poitemno):
 
 
     username = 'Girish'
-    password = 'Kaar@12345'
+    password = 'Enec@12345'
     # Create a session and set the authorization header
     session = requests.Session()
     session.auth = (username, password)
