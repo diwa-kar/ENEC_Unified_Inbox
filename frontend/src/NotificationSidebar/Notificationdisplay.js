@@ -1072,142 +1072,164 @@ const Notificationdisplay = ({
                           </>
                         )}
                       </Grid>
+                      <Grid container spacing={1}>
+                        {detailData.map((data1, index) => {
+                          console.log("data1", data1, data);
+                          return (
+                            Array.isArray(data1) &&
+                            data1
+                              .filter((t) =>
+                                data.hasOwnProperty(
+                                  "Purchase_Requisition_Item_Number"
+                                )
+                                  ? t.OBJKY.slice(-5) ===
+                                    data.Purchase_Requisition_Item_Number
+                                  : t
+                              )
+                              .map((e) => {
+                                return (
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    md={4}
+                                    lg={3}
+                                    sx={{ my: 2 }}
+                                  >
+                                    <Box
+                                      display={"flex"}
+                                      alignItems={"center"}
+                                      justifyContent={"space-between"}
+                                      sx={{
+                                        bgcolor: "#f7f7f7",
+                                        p: 0.7,
+                                        borderRadius: "8px",
+                                      }}
+                                    >
+                                      <Box display="flex">
+                                        <img
+                                          src={
+                                            e.FILETYPE === "PDF"
+                                              ? PDF
+                                              : e.FILETYPE === "DOC" ||
+                                                e.FILETYPE === "DOCX"
+                                              ? DOC
+                                              : e.FILETYPE === "XLS" ||
+                                                e.FILETYPE === "XLSX"
+                                              ? XLSX
+                                              : e.FILETYPE === "CSV"
+                                              ? CSV
+                                              : TXT
+                                          }
+                                          height={30}
+                                          width={30}
+                                        />
+                                        <Box
+                                          display={"flex"}
+                                          flexDirection={"column"}
+                                          sx={{
+                                            px: 2,
+                                            borderRight: "2px solid #d0d3d9",
+                                            width: "130px",
+                                            cursor: "pointer",
+                                          }}
+                                          onClick={() => {
+                                            if (
+                                              e.FILETYPE === "PDF" ||
+                                              e.FILETYPE === "TXT"
+                                            ) {
+                                              const blobURL = formConversion(
+                                                e["ZBASE64"],
+                                                e.FILETYPE
+                                              );
+                                              setpreview({
+                                                open: true,
+                                                value: blobURL,
+                                                type: e.FILETYPE,
+                                              });
+                                            } else {
+                                              setsnackbarValue({
+                                                ...snackbarValue,
+                                                type: "info",
+                                                infomation: `Oops! We couldn't open ${e.FILENAME}. Please download it to access the content.`,
+                                              });
+                                              setsnackbarOpen(true);
+                                            }
+                                          }}
+                                        >
+                                          <Typography
+                                            variant="h6"
+                                            fontWeight={500}
+                                            color="#5c6980"
+                                            sx={{
+                                              fontSize: "0.8rem",
+                                              overflow: "hidden",
+                                              textOverflow: "ellipsis",
+                                              whiteSpace: "nowrap",
+                                              width: "100%",
+                                            }}
+                                          >
+                                            {e.FILENAME}
+                                          </Typography>
+                                          <Typography
+                                            variant="caption"
+                                            fontWeight={300}
+                                            color="#5c6980"
+                                            sx={{
+                                              overflow: "hidden",
+                                              textOverflow: "ellipsis",
+                                              whiteSpace: "nowrap",
+                                              width: "100%",
+                                            }}
+                                          >
+                                            {e.OBJKY.slice(-5)}
+                                            {/* {e.OBJKY} */}
+                                          </Typography>
+                                        </Box>
+                                      </Box>
+                                      <IconButton
+                                        color="primary"
+                                        size="small"
+                                        sx={{ px: 2 }}
+                                        onClick={() => {
+                                          const blobURL = formConversion(
+                                            e["ZBASE64"],
+                                            e.FILETYPE
+                                          );
+
+                                          const a = document.createElement("a");
+                                          a.href = blobURL;
+                                          a.download =
+                                            e.FILENAME +
+                                            "." +
+                                            e.FILETYPE.toLowerCase();
+                                          a.click();
+
+                                          URL.revokeObjectURL(blobURL);
+                                          setsnackbarValue({
+                                            ...snackbarValue,
+                                            type: "success",
+                                            infomation: `${e.FILENAME} - Downloaded Successfully.`,
+                                          });
+                                          setsnackbarOpen(true);
+                                        }}
+                                      >
+                                        <FiDownload />
+                                      </IconButton>
+                                    </Box>
+                                  </Grid>
+                                );
+                              })
+                          );
+                        })}
+                      </Grid>
                     </AccordionDetails>
                   </Accordion>
                 )}
               </>
             );
           })}
-          <Grid container spacing={1}>
-            {detailData.map((data, index) => {
-              return (
-                Array.isArray(data) &&
-                data.map((e) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} sx={{ my: 2 }}>
-                      <Box
-                        display={"flex"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                        sx={{
-                          bgcolor: "#f7f7f7",
-                          p: 0.7,
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <Box display="flex">
-                          <img
-                            src={
-                              e.FILETYPE === "PDF"
-                                ? PDF
-                                : e.FILETYPE === "DOC" || e.FILETYPE === "DOCX"
-                                ? DOC
-                                : e.FILETYPE === "XLS" || e.FILETYPE === "XLSX"
-                                ? XLSX
-                                : e.FILETYPE === "CSV"
-                                ? CSV
-                                : TXT
-                            }
-                            height={30}
-                            width={30}
-                          />
-                          <Box
-                            display={"flex"}
-                            flexDirection={"column"}
-                            sx={{
-                              px: 2,
-                              borderRight: "2px solid #d0d3d9",
-                              width: "130px",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              if (
-                                e.FILETYPE === "PDF" ||
-                                e.FILETYPE === "TXT"
-                              ) {
-                                const blobURL = formConversion(
-                                  e["ZBASE64"],
-                                  e.FILETYPE
-                                );
-                                setpreview({
-                                  open: true,
-                                  value: blobURL,
-                                  type: e.FILETYPE,
-                                });
-                              } else {
-                                setsnackbarValue({
-                                  ...snackbarValue,
-                                  type: "info",
-                                  infomation: `Oops! We couldn't open ${e.FILENAME}. Please download it to access the content.`,
-                                });
-                                setsnackbarOpen(true);
-                              }
-                            }}
-                          >
-                            <Typography
-                              variant="h6"
-                              fontWeight={500}
-                              color="#5c6980"
-                              sx={{
-                                fontSize: "0.8rem",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                width: "100%",
-                              }}
-                            >
-                              {e.FILENAME}
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              fontWeight={300}
-                              color="#5c6980"
-                              sx={{
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                width: "100%",
-                              }}
-                            >
-                              {e.OBJKY}
-                              {/* {e.OBJKY} */}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <IconButton
-                          color="primary"
-                          size="small"
-                          sx={{ px: 2 }}
-                          onClick={() => {
-                            const blobURL = formConversion(
-                              e["ZBASE64"],
-                              e.FILETYPE
-                            );
 
-                            const a = document.createElement("a");
-                            a.href = blobURL;
-                            a.download =
-                              e.FILENAME + "." + e.FILETYPE.toLowerCase();
-                            a.click();
-
-                            URL.revokeObjectURL(blobURL);
-                            setsnackbarValue({
-                              ...snackbarValue,
-                              type: "success",
-                              infomation: `${e.FILENAME} - Downloaded Successfully.`,
-                            });
-                            setsnackbarOpen(true);
-                          }}
-                        >
-                          <FiDownload />
-                        </IconButton>
-                      </Box>
-                    </Grid>
-                  );
-                })
-              );
-            })}
-          </Grid>
           {(selectedItem.type === "pending pr" ||
             selectedItem.type === "pending po") && (
             <div className="Notificataion-display-buttons">
