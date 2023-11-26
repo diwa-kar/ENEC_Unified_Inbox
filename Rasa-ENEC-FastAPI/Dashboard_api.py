@@ -45,7 +45,7 @@ client = MongoClient(mongodb_uri)
 # intializing SAP system credentials
 
 sap_username = 'Girish'
-sap_password = 'Enec@12345'
+sap_password = 'Digi@12345'
 
 
 

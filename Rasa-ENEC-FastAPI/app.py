@@ -33,10 +33,6 @@ import re
 
 from datetime import datetime
 
-
-
-
-
 from passlib.context import CryptContext
 
 from Dashboard_api import ENEC_IT_request_count_api, ENEC_Pending_PR_req_count_api, ENEC_Pending_PO_count_api, ENEC_Pending_Invoice_count_api, ENEC_Pending_PL_count_api, ENEC_Approved_PR_count_api, ENEC_Approved_PO_count_api, ENEC_Approved_INVOICE_count_api, ENEC_Approved_Leave_count_api, ENEC_Rejected_PR_count_api, ENEC_Rejected_PO_count_api, ENEC_Rejected_Invoice_count_api,ENEC_Rejected_Leave_req_api,ENEC_Pending_PR_list_recent,ENEC_Pending_PO_list_recent,ENEC_Pending_invoice_list_recent,ENEC_Pending_SES_count_api,ENEC_Approved_SES_count_api,ENEC_Rejected_SES_count_api,ENEC_Pending_ses_list_recent
@@ -53,7 +49,7 @@ client = MongoClient(mongodb_uri)
 # intializing SAP system credentials
 
 sap_username = 'Girish'
-sap_password = 'Enec@12345'
+sap_password = 'Digi@12345'
 
 
 # Initializing the fast API server
